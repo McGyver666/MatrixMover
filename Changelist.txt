@@ -1,3 +1,7 @@
+0.3 alpha
+* scene selection buttons now highlighting if changed or active
+
+
 0.2 alpha
 * added table to configure colors for effects
 * added settings for ColorFade

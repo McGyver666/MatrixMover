@@ -226,25 +226,15 @@ public class Frame extends javax.swing.JFrame {
 
     private void setComboBoxes(GeneratorSetup generatorSetup, VisualSetup newActiveVisualSetup) {
         
-        setComboBoxHelper(generatorSetup.getCbGenerator1(), newActiveVisualSetup.getGenerator1().getName().toString());
-        setComboBoxHelper(generatorSetup.getCbGenerator2(), newActiveVisualSetup.getGenerator2().getName().toString());
-        setComboBoxHelper(generatorSetup.getCbEffect1(), newActiveVisualSetup.getEffect1().getName().toString());
-        setComboBoxHelper(generatorSetup.getCbEffect2(), newActiveVisualSetup.getEffect2().getName().toString());
-        setComboBoxHelper(generatorSetup.getCbMixer(), newActiveVisualSetup.getMixer().getName().toString());
+        generatorSetup.getCbGenerator1().setSelectedItem(newActiveVisualSetup.getGenerator1().getName());                
+        generatorSetup.getCbGenerator2().setSelectedItem(newActiveVisualSetup.getGenerator2().getName());                
+        generatorSetup.getCbEffect1().setSelectedItem(newActiveVisualSetup.getEffect1().getName());
+        generatorSetup.getCbEffect2().setSelectedItem(newActiveVisualSetup.getEffect2().getName());
+        generatorSetup.getCbMixer().setSelectedItem(newActiveVisualSetup.getMixer().getName());
+        
         generatorSetup.getIntensitySlider1().setValue(newActiveVisualSetup.getGenerator1Intensity());
         generatorSetup.getIntensitySlider2().setValue(newActiveVisualSetup.getGenerator2Intensity());
         
-    }
-    
-    private void setComboBoxHelper(JComboBox combobox, String itemToSet){
-        int size = combobox.getItemCount();
-        for(int i = 0; i < size; i++){
-            if(combobox.getItemAt(i).equals(itemToSet)){
-                System.out.println("Found "+itemToSet+" in combobox "+combobox.toString()+" on pos "+i);
-                combobox.setSelectedIndex(i);
-                break;
-            }
-        }
     }
 
     public GeneratorPanel getLeftGeneratorPanel() {
