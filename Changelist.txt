@@ -1,0 +1,8 @@
+0.2 alpha
+* added table to configure colors for effects
+* added settings for ColorFade
+* added bpm based speed control to ColorScroll and ColorFade
+* added Plasma and its SettingsDialog
+* added Prototypes: Metaballs, Textwriter
+* added Effects: Emboss, Monocrome, Monocrome Invers
+* added Mixer: AddSat, Mix, NegativeMultiply, Xor, MinusHalf, Either

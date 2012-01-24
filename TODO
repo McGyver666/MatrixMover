@@ -1,0 +1,18 @@
+Todo list for MatrixMover to hit beta
+
+* Add output (Artnet at least)
+
+Todo list for MatrixMover when beta
+* Remake fire generator and add settings dialog
+* Remake Textwriter generator and add settings dialog
+* Remake Metaballs generator and add settings dialog
+* Add random pixel generator
+* Add rain generator
+* Highlight active scenes (make Button red)
+* Highlight non empty scenes (give Button a green edge)
+* Make scenes Saveable
+* Add Crossfading methods (perhaps redesign crossfading section or add icons to buttons)
+* Add fixed time crossfading
+* Add a audio capture 
+* Add Audio Effects
+
