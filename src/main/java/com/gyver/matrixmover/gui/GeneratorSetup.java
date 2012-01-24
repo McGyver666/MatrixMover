@@ -98,19 +98,8 @@ public class GeneratorSetup extends javax.swing.JPanel {
     public void setSide(int side) {
         this.side = side;
         gsListener = new GeneratorSetupListener(side, this);
-        cbGenerator1.addActionListener(gsListener);
-        cbGenerator2.addActionListener(gsListener);
-        cbEffect1.addActionListener(gsListener);
-        cbEffect2.addActionListener(gsListener);
-        cbMixer.addActionListener(gsListener);
         
-        bClearScene.addActionListener(gsListener);
-        
-        sIntensity1.addChangeListener(gsListener);
-        sIntensity2.addChangeListener(gsListener);
-        
-        bConfigGenerator1.addActionListener(gsListener);
-        bConfigGenerator2.addActionListener(gsListener);
+        addAllToActionListener();
         
     }
 
@@ -345,5 +334,38 @@ public class GeneratorSetup extends javax.swing.JPanel {
 
     public Object getBClear() {
         return bClearScene;
+    }
+
+    void removeAllFromActionListener() {
+        
+        cbGenerator1.removeActionListener(gsListener);
+        cbGenerator2.removeActionListener(gsListener);
+        cbEffect1.removeActionListener(gsListener);
+        cbEffect2.removeActionListener(gsListener);
+        cbMixer.removeActionListener(gsListener);
+        
+        bClearScene.removeActionListener(gsListener);
+        
+        sIntensity1.removeChangeListener(gsListener);
+        sIntensity2.removeChangeListener(gsListener);
+        
+        bConfigGenerator1.removeActionListener(gsListener);
+        bConfigGenerator2.removeActionListener(gsListener);
+    }
+    
+    void addAllToActionListener() {
+        cbGenerator1.addActionListener(gsListener);
+        cbGenerator2.addActionListener(gsListener);
+        cbEffect1.addActionListener(gsListener);
+        cbEffect2.addActionListener(gsListener);
+        cbMixer.addActionListener(gsListener);
+        
+        bClearScene.addActionListener(gsListener);
+        
+        sIntensity1.addChangeListener(gsListener);
+        sIntensity2.addChangeListener(gsListener);
+        
+        bConfigGenerator1.addActionListener(gsListener);
+        bConfigGenerator2.addActionListener(gsListener);
     }
 }

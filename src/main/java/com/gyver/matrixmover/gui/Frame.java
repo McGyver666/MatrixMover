@@ -225,6 +225,9 @@ public class Frame extends javax.swing.JFrame {
     }
 
     private void setComboBoxes(GeneratorSetup generatorSetup, VisualSetup newActiveVisualSetup) {
+        //remove all from actionlistener when setting a new scene
+        //else scene is marked as changed, due to actionlistener fired!
+        generatorSetup.removeAllFromActionListener();
         
         generatorSetup.getCbGenerator1().setSelectedItem(newActiveVisualSetup.getGenerator1().getName());                
         generatorSetup.getCbGenerator2().setSelectedItem(newActiveVisualSetup.getGenerator2().getName());                
@@ -234,6 +237,8 @@ public class Frame extends javax.swing.JFrame {
         
         generatorSetup.getIntensitySlider1().setValue(newActiveVisualSetup.getGenerator1Intensity());
         generatorSetup.getIntensitySlider2().setValue(newActiveVisualSetup.getGenerator2Intensity());
+        
+        generatorSetup.addAllToActionListener();
         
     }
 

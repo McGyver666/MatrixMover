@@ -59,12 +59,12 @@ public class VisualSetup {
     }
     
     public void setGenerator1(Generator g1){
-        LOG.log(Level.INFO, "New Generator for Generator1");
+        LOG.log(Level.FINER, "New Generator for Generator1");
         this.g1 = g1;
     }
     
     public void setGenerator2(Generator g2){
-        LOG.log(Level.INFO, "New Generator for Generator2");
+        LOG.log(Level.FINER, "New Generator for Generator2");
         this.g2 = g2;
     }
     

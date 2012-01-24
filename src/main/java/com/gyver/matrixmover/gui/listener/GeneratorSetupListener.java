@@ -55,7 +55,6 @@ public class GeneratorSetupListener implements ActionListener, ChangeListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        LOG.log(Level.INFO, "Caught action event for ComboBox.");
         if (setupPanel == null) {
             return;
         }
