@@ -48,6 +48,112 @@ public class GeneratorPanel extends javax.swing.JPanel {
         return ledScreen1;
     }
     
+    public void setButtonActive(int buttonNumber, boolean active){
+        switch(buttonNumber){
+            case 1: bScene1.setActive(active); break;
+            case 2: bScene2.setActive(active); break;
+            case 3: bScene3.setActive(active); break;
+            case 4: bScene4.setActive(active); break;
+            case 5: bScene5.setActive(active); break;
+            case 6: bScene6.setActive(active); break;
+            case 7: bScene7.setActive(active); break;
+            case 8: bScene8.setActive(active); break;
+            case 9: bScene9.setActive(active); break;
+            case 10: bScene10.setActive(active); break;
+            case 11: bScene11.setActive(active); break;
+            case 12: bScene12.setActive(active); break;
+            case 13: bScene13.setActive(active); break;
+            case 14: bScene14.setActive(active); break;
+            case 15: bScene15.setActive(active); break;
+            case 16: bScene16.setActive(active); break;
+            case 17: bScene17.setActive(active); break;
+            case 18: bScene18.setActive(active); break;
+            case 19: bScene19.setActive(active); break;
+            case 20: bScene20.setActive(active); break;
+            case 21: bScene21.setActive(active); break;
+            case 22: bScene22.setActive(active); break;
+            case 23: bScene23.setActive(active); break;
+            case 24: bScene24.setActive(active); break;
+            case 25: bScene25.setActive(active); break;
+            case 26: bScene26.setActive(active); break;
+            case 27: bScene27.setActive(active); break;
+            case 28: bScene28.setActive(active); break;
+            case 29: bScene29.setActive(active); break;
+            case 30: bScene30.setActive(active); break;
+            case 31: bScene31.setActive(active); break;
+            case 32: bScene32.setActive(active); break;
+            case 33: bScene33.setActive(active); break;
+            case 34: bScene34.setActive(active); break;
+            case 35: bScene35.setActive(active); break;
+            case 36: bScene36.setActive(active); break;
+            case 37: bScene37.setActive(active); break;
+            case 38: bScene38.setActive(active); break;
+            case 39: bScene39.setActive(active); break;
+            case 40: bScene40.setActive(active); break;
+            case 41: bScene41.setActive(active); break;
+            case 42: bScene42.setActive(active); break;
+            case 43: bScene43.setActive(active); break;
+            case 44: bScene44.setActive(active); break;
+            case 45: bScene45.setActive(active); break;
+            case 46: bScene46.setActive(active); break;
+            case 47: bScene47.setActive(active); break;
+            case 48: bScene48.setActive(active); break;
+        }
+    }
+    
+    public void setButtonChanged(int buttonNumber, boolean changed){
+        switch(buttonNumber){
+            case 1: bScene1.setChanged(changed); break;
+            case 2: bScene2.setChanged(changed); break;
+            case 3: bScene3.setChanged(changed); break;
+            case 4: bScene4.setChanged(changed); break;
+            case 5: bScene5.setChanged(changed); break;
+            case 6: bScene6.setChanged(changed); break;
+            case 7: bScene7.setChanged(changed); break;
+            case 8: bScene8.setChanged(changed); break;
+            case 9: bScene9.setChanged(changed); break;
+            case 10: bScene10.setChanged(changed); break;
+            case 11: bScene11.setChanged(changed); break;
+            case 12: bScene12.setChanged(changed); break;
+            case 13: bScene13.setChanged(changed); break;
+            case 14: bScene14.setChanged(changed); break;
+            case 15: bScene15.setChanged(changed); break;
+            case 16: bScene16.setChanged(changed); break;
+            case 17: bScene17.setChanged(changed); break;
+            case 18: bScene18.setChanged(changed); break;
+            case 19: bScene19.setChanged(changed); break;
+            case 20: bScene20.setChanged(changed); break;
+            case 21: bScene21.setChanged(changed); break;
+            case 22: bScene22.setChanged(changed); break;
+            case 23: bScene23.setChanged(changed); break;
+            case 24: bScene24.setChanged(changed); break;
+            case 25: bScene25.setChanged(changed); break;
+            case 26: bScene26.setChanged(changed); break;
+            case 27: bScene27.setChanged(changed); break;
+            case 28: bScene28.setChanged(changed); break;
+            case 29: bScene29.setChanged(changed); break;
+            case 30: bScene30.setChanged(changed); break;
+            case 31: bScene31.setChanged(changed); break;
+            case 32: bScene32.setChanged(changed); break;
+            case 33: bScene33.setChanged(changed); break;
+            case 34: bScene34.setChanged(changed); break;
+            case 35: bScene35.setChanged(changed); break;
+            case 36: bScene36.setChanged(changed); break;
+            case 37: bScene37.setChanged(changed); break;
+            case 38: bScene38.setChanged(changed); break;
+            case 39: bScene39.setChanged(changed); break;
+            case 40: bScene40.setChanged(changed); break;
+            case 41: bScene41.setChanged(changed); break;
+            case 42: bScene42.setChanged(changed); break;
+            case 43: bScene43.setChanged(changed); break;
+            case 44: bScene44.setChanged(changed); break;
+            case 45: bScene45.setChanged(changed); break;
+            case 46: bScene46.setChanged(changed); break;
+            case 47: bScene47.setChanged(changed); break;
+            case 48: bScene48.setChanged(changed); break;
+        }
+    }
+    
     public void setSide(int side){
         this.side = side;
         buttonListener = new SceneButtonListener(side);
@@ -114,54 +220,54 @@ public class GeneratorPanel extends javax.swing.JPanel {
 
         ledScreen1 = new com.gyver.matrixmover.gui.LedScreen();
         sceneSelectionPanel = new javax.swing.JPanel();
-        bScene1 = new javax.swing.JButton();
-        bScene2 = new javax.swing.JButton();
-        bScene3 = new javax.swing.JButton();
-        bScene4 = new javax.swing.JButton();
-        bScene5 = new javax.swing.JButton();
-        bScene6 = new javax.swing.JButton();
-        bScene7 = new javax.swing.JButton();
-        bScene8 = new javax.swing.JButton();
-        bScene9 = new javax.swing.JButton();
-        bScene10 = new javax.swing.JButton();
-        bScene11 = new javax.swing.JButton();
-        bScene12 = new javax.swing.JButton();
-        bScene13 = new javax.swing.JButton();
-        bScene14 = new javax.swing.JButton();
-        bScene15 = new javax.swing.JButton();
-        bScene16 = new javax.swing.JButton();
-        bScene17 = new javax.swing.JButton();
-        bScene18 = new javax.swing.JButton();
-        bScene19 = new javax.swing.JButton();
-        bScene20 = new javax.swing.JButton();
-        bScene21 = new javax.swing.JButton();
-        bScene22 = new javax.swing.JButton();
-        bScene23 = new javax.swing.JButton();
-        bScene24 = new javax.swing.JButton();
-        bScene25 = new javax.swing.JButton();
-        bScene26 = new javax.swing.JButton();
-        bScene27 = new javax.swing.JButton();
-        bScene28 = new javax.swing.JButton();
-        bScene29 = new javax.swing.JButton();
-        bScene30 = new javax.swing.JButton();
-        bScene31 = new javax.swing.JButton();
-        bScene32 = new javax.swing.JButton();
-        bScene33 = new javax.swing.JButton();
-        bScene34 = new javax.swing.JButton();
-        bScene35 = new javax.swing.JButton();
-        bScene36 = new javax.swing.JButton();
-        bScene37 = new javax.swing.JButton();
-        bScene38 = new javax.swing.JButton();
-        bScene39 = new javax.swing.JButton();
-        bScene40 = new javax.swing.JButton();
-        bScene41 = new javax.swing.JButton();
-        bScene42 = new javax.swing.JButton();
-        bScene43 = new javax.swing.JButton();
-        bScene44 = new javax.swing.JButton();
-        bScene45 = new javax.swing.JButton();
-        bScene46 = new javax.swing.JButton();
-        bScene47 = new javax.swing.JButton();
-        bScene48 = new javax.swing.JButton();
+        bScene1 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene2 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene3 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene4 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene5 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene6 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene7 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene8 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene9 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene10 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene11 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene12 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene13 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene14 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene15 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene16 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene17 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene18 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene19 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene20 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene21 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene22 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene23 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene24 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene25 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene26 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene27 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene28 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene29 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene30 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene31 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene32 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene33 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene34 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene35 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene36 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene37 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene38 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene39 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene40 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene41 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene42 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene43 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene44 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene45 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene46 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene47 = new com.gyver.matrixmover.gui.component.JSceneButton();
+        bScene48 = new com.gyver.matrixmover.gui.component.JSceneButton();
 
         setPreferredSize(new java.awt.Dimension(416, 383));
         setLayout(new java.awt.GridBagLayout());
@@ -177,7 +283,7 @@ public class GeneratorPanel extends javax.swing.JPanel {
         );
         ledScreen1Layout.setVerticalGroup(
             ledScreen1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 214, Short.MAX_VALUE)
+            .addGap(0, 208, Short.MAX_VALUE)
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -195,691 +301,628 @@ public class GeneratorPanel extends javax.swing.JPanel {
         sceneSelectionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Scenes"));
         sceneSelectionPanel.setLayout(new java.awt.GridBagLayout());
 
-        bScene1.setFont(bScene1.getFont().deriveFont((bScene1.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene1.setText("1");
         bScene1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene1.setText("1");
         bScene1.setContentAreaFilled(false);
+        bScene1.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene1.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene1.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene1.setPreferredSize(new java.awt.Dimension(25, 15));
-        bScene1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bScene1ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 1, 1);
         sceneSelectionPanel.add(bScene1, gridBagConstraints);
 
-        bScene2.setFont(bScene2.getFont().deriveFont((bScene2.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene2.setText("2");
         bScene2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene2.setText("2");
         bScene2.setContentAreaFilled(false);
+        bScene2.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene2.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene2.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene2.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(4, 1, 1, 1);
         sceneSelectionPanel.add(bScene2, gridBagConstraints);
 
-        bScene3.setFont(bScene3.getFont().deriveFont((bScene3.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene3.setText("3");
         bScene3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene3.setText("3");
         bScene3.setContentAreaFilled(false);
+        bScene3.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene3.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene3.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene3.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(4, 1, 1, 1);
         sceneSelectionPanel.add(bScene3, gridBagConstraints);
 
-        bScene4.setFont(bScene4.getFont().deriveFont((bScene4.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene4.setText("4");
         bScene4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene4.setText("4");
         bScene4.setContentAreaFilled(false);
+        bScene4.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene4.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene4.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene4.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(4, 1, 1, 1);
         sceneSelectionPanel.add(bScene4, gridBagConstraints);
 
-        bScene5.setFont(bScene5.getFont().deriveFont((bScene5.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene5.setText("5");
         bScene5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene5.setText("5");
         bScene5.setContentAreaFilled(false);
+        bScene5.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene5.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene5.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene5.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 6, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(4, 6, 1, 1);
         sceneSelectionPanel.add(bScene5, gridBagConstraints);
 
-        bScene6.setFont(bScene6.getFont().deriveFont((bScene6.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene6.setText("6");
         bScene6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene6.setText("6");
         bScene6.setContentAreaFilled(false);
+        bScene6.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene6.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene6.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene6.setPreferredSize(new java.awt.Dimension(25, 15));
-        bScene6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bScene6ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(4, 1, 1, 1);
         sceneSelectionPanel.add(bScene6, gridBagConstraints);
 
-        bScene7.setFont(bScene7.getFont().deriveFont((bScene7.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene7.setText("7");
         bScene7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene7.setText("7");
         bScene7.setContentAreaFilled(false);
+        bScene7.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene7.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene7.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene7.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(4, 1, 1, 1);
         sceneSelectionPanel.add(bScene7, gridBagConstraints);
 
-        bScene8.setFont(bScene8.getFont().deriveFont((bScene8.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene8.setText("8");
         bScene8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene8.setText("8");
         bScene8.setContentAreaFilled(false);
+        bScene8.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene8.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene8.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene8.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(4, 1, 1, 1);
         sceneSelectionPanel.add(bScene8, gridBagConstraints);
 
-        bScene9.setFont(bScene9.getFont().deriveFont((bScene9.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene9.setText("9");
         bScene9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene9.setText("9");
         bScene9.setContentAreaFilled(false);
+        bScene9.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene9.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene9.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene9.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 6, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(4, 6, 1, 1);
         sceneSelectionPanel.add(bScene9, gridBagConstraints);
 
-        bScene10.setFont(bScene10.getFont().deriveFont((bScene10.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene10.setText("10");
         bScene10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene10.setText("10");
         bScene10.setContentAreaFilled(false);
+        bScene10.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene10.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene10.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene10.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(4, 1, 1, 1);
         sceneSelectionPanel.add(bScene10, gridBagConstraints);
 
-        bScene11.setFont(bScene11.getFont().deriveFont((bScene11.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene11.setText("11");
         bScene11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene11.setText("11");
         bScene11.setContentAreaFilled(false);
+        bScene11.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene11.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene11.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene11.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(4, 1, 1, 1);
         sceneSelectionPanel.add(bScene11, gridBagConstraints);
 
-        bScene12.setFont(bScene12.getFont().deriveFont((bScene12.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene12.setText("12");
         bScene12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene12.setText("12");
         bScene12.setContentAreaFilled(false);
+        bScene12.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene12.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene12.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene12.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 11;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(4, 1, 1, 4);
         sceneSelectionPanel.add(bScene12, gridBagConstraints);
 
-        bScene13.setFont(bScene13.getFont().deriveFont((bScene13.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene13.setText("13");
         bScene13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene13.setText("13");
         bScene13.setContentAreaFilled(false);
+        bScene13.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene13.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene13.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene13.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 4, 1, 1);
         sceneSelectionPanel.add(bScene13, gridBagConstraints);
 
-        bScene14.setFont(bScene14.getFont().deriveFont((bScene14.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene14.setText("14");
         bScene14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene14.setText("14");
         bScene14.setContentAreaFilled(false);
+        bScene14.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene14.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene14.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene14.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         sceneSelectionPanel.add(bScene14, gridBagConstraints);
 
-        bScene15.setFont(bScene15.getFont().deriveFont((bScene15.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene15.setText("15");
         bScene15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene15.setText("15");
         bScene15.setContentAreaFilled(false);
+        bScene15.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene15.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene15.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene15.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         sceneSelectionPanel.add(bScene15, gridBagConstraints);
 
-        bScene16.setFont(bScene16.getFont().deriveFont((bScene16.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene16.setText("16");
         bScene16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene16.setText("16");
         bScene16.setContentAreaFilled(false);
+        bScene16.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene16.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene16.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene16.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         sceneSelectionPanel.add(bScene16, gridBagConstraints);
 
-        bScene17.setFont(bScene17.getFont().deriveFont((bScene17.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene17.setText("17");
         bScene17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene17.setText("17");
         bScene17.setContentAreaFilled(false);
+        bScene17.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene17.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene17.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene17.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 6, 1, 1);
         sceneSelectionPanel.add(bScene17, gridBagConstraints);
 
-        bScene18.setFont(bScene18.getFont().deriveFont((bScene18.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene18.setText("18");
         bScene18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene18.setText("18");
         bScene18.setContentAreaFilled(false);
+        bScene18.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene18.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene18.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene18.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         sceneSelectionPanel.add(bScene18, gridBagConstraints);
 
-        bScene19.setFont(bScene19.getFont().deriveFont((bScene19.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene19.setText("19");
         bScene19.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene19.setText("19");
         bScene19.setContentAreaFilled(false);
+        bScene19.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene19.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene19.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene19.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         sceneSelectionPanel.add(bScene19, gridBagConstraints);
 
-        bScene20.setFont(bScene20.getFont().deriveFont((bScene20.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene20.setText("20");
         bScene20.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene20.setText("20");
         bScene20.setContentAreaFilled(false);
+        bScene20.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene20.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene20.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene20.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         sceneSelectionPanel.add(bScene20, gridBagConstraints);
 
-        bScene21.setFont(bScene21.getFont().deriveFont((bScene21.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene21.setText("21");
         bScene21.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene21.setText("21");
         bScene21.setContentAreaFilled(false);
+        bScene21.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene21.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene21.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene21.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 6, 1, 1);
         sceneSelectionPanel.add(bScene21, gridBagConstraints);
 
-        bScene22.setFont(bScene22.getFont().deriveFont((bScene22.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene22.setText("22");
         bScene22.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene22.setText("22");
         bScene22.setContentAreaFilled(false);
+        bScene22.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene22.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene22.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene22.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         sceneSelectionPanel.add(bScene22, gridBagConstraints);
 
-        bScene23.setFont(bScene23.getFont().deriveFont((bScene23.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene23.setText("23");
         bScene23.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene23.setText("23");
         bScene23.setContentAreaFilled(false);
+        bScene23.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene23.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene23.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene23.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         sceneSelectionPanel.add(bScene23, gridBagConstraints);
 
-        bScene24.setFont(bScene24.getFont().deriveFont((bScene24.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene24.setText("24");
         bScene24.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene24.setText("24");
         bScene24.setContentAreaFilled(false);
+        bScene24.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene24.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene24.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene24.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 11;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 4);
         sceneSelectionPanel.add(bScene24, gridBagConstraints);
 
-        bScene25.setFont(bScene25.getFont().deriveFont((bScene25.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene25.setText("25");
         bScene25.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene25.setText("25");
         bScene25.setContentAreaFilled(false);
+        bScene25.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene25.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene25.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene25.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 4, 1, 1);
         sceneSelectionPanel.add(bScene25, gridBagConstraints);
 
-        bScene26.setFont(bScene26.getFont().deriveFont((bScene26.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene26.setText("26");
         bScene26.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene26.setText("26");
         bScene26.setContentAreaFilled(false);
+        bScene26.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene26.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene26.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene26.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         sceneSelectionPanel.add(bScene26, gridBagConstraints);
 
-        bScene27.setFont(bScene27.getFont().deriveFont((bScene27.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene27.setText("27");
         bScene27.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene27.setText("27");
         bScene27.setContentAreaFilled(false);
+        bScene27.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene27.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene27.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene27.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         sceneSelectionPanel.add(bScene27, gridBagConstraints);
 
-        bScene28.setFont(bScene28.getFont().deriveFont((bScene28.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene28.setText("28");
         bScene28.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene28.setText("28");
         bScene28.setContentAreaFilled(false);
+        bScene28.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene28.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene28.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene28.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         sceneSelectionPanel.add(bScene28, gridBagConstraints);
 
-        bScene29.setFont(bScene29.getFont().deriveFont((bScene29.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene29.setText("29");
         bScene29.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene29.setText("29");
         bScene29.setContentAreaFilled(false);
+        bScene29.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene29.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene29.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene29.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 6, 1, 1);
         sceneSelectionPanel.add(bScene29, gridBagConstraints);
 
-        bScene30.setFont(bScene30.getFont().deriveFont((bScene30.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene30.setText("30");
         bScene30.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene30.setText("30");
         bScene30.setContentAreaFilled(false);
+        bScene30.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene30.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene30.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene30.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         sceneSelectionPanel.add(bScene30, gridBagConstraints);
 
-        bScene31.setFont(bScene31.getFont().deriveFont((bScene31.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene31.setText("31");
         bScene31.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene31.setText("31");
         bScene31.setContentAreaFilled(false);
+        bScene31.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene31.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene31.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene31.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         sceneSelectionPanel.add(bScene31, gridBagConstraints);
 
-        bScene32.setFont(bScene32.getFont().deriveFont((bScene32.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene32.setText("32");
         bScene32.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene32.setText("32");
         bScene32.setContentAreaFilled(false);
+        bScene32.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene32.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene32.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene32.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         sceneSelectionPanel.add(bScene32, gridBagConstraints);
 
-        bScene33.setFont(bScene33.getFont().deriveFont((bScene33.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene33.setText("33");
         bScene33.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene33.setText("33");
         bScene33.setContentAreaFilled(false);
+        bScene33.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene33.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene33.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene33.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 6, 1, 1);
         sceneSelectionPanel.add(bScene33, gridBagConstraints);
 
-        bScene34.setFont(bScene34.getFont().deriveFont((bScene34.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene34.setText("34");
         bScene34.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene34.setText("34");
         bScene34.setContentAreaFilled(false);
+        bScene34.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene34.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene34.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene34.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         sceneSelectionPanel.add(bScene34, gridBagConstraints);
 
-        bScene35.setFont(bScene35.getFont().deriveFont((bScene35.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene35.setText("35");
         bScene35.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene35.setText("35");
         bScene35.setContentAreaFilled(false);
+        bScene35.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene35.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene35.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene35.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         sceneSelectionPanel.add(bScene35, gridBagConstraints);
 
-        bScene36.setFont(bScene36.getFont().deriveFont((bScene36.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene36.setText("36");
         bScene36.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene36.setText("36");
         bScene36.setContentAreaFilled(false);
+        bScene36.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene36.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene36.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene36.setPreferredSize(new java.awt.Dimension(25, 15));
-        bScene36.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bScene36ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 11;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 4);
         sceneSelectionPanel.add(bScene36, gridBagConstraints);
 
-        bScene37.setFont(bScene37.getFont().deriveFont((bScene37.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene37.setText("37");
         bScene37.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene37.setText("37");
         bScene37.setContentAreaFilled(false);
+        bScene37.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene37.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene37.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene37.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 4, 4, 1);
         sceneSelectionPanel.add(bScene37, gridBagConstraints);
 
-        bScene38.setFont(bScene38.getFont().deriveFont((bScene38.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene38.setText("38");
         bScene38.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene38.setText("38");
         bScene38.setContentAreaFilled(false);
+        bScene38.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene38.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene38.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene38.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 4, 1);
         sceneSelectionPanel.add(bScene38, gridBagConstraints);
 
-        bScene39.setFont(bScene39.getFont().deriveFont((bScene39.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene39.setText("39");
         bScene39.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene39.setText("39");
         bScene39.setContentAreaFilled(false);
+        bScene39.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene39.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene39.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene39.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 4, 1);
         sceneSelectionPanel.add(bScene39, gridBagConstraints);
 
-        bScene40.setFont(bScene40.getFont().deriveFont((bScene40.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene40.setText("40");
         bScene40.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene40.setText("40");
         bScene40.setContentAreaFilled(false);
+        bScene40.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene40.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene40.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene40.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 4, 1);
         sceneSelectionPanel.add(bScene40, gridBagConstraints);
 
-        bScene41.setFont(bScene41.getFont().deriveFont((bScene41.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene41.setText("41");
         bScene41.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene41.setText("41");
         bScene41.setContentAreaFilled(false);
+        bScene41.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene41.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene41.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene41.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 6, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 6, 4, 1);
         sceneSelectionPanel.add(bScene41, gridBagConstraints);
 
-        bScene42.setFont(bScene42.getFont().deriveFont((bScene42.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene42.setText("42");
         bScene42.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene42.setText("42");
         bScene42.setContentAreaFilled(false);
+        bScene42.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene42.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene42.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene42.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 4, 1);
         sceneSelectionPanel.add(bScene42, gridBagConstraints);
 
-        bScene43.setFont(bScene43.getFont().deriveFont((bScene43.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene43.setText("43");
         bScene43.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene43.setText("43");
         bScene43.setContentAreaFilled(false);
+        bScene43.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene43.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene43.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene43.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 4, 1);
         sceneSelectionPanel.add(bScene43, gridBagConstraints);
 
-        bScene44.setFont(bScene44.getFont().deriveFont((bScene44.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene44.setText("44");
         bScene44.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene44.setText("44");
         bScene44.setContentAreaFilled(false);
+        bScene44.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene44.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene44.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene44.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 4, 1);
         sceneSelectionPanel.add(bScene44, gridBagConstraints);
 
-        bScene45.setFont(bScene45.getFont().deriveFont((bScene45.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene45.setText("45");
         bScene45.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene45.setText("45");
         bScene45.setContentAreaFilled(false);
+        bScene45.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene45.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene45.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene45.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 6, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 6, 4, 1);
         sceneSelectionPanel.add(bScene45, gridBagConstraints);
 
-        bScene46.setFont(bScene46.getFont().deriveFont((bScene46.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene46.setText("46");
         bScene46.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene46.setText("46");
         bScene46.setContentAreaFilled(false);
+        bScene46.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene46.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene46.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene46.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 4, 1);
         sceneSelectionPanel.add(bScene46, gridBagConstraints);
 
-        bScene47.setFont(bScene47.getFont().deriveFont((bScene47.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene47.setText("47");
         bScene47.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene47.setText("47");
         bScene47.setContentAreaFilled(false);
+        bScene47.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene47.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene47.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene47.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 4, 1);
         sceneSelectionPanel.add(bScene47, gridBagConstraints);
 
-        bScene48.setFont(bScene48.getFont().deriveFont((bScene48.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 12));
-        bScene48.setText("48");
         bScene48.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        bScene48.setText("48");
         bScene48.setContentAreaFilled(false);
+        bScene48.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         bScene48.setMaximumSize(new java.awt.Dimension(25, 15));
         bScene48.setMinimumSize(new java.awt.Dimension(25, 15));
         bScene48.setPreferredSize(new java.awt.Dimension(25, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 11;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 4, 4);
         sceneSelectionPanel.add(bScene48, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -891,67 +934,55 @@ public class GeneratorPanel extends javax.swing.JPanel {
         add(sceneSelectionPanel, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bScene6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bScene6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bScene6ActionPerformed
-
-    private void bScene36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bScene36ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bScene36ActionPerformed
-
-    private void bScene1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bScene1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bScene1ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bScene1;
-    private javax.swing.JButton bScene10;
-    private javax.swing.JButton bScene11;
-    private javax.swing.JButton bScene12;
-    private javax.swing.JButton bScene13;
-    private javax.swing.JButton bScene14;
-    private javax.swing.JButton bScene15;
-    private javax.swing.JButton bScene16;
-    private javax.swing.JButton bScene17;
-    private javax.swing.JButton bScene18;
-    private javax.swing.JButton bScene19;
-    private javax.swing.JButton bScene2;
-    private javax.swing.JButton bScene20;
-    private javax.swing.JButton bScene21;
-    private javax.swing.JButton bScene22;
-    private javax.swing.JButton bScene23;
-    private javax.swing.JButton bScene24;
-    private javax.swing.JButton bScene25;
-    private javax.swing.JButton bScene26;
-    private javax.swing.JButton bScene27;
-    private javax.swing.JButton bScene28;
-    private javax.swing.JButton bScene29;
-    private javax.swing.JButton bScene3;
-    private javax.swing.JButton bScene30;
-    private javax.swing.JButton bScene31;
-    private javax.swing.JButton bScene32;
-    private javax.swing.JButton bScene33;
-    private javax.swing.JButton bScene34;
-    private javax.swing.JButton bScene35;
-    private javax.swing.JButton bScene36;
-    private javax.swing.JButton bScene37;
-    private javax.swing.JButton bScene38;
-    private javax.swing.JButton bScene39;
-    private javax.swing.JButton bScene4;
-    private javax.swing.JButton bScene40;
-    private javax.swing.JButton bScene41;
-    private javax.swing.JButton bScene42;
-    private javax.swing.JButton bScene43;
-    private javax.swing.JButton bScene44;
-    private javax.swing.JButton bScene45;
-    private javax.swing.JButton bScene46;
-    private javax.swing.JButton bScene47;
-    private javax.swing.JButton bScene48;
-    private javax.swing.JButton bScene5;
-    private javax.swing.JButton bScene6;
-    private javax.swing.JButton bScene7;
-    private javax.swing.JButton bScene8;
-    private javax.swing.JButton bScene9;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene1;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene10;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene11;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene12;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene13;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene14;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene15;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene16;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene17;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene18;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene19;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene2;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene20;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene21;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene22;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene23;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene24;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene25;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene26;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene27;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene28;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene29;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene3;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene30;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene31;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene32;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene33;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene34;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene35;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene36;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene37;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene38;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene39;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene4;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene40;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene41;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene42;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene43;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene44;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene45;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene46;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene47;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene48;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene5;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene6;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene7;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene8;
+    private com.gyver.matrixmover.gui.component.JSceneButton bScene9;
     private com.gyver.matrixmover.gui.LedScreen ledScreen1;
     private javax.swing.JPanel sceneSelectionPanel;
     // End of variables declaration//GEN-END:variables

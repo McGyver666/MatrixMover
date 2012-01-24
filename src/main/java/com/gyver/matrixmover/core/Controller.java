@@ -159,10 +159,14 @@ public class Controller {
     public void sceneSelected(int scene, int side) {
         if (side == LEFT_SIDE) {
             LOG.log(Level.FINE, "Scene {0} selected for left side.", scene);
+            Frame.getFrameInstance().getLeftGeneratorPanel().setButtonActive(leftVisual.getActiveScene(), false);
+            Frame.getFrameInstance().getLeftGeneratorPanel().setButtonActive(scene, true);
             leftVisual.setActiveScene(scene);
             Frame.getFrameInstance().setComboBoxesForChangedScene(side, leftVisual.getActiveVisualSetup());
         } else if (side == RIGHT_SIDE) {
             LOG.log(Level.FINE, "Scene {0} selected for right side.", scene);
+            Frame.getFrameInstance().getRightGeneratorPanel().setButtonActive(rightVisual.getActiveScene(), false);
+            Frame.getFrameInstance().getRightGeneratorPanel().setButtonActive(scene, true);
             rightVisual.setActiveScene(scene);
             Frame.getFrameInstance().setComboBoxesForChangedScene(side, rightVisual.getActiveVisualSetup());
         } else {
@@ -217,5 +221,20 @@ public class Controller {
 
     public int getFps() {
         return ph.getFps();
+    }
+    
+    public int getActiveVisualNumber(int side){
+        if (side == LEFT_SIDE) {
+            return leftVisual.getActiveScene();
+        } else if (side == RIGHT_SIDE) {
+            return rightVisual.getActiveScene();
+        } else {
+            throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
+        }
+    }
+
+    public void postInit() {
+        Frame.getFrameInstance().getLeftGeneratorPanel().setButtonActive(leftVisual.getActiveScene(), true);
+        Frame.getFrameInstance().getRightGeneratorPanel().setButtonActive(rightVisual.getActiveScene(), true);
     }
 }

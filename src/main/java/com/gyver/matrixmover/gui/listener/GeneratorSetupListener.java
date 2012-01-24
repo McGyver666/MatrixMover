@@ -24,6 +24,7 @@ import com.gyver.matrixmover.generator.Generator.GeneratorName;
 import com.gyver.matrixmover.generator.Plasma;
 import com.gyver.matrixmover.generator.SimpleColorGenerator;
 import com.gyver.matrixmover.gui.Frame;
+import com.gyver.matrixmover.gui.GeneratorPanel;
 import com.gyver.matrixmover.gui.GeneratorSetup;
 import com.gyver.matrixmover.gui.effect.ColorFadeConfiguration;
 import com.gyver.matrixmover.gui.effect.ColorScrollConfiguration;
@@ -40,15 +41,14 @@ import javax.swing.event.ChangeListener;
  * Listenes to the comboboxes in the gui.
  * @author jonas
  */
-public class GeneratorSetupListener implements ActionListener, ChangeListener{
-    
+public class GeneratorSetupListener implements ActionListener, ChangeListener {
+
     /** The log. */
     private static final Logger LOG = Logger.getLogger(GeneratorSetupListener.class.getName());
-    
     private int side = 0;
     private GeneratorSetup setupPanel = null;
-    
-    public GeneratorSetupListener(int side, GeneratorSetup setupPanel){
+
+    public GeneratorSetupListener(int side, GeneratorSetup setupPanel) {
         this.side = side;
         this.setupPanel = setupPanel;
     }
@@ -56,40 +56,47 @@ public class GeneratorSetupListener implements ActionListener, ChangeListener{
     @Override
     public void actionPerformed(ActionEvent ae) {
         LOG.log(Level.INFO, "Caught action event for ComboBox.");
-        if(setupPanel == null){
+        if (setupPanel == null) {
             return;
         }
-        
-        if (ae.getSource().equals(setupPanel.getCbGenerator1())){
-            LOG.log(Level.INFO, "Performing action for generator1");
+
+        if (ae.getSource().equals(setupPanel.getCbGenerator1())) {
+            LOG.log(Level.FINE, "Performing action for generator1");
             Controller.getControllerInstance().setGenerator(side, 1, (GeneratorName) setupPanel.getCbGenerator1().getSelectedItem());
-        } else if (ae.getSource().equals(setupPanel.getCbGenerator2())){
-            LOG.log(Level.INFO, "Performing action for generator2");
+            activeButtonChanged(true);
+        } else if (ae.getSource().equals(setupPanel.getCbGenerator2())) {
+            LOG.log(Level.FINE, "Performing action for generator2");
             Controller.getControllerInstance().setGenerator(side, 2, (GeneratorName) setupPanel.getCbGenerator2().getSelectedItem());
-        } else if (ae.getSource().equals(setupPanel.getCbEffect1())){
+            activeButtonChanged(true);
+        } else if (ae.getSource().equals(setupPanel.getCbEffect1())) {
             Controller.getControllerInstance().setEffect(side, 1, setupPanel.getCbEffect1().getSelectedItem().toString());
-        } else if (ae.getSource().equals(setupPanel.getCbEffect2())){
+            activeButtonChanged(true);
+        } else if (ae.getSource().equals(setupPanel.getCbEffect2())) {
             Controller.getControllerInstance().setEffect(side, 2, setupPanel.getCbEffect2().getSelectedItem().toString());
-        } else if (ae.getSource().equals(setupPanel.getCbMixer())){
+            activeButtonChanged(true);
+        } else if (ae.getSource().equals(setupPanel.getCbMixer())) {
             Controller.getControllerInstance().setMixer(side, setupPanel.getCbMixer().getSelectedItem().toString());
+            activeButtonChanged(true);
         } else if (ae.getSource().equals(setupPanel.getBClear())) {
             setupPanel.getCbGenerator1().setSelectedIndex(0);
             setupPanel.getCbGenerator2().setSelectedIndex(0);
             setupPanel.getCbEffect1().setSelectedIndex(0);
             setupPanel.getCbEffect2().setSelectedIndex(0);
             setupPanel.getCbMixer().setSelectedIndex(0);
-            
+
             Controller.getControllerInstance().setGenerator(side, 2, (GeneratorName) setupPanel.getCbGenerator2().getSelectedItem());
             Controller.getControllerInstance().setGenerator(side, 2, (GeneratorName) setupPanel.getCbGenerator2().getSelectedItem());
             Controller.getControllerInstance().setEffect(side, 1, setupPanel.getCbEffect1().getSelectedItem().toString());
             Controller.getControllerInstance().setEffect(side, 2, setupPanel.getCbEffect1().getSelectedItem().toString());
             Controller.getControllerInstance().setMixer(side, setupPanel.getCbMixer().getSelectedItem().toString());
-            
+
             setupPanel.getIntensitySlider1().setValue(setupPanel.getIntensitySlider1().getMaximum());
             setupPanel.getIntensitySlider2().setValue(setupPanel.getIntensitySlider2().getMaximum());
-            
+
             Controller.getControllerInstance().setGeneratorIntensity(side, 1, setupPanel.getIntensitySlider1().getValue());
             Controller.getControllerInstance().setGeneratorIntensity(side, 2, setupPanel.getIntensitySlider2().getValue());
+        
+            activeButtonChanged(false);
         } else if (ae.getSource().equals(setupPanel.getConfigGenerator1())) {
             Generator activGen = Controller.getControllerInstance().getGenerator(side, 1);
             openGeneratorSettingsDialog(activGen);
@@ -106,8 +113,9 @@ public class GeneratorSetupListener implements ActionListener, ChangeListener{
         } else if (e.getSource().equals(setupPanel.getIntensitySlider2())) {
             Controller.getControllerInstance().setGeneratorIntensity(side, 2, setupPanel.getIntensitySlider2().getValue());
         }
+        activeButtonChanged(true);
     }
-    
+
     private void openGeneratorSettingsDialog(Generator activGenerator) {
         if (activGenerator instanceof SimpleColorGenerator) {
             SimpleColorConfiguration sctDialog = new SimpleColorConfiguration(Frame.getFrameInstance(), true, (SimpleColorGenerator) activGenerator);
@@ -122,8 +130,17 @@ public class GeneratorSetupListener implements ActionListener, ChangeListener{
             PlasmaConfiguration pDialog = new PlasmaConfiguration(Frame.getFrameInstance(), true, (Plasma) activGenerator);
             pDialog.setVisible(true);
         }
+        activeButtonChanged(true);
     }
 
-    
-    
+    private void activeButtonChanged(boolean changed) {
+        int activeVisualNumber = Controller.getControllerInstance().getActiveVisualNumber(this.side);
+        GeneratorPanel panel = null;
+        if (this.side == Controller.LEFT_SIDE) {
+            panel = Frame.getFrameInstance().getLeftGeneratorPanel();
+        } else if (this.side == Controller.RIGHT_SIDE) {
+            panel = Frame.getFrameInstance().getRightGeneratorPanel();
+        }
+        panel.setButtonChanged(activeVisualNumber, changed);
+    }
 }

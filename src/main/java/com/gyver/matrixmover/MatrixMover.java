@@ -130,6 +130,8 @@ public class MatrixMover {
             }
         }
         
+        controller.postInit();
+        
         fpsTimer.scheduleAtFixedRate(new ExecutionTimerTask(controller), 1, millisecondsDelay);
         
         LOG.log(Level.INFO, "MatrixMover Setup END");

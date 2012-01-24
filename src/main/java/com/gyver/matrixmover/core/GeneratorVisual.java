@@ -75,6 +75,10 @@ public class GeneratorVisual extends Visual {
         this.activeScene = scene-1;
     }
     
+    public int getActiveScene(){
+        return this.activeScene+1;
+    }
+    
     /**
      * Sets a generator to a Visual
      * @param nr Whether generator1 or generator 2 should be set

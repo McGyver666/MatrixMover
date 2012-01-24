@@ -246,5 +246,13 @@ public class Frame extends javax.swing.JFrame {
             }
         }
     }
+
+    public GeneratorPanel getLeftGeneratorPanel() {
+        return this.effectPanelLeft;
+    }
+
+    public GeneratorPanel getRightGeneratorPanel() {
+        return this.effectPanelRight;
+    }
     
 }
