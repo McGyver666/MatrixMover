@@ -1,5 +1,6 @@
 0.3 alpha
 * scene selection buttons now highlighting if changed or active
+* fixed comboboxes changing when new scene selected
 
 
 0.2 alpha
