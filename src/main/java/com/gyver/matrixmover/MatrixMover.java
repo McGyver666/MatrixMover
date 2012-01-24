@@ -132,7 +132,7 @@ public class MatrixMover {
         
         fpsTimer.scheduleAtFixedRate(new ExecutionTimerTask(controller), 1, millisecondsDelay);
         
-        LOG.log(Level.INFO, "PixelController Setup END");
+        LOG.log(Level.INFO, "MatrixMover Setup END");
 
     }
     
