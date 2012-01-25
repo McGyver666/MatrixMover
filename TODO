@@ -14,4 +14,6 @@ Todo list for MatrixMover when beta
 * Add fixed time crossfading
 * Add audio muting, gain control and fft
 * Add Audio Effects
+* Add global speed and options in effects to fit it
+* Add tab button to set global speed
 
