@@ -52,6 +52,8 @@ public class Controller {
     private int[] outputLedImage = null;
     private int crossfaderValue = 500;
     private int masterIntensity = 255;
+    
+    private AudioCapture ac = null;
 
     /**
      * Instantiates a new controller.
@@ -68,6 +70,11 @@ public class Controller {
         rightVisual = new GeneratorVisual(matrixData);
 
         fader = new CrossFader();
+        
+        ac = new AudioCapture();
+        if(ac.getAvalibalMixer() != null && ac.getAvalibalMixer().length > 0){
+            ac.startAudio(ac.getAvalibalMixer()[0]);
+        }
     }
 
     public void setLedScreens(LedScreen leftVisual, LedScreen rightVisual, LedScreen masterVisual) {
@@ -172,6 +179,10 @@ public class Controller {
         } else {
             throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
         }
+    }
+    
+    void captureAudio() {
+        Frame.getFrameInstance().setAudioLevel(ac.getLevel());
     }
 
     void computeLeftVisual() {

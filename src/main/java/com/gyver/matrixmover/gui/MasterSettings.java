@@ -40,6 +40,11 @@ public class MasterSettings extends javax.swing.JPanel {
         msListener = new MasterSettingsListener(this);
         sMasterIntensity.addChangeListener(msListener);
         tbBlackout.addActionListener(msListener);
+        pbVolumeLeft.setMinimum(0);
+        pbVolumeLeft.setMaximum(80);
+        pbVolumeRight.setMinimum(0);
+        pbVolumeRight.setMaximum(80);
+        
     }
     
     public JSlider getMasterIntensitySlider(){
@@ -48,6 +53,12 @@ public class MasterSettings extends javax.swing.JPanel {
     
     public JToggleButton getBlackoutButton(){
         return tbBlackout;
+    }
+    
+    public void setAudioLevel(int level){
+        pbVolumeLeft.setValue(level);
+        pbVolumeRight.setValue(level);
+        
     }
 
     /** This method is called from within the constructor to

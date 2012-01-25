@@ -12,6 +12,6 @@ Todo list for MatrixMover when beta
 * Make scenes Saveable
 * Add Crossfading methods (perhaps redesign crossfading section or add icons to buttons)
 * Add fixed time crossfading
-* Add a audio capture 
+* Add audio muting, gain control and fft
 * Add Audio Effects
 

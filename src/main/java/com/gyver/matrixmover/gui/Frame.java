@@ -249,5 +249,9 @@ public class Frame extends javax.swing.JFrame {
     public GeneratorPanel getRightGeneratorPanel() {
         return this.effectPanelRight;
     }
+
+    public void setAudioLevel(int level) {
+        this.masterSettings1.setAudioLevel(level);
+    }
     
 }

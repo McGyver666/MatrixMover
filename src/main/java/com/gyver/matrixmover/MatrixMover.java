@@ -16,6 +16,7 @@
  */
 package com.gyver.matrixmover;
 
+import com.gyver.matrixmover.core.AudioTimerTask;
 import com.gyver.matrixmover.core.Controller;
 import com.gyver.matrixmover.core.ExecutionTimerTask;
 import com.gyver.matrixmover.gui.Frame;
@@ -116,9 +117,10 @@ public class MatrixMover {
                 MatrixMover.guiReady(true);
             }
         });
-
+        
         LOG.log(Level.INFO, "Starting timer with {0} FPS", ph.getFps());
         Timer fpsTimer = new Timer();
+        Timer audioTimer = new Timer();
         long millisecondsDelay = 1000 / ph.getFps();
         
         //wait for gui to fully initialize
@@ -133,6 +135,7 @@ public class MatrixMover {
         controller.postInit();
         
         fpsTimer.scheduleAtFixedRate(new ExecutionTimerTask(controller), 1, millisecondsDelay);
+        audioTimer.schedule(new AudioTimerTask(controller), 1000, millisecondsDelay / 2);
         
         LOG.log(Level.INFO, "MatrixMover Setup END");
 
