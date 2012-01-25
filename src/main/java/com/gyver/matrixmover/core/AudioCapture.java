@@ -104,7 +104,7 @@ public class AudioCapture {
 
         //now split the two signals
         int n = 0;
-        for (int i = 0; i < 512; n += 4, i++) {
+        for (int i = 0; i < leftChanel.length; n += 4, i++) {
             leftChanel[i] = (((buffer[(n + 1)] << 8) + buffer[n]) / 32767.0F);
             rightChanel[i] = (((buffer[(n + 3)] << 8) + buffer[(n + 2)]) / 32767.0F);
         }
