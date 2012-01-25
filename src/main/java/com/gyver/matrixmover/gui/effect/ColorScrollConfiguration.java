@@ -132,7 +132,7 @@ public class ColorScrollConfiguration extends javax.swing.JDialog {
         getContentPane().add(tfsSpeed, gridBagConstraints);
 
         tfsDistance.setMaximum(100);
-        tfsDistance.setMinimum(0);
+        tfsDistance.setMinimum(1);
         tfsDistance.setValue(10);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;

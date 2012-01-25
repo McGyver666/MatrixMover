@@ -50,7 +50,7 @@
     <Component class="com.gyver.matrixmover.gui.component.JTextFieldSlider" name="tfsDistance">
       <Properties>
         <Property name="maximum" type="int" value="100"/>
-        <Property name="minimum" type="int" value="0"/>
+        <Property name="minimum" type="int" value="1"/>
         <Property name="value" type="int" value="10"/>
       </Properties>
       <Constraints>

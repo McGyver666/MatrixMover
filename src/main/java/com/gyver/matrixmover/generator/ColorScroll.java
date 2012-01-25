@@ -161,68 +161,79 @@ public class ColorScroll extends ColorMapAwareGenerator {
 
     @Override
     public void update() {
+        
+        int referenceScreenSizeForSpeed = 0;
 
         // scroll colors on x axis
         switch (scrollMode) {
             case LEFT_TO_RIGHT:
                 leftToRight();
+                referenceScreenSizeForSpeed = internalBufferHalfWidth;
                 break;
             case RIGHT_TO_LEFT:
                 rightToLeft();
+                referenceScreenSizeForSpeed = internalBufferHalfWidth;
                 break;
             case TOP_TO_BOTTOM:
                 topToBottom();
+                referenceScreenSizeForSpeed = internalBufferHalfHeight;
                 break;
             case BOTTOM_TO_TOP:
+                referenceScreenSizeForSpeed = internalBufferHalfHeight;
                 bottomToTop();
                 break;
             case RIGHT_BOTTOM_TO_LEFT_TOP:
+                referenceScreenSizeForSpeed = internalBufferHalfWidth + internalBufferHalfWidth;
                 rightBottomToLeftTop();
                 break;
             case LEFT_BOTTOM_TO_RIGHT_TOP:
+                referenceScreenSizeForSpeed = internalBufferHalfWidth + internalBufferHalfWidth;
                 leftBottomToRightTop();
                 break;
             case RIGHT_TOP_TO_LEFT_BOTTOM:
+                referenceScreenSizeForSpeed = internalBufferHalfWidth + internalBufferHalfWidth;
                 rightTopToLeftBottom();
                 break;
             case LEFT_TOP_TO_RIGHT_BOTTOM:
+                referenceScreenSizeForSpeed = internalBufferHalfWidth + internalBufferHalfWidth;
                 leftTopToRightBottom();
                 break;
             case MIDDLE_TO_SIDES_VERTICAL:
+                referenceScreenSizeForSpeed = internalBufferHalfWidth / 2;
                 middleToSidesVertical();
                 break;
             case SIDES_TO_MIDDLE_VERTICAL:
+                referenceScreenSizeForSpeed = internalBufferHalfWidth / 2;
                 sidesToMiddleVertical();
                 break;
             case MIDDLE_TO_SIDES_HORIZONTAL:
+                referenceScreenSizeForSpeed = internalBufferHalfHeight / 2;
                 middleToSidesHorizontal();
                 break;
             case SIDES_TO_MIDDLE_HORIZONTAL:
+                referenceScreenSizeForSpeed = internalBufferHalfHeight / 2;
                 sidesToMiddleHorizontal();
                 break;
             case EXPLODE_CIRCLE:
+                referenceScreenSizeForSpeed = Math.max(internalBufferHalfHeight, internalBufferHalfWidth) / 2;
                 explodeCircle();
                 break;
             case IMPLODE_CIRCLE:
+                referenceScreenSizeForSpeed = Math.max(internalBufferHalfHeight, internalBufferHalfWidth) / 2;
                 implodeCircle();
                 break;
         }
-        
-        frameCount = (float) (frameCount + forward);
-    }
-    
-    public void setSpeed(int speed) {
-        this.speed = speed;
-        
-        // this is ne number of pixels to move the pattern per frame
-        // to get the pattern moving across the whole scren in 1 beat
-        // we have to to some calculations (speed is given in bpm)
         
         int fps = Controller.getControllerInstance().getFps();
         forward = internalBufferWidth/fps;
         forward = forward * (speed / 60.0);
         forward = forward * (fade / (double) fps);
         
+        frameCount = (float) (frameCount + forward);
+    }
+    
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
     
     public int getSpeed(){
