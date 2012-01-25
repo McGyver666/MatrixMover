@@ -17,9 +17,6 @@
 package com.gyver.matrixmover.core;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
@@ -38,6 +35,9 @@ public class AudioCapture {
     private Mixer mixer = null;
     private Mixer.Info[] mixerInfo = null;
     TargetDataLine line = null;
+    byte[] buffer = null;
+    float[] leftChanel = null;
+    float[] rightChanel = null;
 
     public AudioCapture() {
 
@@ -59,13 +59,17 @@ public class AudioCapture {
         mixerInfo = supportedMixers.toArray(new Mixer.Info[supportedMixers.size()]);
 
         // set the audio format
-        float sampleRate = 8000;
-        int sampleSizeInBits = 8;
+        float sampleRate = 44100F;
+        int sampleSizeInBits = 16;
         int channels = 2;
         boolean signed = true;
-        boolean bigEndian = true;
+        boolean bigEndian = false;
 
         format = new AudioFormat(sampleRate, sampleSizeInBits, channels, signed, bigEndian);
+
+        buffer = new byte[2048];
+        leftChanel = new float[512];
+        rightChanel = new float[512];
 
     }
 
@@ -91,36 +95,41 @@ public class AudioCapture {
         return mixerInfo;
     }
 
-    public int getLevel() {
-        
+    public void captureAudio() {
         if (line == null) {
-            return 0;
+            return;
         }
-
-        byte[] buffer = new byte[512];
 
         line.read(buffer, 0, buffer.length);
 
-        return calculateRMSLevel(buffer);
-
+        //now split the two signals
+        int n = 0;
+        for (int i = 0; i < 512; n += 4, i++) {
+            leftChanel[i] = (((buffer[(n + 1)] << 8) + buffer[n]) / 32767.0F);
+            rightChanel[i] = (((buffer[(n + 3)] << 8) + buffer[(n + 2)]) / 32767.0F);
+        }
     }
 
-    private int calculateRMSLevel(byte[] data) {
-        //calculade the rms
+    public int[] getLevel() {
+        int[] level = {calculateRMSLevel(leftChanel), calculateRMSLevel(rightChanel)};
+        return level;
+    }
 
-        long sum = 0;
+    private int calculateRMSLevel(float[] data) {
+        //calculade the rms
+        double sum = 0;
         for (int i = 0; i < data.length; i++) {
             sum = sum + data[i];
         }
-        
+
         double avg = sum / data.length;
-        
+
         double sumMeanSquare = 0d;
         for (int j = 0; j < data.length; j++) {
             sumMeanSquare = sumMeanSquare + Math.pow(data[j] - avg, 2d);
         }
-        
+
         double avgMeanSquare = sumMeanSquare / data.length;
-        return (int) (Math.pow(avgMeanSquare, 0.5d) + 0.5);
+        return (int) (Math.pow(avgMeanSquare, 0.5d) * 100d);
     }
 }

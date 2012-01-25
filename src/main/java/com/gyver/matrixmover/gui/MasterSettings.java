@@ -55,9 +55,9 @@ public class MasterSettings extends javax.swing.JPanel {
         return tbBlackout;
     }
     
-    public void setAudioLevel(int level){
-        pbVolumeLeft.setValue(level);
-        pbVolumeRight.setValue(level);
+    public void setAudioLevel(int[] level){
+        pbVolumeLeft.setValue(level[0]);
+        pbVolumeRight.setValue(level[1]);
         
     }
 

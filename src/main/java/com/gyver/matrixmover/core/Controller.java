@@ -182,6 +182,9 @@ public class Controller {
     }
     
     void captureAudio() {
+        //readout newest audio
+        ac.captureAudio();
+        //get the levels
         Frame.getFrameInstance().setAudioLevel(ac.getLevel());
     }
 

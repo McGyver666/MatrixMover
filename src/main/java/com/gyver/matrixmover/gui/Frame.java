@@ -250,7 +250,7 @@ public class Frame extends javax.swing.JFrame {
         return this.effectPanelRight;
     }
 
-    public void setAudioLevel(int level) {
+    public void setAudioLevel(int[] level) {
         this.masterSettings1.setAudioLevel(level);
     }
     
