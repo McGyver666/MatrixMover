@@ -1,8 +1,5 @@
-Todo list for MatrixMover to hit beta
-
-* Add output (Artnet at least)
-
-Todo list for MatrixMover when beta
+Todo list for MatrixMover
+* Update maven building
 * Remake fire generator and add settings dialog
 * Remake Textwriter generator and add settings dialog
 * Remake Metaballs generator and add settings dialog
