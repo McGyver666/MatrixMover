@@ -16,6 +16,7 @@
  */
 package com.gyver.matrixmover.properties;
 
+import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.output.OutputDeviceEnum;
 
 import java.util.Properties;
@@ -30,12 +31,10 @@ import org.apache.commons.lang.StringUtils;
  * 
  * @author Gyver
  */
-
 public class PropertiesHelper {
-    
+
     /** The Constant FAILED_TO_PARSE. */
     private static final String FAILED_TO_PARSE = "Failed to parse {0}";
-
     /** The log. */
     private static final Logger LOG = Logger.getLogger(PropertiesHelper.class.getName());
     /** The config. */
@@ -82,15 +81,15 @@ public class PropertiesHelper {
     public int getLedScreenPixelHeigth() {
         return parseInt(ConfigConstants.DISPLAY_PIXEL_HEIGHT, 5);
     }
-    
+
     public int getLedScreenPixelSpace() {
         return parseInt(ConfigConstants.DISPLAY_PIXEL_SPACE, 1);
     }
-    
+
     public int getOutputDeviceDimensionHeight() {
         return parseInt(ConfigConstants.OUTPUT_DIMENSION_HEIGHT, 8);
     }
-    
+
     public int getOutputDeviceDimensionWidth() {
         return parseInt(ConfigConstants.OUTPUT_DIMENSION_WIDTH, 1);
     }
@@ -98,8 +97,11 @@ public class PropertiesHelper {
     public int getFps() {
         return parseInt(ConfigConstants.OUTPUT_FPS, 1);
     }
-    
-    
+
+    public int[] getOutputMapping() {
+        return parseIntArray(ConfigConstants.OUTPUT_MAPPING);
+    }
+
     /**
      * get a int value from the config file.
      *
@@ -116,5 +118,28 @@ public class PropertiesHelper {
             }
         }
         return defaultValue;
+    }
+
+    private int[] parseIntArray(String property) {
+        String rawString = config.getProperty(property);
+        String[] rawArray = null;
+        if (StringUtils.isNotBlank(rawString)) {
+            rawArray = rawString.replaceAll(" ", "").split(",");
+        }
+        if (rawArray == null) {
+            return null;
+        }
+
+        int[] retArray = new int[rawArray.length];
+        for (int i = 0; i < rawArray.length; i++) {
+            try{
+                retArray[i] = Integer.parseInt(rawArray[i]);
+            } catch (NumberFormatException e) {
+                Frame.getFrameInstance().showWarning("Unable to parse output mapping number '"+rawArray[i]+"' correctly. Using default mapping instead.");
+                return null;
+            }
+        }
+
+        return retArray;
     }
 }

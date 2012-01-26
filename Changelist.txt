@@ -2,6 +2,7 @@
 * scene selection buttons now highlighting if changed or active
 * fixed comboboxes changing when new scene selected
 * added audio system and input level display
+* added pixelwise output mapping
 
 
 0.2 alpha

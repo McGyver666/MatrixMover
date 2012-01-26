@@ -35,4 +35,5 @@ public final class ConfigConstants {
     public static final String OUTPUT_DIMENSION_HEIGHT = "output.resolution.height";
     public static final String OUTPUT_FPS = "output.fps";
     public static final String OUTPUT_DEVICE = "output.device";
+    public static final String OUTPUT_MAPPING = "output.mapping";
 }

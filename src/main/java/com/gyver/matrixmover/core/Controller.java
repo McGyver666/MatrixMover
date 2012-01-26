@@ -23,6 +23,7 @@ import com.gyver.matrixmover.generator.Generator;
 import com.gyver.matrixmover.generator.Generator.GeneratorName;
 import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.LedScreen;
+import com.gyver.matrixmover.mapping.OutputMapping;
 import com.gyver.matrixmover.properties.PropertiesHelper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,7 +54,7 @@ public class Controller {
     private int[] outputLedImage = null;
     private int crossfaderValue = 500;
     private int masterIntensity = 255;
-    
+    private OutputMapping om = null;
     private AudioCapture ac = null;
 
     /**
@@ -71,6 +72,8 @@ public class Controller {
         rightVisual = new GeneratorVisual(matrixData);
 
         fader = new CrossFader();
+        
+        om = new OutputMapping(matrixData);
         
         ac = new AudioCapture();
         if(ac.getAvalibalMixer() != null && ac.getAvalibalMixer().length > 0){
@@ -212,7 +215,7 @@ public class Controller {
         //write image to MasterLedScreen
         masterLedScreen.setPixelImage(outputLedImage);
         //apply the mapping to the image
-
+        int [] outputDeviceImage = om.applyMapping(outputLedImage);
         //give image to outputDevice
 
     }
@@ -248,7 +251,14 @@ public class Controller {
         }
     }
 
+    /** 
+     * Do stuff that needs a Gui.
+     */
     public void postInit() {
+        
+        om.setMapping(ph.getOutputMapping());
+        
+        
         Frame.getFrameInstance().getLeftGeneratorPanel().setButtonActive(leftVisual.getActiveScene(), true);
         Frame.getFrameInstance().getRightGeneratorPanel().setButtonActive(rightVisual.getActiveScene(), true);
     }
