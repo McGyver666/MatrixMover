@@ -33,14 +33,14 @@ public class NullDevice extends Output {
      * @param controller the controller
      */
     public NullDevice(PropertiesHelper ph) {
-        super(OutputDeviceEnum.NULL, ph, 8);
+        super(OutputDeviceEnum.NULL, ph);
     }
 
     /* (non-Javadoc)
      * @see com.neophob.sematrix.output.Output#update()
      */
     @Override
-    public void update() {
+    public void update(int[] buffer) {
     }
 
     /* (non-Javadoc)

@@ -85,5 +85,10 @@
             <artifactId>nimrod-laf</artifactId>
             <version>1.2</version>
         </dependency>
+        <dependency>
+            <groupId>artnet4j</groupId>
+            <artifactId>artnet4j</artifactId>
+            <version>0001</version>
+        </dependency>
     </dependencies>
 </project>

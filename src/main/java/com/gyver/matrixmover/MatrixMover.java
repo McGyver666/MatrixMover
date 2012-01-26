@@ -20,6 +20,7 @@ import com.gyver.matrixmover.core.timer.AudioTimerTask;
 import com.gyver.matrixmover.core.Controller;
 import com.gyver.matrixmover.core.timer.ExecutionTimerTask;
 import com.gyver.matrixmover.gui.Frame;
+import com.gyver.matrixmover.output.ArtnetDevice;
 import com.gyver.matrixmover.output.NullDevice;
 import com.gyver.matrixmover.output.Output;
 import com.gyver.matrixmover.output.OutputDeviceEnum;
@@ -82,11 +83,15 @@ public class MatrixMover {
                 case NULL:
                     this.output = new NullDevice(ph);
                     break;
+                case ARTNET:
+                    this.output = new ArtnetDevice(ph);
+                    break;
                 default:
-                    throw new IllegalArgumentException("Unable to initialize unknown output device: " + outputDeviceEnum);
+                    throw new IllegalArgumentException();
             }
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Unable to initialize output device: " + outputDeviceEnum, e);
+            LOG.log(Level.SEVERE, "Unable to initialize output device: " + outputDeviceEnum +". Using Null device instead.", e);
+            this.output = new NullDevice(ph);
         }
 
         LOG.log(Level.INFO, "Starting Core");

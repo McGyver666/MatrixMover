@@ -36,8 +36,8 @@ public enum OutputDeviceEnum {
 //    /** The ADALIGHT. */
 //    ADAVISION(AdaVision.class, true),
     
-//    /** The ARTNET. */
-//    ARTNET(ArtnetDevice.class, true),
+    /** The ARTNET. */
+    ARTNET(ArtnetDevice.class, true),
     /** The NULL Output. */
     NULL(NullDevice.class, false);
     /** The implementing class. */

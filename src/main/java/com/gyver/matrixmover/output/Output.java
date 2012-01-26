@@ -33,18 +33,36 @@ public abstract class Output {
     /** The outputDeviceEnum. */
     private OutputDeviceEnum outputDeviceEnum;
 
-    public Output(OutputDeviceEnum outputDeviceEnum, PropertiesHelper ph, int bpp) {
+    public Output(OutputDeviceEnum outputDeviceEnum, PropertiesHelper ph) {
         this.outputDeviceEnum = outputDeviceEnum;
     }
 
     /**
      * Update the output device
      */
-    public abstract void update();
+    public abstract void update(int[] buffer);
 
     /**
      * Close to output device
      */
     public abstract void close();
-    
+
+    /**
+     *  Splits every LED out of the int buffer
+     * 
+     * @param buffer the buffer
+     * @return a byte buffer with every number is one led color
+     */
+    public static byte[] convertIntToByteBuffer(int[] buffer) {
+        byte[] bufferReturn = new byte[buffer.length * 3];
+        int ofs;
+        for (int i = 0; i < buffer.length; i++) {
+            ofs = i * 3;
+            bufferReturn[ofs++] = (byte) ((buffer[i] >> 16) & 0xff);
+            bufferReturn[ofs++] = (byte) ((buffer[i] >> 8) & 0xff);
+            bufferReturn[ofs] = (byte) (buffer[i] & 0xff);
+        }
+
+        return bufferReturn;
+    }
 }

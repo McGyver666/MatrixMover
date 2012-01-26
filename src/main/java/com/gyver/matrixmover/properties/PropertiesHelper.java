@@ -60,14 +60,15 @@ public class PropertiesHelper {
 
         String rawConfig = config.getProperty(ConfigConstants.OUTPUT_DEVICE);
         if (rawConfig == null || rawConfig.isEmpty()) {
-            throw new IllegalConfigurationException("Output device has to be set in parameter: " + ConfigConstants.OUTPUT_DEVICE);
+            throw new IllegalArgumentException("Output device has to be set in parameter: " + ConfigConstants.OUTPUT_DEVICE);
         }
 
         if (rawConfig.equals("null")) {
             this.outputDeviceEnum = OutputDeviceEnum.NULL;
-        } else if (false) {
+        } else if (rawConfig.equals("artnet")) {
+            this.outputDeviceEnum = OutputDeviceEnum.ARTNET;
         } else {
-            throw new IllegalConfigurationException("Given output device not found");
+            throw new IllegalArgumentException("Given output device '"+rawConfig+"' not found");
         }
     }
 
@@ -105,6 +106,31 @@ public class PropertiesHelper {
 
     public int getOutputPixeMode() {
         return parsePixelMode(ConfigConstants.OUTPUT_PIXEL_MODE);
+    }
+
+    /**
+     * get configured artnet ip.
+     *
+     * @return the art net ip
+     */
+    public String getArtNetIp() {
+        return config.getProperty(ConfigConstants.ARTNET_IP);
+    }
+
+    /**
+     * how many pixels (=3 Channels) per DMX universe
+     * @return
+     */
+    public int getArtNetPixelsPerUniverse() {
+        return parseInt(ConfigConstants.ARTNET_PIXELS_PER_UNIVERSE, 170);
+    }
+
+    /**
+     * get first arnet universe id
+     * @return
+     */
+    public int getArtNetStartUniverseId() {
+        return parseInt(ConfigConstants.ARTNET_FIRST_UNIVERSE_ID, 0);
     }
 
     /**
@@ -151,21 +177,21 @@ public class PropertiesHelper {
     private int parsePixelMode(String property) {
         String rawString = config.getProperty(property).trim();
         if (StringUtils.isNotBlank(rawString)) {
-            if(rawString.equals("RGB")){
+            if (rawString.equals("RGB")) {
                 return PixelRgbMapping.PIXEL_MAPPING_RGB;
-            } else if(rawString.equals("RBG")){
+            } else if (rawString.equals("RBG")) {
                 return PixelRgbMapping.PIXEL_MAPPING_RBG;
-            } else if(rawString.equals("BGR")){
+            } else if (rawString.equals("BGR")) {
                 return PixelRgbMapping.PIXEL_MAPPING_BGR;
-            } else if(rawString.equals("BRG")){
+            } else if (rawString.equals("BRG")) {
                 return PixelRgbMapping.PIXEL_MAPPING_BRG;
-            } else if(rawString.equals("GRB")){
+            } else if (rawString.equals("GRB")) {
                 return PixelRgbMapping.PIXEL_MAPPING_GRB;
-            } else if(rawString.equals("GBR")){
+            } else if (rawString.equals("GBR")) {
                 return PixelRgbMapping.PIXEL_MAPPING_GBR;
             }
         }
-        Frame.getFrameInstance().showWarning("Unable to parse pixel mode '"+rawString+"'. Using RGB mode instead.");
+        Frame.getFrameInstance().showWarning("Unable to parse pixel mode '" + rawString + "'. Using RGB mode instead.");
         return PixelRgbMapping.PIXEL_MAPPING_RGB;
     }
 }
