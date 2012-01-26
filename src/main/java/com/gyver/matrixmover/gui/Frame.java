@@ -32,6 +32,7 @@ import com.gyver.matrixmover.properties.PropertiesHelper;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -252,6 +253,10 @@ public class Frame extends javax.swing.JFrame {
 
     public void setAudioLevel(int[] level) {
         this.masterSettings1.setAudioLevel(level);
+    }
+
+    public void showWarning(String string) {
+        JOptionPane.showMessageDialog(this, string, "Warning", JOptionPane.WARNING_MESSAGE);
     }
     
 }
