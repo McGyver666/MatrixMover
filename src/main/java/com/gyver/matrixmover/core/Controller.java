@@ -24,6 +24,7 @@ import com.gyver.matrixmover.generator.Generator.GeneratorName;
 import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.LedScreen;
 import com.gyver.matrixmover.mapping.OutputMapping;
+import com.gyver.matrixmover.mapping.PixelRgbMapping;
 import com.gyver.matrixmover.properties.PropertiesHelper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,6 +56,7 @@ public class Controller {
     private int crossfaderValue = 500;
     private int masterIntensity = 255;
     private OutputMapping om = null;
+    private PixelRgbMapping prm = null;
     private AudioCapture ac = null;
 
     /**
@@ -74,6 +76,7 @@ public class Controller {
         fader = new CrossFader();
         
         om = new OutputMapping(matrixData);
+        prm = new PixelRgbMapping();
         
         ac = new AudioCapture();
         if(ac.getAvalibalMixer() != null && ac.getAvalibalMixer().length > 0){
@@ -216,6 +219,7 @@ public class Controller {
         masterLedScreen.setPixelImage(outputLedImage);
         //apply the mapping to the image
         int [] outputDeviceImage = om.applyMapping(outputLedImage);
+        outputDeviceImage = prm.applyMapping(outputDeviceImage);
         //give image to outputDevice
 
     }
@@ -257,7 +261,7 @@ public class Controller {
     public void postInit() {
         
         om.setMapping(ph.getOutputMapping());
-        
+        prm.setPixelMode(ph.getOutputPixeMode());
         
         Frame.getFrameInstance().getLeftGeneratorPanel().setButtonActive(leftVisual.getActiveScene(), true);
         Frame.getFrameInstance().getRightGeneratorPanel().setButtonActive(rightVisual.getActiveScene(), true);

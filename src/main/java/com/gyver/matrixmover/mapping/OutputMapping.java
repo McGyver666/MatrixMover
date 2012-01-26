@@ -20,8 +20,9 @@ import com.gyver.matrixmover.core.MatrixData;
 import com.gyver.matrixmover.gui.Frame;
 
 /**
- *
- * @author jonas
+ * Applies a pixel wise mapping to the output. 
+ * 
+ * @author Gyver
  */
 public class OutputMapping {
 

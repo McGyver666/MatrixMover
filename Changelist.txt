@@ -3,6 +3,7 @@
 * fixed comboboxes changing when new scene selected
 * added audio system and input level display
 * added pixelwise output mapping
+* added pixel mapping
 
 
 0.2 alpha

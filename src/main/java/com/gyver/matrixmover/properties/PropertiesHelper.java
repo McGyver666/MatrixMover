@@ -17,6 +17,7 @@
 package com.gyver.matrixmover.properties;
 
 import com.gyver.matrixmover.gui.Frame;
+import com.gyver.matrixmover.mapping.PixelRgbMapping;
 import com.gyver.matrixmover.output.OutputDeviceEnum;
 
 import java.util.Properties;
@@ -102,6 +103,10 @@ public class PropertiesHelper {
         return parseIntArray(ConfigConstants.OUTPUT_MAPPING);
     }
 
+    public int getOutputPixeMode() {
+        return parsePixelMode(ConfigConstants.OUTPUT_PIXEL_MODE);
+    }
+
     /**
      * get a int value from the config file.
      *
@@ -132,14 +137,35 @@ public class PropertiesHelper {
 
         int[] retArray = new int[rawArray.length];
         for (int i = 0; i < rawArray.length; i++) {
-            try{
+            try {
                 retArray[i] = Integer.parseInt(rawArray[i]);
             } catch (NumberFormatException e) {
-                Frame.getFrameInstance().showWarning("Unable to parse output mapping number '"+rawArray[i]+"' correctly. Using default mapping instead.");
+                Frame.getFrameInstance().showWarning("Unable to parse output mapping number '" + rawArray[i] + "' correctly. Using default mapping instead.");
                 return null;
             }
         }
 
         return retArray;
+    }
+
+    private int parsePixelMode(String property) {
+        String rawString = config.getProperty(property).trim();
+        if (StringUtils.isNotBlank(rawString)) {
+            if(rawString.equals("RGB")){
+                return PixelRgbMapping.PIXEL_MAPPING_RGB;
+            } else if(rawString.equals("RBG")){
+                return PixelRgbMapping.PIXEL_MAPPING_RBG;
+            } else if(rawString.equals("BGR")){
+                return PixelRgbMapping.PIXEL_MAPPING_BGR;
+            } else if(rawString.equals("BRG")){
+                return PixelRgbMapping.PIXEL_MAPPING_BRG;
+            } else if(rawString.equals("GRB")){
+                return PixelRgbMapping.PIXEL_MAPPING_GRB;
+            } else if(rawString.equals("GBR")){
+                return PixelRgbMapping.PIXEL_MAPPING_GBR;
+            }
+        }
+        Frame.getFrameInstance().showWarning("Unable to parse pixel mode '"+rawString+"'. Using RGB mode instead.");
+        return PixelRgbMapping.PIXEL_MAPPING_RGB;
     }
 }
