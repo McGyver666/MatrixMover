@@ -14,8 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.gyver.matrixmover.core;
+package com.gyver.matrixmover.core.timer;
 
+import com.gyver.matrixmover.core.Controller;
 import java.util.TimerTask;
 
 /**
@@ -24,19 +25,17 @@ import java.util.TimerTask;
  * 
  * @author Gyver
  */
-public class ExecutionTimerTask extends TimerTask {
+public class AudioTimerTask extends TimerTask {
     
     private Controller controller = null;
     
-    public ExecutionTimerTask(Controller controller){
+    public AudioTimerTask(Controller controller){
         this.controller = controller;
     }
 
     @Override
     public void run() {
-        controller.computeLeftVisual();
-        controller.computeRightVisual();
-        controller.computeMasterVisual();
+        controller.captureAudio();
     }
     
 }

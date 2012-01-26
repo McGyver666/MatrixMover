@@ -16,9 +16,9 @@
  */
 package com.gyver.matrixmover;
 
-import com.gyver.matrixmover.core.AudioTimerTask;
+import com.gyver.matrixmover.core.timer.AudioTimerTask;
 import com.gyver.matrixmover.core.Controller;
-import com.gyver.matrixmover.core.ExecutionTimerTask;
+import com.gyver.matrixmover.core.timer.ExecutionTimerTask;
 import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.output.NullDevice;
 import com.gyver.matrixmover.output.Output;

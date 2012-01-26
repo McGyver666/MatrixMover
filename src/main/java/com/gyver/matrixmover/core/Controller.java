@@ -16,6 +16,7 @@
  */
 package com.gyver.matrixmover.core;
 
+import com.gyver.matrixmover.core.audio.AudioCapture;
 import com.gyver.matrixmover.fader.CrossFader;
 import com.gyver.matrixmover.fader.Fader;
 import com.gyver.matrixmover.generator.Generator;
@@ -181,14 +182,14 @@ public class Controller {
         }
     }
     
-    void captureAudio() {
+    public void captureAudio() {
         //readout newest audio
         ac.captureAudio();
         //get the levels
         Frame.getFrameInstance().setAudioLevel(ac.getLevel());
     }
 
-    void computeLeftVisual() {
+    public void computeLeftVisual() {
         //get the calculated image
         leftLedImage = leftVisual.getVisualOutput();
         //push it to led-screen
@@ -196,14 +197,14 @@ public class Controller {
 
     }
 
-    void computeRightVisual() {
+    public void computeRightVisual() {
         //get the calculated image
         rightLedImage = rightVisual.getVisualOutput();
         //push it to led-screen
         rightLedScreen.setPixelImage(rightLedImage);
     }
 
-    void computeMasterVisual() {
+    public void computeMasterVisual() {
         //mix left and right image with fader
         outputLedImage = fader.fade(leftLedImage, rightLedImage, crossfaderValue);
         //apply master intensity
