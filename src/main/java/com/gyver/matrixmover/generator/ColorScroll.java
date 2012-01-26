@@ -42,9 +42,7 @@ public class ColorScroll extends ColorMapAwareGenerator {
     private int internalBufferHalfHeight;
     /** The speed given in bpm */
     private int speed;
-    
     private double forward;
-    
 
     /**
      * The Enum ScrollMode.
@@ -100,10 +98,10 @@ public class ColorScroll extends ColorMapAwareGenerator {
             }
             return null;
         }
-        
+
         @Override
-        public String toString(){
-           switch (this) {
+        public String toString() {
+            switch (this) {
                 case LEFT_TO_RIGHT:
                     return "Left to Right";
                 case RIGHT_TO_LEFT:
@@ -150,9 +148,9 @@ public class ColorScroll extends ColorMapAwareGenerator {
         super(GeneratorName.COLOR_SCROLL, matrix, colorMap);
 
         this.fade = 15;
-        
-        this.setSpeed(120);
-        
+
+        this.speed = 0x78;
+
         scrollMode = ScrollMode.EXPLODE_CIRCLE;
 
         internalBufferHalfWidth = internalBufferWidth / 2;
@@ -161,85 +159,84 @@ public class ColorScroll extends ColorMapAwareGenerator {
 
     @Override
     public void update() {
-        
+
         int referenceScreenSizeForSpeed = 0;
 
         // scroll colors on x axis
         switch (scrollMode) {
             case LEFT_TO_RIGHT:
                 leftToRight();
-                referenceScreenSizeForSpeed = internalBufferHalfWidth;
+                referenceScreenSizeForSpeed = internalBufferWidth;
                 break;
             case RIGHT_TO_LEFT:
                 rightToLeft();
-                referenceScreenSizeForSpeed = internalBufferHalfWidth;
+                referenceScreenSizeForSpeed = internalBufferWidth;
                 break;
             case TOP_TO_BOTTOM:
                 topToBottom();
-                referenceScreenSizeForSpeed = internalBufferHalfHeight;
+                referenceScreenSizeForSpeed = internalBufferHeight;
                 break;
             case BOTTOM_TO_TOP:
-                referenceScreenSizeForSpeed = internalBufferHalfHeight;
+                referenceScreenSizeForSpeed = internalBufferHeight;
                 bottomToTop();
                 break;
             case RIGHT_BOTTOM_TO_LEFT_TOP:
-                referenceScreenSizeForSpeed = internalBufferHalfWidth + internalBufferHalfWidth;
+                referenceScreenSizeForSpeed = internalBufferWidth + internalBufferWidth;
                 rightBottomToLeftTop();
                 break;
             case LEFT_BOTTOM_TO_RIGHT_TOP:
-                referenceScreenSizeForSpeed = internalBufferHalfWidth + internalBufferHalfWidth;
+                referenceScreenSizeForSpeed = internalBufferWidth + internalBufferWidth;
                 leftBottomToRightTop();
                 break;
             case RIGHT_TOP_TO_LEFT_BOTTOM:
-                referenceScreenSizeForSpeed = internalBufferHalfWidth + internalBufferHalfWidth;
+                referenceScreenSizeForSpeed = internalBufferWidth + internalBufferWidth;
                 rightTopToLeftBottom();
                 break;
             case LEFT_TOP_TO_RIGHT_BOTTOM:
-                referenceScreenSizeForSpeed = internalBufferHalfWidth + internalBufferHalfWidth;
+                referenceScreenSizeForSpeed = internalBufferWidth + internalBufferWidth;
                 leftTopToRightBottom();
                 break;
             case MIDDLE_TO_SIDES_VERTICAL:
-                referenceScreenSizeForSpeed = internalBufferHalfWidth / 2;
+                referenceScreenSizeForSpeed = internalBufferHalfWidth;
                 middleToSidesVertical();
                 break;
             case SIDES_TO_MIDDLE_VERTICAL:
-                referenceScreenSizeForSpeed = internalBufferHalfWidth / 2;
+                referenceScreenSizeForSpeed = internalBufferHalfWidth;
                 sidesToMiddleVertical();
                 break;
             case MIDDLE_TO_SIDES_HORIZONTAL:
-                referenceScreenSizeForSpeed = internalBufferHalfHeight / 2;
+                referenceScreenSizeForSpeed = internalBufferHalfHeight;
                 middleToSidesHorizontal();
                 break;
             case SIDES_TO_MIDDLE_HORIZONTAL:
-                referenceScreenSizeForSpeed = internalBufferHalfHeight / 2;
+                referenceScreenSizeForSpeed = internalBufferHalfHeight;
                 sidesToMiddleHorizontal();
                 break;
             case EXPLODE_CIRCLE:
-                referenceScreenSizeForSpeed = Math.max(internalBufferHalfHeight, internalBufferHalfWidth) / 2;
+                referenceScreenSizeForSpeed = Math.max(internalBufferHalfHeight, internalBufferHalfWidth);
                 explodeCircle();
                 break;
             case IMPLODE_CIRCLE:
-                referenceScreenSizeForSpeed = Math.max(internalBufferHalfHeight, internalBufferHalfWidth) / 2;
+                referenceScreenSizeForSpeed = Math.max(internalBufferHalfHeight, internalBufferHalfWidth);
                 implodeCircle();
                 break;
         }
-        
+
         int fps = Controller.getControllerInstance().getFps();
-        forward = internalBufferWidth/fps;
-        forward = forward * (speed / 60.0);
+        forward = (speed / 60F);
         forward = forward * (fade / (double) fps);
-        
+
+        System.out.println("framecount: " + frameCount + ", bufffer[0]: " + internalBuffer[0] + ", screensize: " + referenceScreenSizeForSpeed);
         frameCount = (float) (frameCount + forward);
     }
-    
+
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-    
-    public int getSpeed(){
+
+    public int getSpeed() {
         return speed;
     }
-            
 
     /**
      * Sets the scroll mode.

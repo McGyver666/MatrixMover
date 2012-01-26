@@ -97,8 +97,7 @@ public class ColorFade extends ColorMapAwareGenerator {
         // we have to to some calculations (speed is given in bpm)
         
         int fps = Controller.getControllerInstance().getFps();
-        forward = internalBufferWidth/fps;
-        forward = forward * (speed / 60.0);
-        forward = forward * (fade / (double) fps);
+        forward = (speed / 60F);
+        forward = forward * (fade / (float) fps);
     }
 }

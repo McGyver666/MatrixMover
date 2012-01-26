@@ -45,16 +45,16 @@ public abstract class ColorMapAwareGenerator extends Generator {
      */
     public ColorMapAwareGenerator(GeneratorName name, MatrixData matrix, List<Color> colorMap) {
         super(name, matrix);
-        
+
         //make this list thread save, used when color map is updated
         this.colorMap = new CopyOnWriteArrayList<Color>();
 
-        if(colorMap != null){
+        if (colorMap != null) {
             this.colorMap = colorMap;
         }
-        
+
         LOG.log(Level.FINER, "add {0} colors to map", this.colorMap.size());
-        
+
         //add default value if nothing is configured
         if (this.colorMap.isEmpty()) {
             this.colorMap.add(new Color(255, 128, 128));
@@ -77,10 +77,8 @@ public abstract class ColorMapAwareGenerator extends Generator {
     protected int getColor(int colornumber, int nextcolornumber, float ratio) {
         Color currentColor = new Color(0);
         Color nextColor = new Color(0);
-        try {
-            currentColor = colorMap.get(colornumber);
-            nextColor = colorMap.get(nextcolornumber);
-        } catch (IndexOutOfBoundsException e){}
+        currentColor = colorMap.get(colornumber);
+        nextColor = colorMap.get(nextcolornumber);
 
         int rThis = currentColor.getRed();
         int rNext = nextColor.getRed();
