@@ -17,6 +17,8 @@
 package com.gyver.matrixmover.core.audio;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
@@ -31,8 +33,15 @@ import javax.sound.sampled.TargetDataLine;
  */
 public class AudioCapture {
 
+    private final int CHANNEL_BUFFER_LENGTH = 512;
+    // set the audio format
+    private final float SAMPLE_RATE = 44100F;
+    private final int SAMPLE_SIZE_IN_BITS = 16;
+    private final int CHANNELS = 2;
+    private final boolean SIGNED = true;
+    private final boolean BIG_ENDIAN = false;
+
     private AudioFormat format = null;
-    private Mixer mixer = null;
     private Mixer.Info[] mixerInfo = null;
     TargetDataLine line = null;
     byte[] buffer = null;
@@ -58,24 +67,17 @@ public class AudioCapture {
 
         mixerInfo = supportedMixers.toArray(new Mixer.Info[supportedMixers.size()]);
 
-        // set the audio format
-        float sampleRate = 44100F;
-        int sampleSizeInBits = 16;
-        int channels = 2;
-        boolean signed = true;
-        boolean bigEndian = false;
+        format = new AudioFormat(SAMPLE_RATE, SAMPLE_SIZE_IN_BITS, CHANNELS, SIGNED, BIG_ENDIAN);
 
-        format = new AudioFormat(sampleRate, sampleSizeInBits, channels, signed, bigEndian);
-
-        buffer = new byte[2048];
-        leftChanel = new float[512];
-        rightChanel = new float[512];
+        buffer = new byte[CHANNEL_BUFFER_LENGTH * 4];
+        leftChanel = new float[CHANNEL_BUFFER_LENGTH];
+        rightChanel = new float[CHANNEL_BUFFER_LENGTH];
 
     }
 
     public void startAudio(Mixer.Info mixerInfo) {
 
-        mixer = AudioSystem.getMixer(mixerInfo);
+        AudioSystem.getMixer(mixerInfo);
 
         DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
 
@@ -86,8 +88,7 @@ public class AudioCapture {
             line.open(format);
             line.start();
         } catch (LineUnavailableException ex) {
-            throw new RuntimeException(ex);
-//            Logger.getLogger(AudioCapture.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AudioCapture.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
