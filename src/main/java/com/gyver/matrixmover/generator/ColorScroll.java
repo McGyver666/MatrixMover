@@ -226,7 +226,6 @@ public class ColorScroll extends ColorMapAwareGenerator {
         forward = (speed / 60F);
         forward = forward * (fade / (double) fps);
 
-        System.out.println("framecount: " + frameCount + ", bufffer[0]: " + internalBuffer[0] + ", screensize: " + referenceScreenSizeForSpeed);
         frameCount = (float) (frameCount + forward);
     }
 
