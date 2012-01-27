@@ -22,10 +22,6 @@
  */
 package com.gyver.matrixmover.gui;
 
-import com.gyver.matrixmover.core.Controller;
-import com.gyver.matrixmover.generator.ColorScroll;
-import com.gyver.matrixmover.generator.Generator;
-import com.gyver.matrixmover.gui.effect.ColorScrollConfiguration;
 import com.gyver.matrixmover.gui.listener.GeneratorSetupListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
