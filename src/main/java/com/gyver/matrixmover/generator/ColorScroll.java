@@ -116,7 +116,7 @@ public class ColorScroll extends ColorMapAwareGenerator {
                 case LEFT_BOTTOM_TO_RIGHT_TOP:
                     return "Left-Bottom to Right-Top";
                 case RIGHT_TOP_TO_LEFT_BOTTOM:
-                    return "Reght-Top to Left-Bottom";
+                    return "Right-Top to Left-Bottom";
                 case LEFT_TOP_TO_RIGHT_BOTTOM:
                     return "Left-Top to Right-Bottom";
                 case MIDDLE_TO_SIDES_VERTICAL:
