@@ -1,4 +1,6 @@
 /*
+ * Copyright (C) 2011 Michael Vogt <michu@neophob.com>
+ * Copyright (C) 2011 Rainer Ostendorf <mail@linlab.de>
  * Copyright (C) 2012 Gyver
  *
  * This program is free software: you can redistribute it and/or modify
