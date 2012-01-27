@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.036" errors="0" skipped="0" tests="1" name="com.gyver.matrixmover.AppTest">
+<testsuite failures="0" time="0.024" errors="0" skipped="0" tests="1" name="com.gyver.matrixmover.AppTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files (x86)\Java\jdk1.6.0_25\jre\bin"/>
@@ -13,13 +13,13 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="Service Pack 1"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\Jonas\Documents\My Dropbox\matrixmover"/>
+    <property name="user.dir" value="C:\Users\Jonas\Documents\NetBeansProjects\MatrixMover"/>
     <property name="java.runtime.version" value="1.6.0_25-b06"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="basedir" value="C:\Users\Jonas\Documents\My Dropbox\matrixmover"/>
+    <property name="basedir" value="C:\Users\Jonas\Documents\NetBeansProjects\MatrixMover"/>
     <property name="java.endorsed.dirs" value="C:\Program Files (x86)\Java\jdk1.6.0_25\jre\lib\endorsed"/>
     <property name="os.arch" value="x86"/>
-    <property name="surefire.real.class.path" value="C:\Users\Jonas\AppData\Local\Temp\surefirebooter468739531693740999.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Jonas\AppData\Local\Temp\surefirebooter2876540930610434959.jar"/>
     <property name="java.io.tmpdir" value="C:\Users\Jonas\AppData\Local\Temp\"/>
     <property name="line.separator" value="
 "/>
@@ -28,7 +28,7 @@
     <property name="os.name" value="Windows 7"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="java.library.path" value="C:\Program Files (x86)\Java\jdk1.6.0_25\jre\bin;.;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\MiKTeX 2.9\miktex\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Common Files\DivX Shared\;C:\Program Files (x86)\Common Files\Roxio Shared\9.0\DLLShared\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Users\Jonas\Maven_2_2_1\\bin;C:\Program Files (x86)\Java\jdk1.6.0_25\bin;C:\Program Files\TortoiseGit\bin;C:\Program Files (x86)\Git\cmd;C:\Program Files (x86)\QuickTime\QTSystem\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\"/>
-    <property name="surefire.test.class.path" value="C:\Users\Jonas\Documents\My Dropbox\matrixmover\target\test-classes;C:\Users\Jonas\Documents\My Dropbox\matrixmover\target\classes;C:\Users\Jonas\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\Jonas\.m2\repository\commons-lang\commons-lang\2.5\commons-lang-2.5.jar;C:\Users\Jonas\.m2\repository\net\sf\nimrod\nimrod-laf\1.2\nimrod-laf-1.2.jar;"/>
+    <property name="surefire.test.class.path" value="C:\Users\Jonas\Documents\NetBeansProjects\MatrixMover\target\test-classes;C:\Users\Jonas\Documents\NetBeansProjects\MatrixMover\target\classes;C:\Users\Jonas\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\Jonas\.m2\repository\commons-lang\commons-lang\2.5\commons-lang-2.5.jar;C:\Users\Jonas\.m2\repository\net\sf\nimrod\nimrod-laf\1.2\nimrod-laf-1.2.jar;C:\Users\Jonas\.m2\repository\artnet4j\artnet4j\0001\artnet4j-0001.jar;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="50.0"/>
     <property name="sun.management.compiler" value="HotSpot Client Compiler"/>
@@ -39,11 +39,11 @@
     <property name="java.specification.version" value="1.6"/>
     <property name="file.encoding" value="Cp1252"/>
     <property name="user.name" value="Jonas"/>
-    <property name="java.class.path" value="C:\Users\Jonas\Documents\My Dropbox\matrixmover\target\test-classes;C:\Users\Jonas\Documents\My Dropbox\matrixmover\target\classes;C:\Users\Jonas\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\Jonas\.m2\repository\commons-lang\commons-lang\2.5\commons-lang-2.5.jar;C:\Users\Jonas\.m2\repository\net\sf\nimrod\nimrod-laf\1.2\nimrod-laf-1.2.jar;"/>
+    <property name="java.class.path" value="C:\Users\Jonas\Documents\NetBeansProjects\MatrixMover\target\test-classes;C:\Users\Jonas\Documents\NetBeansProjects\MatrixMover\target\classes;C:\Users\Jonas\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\Jonas\.m2\repository\commons-lang\commons-lang\2.5\commons-lang-2.5.jar;C:\Users\Jonas\.m2\repository\net\sf\nimrod\nimrod-laf\1.2\nimrod-laf-1.2.jar;C:\Users\Jonas\.m2\repository\artnet4j\artnet4j\0001\artnet4j-0001.jar;"/>
     <property name="java.vm.specification.version" value="1.0"/>
     <property name="sun.arch.data.model" value="32"/>
     <property name="java.home" value="C:\Program Files (x86)\Java\jdk1.6.0_25\jre"/>
-    <property name="sun.java.command" value="C:\Users\Jonas\AppData\Local\Temp\surefirebooter468739531693740999.jar C:\Users\Jonas\AppData\Local\Temp\surefire5009249950659253534tmp C:\Users\Jonas\AppData\Local\Temp\surefire657681830095051114tmp"/>
+    <property name="sun.java.command" value="C:\Users\Jonas\AppData\Local\Temp\surefirebooter2876540930610434959.jar C:\Users\Jonas\AppData\Local\Temp\surefire4123668096855862785tmp C:\Users\Jonas\AppData\Local\Temp\surefire8304035593419868602tmp"/>
     <property name="java.specification.vendor" value="Sun Microsystems Inc."/>
     <property name="user.language" value="de"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -60,5 +60,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
   </properties>
-  <testcase time="0.004" classname="com.gyver.matrixmover.AppTest" name="testApp"/>
+  <testcase time="0.003" classname="com.gyver.matrixmover.AppTest" name="testApp"/>
 </testsuite>
