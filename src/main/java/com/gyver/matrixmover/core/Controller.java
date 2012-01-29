@@ -25,7 +25,9 @@ import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.LedScreen;
 import com.gyver.matrixmover.mapping.OutputMapping;
 import com.gyver.matrixmover.mapping.PixelRgbMapping;
+import com.gyver.matrixmover.output.Output;
 import com.gyver.matrixmover.properties.PropertiesHelper;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,6 +45,7 @@ public class Controller {
     public static final int RIGHT_SIDE = 2;
     private static Controller instance = new Controller();
     private PropertiesHelper ph = null;
+    private Output output = null;
     private MatrixData matrixData = null;
     private LedScreen leftLedScreen = null;
     private LedScreen rightLedScreen = null;
@@ -65,8 +68,9 @@ public class Controller {
     private Controller() {
     }
 
-    public void initController(PropertiesHelper ph) {
+    public void initController(PropertiesHelper ph, Output output) {
         this.ph = ph;
+        this.output = output;
         matrixData = new MatrixData(ph.getOutputDeviceDimensionWidth(), ph.getOutputDeviceDimensionHeight());
 
         //init and hold the Visuals
@@ -217,11 +221,12 @@ public class Controller {
         outputLedImage = applyIntensity(outputLedImage, masterIntensity);
         //write image to MasterLedScreen
         masterLedScreen.setPixelImage(outputLedImage);
-        //apply the mapping to the image
+        //apply the pixel mapping to the image
         int [] outputDeviceImage = om.applyMapping(outputLedImage);
-        outputDeviceImage = prm.applyMapping(outputDeviceImage);
+        //apply the rgb mapping
+//        outputDeviceImage = prm.applyMapping(outputDeviceImage);
         //give image to outputDevice
-
+        output.update(outputDeviceImage);
     }
 
     private int[] applyIntensity(int[] src, int value) {

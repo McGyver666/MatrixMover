@@ -97,7 +97,7 @@ public class MatrixMover {
 
         LOG.log(Level.INFO, "Starting Core");
         final Controller controller = Controller.getControllerInstance();
-        controller.initController(ph);
+        controller.initController(ph, output);
 
         LOG.log(Level.FINER, "Loading NimROD LAF");
         try {

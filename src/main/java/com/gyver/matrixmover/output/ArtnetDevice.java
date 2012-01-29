@@ -23,6 +23,7 @@ import artnet4j.packets.ArtDmxPacket;
 import com.gyver.matrixmover.core.MatrixData;
 import com.gyver.matrixmover.properties.PropertiesHelper;
 import java.net.InetAddress;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -84,6 +85,7 @@ public class ArtnetDevice extends Output {
      */
     @Override
     public void update(int[] buffer) {
+//       System.out.println("Sending: \n"+Arrays.toString(buffer));
         if (this.initialized) {
             if (this.nrOfUniverse == 1) {
                 sendBufferToArtnetReceiver(0, convertIntToByteBuffer(buffer));
@@ -121,7 +123,7 @@ public class ArtnetDevice extends Output {
      */
     private void sendBufferToArtnetReceiver(int universeOffset, byte[] buffer) {
         ArtDmxPacket dmx = new ArtDmxPacket();
-
+//        System.out.println("Sending: \n"+Arrays.toString(buffer));
         //parameter: int subnetID, int universeID
         dmx.setUniverse(0, this.firstUniverseId + universeOffset);
         dmx.setSequenceID(sequenceID % 255);

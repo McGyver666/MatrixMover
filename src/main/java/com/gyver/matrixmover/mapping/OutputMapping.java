@@ -18,6 +18,7 @@ package com.gyver.matrixmover.mapping;
 
 import com.gyver.matrixmover.core.MatrixData;
 import com.gyver.matrixmover.gui.Frame;
+import java.util.Arrays;
 
 /**
  * Applies a pixel wise mapping to the output. 
