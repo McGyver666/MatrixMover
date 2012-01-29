@@ -43,12 +43,14 @@ public abstract class Generator {
         COLOR_FADE(2),
         /** The PLASMA */
         PLASMA(3),
+        /** The DROPS */
+        DROPS(4),
         /** The FIRE */
-        FIRE(4),
+        FIRE(5),
         /** The TEXTWRITER */
-        TEXTWRITER(5), 
+        TEXTWRITER(6), 
         /** The METABALLS */
-        METABALLS(6);
+        METABALLS(7);
         
         /*
          * If you add generators, keep in mind to add a case in 
@@ -62,6 +64,7 @@ public abstract class Generator {
         public static final String STRING_COLOR_SCROLL = "Color Scroll";
         public static final String STRING_COLOR_FADE = "Color Fade";
         public static final String STRING_PLASMA = "Plasma";
+        public static final String STRING_DROPS = "Drops";
         public static final String STRING_FIRE = "Flames";
         public static final String STRING_TEXTWRITER = "Text";
         public static final String STRING_METABALLS = "Metaballs";
@@ -102,6 +105,8 @@ public abstract class Generator {
                     return STRING_PLASMA;
                 case FIRE:
                     return STRING_FIRE;
+                case DROPS:
+                    return STRING_DROPS;
                 case TEXTWRITER:
                     return STRING_TEXTWRITER;
                 case METABALLS:
