@@ -18,6 +18,7 @@
 package com.gyver.matrixmover.generator;
 
 import com.gyver.matrixmover.core.MatrixData;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,7 +29,7 @@ import java.util.logging.Logger;
  * 
  * @author Gyver
  */
-public abstract class Generator {
+public abstract class Generator implements Serializable {
 
     /**
      * The Enum GeneratorName.

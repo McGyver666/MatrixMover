@@ -18,6 +18,7 @@
 package com.gyver.matrixmover.effect;
 
 import com.gyver.matrixmover.core.MatrixData;
+import java.io.Serializable;
 
 /**
  * The Class Effect is a parent class for every Effect class.
@@ -26,7 +27,7 @@ import com.gyver.matrixmover.core.MatrixData;
  * 
  *  @author Gyver
  */
-public abstract class Effect{
+public abstract class Effect implements Serializable{
 
     /**
      * The Enum EffectName.
@@ -109,9 +110,8 @@ public abstract class Effect{
      */
     public Effect(EffectName effectName, MatrixData md) {
         this.effectName = effectName;
-        MatrixData matrix = md;
-        this.internalBufferWidth = matrix.getWidth();
-        this.internalBufferHeight = matrix.getHeight();
+        this.internalBufferWidth = md.getWidth();
+        this.internalBufferHeight = md.getHeight();
     }
 
     /**

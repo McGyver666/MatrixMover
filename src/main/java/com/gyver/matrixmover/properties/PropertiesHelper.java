@@ -108,6 +108,10 @@ public class PropertiesHelper {
     public int getOutputPixeMode() {
         return parsePixelMode(ConfigConstants.OUTPUT_PIXEL_MODE);
     }
+    
+    public String getScenesFile() {
+        return config.getProperty(ConfigConstants.SCENES_FILE);
+    }
 
     /**
      * get configured artnet ip.

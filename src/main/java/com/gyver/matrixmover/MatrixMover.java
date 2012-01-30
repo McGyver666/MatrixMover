@@ -126,7 +126,6 @@ public class MatrixMover {
                 guiFrame.initFrame(ph, controller);
                 guiFrame.setSize(1000, 600);
                 guiFrame.centerWindow();
-                guiFrame.setVisible(true);
                 MatrixMover.guiReady(true);
             }
         });
@@ -145,13 +144,17 @@ public class MatrixMover {
             }
         }
         
+        LOG.log(Level.INFO, "Trying to load scenes from scene file");
         controller.postInit();
+        controller.loadScenes();
         
         fpsTimer.scheduleAtFixedRate(new ExecutionTimerTask(controller), 1, millisecondsDelay);
         audioTimer.schedule(new AudioTimerTask(controller), 1000, millisecondsDelay / 2);
+
         
         LOG.log(Level.INFO, "MatrixMover Setup END");
         MMSplashScreen.close();
+        guiFrame.setVisible(true);
     }
     
     private static void guiReady(boolean ready){

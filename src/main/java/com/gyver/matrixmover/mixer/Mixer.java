@@ -17,6 +17,8 @@
  */
 package com.gyver.matrixmover.mixer;
 
+import java.io.Serializable;
+
 /**
  * The class Mixer, a parent class for all mixer classes, mixes two buffers 
  * together.
@@ -26,7 +28,7 @@ package com.gyver.matrixmover.mixer;
  * @author Gyver
  *
  */
-public abstract class Mixer {
+public abstract class Mixer implements Serializable {
 
     /**
      * The Enum MixerName.

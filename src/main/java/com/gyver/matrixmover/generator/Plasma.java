@@ -33,7 +33,6 @@ public class Plasma extends ColorMapAwareGenerator {
     /** The frame count. */
     private float timeDisplacement;
     
-    private MatrixData md = null;
     private float offset = 20;
     private float zoom = 2;
     private int distance = 1024;
@@ -47,8 +46,6 @@ public class Plasma extends ColorMapAwareGenerator {
     public Plasma(MatrixData matrix, List<Color> colorMap) {
         super(GeneratorName.COLOR_SCROLL, matrix, colorMap);
         timeDisplacement = 1;
-        
-        this.md = matrix;
     }
 
     @Override
@@ -62,9 +59,9 @@ public class Plasma extends ColorMapAwareGenerator {
         float calculation2 = (float) Math.sin(Math.toRadians(timeDisplacement * -3.6352262f));
 
         int aaa = this.distance;
-        int ySize = md.getHeight();
+        int ySize = internalBufferHeight;
         // Plasma algorithm
-        for (int x = 0; x < md.getWidth(); x++) {
+        for (int x = 0; x < internalBufferWidth; x++) {
             xc = xc + zoom;
             float yc = offset;
             float s1 = aaa + aaa * (float) Math.sin(Math.toRadians(xc) * calculation1);
@@ -74,7 +71,7 @@ public class Plasma extends ColorMapAwareGenerator {
                 float s2 = aaa + aaa * (float) Math.sin(Math.toRadians(yc) * calculation2);
                 float s3 = aaa + aaa * (float) Math.sin(Math.toRadians((xc + yc + timeDisplacement * 5) / 2));
                 float s = (s1 + s2 + s3) / (6f * 255f);
-                this.internalBuffer[y * md.getWidth() + x] = getColor(s);
+                this.internalBuffer[y * internalBufferWidth + x] = getColor(s);
             }
         }
     }

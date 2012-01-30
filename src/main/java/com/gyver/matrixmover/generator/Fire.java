@@ -39,8 +39,7 @@ public class Fire extends Generator {
     /** The buffer. */
     private int[] buffer;
     
-    private MatrixData md = null;
-
+    
     /**
      * Instantiates a new fire.
      *
@@ -48,11 +47,10 @@ public class Fire extends Generator {
      */
     public Fire(MatrixData md) {
         super(GeneratorName.FIRE, md);
-        this.md = md;
-
+        
         //Setup palette
         colors = new int[256];
-        buffer = new int[md.getWidth() * (md.getHeight()+2)];
+        buffer = new int[internalBufferWidth * (internalBufferHeight+2)];
         for (int i = 0; i < 32; ++i) {
             /* black to blue, 32 values*/
             colors[i] = getColor(0, 0, i << 1);
@@ -88,10 +86,10 @@ public class Fire extends Generator {
 
     @Override
     public void update() {
-        int j = md.getWidth() * (md.getHeight()+1);
+        int j = internalBufferWidth * (internalBufferHeight+1);
 
         int random;
-        for (int i = 0; i < md.getWidth(); i++) {
+        for (int i = 0; i < internalBufferWidth; i++) {
             random = r.nextInt(16);
             /* the lower the value, the intense the fire, compensate a lower value with a higher decay value*/
             if (random > 10) {
@@ -104,38 +102,38 @@ public class Fire extends Generator {
 
         /* move fire upwards, start at bottom*/
         int temp;
-        for (int index = 0; index < md.getHeight()+1; index++) {
-            for (int i = 0; i < md.getWidth(); i++) {
+        for (int index = 0; index < internalBufferHeight+1; index++) {
+            for (int i = 0; i < internalBufferWidth; i++) {
                 if (i == 0) {
                     /* at the left border*/
                     temp = buffer[j];
                     temp += buffer[j + 1];
-                    temp += buffer[j - md.getWidth()];
+                    temp += buffer[j - internalBufferWidth];
                     temp /= 3;
-                } else if (i == md.getWidth() - 1) {
+                } else if (i == internalBufferWidth - 1) {
                     /* at the right border*/
                     temp = buffer[j + i];
-                    temp += buffer[j - md.getWidth() + i];
+                    temp += buffer[j - internalBufferWidth + i];
                     temp += buffer[j + i - 1];
                     temp /= 3;
                 } else {
                     temp = buffer[j + i];
                     temp += buffer[j + i + 1];
                     temp += buffer[j + i - 1];
-                    temp += buffer[j - md.getWidth() + i];
+                    temp += buffer[j - internalBufferWidth + i];
                     temp >>= 2;
                 }
                 if (temp > 1) {
                     /* decay */
                     temp--;
                 }
-                this.buffer[j - md.getWidth() + i] = temp;
-                int position = j + i - (2*md.getWidth());
+                this.buffer[j - internalBufferWidth + i] = temp;
+                int position = j + i - (2*internalBufferWidth);
                 if(position >= 0){
                     this.internalBuffer[position] = colors[temp];
                 }
             }
-            j -= md.getWidth();
+            j -= internalBufferWidth;
         }
 
     }

@@ -25,7 +25,6 @@ import com.gyver.matrixmover.core.MatrixData;
  */
 public class Drops extends ObjectsContainingGenerator {
     
-    private MatrixData md = null;
     private DropDirection dropDirection = null;
     
     private int dropsPerScreen = 2;
@@ -87,7 +86,6 @@ public class Drops extends ObjectsContainingGenerator {
     public Drops(MatrixData md){
         super(GeneratorName.DROPS, md, null);
         
-        this.md = md;
         dropDirection = DropDirection.TOP_TO_BOTTOM;
         
         calculateUpdateRates();
@@ -120,21 +118,21 @@ public class Drops extends ObjectsContainingGenerator {
         while(dropUpdatesDone >= updatesToNextDrop){
             dropUpdatesDone = dropUpdatesDone - updatesToNextDrop;
             //paint a new drop
-            int position = (int) Math.floor(Math.random()*md.getHeight());
+            int position = (int) Math.floor(Math.random()*internalBufferHeight);
             nextColor = ((nextColor+1) % colorMap.size());
-            internalBuffer[position * md.getWidth()] = this.getColor(nextColor);
+            internalBuffer[position * internalBufferWidth] = this.getColor(nextColor);
         }
         while(shiftUpdatesDone >= updatesToNextShift){
             shiftUpdatesDone = shiftUpdatesDone - updatesToNextShift;
             //shift the buffer down, keep first line
-            for(int i = md.getWidth()-1; i >= 1; i--){
-                for(int n = 0; n < md.getHeight(); n++){
-                    internalBuffer[n*md.getWidth()+i] = internalBuffer[n*md.getWidth()+i-1];
+            for(int i = internalBufferWidth-1; i >= 1; i--){
+                for(int n = 0; n < internalBufferHeight; n++){
+                    internalBuffer[n*internalBufferWidth+i] = internalBuffer[n*internalBufferWidth+i-1];
                 }
             }
             //then dimm fist line
-            for(int n = 0; n < md.getHeight(); n++){
-                int col = internalBuffer[n * md.getWidth()];
+            for(int n = 0; n < internalBufferHeight; n++){
+                int col = internalBuffer[n * internalBufferWidth];
                 if(col == 0){
                     continue;
                 }
@@ -155,7 +153,7 @@ public class Drops extends ObjectsContainingGenerator {
                     blue = 0;
                 }
                 
-                internalBuffer[n * md.getWidth()] = (int) ((red << 16) | (green << 8) | blue);
+                internalBuffer[n * internalBufferWidth] = (int) ((red << 16) | (green << 8) | blue);
                             
             }
         }
@@ -165,22 +163,22 @@ public class Drops extends ObjectsContainingGenerator {
         while(dropUpdatesDone >= updatesToNextDrop){
             dropUpdatesDone = dropUpdatesDone - updatesToNextDrop;
             //paint a new drop
-            int position = (int) Math.floor(Math.random()*md.getHeight());
+            int position = (int) Math.floor(Math.random()*internalBufferHeight);
             nextColor = ((nextColor+1) % colorMap.size());
-            internalBuffer[((position+1) * md.getWidth())-1] = this.getColor(nextColor);
+            internalBuffer[((position+1) * internalBufferWidth)-1] = this.getColor(nextColor);
         }
         while(shiftUpdatesDone >= updatesToNextShift){
             shiftUpdatesDone = shiftUpdatesDone - updatesToNextShift;
              
-            for(int i = 1; i < md.getWidth(); i++){
-                for(int n = 0; n < md.getHeight(); n++){
+            for(int i = 1; i < internalBufferWidth; i++){
+                for(int n = 0; n < internalBufferHeight; n++){
                     
-                    internalBuffer[(n*md.getWidth())+i-1] = internalBuffer[(n*md.getWidth())+i];
+                    internalBuffer[(n*internalBufferWidth)+i-1] = internalBuffer[(n*internalBufferWidth)+i];
                 }
             }
             //then dimm fist line
-            for(int n = 0; n < md.getHeight(); n++){
-                int col = internalBuffer[((n+1) * md.getWidth())-1];
+            for(int n = 0; n < internalBufferHeight; n++){
+                int col = internalBuffer[((n+1) * internalBufferWidth)-1];
                 if(col == 0){
                     continue;
                 }
@@ -201,7 +199,7 @@ public class Drops extends ObjectsContainingGenerator {
                     blue = 0;
                 }
                 
-                internalBuffer[((n+1) * md.getWidth())-1] = (int) ((red << 16) | (green << 8) | blue);
+                internalBuffer[((n+1) * internalBufferWidth)-1] = (int) ((red << 16) | (green << 8) | blue);
                             
             }
         }
@@ -212,20 +210,20 @@ public class Drops extends ObjectsContainingGenerator {
         while(dropUpdatesDone >= updatesToNextDrop){
             dropUpdatesDone = dropUpdatesDone - updatesToNextDrop;
             //paint a new drop
-            int position = (int) Math.floor(Math.random()*md.getWidth());
+            int position = (int) Math.floor(Math.random()*internalBufferWidth);
             nextColor = ((nextColor+1) % colorMap.size());
             internalBuffer[position] = this.getColor(nextColor);
         }
         while(shiftUpdatesDone >= updatesToNextShift){
             shiftUpdatesDone = shiftUpdatesDone - updatesToNextShift;
             //shift the buffer down, keep first line
-            for(int i = md.getHeight()-1; i >= 1; i--){
-                for(int n = 0; n < md.getWidth(); n++){
-                    internalBuffer[i*md.getWidth()+n] = internalBuffer[(i-1)*md.getWidth()+n];
+            for(int i = internalBufferHeight-1; i >= 1; i--){
+                for(int n = 0; n < internalBufferWidth; n++){
+                    internalBuffer[i*internalBufferWidth+n] = internalBuffer[(i-1)*internalBufferWidth+n];
                 }
             }
             //then dimm fist line
-            for(int n = 0; n < md.getWidth(); n++){
+            for(int n = 0; n < internalBufferWidth; n++){
                 int col = internalBuffer[n];
                 if(col == 0){
                     continue;
@@ -257,21 +255,21 @@ public class Drops extends ObjectsContainingGenerator {
         while(dropUpdatesDone >= updatesToNextDrop){
             dropUpdatesDone = dropUpdatesDone - updatesToNextDrop;
             //paint a new drop
-            int position = (int) Math.floor(Math.random()*md.getWidth());
+            int position = (int) Math.floor(Math.random()*internalBufferWidth);
             nextColor = ((nextColor+1) % colorMap.size());
-            internalBuffer[internalBuffer.length - md.getWidth() + position] = this.getColor(nextColor);
+            internalBuffer[internalBuffer.length - internalBufferWidth + position] = this.getColor(nextColor);
         }
         while(shiftUpdatesDone >= updatesToNextShift){
             shiftUpdatesDone = shiftUpdatesDone - updatesToNextShift;
             //shift the buffer up, keep first line
-            for(int i = 0; i < md.getHeight()-1; i++){
-                for(int n = 0; n < md.getWidth(); n++){
-                    internalBuffer[i*md.getWidth()+n] = internalBuffer[(i+1)*md.getWidth()+n];
+            for(int i = 0; i < internalBufferHeight-1; i++){
+                for(int n = 0; n < internalBufferWidth; n++){
+                    internalBuffer[i*internalBufferWidth+n] = internalBuffer[(i+1)*internalBufferWidth+n];
                 }
             }
             //then dimm fist line
-            for(int n = 0; n < md.getWidth(); n++){
-                int col = internalBuffer[internalBuffer.length - md.getWidth() + n];
+            for(int n = 0; n < internalBufferWidth; n++){
+                int col = internalBuffer[internalBuffer.length - internalBufferWidth + n];
                 if(col == 0){
                     continue;
                 }
@@ -292,7 +290,7 @@ public class Drops extends ObjectsContainingGenerator {
                     blue = 0;
                 }
                 
-                internalBuffer[internalBuffer.length - md.getWidth() + n] = (int) ((red << 16) | (green << 8) | blue);
+                internalBuffer[internalBuffer.length - internalBufferWidth + n] = (int) ((red << 16) | (green << 8) | blue);
                             
             }
         }
@@ -304,11 +302,11 @@ public class Drops extends ObjectsContainingGenerator {
         switch (dropDirection) {
             case LEFT_TO_RIGHT:
             case RIGHT_TO_LEFT:
-                updatesToNextShift = (fps / (float)md.getWidth()) / (bpm / 60F);
+                updatesToNextShift = (fps / (float)internalBufferWidth) / (bpm / 60F);
                 break;
             case TOP_TO_BOTTOM:
             case BOTTOM_TO_TOP:
-                updatesToNextShift = (fps / (float)md.getHeight()) / (bpm / 60F);
+                updatesToNextShift = (fps / (float)internalBufferHeight) / (bpm / 60F);
                 break;
         }
         

@@ -27,7 +27,9 @@ import com.gyver.matrixmover.mapping.OutputMapping;
 import com.gyver.matrixmover.mapping.PixelRgbMapping;
 import com.gyver.matrixmover.output.Output;
 import com.gyver.matrixmover.properties.PropertiesHelper;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,6 +46,7 @@ public class Controller {
     public static final int LEFT_SIDE = 1;
     public static final int RIGHT_SIDE = 2;
     private static Controller instance = new Controller();
+
     private PropertiesHelper ph = null;
     private Output output = null;
     private MatrixData matrixData = null;
@@ -270,5 +273,36 @@ public class Controller {
         
         Frame.getFrameInstance().getLeftGeneratorPanel().setButtonActive(leftVisual.getActiveScene(), true);
         Frame.getFrameInstance().getRightGeneratorPanel().setButtonActive(rightVisual.getActiveScene(), true);
+    }
+    
+    public void sceneChanged(int side, int activeVisualNumber, boolean changed) {
+        if (side == LEFT_SIDE) {
+            leftVisual.getVisualSetup(activeVisualNumber).sceneChanged(changed);
+        } else if (side == RIGHT_SIDE) {
+            rightVisual.getVisualSetup(activeVisualNumber).sceneChanged(changed);
+        } else {
+            throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
+        }
+    }
+    
+    public void loadScenes() {
+        List<VisualSetup[]> arrays = SceneReader.loadScenes(ph.getScenesFile(), matrixData);
+        leftVisual.setVisualSetupArray(arrays.get(0));
+        rightVisual.setVisualSetupArray(arrays.get(1));
+        
+        Frame.getFrameInstance().setComboBoxesForChangedScene(LEFT_SIDE, leftVisual.getActiveVisualSetup());
+        Frame.getFrameInstance().setComboBoxesForChangedScene(RIGHT_SIDE, rightVisual.getActiveVisualSetup());
+        
+        Frame.getFrameInstance().getLeftGeneratorPanel().setChangedScenesButtonsFromVisualSetupArray(leftVisual.getSceneArray());
+        Frame.getFrameInstance().getRightGeneratorPanel().setChangedScenesButtonsFromVisualSetupArray(rightVisual.getSceneArray());
+        
+        
+    }
+    
+    public void saveScenes() {
+        ArrayList<VisualSetup[]> arrays = new ArrayList<VisualSetup[]>();
+        arrays.add(leftVisual.getSceneArray());
+        arrays.add(rightVisual.getSceneArray());
+        SceneReader.writeScenes(arrays, ph.getScenesFile());
     }
 }

@@ -22,6 +22,7 @@
  */
 package com.gyver.matrixmover.gui;
 
+import com.gyver.matrixmover.core.VisualSetup;
 import com.gyver.matrixmover.gui.listener.SceneButtonListener;
 
 /**
@@ -986,4 +987,10 @@ public class GeneratorPanel extends javax.swing.JPanel {
     private com.gyver.matrixmover.gui.LedScreen ledScreen1;
     private javax.swing.JPanel sceneSelectionPanel;
     // End of variables declaration//GEN-END:variables
+
+    public void setChangedScenesButtonsFromVisualSetupArray(VisualSetup[] visualArray) {
+        for(int i = 0; i < visualArray.length; i++){
+            this.setButtonChanged(i+1, visualArray[i].isSceneChanged());
+        }
+    }
 }

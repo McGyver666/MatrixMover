@@ -25,7 +25,7 @@ package com.gyver.matrixmover.properties;
  * @author Gyver
  */
 public final class ConfigConstants {
-
+    
     private ConfigConstants() {
         /* Utility Class */
     }
@@ -41,4 +41,6 @@ public final class ConfigConstants {
     public static final String ARTNET_IP = "artnet.ip";
     public static final String ARTNET_PIXELS_PER_UNIVERSE = "artnet.pixels.per.universe";
     public static final String ARTNET_FIRST_UNIVERSE_ID = "artnet.first.universe.id";
+    public static final String SCENES_FILE = "scenes.file";
+
 }

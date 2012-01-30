@@ -54,7 +54,7 @@ public class GeneratorVisual extends Visual {
     /** The log. */
     private static final Logger LOG = Logger.getLogger(GeneratorVisual.class.getName());
     
-    private final int NUMBER_OF_SCENES = 48;
+    public static final int NUMBER_OF_SCENES = 48;
     
     private int activeScene = 0;
     
@@ -72,12 +72,33 @@ public class GeneratorVisual extends Visual {
         
     }
     
+    public void setVisualSetupArray(VisualSetup[] visualSetupArray){
+        this.scenes = visualSetupArray;
+    }
+    
     public void setActiveScene(int scene){
         this.activeScene = scene-1;
     }
     
     public int getActiveScene(){
         return this.activeScene+1;
+    }
+    
+    public VisualSetup[] getSceneArray(){
+        return scenes;
+    }
+    
+    public VisualSetup getVisualSetup(int i){
+        return this.scenes[i-1];
+    }
+    
+    public VisualSetup getActiveVisualSetup(){
+        return scenes[activeScene];
+    }
+    
+    @Override
+    public int[] getVisualOutput() {
+        return scenes[activeScene].getSceneOutput();
     }
     
     /**
@@ -196,15 +217,6 @@ public class GeneratorVisual extends Visual {
                 break;
             }
         }
-    }
-    
-    public VisualSetup getActiveVisualSetup(){
-        return scenes[activeScene];
-    }
-    
-    @Override
-    public int[] getVisualOutput() {
-        return scenes[activeScene].getSceneOutput();
     }
 
     

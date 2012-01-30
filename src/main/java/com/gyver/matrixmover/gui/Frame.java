@@ -107,6 +107,11 @@ public class Frame extends javax.swing.JFrame {
         setTitle("MatrixMover");
         setMinimumSize(new java.awt.Dimension(800, 600));
         setName("FrameMatrixMover"); // NOI18N
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
@@ -193,6 +198,11 @@ public class Frame extends javax.swing.JFrame {
         effectPanelRight.recomputeLedPixelSize();
         masterPanel.recomputeLedPixelSize();
     }//GEN-LAST:event_formComponentResized
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        Controller.getControllerInstance().saveScenes();
+    }//GEN-LAST:event_formWindowClosing
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.gyver.matrixmover.gui.GeneratorPanel effectPanelLeft;
     private com.gyver.matrixmover.gui.GeneratorPanel effectPanelRight;
@@ -251,6 +261,14 @@ public class Frame extends javax.swing.JFrame {
         return this.effectPanelRight;
     }
 
+    public GeneratorSetup getLeftGeneratorSetup() {
+        return this.generatorSetupLeft;
+    }
+
+    public GeneratorSetup getRightGeneratorSetup() {
+        return this.generatorSetupRight;
+    }
+
     public void setAudioLevel(int[] level) {
         this.masterSettings1.setAudioLevel(level);
     }
@@ -258,5 +276,5 @@ public class Frame extends javax.swing.JFrame {
     public void showWarning(String string) {
         JOptionPane.showMessageDialog(this, string, "Warning", JOptionPane.WARNING_MESSAGE);
     }
-    
+   
 }

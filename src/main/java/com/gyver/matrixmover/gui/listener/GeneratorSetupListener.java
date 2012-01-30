@@ -139,6 +139,7 @@ public class GeneratorSetupListener implements ActionListener, ChangeListener {
 
     private void activeButtonChanged(boolean changed) {
         int activeVisualNumber = Controller.getControllerInstance().getActiveVisualNumber(this.side);
+        Controller.getControllerInstance().sceneChanged(this.side, activeVisualNumber, changed);
         GeneratorPanel panel = null;
         if (this.side == Controller.LEFT_SIDE) {
             panel = Frame.getFrameInstance().getLeftGeneratorPanel();

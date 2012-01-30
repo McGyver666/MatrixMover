@@ -22,6 +22,7 @@ import com.gyver.matrixmover.generator.Generator;
 import com.gyver.matrixmover.generator.SimpleColorGenerator;
 import com.gyver.matrixmover.mixer.Mixer;
 import com.gyver.matrixmover.mixer.PassThruMixer;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,12 +31,11 @@ import java.util.logging.Logger;
  * 
  * @author Gyver
  */
-public class VisualSetup {
+public class VisualSetup implements Serializable{
     
     /** The log. */
     private static final Logger LOG = Logger.getLogger(VisualSetup.class.getName());
     
-    private MatrixData md = null;
     private Generator g1 = null;
     private Generator g2 = null;
     private Effect e1 = null;
@@ -43,10 +43,10 @@ public class VisualSetup {
     private Mixer m = null;
     private int g1Intensity = 255;
     private int g2Intensity = 255;
+    private boolean changed = false;
     
     
     public VisualSetup(MatrixData md){
-        this.md = md;
         
         //setup with everything to passthrou
         g1 = new SimpleColorGenerator(md);
@@ -114,6 +114,14 @@ public class VisualSetup {
     
     public int getGenerator2Intensity(){
         return g2Intensity;
+    }
+    
+    public void sceneChanged(boolean changed){
+        this.changed = changed;
+    }
+    
+    public boolean isSceneChanged(){
+        return changed;
     }
     
     public int[] getSceneOutput(){
