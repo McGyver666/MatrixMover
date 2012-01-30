@@ -71,12 +71,7 @@ public class MatrixMover {
         LOG.log(Level.INFO, "MatrixMover Setup START");
         
         MMSplashScreen.initSplash();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MatrixMover.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        
         Properties config = new Properties();
         try {
             InputStream is = new FileInputStream(CONFIG_FILENAME);
