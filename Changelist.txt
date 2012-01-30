@@ -1,3 +1,8 @@
+0.1 beta
+* fixed artnet
+* added drops
+
+
 0.3 alpha
 * scene selection buttons now highlighting if changed or active
 * fixed comboboxes changing when new scene selected
