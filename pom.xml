@@ -31,6 +31,15 @@
                             <addClasspath>true</addClasspath>
                             <mainClass>com.gyver.matrixmover.MatrixMover</mainClass>
                         </manifest>
+                        <manifestEntries>
+                            <version>
+                                ${project.version}
+                            </version>
+                            <implementation-version>
+                                ${project.version}-${buildNumber}
+                            </implementation-version>
+                            <splashscreen-image>splash.png</splashscreen-image>
+                        </manifestEntries>
                     </archive>
                 </configuration>
         

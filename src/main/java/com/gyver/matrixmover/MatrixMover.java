@@ -26,6 +26,9 @@ import com.gyver.matrixmover.output.NullDevice;
 import com.gyver.matrixmover.output.Output;
 import com.gyver.matrixmover.output.OutputDeviceEnum;
 import com.gyver.matrixmover.properties.PropertiesHelper;
+import com.gyver.matrixmover.splash.MMSplashScreen;
+import java.awt.Graphics2D;
+import java.awt.SplashScreen;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
@@ -57,6 +60,8 @@ public class MatrixMover {
     private Output output;
     
     private static boolean guiReady = false;
+    
+    private Frame guiFrame = null;
 
     /** 
      * Prepare MatrixMover to start
@@ -64,6 +69,13 @@ public class MatrixMover {
     private void setup() {
         
         LOG.log(Level.INFO, "MatrixMover Setup START");
+        
+        MMSplashScreen.initSplash();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MatrixMover.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         Properties config = new Properties();
         try {
@@ -115,7 +127,7 @@ public class MatrixMover {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Frame guiFrame = Frame.getFrameInstance();
+                guiFrame = Frame.getFrameInstance();
                 guiFrame.initFrame(ph, controller);
                 guiFrame.setSize(1000, 600);
                 guiFrame.centerWindow();
@@ -144,7 +156,7 @@ public class MatrixMover {
         audioTimer.schedule(new AudioTimerTask(controller), 1000, millisecondsDelay / 2);
         
         LOG.log(Level.INFO, "MatrixMover Setup END");
-
+        MMSplashScreen.close();
     }
     
     private static void guiReady(boolean ready){
