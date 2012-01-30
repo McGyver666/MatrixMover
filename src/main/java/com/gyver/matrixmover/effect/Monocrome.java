@@ -50,7 +50,7 @@ public class Monocrome extends Effect {
             cg = (short) (255 - ((col >> 8) & 255));
             cb = (short) (255 - (col & 255));
 
-            mono = (short) Math.round((0.2125 * cr) + (0.7154 * cg) + (0.0721 * cb));
+            mono = (short) (255 - Math.round((0.2125 * cr) + (0.7154 * cg) + (0.0721 * cb)));
             
             ret[i] = (mono << 16) | (mono << 8) | mono;
         }
