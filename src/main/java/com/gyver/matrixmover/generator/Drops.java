@@ -18,8 +18,6 @@ package com.gyver.matrixmover.generator;
 
 import com.gyver.matrixmover.core.Controller;
 import com.gyver.matrixmover.core.MatrixData;
-import java.awt.Color;
-import java.util.ArrayList;
 
 /**
  *
@@ -119,11 +117,94 @@ public class Drops extends ObjectsContainingGenerator {
     }
     
     private void leftToRight() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        while(dropUpdatesDone >= updatesToNextDrop){
+            dropUpdatesDone = dropUpdatesDone - updatesToNextDrop;
+            //paint a new drop
+            int position = (int) Math.floor(Math.random()*md.getHeight());
+            nextColor = ((nextColor+1) % colorMap.size());
+            internalBuffer[position * md.getWidth()] = this.getColor(nextColor);
+        }
+        while(shiftUpdatesDone >= updatesToNextShift){
+            shiftUpdatesDone = shiftUpdatesDone - updatesToNextShift;
+            //shift the buffer down, keep first line
+            for(int i = md.getWidth()-1; i >= 1; i--){
+                for(int n = 0; n < md.getHeight(); n++){
+                    internalBuffer[n*md.getWidth()+i] = internalBuffer[n*md.getWidth()+i-1];
+                }
+            }
+            //then dimm fist line
+            for(int n = 0; n < md.getHeight(); n++){
+                int col = internalBuffer[n * md.getWidth()];
+                if(col == 0){
+                    continue;
+                }
+                short red = (short) ((col >> 16) & 255);
+                short green = (short) ((col >> 8) & 255);
+                short blue = (short) (col & 255);
+                
+                red = (short) (red - (256 / lengthDrops));
+                if(red < 0){
+                    red = 0;
+                }
+                green = (short) (green - (256 / lengthDrops));
+                if(green < 0){
+                    green = 0;
+                }
+                blue = (short) (blue - (256 / lengthDrops));
+                if(blue < 0){
+                    blue = 0;
+                }
+                
+                internalBuffer[n * md.getWidth()] = (int) ((red << 16) | (green << 8) | blue);
+                            
+            }
+        }
     }
 
     private void rightToLeft() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        while(dropUpdatesDone >= updatesToNextDrop){
+            dropUpdatesDone = dropUpdatesDone - updatesToNextDrop;
+            //paint a new drop
+            int position = (int) Math.floor(Math.random()*md.getHeight());
+            nextColor = ((nextColor+1) % colorMap.size());
+            internalBuffer[((position+1) * md.getWidth())-1] = this.getColor(nextColor);
+        }
+        while(shiftUpdatesDone >= updatesToNextShift){
+            shiftUpdatesDone = shiftUpdatesDone - updatesToNextShift;
+             
+            for(int i = 1; i < md.getWidth(); i++){
+                for(int n = 0; n < md.getHeight(); n++){
+                    
+                    internalBuffer[(n*md.getWidth())+i-1] = internalBuffer[(n*md.getWidth())+i];
+                }
+            }
+            //then dimm fist line
+            for(int n = 0; n < md.getHeight(); n++){
+                int col = internalBuffer[((n+1) * md.getWidth())-1];
+                if(col == 0){
+                    continue;
+                }
+                short red = (short) ((col >> 16) & 255);
+                short green = (short) ((col >> 8) & 255);
+                short blue = (short) (col & 255);
+                
+                red = (short) (red - (256 / lengthDrops));
+                if(red < 0){
+                    red = 0;
+                }
+                green = (short) (green - (256 / lengthDrops));
+                if(green < 0){
+                    green = 0;
+                }
+                blue = (short) (blue - (256 / lengthDrops));
+                if(blue < 0){
+                    blue = 0;
+                }
+                
+                internalBuffer[((n+1) * md.getWidth())-1] = (int) ((red << 16) | (green << 8) | blue);
+                            
+            }
+        }
     }
 
     private void topToBottom() {
