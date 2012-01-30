@@ -4,7 +4,6 @@ Todo list for MatrixMover
 * Remake Textwriter generator and add settings dialog
 * Remake Metaballs generator and add settings dialog
 * Add random pixel generator
-* Make scenes Saveable
 * Add Crossfading methods (perhaps redesign crossfading section or add icons to buttons)
 * Add fixed time crossfading
 * Add audio muting, gain control and fft

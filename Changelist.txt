@@ -1,6 +1,7 @@
 0.1 beta
 * fixed artnet
 * added drops
+* added loading and saving of scenes
 
 
 0.3 alpha
