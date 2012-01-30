@@ -28,7 +28,6 @@ import com.gyver.matrixmover.mapping.PixelRgbMapping;
 import com.gyver.matrixmover.output.Output;
 import com.gyver.matrixmover.properties.PropertiesHelper;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

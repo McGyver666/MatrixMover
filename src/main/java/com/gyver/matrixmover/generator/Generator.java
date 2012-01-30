@@ -58,7 +58,7 @@ public abstract class Generator implements Serializable {
          * core.GeneratorVisual.setGeneratorFromString(int, String), so that a 
          * change via the gui reaches the Visuals. Without changes, 
          * new Generators are not executed. Additionally a case should 
-         * be added in gui.GeneratorSetup.openGeneratorSettingsDialog(String, Generator)
+         * be added in gui.listener.GeneratorSetupListener.openGeneratorSettingsDialog(String, Generator)
          * to open a Settings dialog.
          */
         public static final String STRING_SIMPLE_COLOR_GENERATOR = "Simple Color";
