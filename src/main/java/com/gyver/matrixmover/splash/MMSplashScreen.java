@@ -16,8 +16,12 @@
  */
 package com.gyver.matrixmover.splash;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.SplashScreen;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,20 +29,44 @@ import java.awt.SplashScreen;
  */
 public abstract class MMSplashScreen {
 
+    private static final int BAR_OFFSET = 10;
     private static SplashScreen splash = null;
+    private static Graphics2D g = null;
 
     public static void initSplash() {
         splash = SplashScreen.getSplashScreen();
         if (splash == null) {
-//            System.out.println("SplashScreen.getSplashScreen() returned null");
             return;
         }
-        Graphics2D g = splash.createGraphics();
+        g = splash.createGraphics();
         if (g == null) {
-//            System.out.println("g is null");
             return;
         }
 
+    }
+    
+    public static void setProgress(int i, String text){
+        
+        int barWidth = splash.getBounds().width - BAR_OFFSET - BAR_OFFSET;
+        int barYPos = splash.getBounds().height - 25;
+        
+        //clear everything
+        g.setBackground(new Color(0, 0, 0, 0));
+        g.clearRect(0, 0, splash.getBounds().width, splash.getBounds().height);
+        
+        g.setColor(new Color(192,0,0));
+        g.fillRect(BAR_OFFSET, barYPos, (int) Math.round(barWidth / 100F * (float) i), 5);
+        
+        g.setColor(Color.LIGHT_GRAY);
+        g.setFont(new Font("Dialog", Font.PLAIN, 10));
+        g.drawString(text, BAR_OFFSET, barYPos+15);
+        
+        splash.update();
+        try {
+            Thread.sleep(75);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MMSplashScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void close() {

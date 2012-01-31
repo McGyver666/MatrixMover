@@ -27,8 +27,6 @@ import com.gyver.matrixmover.output.Output;
 import com.gyver.matrixmover.output.OutputDeviceEnum;
 import com.gyver.matrixmover.properties.PropertiesHelper;
 import com.gyver.matrixmover.splash.MMSplashScreen;
-import java.awt.Graphics2D;
-import java.awt.SplashScreen;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
@@ -69,9 +67,10 @@ public class MatrixMover {
     private void setup() {
         
         LOG.log(Level.INFO, "MatrixMover Setup START");
-        
         MMSplashScreen.initSplash();
         
+        
+        MMSplashScreen.setProgress(10, "loading properties");
         Properties config = new Properties();
         try {
             InputStream is = new FileInputStream(CONFIG_FILENAME);
@@ -81,11 +80,11 @@ public class MatrixMover {
             LOG.log(Level.SEVERE, "Failed to load Config", e);
             throw new IllegalArgumentException("Configuration error!", e);
         }
-
         final PropertiesHelper ph = new PropertiesHelper(config);
 
+        
+        MMSplashScreen.setProgress(25, "setting up output device");
         OutputDeviceEnum outputDeviceEnum = ph.getOutputDevice();
-
         try {
             switch (outputDeviceEnum) {
                 case NULL:
@@ -102,11 +101,15 @@ public class MatrixMover {
             this.output = new NullDevice(ph);
         }
 
+        
         LOG.log(Level.INFO, "Starting Core");
+        MMSplashScreen.setProgress(35, "startomg programm core");
         final Controller controller = Controller.getControllerInstance();
         controller.initController(ph, output);
 
+        
         LOG.log(Level.FINER, "Loading NimROD LAF");
+        MMSplashScreen.setProgress(50, "loading look and feel");
         try {
             NimRODTheme nt = new NimRODTheme(LAF_THEME);
 
@@ -117,8 +120,9 @@ public class MatrixMover {
             Logger.getLogger(MatrixMover.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        LOG.log(Level.INFO, "Starting Gui");
         
+        LOG.log(Level.INFO, "Starting Gui");
+        MMSplashScreen.setProgress(60, "starting gui");
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -129,12 +133,6 @@ public class MatrixMover {
                 MatrixMover.guiReady(true);
             }
         });
-        
-        LOG.log(Level.INFO, "Starting timer with {0} FPS", ph.getFps());
-        Timer fpsTimer = new Timer();
-        Timer audioTimer = new Timer();
-        long millisecondsDelay = 1000 / ph.getFps();
-        
         //wait for gui to fully initialize
         while(!guiReady){
             try {
@@ -144,15 +142,27 @@ public class MatrixMover {
             }
         }
         
-        LOG.log(Level.INFO, "Trying to load scenes from scene file");
+        
+        MMSplashScreen.setProgress(75, "controller post init");
         controller.postInit();
+        
+        
+        LOG.log(Level.INFO, "Trying to load scenes from scene file");
+        MMSplashScreen.setProgress(80, "loading scenes");
         controller.loadScenes();
         
+        
+        MMSplashScreen.setProgress(90, "starting timer");
+        LOG.log(Level.INFO, "Starting timer with {0} FPS", ph.getFps());
+        Timer fpsTimer = new Timer();
+        Timer audioTimer = new Timer();
+        long millisecondsDelay = 1000 / ph.getFps();
         fpsTimer.scheduleAtFixedRate(new ExecutionTimerTask(controller), 1, millisecondsDelay);
         audioTimer.schedule(new AudioTimerTask(controller), 1000, millisecondsDelay / 2);
 
         
         LOG.log(Level.INFO, "MatrixMover Setup END");
+        MMSplashScreen.setProgress(100, "done loading");
         MMSplashScreen.close();
         guiFrame.setVisible(true);
     }

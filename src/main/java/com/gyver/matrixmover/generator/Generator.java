@@ -176,6 +176,16 @@ public abstract class Generator implements Serializable {
     public int getInternalBufferYSize() {
         return internalBufferHeight;
     }
+    
+    public void setInternalBufferXSize(int width){
+        this.internalBufferWidth = width;
+        this.internalBuffer = new int[internalBufferWidth * internalBufferHeight];
+    }
+
+    public void setInternalBufferYSize(int height){
+        this.internalBufferHeight = height;
+        this.internalBuffer = new int[internalBufferWidth * internalBufferHeight];
+    }
 
     /**
      * Gets the internal buffer size.

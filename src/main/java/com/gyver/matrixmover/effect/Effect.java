@@ -131,6 +131,14 @@ public abstract class Effect implements Serializable{
         return this.effectName.getId();
     }
 
+    public void setInternalBufferXSize(int width){
+        this.internalBufferWidth = width;
+    }
+
+    public void setInternalBufferYSize(int height){
+        this.internalBufferHeight = height;
+    }
+
     /**
      * Gets the name.
      *

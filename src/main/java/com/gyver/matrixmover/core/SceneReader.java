@@ -68,13 +68,35 @@ public abstract class SceneReader {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             //fill all visualSetups with initial empty scenes
             //if there was an error!
             for (int i = 0; i < leftScenes.length; i++) {
                 leftScenes[i] = new VisualSetup(md);
                 rightScenes[i] = new VisualSetup(md);
             }
+        }
+
+        //tell every generator the current matrix dimensions
+        for (VisualSetup setup : leftScenes) {
+            setup.getGenerator1().setInternalBufferXSize(md.getWidth());
+            setup.getGenerator1().setInternalBufferYSize(md.getHeight());
+            setup.getGenerator2().setInternalBufferXSize(md.getWidth());
+            setup.getGenerator2().setInternalBufferYSize(md.getHeight());
+            setup.getEffect1().setInternalBufferXSize(md.getWidth());
+            setup.getEffect1().setInternalBufferYSize(md.getHeight());
+            setup.getEffect2().setInternalBufferXSize(md.getWidth());
+            setup.getEffect2().setInternalBufferYSize(md.getHeight());
+        }
+        for (VisualSetup setup : rightScenes) {
+            setup.getGenerator1().setInternalBufferXSize(md.getWidth());
+            setup.getGenerator1().setInternalBufferYSize(md.getHeight());
+            setup.getGenerator2().setInternalBufferXSize(md.getWidth());
+            setup.getGenerator2().setInternalBufferYSize(md.getHeight());
+            setup.getEffect1().setInternalBufferXSize(md.getWidth());
+            setup.getEffect1().setInternalBufferYSize(md.getHeight());
+            setup.getEffect2().setInternalBufferXSize(md.getWidth());
+            setup.getEffect2().setInternalBufferYSize(md.getHeight());
         }
 
         ArrayList<VisualSetup[]> arrays = new ArrayList<VisualSetup[]>();
