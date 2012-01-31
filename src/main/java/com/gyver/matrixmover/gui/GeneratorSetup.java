@@ -22,7 +22,6 @@
  */
 package com.gyver.matrixmover.gui;
 
-import com.gyver.matrixmover.core.VisualSetup;
 import com.gyver.matrixmover.gui.listener.GeneratorSetupListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
