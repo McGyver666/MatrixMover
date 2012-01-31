@@ -1,18 +1,18 @@
 0.1 beta
-* fixed artnet
 * added rain
 * added loading and saving of scenes
 * added splashscreen
+* fixed artnet
 
 
 0.3 alpha
-* scene selection buttons now highlighting if changed or active
-* fixed comboboxes changing when new scene selected
+* added scene selection buttons now highlighting if changed or active
 * added audio system and input level display
 * added pixelwise output mapping
 * added pixel mapping
 * added Artnet Device
 * fixed ColorScroll and ColorFade freezing
+* fixed comboboxes changing when new scene selected
 
 
 0.2 alpha
