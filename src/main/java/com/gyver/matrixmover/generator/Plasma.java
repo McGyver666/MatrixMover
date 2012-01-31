@@ -44,7 +44,7 @@ public class Plasma extends ColorMapAwareGenerator {
      * @param controller the controller
      */
     public Plasma(MatrixData matrix, List<Color> colorMap) {
-        super(GeneratorName.COLOR_SCROLL, matrix, colorMap);
+        super(GeneratorName.PLASMA, matrix, colorMap);
         timeDisplacement = 1;
     }
 
