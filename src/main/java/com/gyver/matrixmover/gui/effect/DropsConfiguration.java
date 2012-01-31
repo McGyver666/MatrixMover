@@ -12,8 +12,8 @@ package com.gyver.matrixmover.gui.effect;
 
 import com.gyver.matrixmover.generator.ColorScroll;
 import com.gyver.matrixmover.generator.ColorScroll.ScrollMode;
-import com.gyver.matrixmover.generator.Drops;
-import com.gyver.matrixmover.generator.Drops.DropDirection;
+import com.gyver.matrixmover.generator.Rain;
+import com.gyver.matrixmover.generator.Rain.RainDirection;
 import com.gyver.matrixmover.generator.Generator.GeneratorName;
 import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.ColorMapDialog;
@@ -30,20 +30,20 @@ import javax.swing.event.ChangeEvent;
  */
 public class DropsConfiguration extends javax.swing.JDialog {
     
-    private Drops generator = null;
+    private Rain generator = null;
 
     /** Creates new form ColorTableDialog */
-    public DropsConfiguration(java.awt.Frame parent, boolean modal, Drops generator) {
+    public DropsConfiguration(java.awt.Frame parent, boolean modal, Rain generator) {
         super(parent, modal);
-        this.setTitle(GeneratorName.STRING_DROPS+" Configuration");
+        this.setTitle(GeneratorName.STRING_RAIN+" Configuration");
         this.generator = generator;
         initComponents();
         
-        tfsLength.setValue(generator.getDropLength());
+        tfsLength.setValue(generator.getRainLength());
         
         tfsSpeed.setValue(generator.getBpm());
         
-        cbScrollMode.setModel(new DefaultComboBoxModel(DropDirection.values()));
+        cbScrollMode.setModel(new DefaultComboBoxModel(RainDirection.values()));
         
         cbScrollMode.setSelectedItem(generator.getMode());
         
@@ -86,7 +86,7 @@ public class DropsConfiguration extends javax.swing.JDialog {
     
     private void tpsLengthStateChanged(ChangeEvent e){
         int distance = ((JTextFieldSlider) e.getSource()).getValue();
-        generator.setDropLength(distance);
+        generator.setRainLength(distance);
     }
 
     private void tpsSpeedStateChanged(ChangeEvent e){
@@ -250,7 +250,7 @@ public class DropsConfiguration extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbScrollModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbScrollModeActionPerformed
-        generator.setMode((DropDirection) cbScrollMode.getSelectedItem());
+        generator.setMode((RainDirection) cbScrollMode.getSelectedItem());
     }//GEN-LAST:event_cbScrollModeActionPerformed
 
     private void bColorMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bColorMapActionPerformed

@@ -24,7 +24,7 @@ import com.gyver.matrixmover.effect.MonocromeInvers;
 import com.gyver.matrixmover.effect.PassThru;
 import com.gyver.matrixmover.generator.ColorFade;
 import com.gyver.matrixmover.generator.ColorScroll;
-import com.gyver.matrixmover.generator.Drops;
+import com.gyver.matrixmover.generator.Rain;
 import com.gyver.matrixmover.generator.Fire;
 import com.gyver.matrixmover.generator.Generator;
 import com.gyver.matrixmover.generator.Generator.GeneratorName;
@@ -118,8 +118,8 @@ public class GeneratorVisual extends Visual {
             newGen = new Plasma(md, null);
         } else if (generator.equals(Generator.GeneratorName.FIRE)){
             newGen = new Fire(md);
-        } else if (generator.equals(Generator.GeneratorName.DROPS)){
-            newGen = new Drops(md);
+        } else if (generator.equals(Generator.GeneratorName.RAIN)){
+            newGen = new Rain(md);
         } else if (generator.equals(Generator.GeneratorName.METABALLS)){
             newGen = new MetaBalls(md);
         } else if (generator.equals(Generator.GeneratorName.TEXTWRITER)){

@@ -23,9 +23,9 @@ import com.gyver.matrixmover.core.MatrixData;
  *
  * @author Gyver
  */
-public class Drops extends ObjectsContainingGenerator {
+public class Rain extends ObjectsContainingGenerator {
     
-    private DropDirection dropDirection = null;
+    private RainDirection dropDirection = null;
     
     private int dropsPerScreen = 2;
     private int lengthDrops = 5;
@@ -39,7 +39,7 @@ public class Drops extends ObjectsContainingGenerator {
     
 
     
-    public enum DropDirection {
+    public enum RainDirection {
         LEFT_TO_RIGHT(0),
         RIGHT_TO_LEFT(1),
         TOP_TO_BOTTOM(2),
@@ -47,7 +47,7 @@ public class Drops extends ObjectsContainingGenerator {
         
         private int mode;
 
-        private DropDirection(int mode) {
+        private RainDirection(int mode) {
             this.mode = mode;
         }
 
@@ -55,8 +55,8 @@ public class Drops extends ObjectsContainingGenerator {
             return mode;
         }
 
-        public static DropDirection getDropDirection(int nr) {
-            for (DropDirection s : DropDirection.values()) {
+        public static RainDirection getRainDirection(int nr) {
+            for (RainDirection s : RainDirection.values()) {
                 if (s.getMode() == nr) {
                     return s;
                 }
@@ -83,10 +83,10 @@ public class Drops extends ObjectsContainingGenerator {
         }
     }
     
-    public Drops(MatrixData md){
-        super(GeneratorName.DROPS, md, null);
+    public Rain(MatrixData md){
+        super(GeneratorName.RAIN, md, null);
         
-        dropDirection = DropDirection.TOP_TO_BOTTOM;
+        dropDirection = RainDirection.TOP_TO_BOTTOM;
         
         calculateUpdateRates();
     }
@@ -330,19 +330,19 @@ public class Drops extends ObjectsContainingGenerator {
         return dropsPerScreen;
     }
     
-    public void setDropLength(int lengthDrops){
+    public void setRainLength(int lengthDrops){
         this.lengthDrops = lengthDrops;
     }
     
-    public int getDropLength(){
+    public int getRainLength(){
         return lengthDrops;
     }
     
-    public DropDirection getMode(){
+    public RainDirection getMode(){
         return dropDirection;
     }
     
-    public void setMode(DropDirection dir){
+    public void setMode(RainDirection dir){
         this.dropDirection = dir;
     }
     

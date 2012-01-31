@@ -1,7 +1,8 @@
 0.1 beta
 * fixed artnet
-* added drops
+* added rain
 * added loading and saving of scenes
+* added splashscreen
 
 
 0.3 alpha

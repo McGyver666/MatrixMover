@@ -44,8 +44,8 @@ public abstract class Generator implements Serializable {
         COLOR_FADE(2),
         /** The PLASMA */
         PLASMA(3),
-        /** The DROPS */
-        DROPS(4),
+        /** The RAIN */
+        RAIN(4),
         /** The FIRE */
         FIRE(5),
         /** The TEXTWRITER */
@@ -65,7 +65,7 @@ public abstract class Generator implements Serializable {
         public static final String STRING_COLOR_SCROLL = "Color Scroll";
         public static final String STRING_COLOR_FADE = "Color Fade";
         public static final String STRING_PLASMA = "Plasma";
-        public static final String STRING_DROPS = "Drops";
+        public static final String STRING_RAIN = "Rain";
         public static final String STRING_FIRE = "Flames";
         public static final String STRING_TEXTWRITER = "Text";
         public static final String STRING_METABALLS = "Metaballs";
@@ -106,8 +106,8 @@ public abstract class Generator implements Serializable {
                     return STRING_PLASMA;
                 case FIRE:
                     return STRING_FIRE;
-                case DROPS:
-                    return STRING_DROPS;
+                case RAIN:
+                    return STRING_RAIN;
                 case TEXTWRITER:
                     return STRING_TEXTWRITER;
                 case METABALLS:

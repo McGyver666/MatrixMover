@@ -19,7 +19,7 @@ package com.gyver.matrixmover.gui.listener;
 import com.gyver.matrixmover.core.Controller;
 import com.gyver.matrixmover.generator.ColorFade;
 import com.gyver.matrixmover.generator.ColorScroll;
-import com.gyver.matrixmover.generator.Drops;
+import com.gyver.matrixmover.generator.Rain;
 import com.gyver.matrixmover.generator.Generator;
 import com.gyver.matrixmover.generator.Generator.GeneratorName;
 import com.gyver.matrixmover.generator.Plasma;
@@ -130,8 +130,8 @@ public class GeneratorSetupListener implements ActionListener, ChangeListener {
         } else if (activGenerator instanceof Plasma) {
             PlasmaConfiguration pDialog = new PlasmaConfiguration(Frame.getFrameInstance(), true, (Plasma) activGenerator);
             pDialog.setVisible(true);
-        } else if (activGenerator instanceof Drops) {
-            DropsConfiguration dDialog = new DropsConfiguration(Frame.getFrameInstance(), true, (Drops) activGenerator);
+        } else if (activGenerator instanceof Rain) {
+            DropsConfiguration dDialog = new DropsConfiguration(Frame.getFrameInstance(), true, (Rain) activGenerator);
             dDialog.setVisible(true);
         }
         activeButtonChanged(true);
