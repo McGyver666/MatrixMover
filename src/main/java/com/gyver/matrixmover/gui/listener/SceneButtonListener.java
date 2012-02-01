@@ -23,7 +23,7 @@ import javax.swing.JButton;
 
 /**
  *
- * @author jonas
+ * @author Gyver
  */
 public class SceneButtonListener implements ActionListener{
     
