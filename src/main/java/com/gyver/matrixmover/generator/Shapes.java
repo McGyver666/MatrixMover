@@ -337,6 +337,10 @@ public class Shapes extends ObjectsContainingGenerator {
         }
 
         private void update() {
+            
+            x = x % internalBufferWidth;
+            y = y % internalBufferHeight;
+            
             alive--;
             if (alive <= 0) {
                 dead = true;
