@@ -10,8 +10,6 @@
  */
 package com.gyver.matrixmover.gui.effect;
 
-import com.gyver.matrixmover.generator.ColorScroll;
-import com.gyver.matrixmover.generator.ColorScroll.ScrollMode;
 import com.gyver.matrixmover.generator.Rain;
 import com.gyver.matrixmover.generator.Rain.RainDirection;
 import com.gyver.matrixmover.generator.Generator.GeneratorName;
@@ -26,7 +24,7 @@ import javax.swing.event.ChangeEvent;
 
 /**
  *
- * @author Jonas
+ * @author Gyver
  */
 public class DropsConfiguration extends javax.swing.JDialog {
     

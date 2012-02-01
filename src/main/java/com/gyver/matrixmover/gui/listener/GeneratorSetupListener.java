@@ -23,12 +23,14 @@ import com.gyver.matrixmover.generator.Rain;
 import com.gyver.matrixmover.generator.Generator;
 import com.gyver.matrixmover.generator.Generator.GeneratorName;
 import com.gyver.matrixmover.generator.Plasma;
+import com.gyver.matrixmover.generator.Shapes;
 import com.gyver.matrixmover.generator.SimpleColorGenerator;
 import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.GeneratorPanel;
 import com.gyver.matrixmover.gui.GeneratorSetup;
 import com.gyver.matrixmover.gui.effect.ColorFadeConfiguration;
 import com.gyver.matrixmover.gui.effect.ColorScrollConfiguration;
+import com.gyver.matrixmover.gui.effect.ShapesConfiguration;
 import com.gyver.matrixmover.gui.effect.DropsConfiguration;
 import com.gyver.matrixmover.gui.effect.PlasmaConfiguration;
 import com.gyver.matrixmover.gui.effect.SimpleColorConfiguration;
@@ -133,6 +135,9 @@ public class GeneratorSetupListener implements ActionListener, ChangeListener {
         } else if (activGenerator instanceof Rain) {
             DropsConfiguration dDialog = new DropsConfiguration(Frame.getFrameInstance(), true, (Rain) activGenerator);
             dDialog.setVisible(true);
+        } else if (activGenerator instanceof Shapes) {
+            ShapesConfiguration sDialog = new ShapesConfiguration(Frame.getFrameInstance(), true, (Shapes) activGenerator);
+            sDialog.setVisible(true);
         }
         activeButtonChanged(true);
     }

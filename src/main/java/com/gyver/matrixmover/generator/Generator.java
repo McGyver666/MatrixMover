@@ -47,11 +47,13 @@ public abstract class Generator implements Serializable {
         /** The RAIN */
         RAIN(4),
         /** The FIRE */
-        FIRE(5),
+        SHAPES(5),
+        /** The FIRE */
+        FIRE(6),
         /** The TEXTWRITER */
-        TEXTWRITER(6), 
+        TEXTWRITER(7), 
         /** The METABALLS */
-        METABALLS(7);
+        METABALLS(8);
         
         /*
          * If you add generators, keep in mind to add a case in 
@@ -66,6 +68,7 @@ public abstract class Generator implements Serializable {
         public static final String STRING_COLOR_FADE = "Color Fade";
         public static final String STRING_PLASMA = "Plasma";
         public static final String STRING_RAIN = "Rain";
+        public static final String STRING_SHAPES = "Shapes";
         public static final String STRING_FIRE = "Flames";
         public static final String STRING_TEXTWRITER = "Text";
         public static final String STRING_METABALLS = "Metaballs";
@@ -108,6 +111,8 @@ public abstract class Generator implements Serializable {
                     return STRING_FIRE;
                 case RAIN:
                     return STRING_RAIN;
+                case SHAPES:
+                    return STRING_SHAPES;
                 case TEXTWRITER:
                     return STRING_TEXTWRITER;
                 case METABALLS:

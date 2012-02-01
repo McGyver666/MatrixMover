@@ -30,6 +30,7 @@ import com.gyver.matrixmover.generator.Generator;
 import com.gyver.matrixmover.generator.Generator.GeneratorName;
 import com.gyver.matrixmover.generator.MetaBalls;
 import com.gyver.matrixmover.generator.Plasma;
+import com.gyver.matrixmover.generator.Shapes;
 import com.gyver.matrixmover.generator.SimpleColorGenerator;
 import com.gyver.matrixmover.generator.Textwriter;
 import com.gyver.matrixmover.mixer.AddSat;
@@ -120,6 +121,8 @@ public class GeneratorVisual extends Visual {
             newGen = new Fire(md);
         } else if (generator.equals(Generator.GeneratorName.RAIN)){
             newGen = new Rain(md);
+        } else if (generator.equals(Generator.GeneratorName.SHAPES)){
+            newGen = new Shapes(md);
         } else if (generator.equals(Generator.GeneratorName.METABALLS)){
             newGen = new MetaBalls(md);
         } else if (generator.equals(Generator.GeneratorName.TEXTWRITER)){

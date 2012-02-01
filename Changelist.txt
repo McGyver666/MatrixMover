@@ -1,5 +1,6 @@
 0.1 beta
-* added rain
+* added rain generator and configuration
+* added shapes generator and configuration
 * added loading and saving of scenes
 * added splashscreen
 * fixed artnet
