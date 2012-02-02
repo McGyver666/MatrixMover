@@ -17,8 +17,12 @@
 package com.gyver.matrixmover.core;
 
 import com.gyver.matrixmover.core.audio.AudioCapture;
+import com.gyver.matrixmover.fader.BlackFader;
 import com.gyver.matrixmover.fader.CrossFader;
 import com.gyver.matrixmover.fader.Fader;
+import com.gyver.matrixmover.fader.Fader.FaderName;
+import com.gyver.matrixmover.fader.LinearFader;
+import com.gyver.matrixmover.fader.WhiteFader;
 import com.gyver.matrixmover.generator.Generator;
 import com.gyver.matrixmover.generator.Generator.GeneratorName;
 import com.gyver.matrixmover.gui.Frame;
@@ -58,7 +62,7 @@ public class Controller {
     private int[] leftLedImage = null;
     private int[] rightLedImage = null;
     private int[] outputLedImage = null;
-    private int crossfaderValue = 500;
+    private int crossfaderValue = 0;
     private int masterIntensity = 255;
     private OutputMapping om = null;
     private PixelRgbMapping prm = null;
@@ -79,6 +83,7 @@ public class Controller {
         leftVisual = new GeneratorVisual(matrixData);
         rightVisual = new GeneratorVisual(matrixData);
 
+        // CrossFader button in Gui is selected in postInit();
         fader = new CrossFader();
         
         om = new OutputMapping(matrixData);
@@ -272,6 +277,8 @@ public class Controller {
         
         Frame.getFrameInstance().getLeftGeneratorPanel().setButtonActive(leftVisual.getActiveScene(), true);
         Frame.getFrameInstance().getRightGeneratorPanel().setButtonActive(rightVisual.getActiveScene(), true);
+        
+        Frame.getFrameInstance().getMasterPanel().setSelectedButton(Frame.getFrameInstance().getMasterPanel().getTbCross());
     }
     
     public void sceneChanged(int side, int activeVisualNumber, boolean changed) {
@@ -282,6 +289,19 @@ public class Controller {
         } else {
             throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
         }
+    }
+    
+    public void changeFaderMode(FaderName faderName){
+        if(faderName.compareTo(FaderName.CROSSFADE) == 0){
+            fader = new CrossFader();
+        } else if (faderName.compareTo(FaderName.LINEAR) == 0) {
+            fader = new LinearFader();
+        } else if (faderName.compareTo(FaderName.WHITE) == 0) {
+            fader = new WhiteFader();
+        } else if (faderName.compareTo(FaderName.BLACK) == 0) {
+            fader = new BlackFader();
+        } 
+        
     }
     
     public void loadScenes() {

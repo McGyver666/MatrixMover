@@ -17,6 +17,7 @@
 package com.gyver.matrixmover.gui.listener;
 
 import com.gyver.matrixmover.core.Controller;
+import com.gyver.matrixmover.fader.Fader.FaderName;
 import com.gyver.matrixmover.gui.MasterPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,20 +27,30 @@ import javax.swing.event.ChangeListener;
 
 /**
  *
- * @author jonas
+ * @author Gyver
  */
-public class CrossfaderListener implements ActionListener, ChangeListener {
+public class MasterPanelListener implements ActionListener, ChangeListener {
     
     private MasterPanel parent = null;
     
-    public CrossfaderListener(MasterPanel parent){
+    public MasterPanelListener(MasterPanel parent){
         this.parent = parent;
     }
 
+    @Override
     public void actionPerformed(ActionEvent ae) {
-        //Add code for changing crossfader method here!
+        if (ae.getSource().equals(parent.getTbCross())) {
+            Controller.getControllerInstance().changeFaderMode(FaderName.CROSSFADE);
+        } else if (ae.getSource().equals(parent.getTbLinear())) {
+            Controller.getControllerInstance().changeFaderMode(FaderName.LINEAR);
+        } else if (ae.getSource().equals(parent.getTbWhite())) {
+            Controller.getControllerInstance().changeFaderMode(FaderName.WHITE);
+        } else if (ae.getSource().equals(parent.getTbBlack())) {
+            Controller.getControllerInstance().changeFaderMode(FaderName.BLACK);
+        } 
     }
 
+    @Override
     public void stateChanged(ChangeEvent ce) {
         if(ce.getSource().equals(parent.getCrossfaderSlider())){
             int value = ((JSlider) ce.getSource()).getValue();

@@ -36,7 +36,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author jonas
+ * @author Gyver
  */
 public class Frame extends javax.swing.JFrame {
 
@@ -65,8 +65,8 @@ public class Frame extends javax.swing.JFrame {
 
         effectPanelLeft.getLedScreen().init(ph, md);
         effectPanelRight.getLedScreen().init(ph, md);
-        masterPanel.getLedScreen().init(ph, md);
-        cont.setLedScreens(effectPanelLeft.getLedScreen(), effectPanelRight.getLedScreen(), masterPanel.getLedScreen());
+        getMasterPanel().getLedScreen().init(ph, md);
+        cont.setLedScreens(effectPanelLeft.getLedScreen(), effectPanelRight.getLedScreen(), getMasterPanel().getLedScreen());
 
         setUpComboBoxes();
     }
@@ -196,7 +196,7 @@ public class Frame extends javax.swing.JFrame {
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         effectPanelLeft.recomputeLedPixelSize();
         effectPanelRight.recomputeLedPixelSize();
-        masterPanel.recomputeLedPixelSize();
+        getMasterPanel().recomputeLedPixelSize();
     }//GEN-LAST:event_formComponentResized
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -275,6 +275,13 @@ public class Frame extends javax.swing.JFrame {
 
     public void showWarning(String string) {
         JOptionPane.showMessageDialog(this, string, "Warning", JOptionPane.WARNING_MESSAGE);
+    }
+
+    /**
+     * @return the masterPanel
+     */
+    public com.gyver.matrixmover.gui.MasterPanel getMasterPanel() {
+        return masterPanel;
     }
    
 }

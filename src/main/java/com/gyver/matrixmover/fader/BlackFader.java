@@ -1,5 +1,4 @@
 /*
- * Copyright (C) 2011 Michael Vogt <michu@neophob.com>
  * Copyright (C) 2012 Gyver
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,18 +17,16 @@
 package com.gyver.matrixmover.fader;
 
 /**
- * The CrossFader.
- * 
- * Code-parts copied from http://github.com/neophob/PixelController
+ * The BlackFader.
  * 
  * @author Gyver
  */
-public class CrossFader extends Fader {
+public class BlackFader extends Fader {
 
     /**
      * Instantiates a new crossfader.
      */
-    public CrossFader() {
+    public BlackFader() {
         super(FaderName.CROSSFADE);
     }
 
@@ -55,15 +52,31 @@ public class CrossFader extends Fader {
             rightGreen = (short) ((col >> 8) & 255);
             rightBlue = (short) (col & 255);    
             
+            if(ratio < 0.5){
+                float newratio = 1 - (ratio * 2);
+                rightRed = (short) (Math.round(leftRed * newratio));
+                rightGreen = (short) (Math.round(leftGreen * newratio));
+                rightBlue = (short) (Math.round(leftBlue * newratio));
+            } else if (ratio > 0.5) {
+                float newratio = 1 - ((1 - ratio ) * 2);
+                rightRed = (short) (Math.round(rightRed * newratio));
+                rightGreen = (short) (Math.round(rightGreen * newratio));
+                rightBlue = (short) (Math.round(rightBlue * newratio));
+            }
             
-            
-            rightRed = (short) (Math.round((leftRed - rightRed) * ratio));
-            rightGreen = (short) (Math.round((leftGreen - rightGreen) * ratio));
-            rightBlue = (short) (Math.round((leftBlue - rightBlue) * ratio));
-            
-            rightRed = (short) (leftRed - rightRed);
-            rightGreen = (short) (leftGreen - rightGreen);
-            rightBlue = (short) (leftBlue - rightBlue);
+//            rightRed += leftRed;
+//            rightGreen += leftGreen;
+//            rightBlue += leftBlue;
+//            
+            if (rightRed > 255) {
+                rightRed = 255;
+            }
+            if (rightGreen > 255) {
+                rightGreen = 255;
+            }
+            if (rightBlue > 255) {
+                rightBlue = 255;
+            }
             
             mix[i] = (rightRed << 16) | (rightGreen << 8) | rightBlue;
         }

@@ -37,13 +37,15 @@ public abstract class Fader {
     public enum FaderName {
 
         /** The SWITCH. */
-        SWITCH(0),
+        LINEAR(0),
         /** The CROSSFADE. */
         CROSSFADE(1),
+        WHITE(2),
+        BLACK(3),
         /** The SLIDE upside down. */
-        SLIDE_UPSIDE_DOWN(2),
+        SLIDE_UPSIDE_DOWN(4),
         /** The SLIDE left right. */
-        SLIDE_LEFT_RIGHT(3);
+        SLIDE_LEFT_RIGHT(5);
         /** The id. */
         private int id;
 
