@@ -1,3 +1,7 @@
+0.2 beta
+* added fading methods
+
+
 0.1 beta
 * added rain generator and configuration
 * added shapes generator and configuration
