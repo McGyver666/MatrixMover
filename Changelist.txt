@@ -1,5 +1,6 @@
 0.2 beta
-* added fading methods
+* added fading method
+* added timed automated fading
 
 
 0.1 beta

@@ -47,6 +47,8 @@ public class MasterPanelListener implements ActionListener, ChangeListener {
             Controller.getControllerInstance().changeFaderMode(FaderName.WHITE);
         } else if (ae.getSource().equals(parent.getTbBlack())) {
             Controller.getControllerInstance().changeFaderMode(FaderName.BLACK);
+        } else if (ae.getSource().equals(parent.getbFade())) {
+            Controller.getControllerInstance().autoFade(parent.getTfFadeTime());
         } 
     }
 

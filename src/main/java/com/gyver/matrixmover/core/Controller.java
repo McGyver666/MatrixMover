@@ -17,6 +17,7 @@
 package com.gyver.matrixmover.core;
 
 import com.gyver.matrixmover.core.audio.AudioCapture;
+import com.gyver.matrixmover.core.timer.FadeTimerTask;
 import com.gyver.matrixmover.fader.BlackFader;
 import com.gyver.matrixmover.fader.CrossFader;
 import com.gyver.matrixmover.fader.Fader;
@@ -33,8 +34,11 @@ import com.gyver.matrixmover.output.Output;
 import com.gyver.matrixmover.properties.PropertiesHelper;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextField;
+import sun.misc.FpUtils;
 
 /**
  * This is a singelton. Holds the two GeneratorVisuals, the MasterVisuals and
@@ -67,6 +71,7 @@ public class Controller {
     private OutputMapping om = null;
     private PixelRgbMapping prm = null;
     private AudioCapture ac = null;
+    private boolean isFading = false;
 
     /**
      * Instantiates a new controller.
@@ -148,7 +153,7 @@ public class Controller {
     }
 
     public void setCrossfaderValue(int value) {
-        LOG.log(Level.FINER, "Set crossfader value to {0}", new Object[]{value});
+//        LOG.log(Level.FINER, "Set crossfader value to {0}", new Object[]{value});
         this.crossfaderValue = value;
     }
 
@@ -323,5 +328,45 @@ public class Controller {
         arrays.add(leftVisual.getSceneArray());
         arrays.add(rightVisual.getSceneArray());
         SceneReader.writeScenes(arrays, ph.getScenesFile());
+    }
+
+    public void autoFade(JTextField tfFadeTime) {
+        if(!isFading) {
+            isFading = true;
+            Timer fadingTimer = new Timer();
+            int currentPosition = Frame.getFrameInstance().getMasterPanel().getSFadePosition().getValue();
+            int[] fadeSteps = null;
+            try{
+                fadeSteps = new int[(int)Math.round(Integer.parseInt(tfFadeTime.getText()) / ph.getFps())];
+            } catch (NumberFormatException nfe){
+                Frame.getFrameInstance().showWarning("Fadetime has to be an integer number.");
+                isFading = false;
+                return;
+            }
+            
+            //fade to right side
+            if (currentPosition < 500) {
+                for (int i = 0; i < fadeSteps.length; i++){
+                    fadeSteps[i] = currentPosition + Math.round((1000 - currentPosition) * (i / (float) (fadeSteps.length-1)));
+                }
+            } else {
+                for (int i = 0; i < fadeSteps.length; i++){
+                    fadeSteps[i] = currentPosition - Math.round(currentPosition * (i / (float) (fadeSteps.length-1)));
+                }
+            }
+            
+            long millisecondsDelay = 1000 / ph.getFps();
+            fadingTimer.schedule(new FadeTimerTask(this, fadeSteps), 0, millisecondsDelay);
+
+            
+        }
+        
+    }
+
+    /**
+     * @param isFading the isFading to set
+     */
+    public void setIsFading(boolean isFading) {
+        this.isFading = isFading;
     }
 }
