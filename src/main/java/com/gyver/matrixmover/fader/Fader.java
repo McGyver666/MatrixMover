@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2011 Michael Vogt <michu@neophob.com>
  * Copyright (C) 2012 Gyver
  *
  * This program is free software: you can redistribute it and/or modify
@@ -40,7 +41,9 @@ public abstract class Fader {
         LINEAR(0),
         /** The CROSSFADE. */
         CROSSFADE(1),
+        /** The WHITE. */
         WHITE(2),
+        /** The BLACK. */
         BLACK(3),
         /** The SLIDE upside down. */
         SLIDE_UPSIDE_DOWN(4),
