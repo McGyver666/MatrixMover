@@ -30,23 +30,26 @@ import com.gyver.matrixmover.core.MatrixData;
 public class MetaBalls extends Generator {
 
     /** The Constant NUM_BLOBS. */
-    private static final int NUM_BLOBS = 3;
+    private static final int NUM_BLOBS = 2;
     /** The blob px. */
-    private int[] blobPx = {10, 40, 36, 33, 44, 32, 22};
+    private float[] blobPx;// = {10, 40, 36, 33, 44, 32, 22};
     /** The blob py. */
-    private int[] blobPy = {4, 60, 45, 21, 13, 41, 32};
+    private float[] blobPy;// = {4, 60, 45, 21, 13, 41, 32};
 // Movement vector for each blob
     /** The blob dx. */
-    private int[] blobDx = {1, 1, 1, 1, 1, 1, 1};
+    private float[] blobDx;// = {0F, 0.1F, 1F, 1F, 1F, 1F, -0.5F};
     /** The blob dy. */
-    private int[] blobDy = {1, 1, 1, 1, 1, 1, 1};
+    private float[] blobDy;// = {1F, 0.2F, 1F, 1F, 0.5F, -0.5F, 1F};
     /** The vx. */
     private int[][] vy, vx;
     /** The a. */
     private int a = 1;
     
-    private int numBlobs = 0;
-    private int size = 0;
+    private int numBlobs;
+    private int size;
+    private float speed;
+    private int threshold;
+    private boolean applyThreshold;
 
     /**
      * Instantiates a new metaballs.
@@ -57,68 +60,71 @@ public class MetaBalls extends Generator {
         super(GeneratorName.METABALLS, md);
         numBlobs = NUM_BLOBS;
         this.size = 1000;
+        this.speed = 0.1F;
+        this.applyThreshold = false;
+        this.threshold = 128;
         init();
     }
     
-    private void init(){
-        vy = new int[numBlobs][getInternalBufferYSize()];
-        vx = new int[numBlobs][getInternalBufferXSize()];
+    public void init(){
+        blobPx = new float[getNumBlobs()];
+        blobPy = new float[getNumBlobs()];
+        blobDx = new float[getNumBlobs()];
+        blobDy = new float[getNumBlobs()];
+        
+        for (int i = 0; i < getNumBlobs(); i++){
+            blobPx[i] = (int) Math.floor(Math.random()*internalBufferWidth);
+            blobPy[i] = (int) Math.floor(Math.random()*internalBufferHeight);
+            blobDx[i] = (float) ((Math.random()-0.5)*2);
+            blobDy[i] = (float) ((Math.random()-0.5)*2);
+        }
+        
+        vy = new int[getNumBlobs()][getInternalBufferYSize()];
+        vx = new int[getNumBlobs()][getInternalBufferXSize()];
     }
     
-    public void setNumberOfBlobs(int number){
-        this.numBlobs = number;
-    }
-    
-    public int getNumberOfBlobs(){
-        return this.numBlobs;
-    }
-    
-    public void setBlobSize(int size){
-        this.size = size;
-    }
-
     @Override
     public void update() {
         float f;
-        for (int i = 1; i < NUM_BLOBS; ++i) {
+        for (int i = 0; i < numBlobs; ++i) {
             f = (float) Math.sin((i + 1) * 3 + 5 * blobPx[i]);
-//f = (float)Math.sin((i+1)*3+5*blobPx[i]);
+
             f *= 3f;
             if (f < 0) {
                 f = 0 - f;
             }
             f += 0.5f;
-            blobPx[i] += blobDx[i] * f;
+            blobPx[i] += blobDx[i] * f * speed;
 
             f = (float) Math.cos(a % 256 + (i + 3) * blobPy[i]);
-// f = (float)Math.cos(a%256+3*blobPy[i]);
+
             f *= 3f;
             if (f < 0) {
                 f = 0 - f;
             }
             f += 0.5f;
-            blobPy[i] += (int) (blobDy[i] * f);
+            blobPy[i] += blobDy[i] * f * speed;
 
-// bounce across screen
-            if (blobPx[i] < 0) {
-                blobDx[i] = 1;
+            // bounce across screen
+            if (blobPx[i] < 0 && blobDx[i] < 0) {
+                blobDx[i] *= -1;
             }
-            if (blobPx[i] > internalBufferWidth) {
-                blobDx[i] = -1;
+            if (blobPx[i] > internalBufferWidth && blobDx[i] > 0) {
+                blobDx[i] *= -1;
             }
-            if (blobPy[i] < 0) {
-                blobDy[i] = 1;
+            if (blobPy[i] < 0 && blobDy[i] < 0) {
+                blobDy[i] *= -1;
             }
-            if (blobPy[i] > internalBufferHeight) {
-                blobDy[i] = -1;
+            if (blobPy[i] > internalBufferHeight && blobDy[i] > 0) {
+                blobDy[i] *= -1;
             }
 
             for (int x = 0; x < internalBufferWidth; x++) {
-                vx[i][x] = (blobPx[i] - x) * (blobPx[i] - x);
+                vx[i][x] = (int) Math.floor((blobPx[i] - x) * (blobPx[i] - x));
             }
 
             for (int y = 0; y < internalBufferHeight; y++) {
-                vy[i][y] = (blobPy[i] - y) * (blobPy[i] - y);
+                vy[i][y] = (int) Math.floor((blobPy[i] - y) * (blobPy[i] - y));
             }
         }
 
@@ -130,22 +136,98 @@ public class MetaBalls extends Generator {
         for (int y = 0; y < internalBufferHeight; y++) {
             for (int x = 0; x < internalBufferWidth; x++) {
                 int m = 1;
-                for (int i = 1; i < NUM_BLOBS; i++) {
-// Increase this number to make your blobs bigger
-                    m += size / (vy[i][y] + vx[i][x] + 1);
+                for (int i = 0; i < numBlobs; i++) {
+                    // Increase this number to make your blobs bigger
+                    m += getSize() / (vy[i][y] + vx[i][x] + 1);
                 }
-//pg.pixels[x+y*pg.width] = color(0, m+x, (x+m+y)/2);
-                int g = m + x;
-                int b = (x + m + y) / 3;
-                if (g > 255) {
-                    g = 255;
+                
+                int intensity = (x+m+y)/3;
+                if (intensity > 255) {
+                    intensity = 255;
                 }
-                if (b > 255) {
-                    b = 255;
+                
+                if(isApplyThreshold()){
+                    if(intensity > threshold){
+                        intensity = 255;
+                    } else {
+                        intensity = 0;
+                    }
                 }
-                this.internalBuffer[y * internalBufferWidth + x] = (0 << 16) | (g << 8) | (b);
+                
+                this.internalBuffer[y * internalBufferWidth + x] = (intensity << 16) | (intensity << 8) | (intensity);
             }
         }
 
+    }
+
+    /**
+     * @return the numBlobs
+     */
+    public int getNumBlobs() {
+        return numBlobs;
+    }
+
+    /**
+     * @param numBlobs the numBlobs to set
+     */
+    public void setNumBlobs(int numBlobs) {
+        this.numBlobs = numBlobs;
+        init();
+    }
+
+    /**
+     * @return the size
+     */
+    public int getSize() {
+        return size;
+    }
+
+    /**
+     * @param size the size to set
+     */
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    /**
+     * @return the speed
+     */
+    public int getSpeed() {
+        return (int) Math.round(speed*100);
+    }
+
+    /**
+     * @param speed the speed to set
+     */
+    public void setSpeed(float speed) {
+        this.speed = speed/100;
+    }
+
+    /**
+     * @return the threshold
+     */
+    public int getThreshold() {
+        return threshold;
+    }
+
+    /**
+     * @param threshold the threshold to set
+     */
+    public void setThreshold(int threshold) {
+        this.threshold = threshold;
+    }
+
+    /**
+     * @return the applyThreshold
+     */
+    public boolean isApplyThreshold() {
+        return applyThreshold;
+    }
+
+    /**
+     * @param applyThreshold the applyThreshold to set
+     */
+    public void setApplyThreshold(boolean applyThreshold) {
+        this.applyThreshold = applyThreshold;
     }
 }

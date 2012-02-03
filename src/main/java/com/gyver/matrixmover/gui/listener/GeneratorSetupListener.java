@@ -23,6 +23,7 @@ import com.gyver.matrixmover.generator.Fire;
 import com.gyver.matrixmover.generator.Rain;
 import com.gyver.matrixmover.generator.Generator;
 import com.gyver.matrixmover.generator.Generator.GeneratorName;
+import com.gyver.matrixmover.generator.MetaBalls;
 import com.gyver.matrixmover.generator.Plasma;
 import com.gyver.matrixmover.generator.Shapes;
 import com.gyver.matrixmover.generator.SimpleColorGenerator;
@@ -34,6 +35,7 @@ import com.gyver.matrixmover.gui.effect.ColorScrollConfiguration;
 import com.gyver.matrixmover.gui.effect.ShapesConfiguration;
 import com.gyver.matrixmover.gui.effect.DropsConfiguration;
 import com.gyver.matrixmover.gui.effect.FireConfiguration;
+import com.gyver.matrixmover.gui.effect.MetaBallsConfiguration;
 import com.gyver.matrixmover.gui.effect.PlasmaConfiguration;
 import com.gyver.matrixmover.gui.effect.SimpleColorConfiguration;
 import java.awt.event.ActionEvent;
@@ -140,6 +142,9 @@ public class GeneratorSetupListener implements ActionListener, ChangeListener {
         } else if (activGenerator instanceof Rain) {
             DropsConfiguration dDialog = new DropsConfiguration(Frame.getFrameInstance(), true, (Rain) activGenerator);
             dDialog.setVisible(true);
+        } else if (activGenerator instanceof MetaBalls) {
+            MetaBallsConfiguration mbDialog = new MetaBallsConfiguration(Frame.getFrameInstance(), true, (MetaBalls) activGenerator);
+            mbDialog.setVisible(true);
         } else if (activGenerator instanceof Shapes) {
             ShapesConfiguration sDialog = new ShapesConfiguration(Frame.getFrameInstance(), true, (Shapes) activGenerator);
             sDialog.setVisible(true);

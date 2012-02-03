@@ -1,7 +1,6 @@
 Todo list for MatrixMover
 * Update maven building
 * Remake Textwriter generator and add settings dialog
-* Remake Metaballs generator and add settings dialog
 * Add audio muting, gain control and fft
 * Add Audio Effects
 * Add global speed and options in effects to fit it
