@@ -18,6 +18,7 @@ package com.gyver.matrixmover.gui.listener;
 
 import com.gyver.matrixmover.core.Controller;
 import com.gyver.matrixmover.fader.Fader.FaderName;
+import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.MasterPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,7 +50,9 @@ public class MasterPanelListener implements ActionListener, ChangeListener {
             Controller.getControllerInstance().changeFaderMode(FaderName.BLACK);
         } else if (ae.getSource().equals(parent.getbFade())) {
             Controller.getControllerInstance().autoFade(parent.getTfFadeTime());
-        } 
+        } else if (ae.getSource().equals(parent.getbAuto())) {
+            Frame.getFrameInstance().showWarning("Button has no function at the moment.");
+        }
     }
 
     @Override

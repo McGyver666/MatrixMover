@@ -1,6 +1,7 @@
 0.2 beta
 * added fading method
 * added timed automated fading
+* added controls and colormap to fire effect
 
 
 0.1 beta
