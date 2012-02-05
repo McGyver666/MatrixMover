@@ -31,7 +31,6 @@ import com.gyver.matrixmover.mixer.Mixer.MixerName;
 import com.gyver.matrixmover.properties.PropertiesHelper;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**

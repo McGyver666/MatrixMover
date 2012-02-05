@@ -33,6 +33,7 @@ import com.gyver.matrixmover.mapping.PixelRgbMapping;
 import com.gyver.matrixmover.output.Output;
 import com.gyver.matrixmover.properties.PropertiesHelper;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.logging.Level;
@@ -53,7 +54,6 @@ public class Controller {
     public static final int LEFT_SIDE = 1;
     public static final int RIGHT_SIDE = 2;
     private static Controller instance = new Controller();
-
     private PropertiesHelper ph = null;
     private Output output = null;
     private MatrixData matrixData = null;
@@ -90,12 +90,12 @@ public class Controller {
 
         // CrossFader button in Gui is selected in postInit();
         fader = new CrossFader();
-        
+
         om = new OutputMapping(matrixData);
         prm = new PixelRgbMapping();
-        
+
         ac = new AudioCapture();
-        if(ac.getAvalibalMixer() != null && ac.getAvalibalMixer().length > 0){
+        if (ac.getAvalibalMixer() != null && ac.getAvalibalMixer().length > 0) {
             ac.startAudio(ac.getAvalibalMixer()[0]);
         }
     }
@@ -168,22 +168,22 @@ public class Controller {
     public MatrixData getMatrixData() {
         return matrixData;
     }
-    
-    public Generator getGenerator(int side, int nr){
-        if(side == LEFT_SIDE){
-            if(nr == 1){
+
+    public Generator getGenerator(int side, int nr) {
+        if (side == LEFT_SIDE) {
+            if (nr == 1) {
                 return leftVisual.getActiveVisualSetup().getGenerator1();
-            } else if(nr == 2){
+            } else if (nr == 2) {
                 return leftVisual.getActiveVisualSetup().getGenerator2();
             }
-        } else if(side == RIGHT_SIDE){
-            if(nr == 1){
+        } else if (side == RIGHT_SIDE) {
+            if (nr == 1) {
                 return rightVisual.getActiveVisualSetup().getGenerator1();
-            } else if(nr == 2){
+            } else if (nr == 2) {
                 return rightVisual.getActiveVisualSetup().getGenerator2();
             }
         }
-        throw new IllegalArgumentException("There is no Generator nr "+nr+" present for side "+side);
+        throw new IllegalArgumentException("There is no Generator nr " + nr + " present for side " + side);
     }
 
     public void sceneSelected(int scene, int side) {
@@ -203,7 +203,7 @@ public class Controller {
             throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
         }
     }
-    
+
     public void captureAudio() {
         //readout newest audio
         ac.captureAudio();
@@ -234,7 +234,7 @@ public class Controller {
         //write image to MasterLedScreen
         masterLedScreen.setPixelImage(outputLedImage);
         //apply the pixel mapping to the image
-        int [] outputDeviceImage = om.applyMapping(outputLedImage);
+        int[] outputDeviceImage = om.applyMapping(outputLedImage);
         //apply the rgb mapping
 //        outputDeviceImage = prm.applyMapping(outputDeviceImage);
         //give image to outputDevice
@@ -261,8 +261,8 @@ public class Controller {
     public int getFps() {
         return ph.getFps();
     }
-    
-    public int getActiveVisualNumber(int side){
+
+    public int getActiveVisualNumber(int side) {
         if (side == LEFT_SIDE) {
             return leftVisual.getActiveScene();
         } else if (side == RIGHT_SIDE) {
@@ -276,16 +276,16 @@ public class Controller {
      * Do stuff that needs a Gui.
      */
     public void postInit() {
-        
+
         om.setMapping(ph.getOutputMapping());
         prm.setPixelMode(ph.getOutputPixeMode());
-        
+
         Frame.getFrameInstance().getLeftGeneratorPanel().setButtonActive(leftVisual.getActiveScene(), true);
         Frame.getFrameInstance().getRightGeneratorPanel().setButtonActive(rightVisual.getActiveScene(), true);
-        
+
         Frame.getFrameInstance().getMasterPanel().setSelectedButton(Frame.getFrameInstance().getMasterPanel().getTbCross());
     }
-    
+
     public void sceneChanged(int side, int activeVisualNumber, boolean changed) {
         if (side == LEFT_SIDE) {
             leftVisual.getVisualSetup(activeVisualNumber).sceneChanged(changed);
@@ -295,9 +295,9 @@ public class Controller {
             throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
         }
     }
-    
-    public void changeFaderMode(FaderName faderName){
-        if(faderName.compareTo(FaderName.CROSSFADE) == 0){
+
+    public void changeFaderMode(FaderName faderName) {
+        if (faderName.compareTo(FaderName.CROSSFADE) == 0) {
             fader = new CrossFader();
         } else if (faderName.compareTo(FaderName.LINEAR) == 0) {
             fader = new LinearFader();
@@ -305,24 +305,24 @@ public class Controller {
             fader = new WhiteFader();
         } else if (faderName.compareTo(FaderName.BLACK) == 0) {
             fader = new BlackFader();
-        } 
-        
+        }
+
     }
-    
+
     public void loadScenes() {
         List<VisualSetup[]> arrays = SceneReader.loadScenes(ph.getScenesFile(), matrixData);
         leftVisual.setVisualSetupArray(arrays.get(0));
         rightVisual.setVisualSetupArray(arrays.get(1));
-        
+
         Frame.getFrameInstance().setComboBoxesForChangedScene(LEFT_SIDE, leftVisual.getActiveVisualSetup());
         Frame.getFrameInstance().setComboBoxesForChangedScene(RIGHT_SIDE, rightVisual.getActiveVisualSetup());
-        
+
         Frame.getFrameInstance().getLeftGeneratorPanel().setChangedScenesButtonsFromVisualSetupArray(leftVisual.getSceneArray());
         Frame.getFrameInstance().getRightGeneratorPanel().setChangedScenesButtonsFromVisualSetupArray(rightVisual.getSceneArray());
-        
-        
+
+
     }
-    
+
     public void saveScenes() {
         ArrayList<VisualSetup[]> arrays = new ArrayList<VisualSetup[]>();
         arrays.add(leftVisual.getSceneArray());
@@ -330,37 +330,31 @@ public class Controller {
         SceneReader.writeScenes(arrays, ph.getScenesFile());
     }
 
-    public void autoFade(JTextField tfFadeTime) {
-        if(!isFading) {
+    public void autoFade(int fadeTime) {
+        if (!isFading) {
             isFading = true;
             Timer fadingTimer = new Timer();
             int currentPosition = Frame.getFrameInstance().getMasterPanel().getSFadePosition().getValue();
             int[] fadeSteps = null;
-            try{
-                fadeSteps = new int[(int)Math.round(Integer.parseInt(tfFadeTime.getText()) / ph.getFps())];
-            } catch (NumberFormatException nfe){
-                Frame.getFrameInstance().showWarning("Fadetime has to be an integer number.");
-                isFading = false;
-                return;
-            }
-            
+            float secondsForFading = fadeTime / 1000F;
+            fadeSteps = new int[(int) Math.round(ph.getFps() * secondsForFading)];
+
             //fade to right side
             if (currentPosition < 500) {
-                for (int i = 0; i < fadeSteps.length; i++){
-                    fadeSteps[i] = currentPosition + Math.round((1000 - currentPosition) * (i / (float) (fadeSteps.length-1)));
+                for (int i = 0; i < fadeSteps.length; i++) {
+                    fadeSteps[i] = currentPosition + Math.round((1000 - currentPosition) * (i / (float) (fadeSteps.length - 1)));
                 }
             } else {
-                for (int i = 0; i < fadeSteps.length; i++){
-                    fadeSteps[i] = currentPosition - Math.round(currentPosition * (i / (float) (fadeSteps.length-1)));
+                for (int i = 0; i < fadeSteps.length; i++) {
+                    fadeSteps[i] = currentPosition - Math.round(currentPosition * (i / (float) (fadeSteps.length - 1)));
                 }
             }
-            
             long millisecondsDelay = 1000 / ph.getFps();
-            fadingTimer.schedule(new FadeTimerTask(this, fadeSteps), 0, millisecondsDelay);
+            fadingTimer.scheduleAtFixedRate(new FadeTimerTask(this, fadeSteps), 0, millisecondsDelay);
 
-            
+
         }
-        
+
     }
 
     /**
