@@ -1,6 +1,7 @@
 0.2 beta
 * added fading method
 * added timed automated fading
+* added auto scene changer
 * added controls and colormap to fire effect
 * added controls and threshold to metaballs
 
