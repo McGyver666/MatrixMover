@@ -32,7 +32,7 @@ public class MetaBallsConfiguration extends javax.swing.JDialog {
     /** Creates new form ColorTableDialog */
     public MetaBallsConfiguration(java.awt.Frame parent, boolean modal, MetaBalls generator) {
         super(parent, modal);
-        this.setTitle(GeneratorName.STRING_COLOR_SCROLL+" Configuration");
+        this.setTitle(GeneratorName.STRING_METABALLS+" Configuration");
         this.generator = generator;
         initComponents();
         

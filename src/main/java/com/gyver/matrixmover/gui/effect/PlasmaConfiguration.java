@@ -31,7 +31,7 @@ public class PlasmaConfiguration extends javax.swing.JDialog {
     /** Creates new form ColorTableDialog */
     public PlasmaConfiguration(java.awt.Frame parent, boolean modal, Plasma generator) {
         super(parent, modal);
-        this.setTitle(GeneratorName.STRING_COLOR_SCROLL+" Configuration");
+        this.setTitle(GeneratorName.STRING_PLASMA+" Configuration");
         this.generator = generator;
         initComponents();
         

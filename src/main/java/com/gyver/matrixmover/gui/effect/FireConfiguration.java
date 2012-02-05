@@ -31,7 +31,7 @@ public class FireConfiguration extends javax.swing.JDialog {
     /** Creates new form ColorTableDialog */
     public FireConfiguration(java.awt.Frame parent, boolean modal, Fire generator) {
         super(parent, modal);
-        this.setTitle(GeneratorName.STRING_COLOR_SCROLL+" Configuration");
+        this.setTitle(GeneratorName.STRING_FIRE+" Configuration");
         this.generator = generator;
         initComponents();
         

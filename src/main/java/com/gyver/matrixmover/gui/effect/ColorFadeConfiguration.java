@@ -84,6 +84,7 @@ public class ColorFadeConfiguration extends javax.swing.JDialog {
         bSaveExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(java.awt.Color.white);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         bColorMap.setText("Color Map");
