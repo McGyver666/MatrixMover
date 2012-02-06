@@ -171,6 +171,10 @@ public class MatrixMover {
         MatrixMover.guiReady = ready;
     }
 
+    /**
+     * Main method lunching Matrixmover
+     * @param args
+     */
     public static void main(String[] args) {
         MatrixMover matmove = new MatrixMover();
         matmove.setup();

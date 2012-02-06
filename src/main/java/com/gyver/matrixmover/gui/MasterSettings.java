@@ -28,7 +28,7 @@ import javax.swing.JToggleButton;
 
 /**
  *
- * @author jonas
+ * @author Gyver
  */
 public class MasterSettings extends javax.swing.JPanel {
     
