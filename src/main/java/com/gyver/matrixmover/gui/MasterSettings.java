@@ -40,6 +40,7 @@ public class MasterSettings extends javax.swing.JPanel {
         msListener = new MasterSettingsListener(this);
         sMasterIntensity.addChangeListener(msListener);
         tbBlackout.addActionListener(msListener);
+        bSetup.addActionListener(msListener);
         pbVolumeLeft.setMinimum(0);
         pbVolumeLeft.setMaximum(80);
         pbVolumeRight.setMinimum(0);
@@ -159,4 +160,8 @@ public class MasterSettings extends javax.swing.JPanel {
     private javax.swing.JToggleButton tbAudioMute;
     private javax.swing.JToggleButton tbBlackout;
     // End of variables declaration//GEN-END:variables
+
+    public javax.swing.JButton getSetupButton() {
+        return bSetup;
+    }
 }
