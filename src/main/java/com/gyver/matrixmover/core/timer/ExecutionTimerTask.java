@@ -16,6 +16,7 @@
  */
 package com.gyver.matrixmover.core.timer;
 
+import com.gyver.matrixmover.MatrixMover;
 import com.gyver.matrixmover.core.Controller;
 import java.util.TimerTask;
 
@@ -35,9 +36,9 @@ public class ExecutionTimerTask extends TimerTask {
 
     @Override
     public void run() {
-        controller.computeLeftVisual();
-        controller.computeRightVisual();
-        controller.computeMasterVisual();
+            controller.computeLeftVisual();
+            controller.computeRightVisual();
+            controller.computeMasterVisual();
     }
     
 }

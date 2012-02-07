@@ -53,7 +53,6 @@ public class Controller {
      * The right side generator setup
      */
     public static final int RIGHT_SIDE = 2;
-    
     private static final Logger LOG = Logger.getLogger(Controller.class.getName());
     private static Controller instance = new Controller();
     private PropertiesHelper ph = null;
@@ -74,6 +73,7 @@ public class Controller {
     private PixelRgbMapping prm = null;
     private AudioCapture ac = null;
     private boolean isFading = false;
+    private Timer fadingTimer = null;
 
     /**
      * Instantiates a new controller.
@@ -363,7 +363,7 @@ public class Controller {
     public void autoFade(int fadeTime) {
         if (!isFading) {
             isFading = true;
-            Timer fadingTimer = new Timer();
+            fadingTimer = new Timer();
             int currentPosition = Frame.getFrameInstance().getMasterPanel().getSFadePosition().getValue();
             int[] fadeSteps = null;
             float secondsForFading = fadeTime / 1000F;
@@ -389,5 +389,13 @@ public class Controller {
 
     public void setIsFading(boolean isFading) {
         this.isFading = isFading;
+    }
+
+    public void shutDown() {
+        if (fadingTimer != null) {
+            fadingTimer.cancel();
+            fadingTimer.purge();
+            fadingTimer = null;
+        }
     }
 }

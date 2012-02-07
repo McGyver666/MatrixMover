@@ -103,7 +103,7 @@ public class MetaBalls extends Generator {
             blobPx[i] += blobDx[i] * f * speed;
 
             f = (float) Math.cos(a % 256 + (i + 3) * blobPy[i]);
-
+            
             f *= 3f;
             if (f < 0) {
                 f = 0 - f;

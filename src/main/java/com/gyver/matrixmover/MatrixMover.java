@@ -20,6 +20,7 @@ package com.gyver.matrixmover;
 import com.gyver.matrixmover.core.timer.AudioTimerTask;
 import com.gyver.matrixmover.core.Controller;
 import com.gyver.matrixmover.core.timer.ExecutionTimerTask;
+import com.gyver.matrixmover.gui.DebugFrame;
 import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.output.ArtnetDevice;
 import com.gyver.matrixmover.output.NullDevice;
@@ -45,7 +46,6 @@ import net.sf.nimrod.NimRODTheme;
  * 
  * @author Gyver
  */
-
 public class MatrixMover {
 
     /** The log. */
@@ -56,22 +56,33 @@ public class MatrixMover {
     private static final String LAF_THEME = "data/matrixmover.theme";
     /** The output. */
     private Output output;
-    
     private static boolean guiReady = false;
-    
-    private Frame guiFrame = null;
+    private static Frame guiFrame = null;
+    private static Properties config = null;
+    private static Timer fpsTimer = null;
+    private static Timer audioTimer = null;
+    private static Controller controller = null;
 
     /** 
      * Prepare MatrixMover to start
      */
     private void setup() {
-        
+
         LOG.log(Level.INFO, "MatrixMover Setup START");
         MMSplashScreen.initSplash();
-        
-        
+
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                showCrashMessage(e);
+            }
+        });
+
+
+
         MMSplashScreen.setProgress(10, "loading properties");
-        Properties config = new Properties();
+        config = new Properties();
         try {
             InputStream is = new FileInputStream(CONFIG_FILENAME);
             config.load(is);
@@ -82,7 +93,7 @@ public class MatrixMover {
         }
         final PropertiesHelper ph = new PropertiesHelper(config);
 
-        
+
         MMSplashScreen.setProgress(25, "setting up output device");
         OutputDeviceEnum outputDeviceEnum = ph.getOutputDevice();
         try {
@@ -97,17 +108,17 @@ public class MatrixMover {
                     throw new IllegalArgumentException();
             }
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Unable to initialize output device: " + outputDeviceEnum +". Using Null device instead.", e);
+            LOG.log(Level.SEVERE, "Unable to initialize output device: " + outputDeviceEnum + ". Using Null device instead.", e);
             this.output = new NullDevice(ph);
         }
 
-        
+
         LOG.log(Level.INFO, "Starting Core");
         MMSplashScreen.setProgress(35, "startomg programm core");
-        final Controller controller = Controller.getControllerInstance();
+        controller = Controller.getControllerInstance();
         controller.initController(ph, output);
 
-        
+
         LOG.log(Level.FINER, "Loading NimROD LAF");
         MMSplashScreen.setProgress(50, "loading look and feel");
         try {
@@ -120,10 +131,11 @@ public class MatrixMover {
             Logger.getLogger(MatrixMover.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
+
         LOG.log(Level.INFO, "Starting Gui");
         MMSplashScreen.setProgress(60, "starting gui");
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 guiFrame = Frame.getFrameInstance();
@@ -134,40 +146,42 @@ public class MatrixMover {
             }
         });
         //wait for gui to fully initialize
-        while(!guiReady){
+        while (!guiReady) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException ex) {
                 Logger.getLogger(MatrixMover.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-        
+
+
         MMSplashScreen.setProgress(75, "controller post init");
         controller.postInit();
-        
-        
+
+
         LOG.log(Level.INFO, "Trying to load scenes from scene file");
         MMSplashScreen.setProgress(80, "loading scenes");
         controller.loadScenes();
-        
-        
+
+
         MMSplashScreen.setProgress(90, "starting timer");
         LOG.log(Level.INFO, "Starting timer with {0} FPS", ph.getFps());
-        Timer fpsTimer = new Timer();
-        Timer audioTimer = new Timer();
+        fpsTimer = new Timer();
+        audioTimer = new Timer();
         long millisecondsDelay = 1000 / ph.getFps();
         fpsTimer.scheduleAtFixedRate(new ExecutionTimerTask(controller), 1, millisecondsDelay);
         audioTimer.schedule(new AudioTimerTask(controller), 1000, millisecondsDelay / 2);
 
-        
+
         LOG.log(Level.INFO, "MatrixMover Setup END");
         MMSplashScreen.setProgress(100, "done loading");
         MMSplashScreen.close();
-        guiFrame.setVisible(true);
+        if (guiFrame != null) {
+            guiFrame.setVisible(true);
+        }
     }
-    
-    private static void guiReady(boolean ready){
+
+    private static void guiReady(boolean ready) {
         MatrixMover.guiReady = ready;
     }
 
@@ -177,6 +191,43 @@ public class MatrixMover {
      */
     public static void main(String[] args) {
         MatrixMover matmove = new MatrixMover();
-        matmove.setup();
+        try {
+            matmove.setup();
+        } catch (Exception e) {
+            showCrashMessage(e);
+        }
+    }
+
+    public static void showCrashMessage(Throwable e) {
+        //shut everything down!
+        if (fpsTimer != null) {
+            fpsTimer.cancel();
+            fpsTimer.purge();
+            fpsTimer = null;
+        }
+
+        if (audioTimer != null) {
+            audioTimer.cancel();
+            audioTimer.purge();
+            audioTimer = null;
+        }
+
+        if (controller != null) {
+            controller.shutDown();
+            controller = null;
+        }
+
+
+        if (guiFrame != null) {
+            guiFrame.dispose();
+            guiFrame = null;
+        }
+
+        System.gc();
+
+        DebugFrame df = new DebugFrame(e);
+        df.setSize(705, 405);
+        df.centerWindow();
+        df.setVisible(true);
     }
 }
