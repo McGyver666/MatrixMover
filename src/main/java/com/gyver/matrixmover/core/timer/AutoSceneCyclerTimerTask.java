@@ -50,7 +50,7 @@ public class AutoSceneCyclerTimerTask extends TimerTask {
         } else {
             left = false;
         }
-
+        
         if (left) {
             try {
                 Controller.getControllerInstance().autoFade(Integer.parseInt(Frame.getFrameInstance().getMasterPanel().getTfFadeTime().getText()));

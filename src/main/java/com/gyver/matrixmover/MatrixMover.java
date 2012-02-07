@@ -71,6 +71,7 @@ public class MatrixMover {
         LOG.log(Level.INFO, "MatrixMover Setup START");
         MMSplashScreen.initSplash();
 
+        /* Set uncaught exception handler for controlled crashing */
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
 
             @Override

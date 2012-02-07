@@ -1,3 +1,8 @@
+0.2.1 beta
+* fixed metaballs crashing when resolution of matrix changed
+* edited splash screen
+* added uncaught exception handler for controlled crashing
+
 0.2 beta
 * added fading method
 * added timed automated fading

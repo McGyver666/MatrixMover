@@ -53,7 +53,21 @@ public class DebugFrame extends javax.swing.JFrame {
         pw.close();
 
         StringBuffer sb = sw.getBuffer();
-        
+
+        sb.append("\n\nSystem Informations:\n");
+
+        sb.append("java.vendor = ").append(System.getProperty("java.vendor")).append("\n");
+        sb.append("java.vm.vendor = ").append(System.getProperty("java.vm.vendor")).append("\n");
+        sb.append("java.vm.name = ").append(System.getProperty("java.vm.name")).append("\n");
+        sb.append("java.vm.version = ").append(System.getProperty("java.vm.version")).append("\n");
+        sb.append("java.runtime.name = ").append(System.getProperty("java.runtime.name")).append("\n");
+        sb.append("java.runtime.version = ").append(System.getProperty("java.runtime.version")).append("\n");
+        sb.append("os.name = ").append(System.getProperty("os.name")).append("\n");
+        sb.append("os.arch = ").append(System.getProperty("os.arch")).append("\n");
+        sb.append("os.version = ").append(System.getProperty("os.version")).append("\n");
+        sb.append("sun.java.command = ").append(System.getProperty("sun.java.command")).append("\n");
+        sb.append("java.home = ").append(System.getProperty("java.home")).append("\n");
+
         jTextArea1.setText(sb.toString());
     }
 
@@ -61,15 +75,15 @@ public class DebugFrame extends javax.swing.JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension frameSize = this.getSize();
         if (frameSize.height > screenSize.height) {
-          frameSize.height = screenSize.height;
+            frameSize.height = screenSize.height;
         }
         if (frameSize.width > screenSize.width) {
-          frameSize.width = screenSize.width;
+            frameSize.width = screenSize.width;
         }
         this.setLocation((screenSize.width - frameSize.width) / 2,
-                       (screenSize.height - frameSize.height) / 2);
+                (screenSize.height - frameSize.height) / 2);
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -115,7 +129,6 @@ public class DebugFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         System.exit(EXIT_ON_CLOSE);
     }//GEN-LAST:event_jButton1ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
