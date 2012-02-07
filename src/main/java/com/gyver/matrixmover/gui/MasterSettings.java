@@ -15,11 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * MasterSettings.java
- *
- * Created on 19.01.2012, 09:10:02
- */
 package com.gyver.matrixmover.gui;
 
 import com.gyver.matrixmover.gui.listener.MasterSettingsListener;

@@ -26,7 +26,7 @@ import com.gyver.matrixmover.core.Controller;
 import com.gyver.matrixmover.core.MatrixData;
 import com.gyver.matrixmover.core.VisualSetup;
 import com.gyver.matrixmover.effect.Effect.EffectName;
-import com.gyver.matrixmover.generator.Generator.GeneratorName;
+import com.gyver.matrixmover.generator.enums.GeneratorName;
 import com.gyver.matrixmover.mixer.Mixer.MixerName;
 import com.gyver.matrixmover.properties.PropertiesHelper;
 import java.awt.Dimension;

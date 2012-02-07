@@ -10,7 +10,6 @@
  */
 package com.gyver.matrixmover.gui.effect;
 
-import com.gyver.matrixmover.generator.Generator.GeneratorName;
 import com.gyver.matrixmover.generator.SimpleColorGenerator;
 import com.gyver.matrixmover.gui.listener.interfaces.TFSListener;
 import java.awt.Color;
@@ -29,7 +28,7 @@ public class SimpleColorConfiguration extends javax.swing.JDialog {
     /** Creates new form SimpleColorConfiguration */
     public SimpleColorConfiguration(java.awt.Frame parent, boolean modal, SimpleColorGenerator generator) {
         super(parent, modal);
-        this.setTitle(GeneratorName.STRING_SIMPLE_COLOR_GENERATOR+" Configuration");
+        this.setTitle(generator.getName().toString()+" Configuration");
         this.generator = generator;
         initComponents();
         

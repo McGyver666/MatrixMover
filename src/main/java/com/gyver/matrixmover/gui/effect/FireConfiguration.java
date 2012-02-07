@@ -11,7 +11,6 @@
 package com.gyver.matrixmover.gui.effect;
 
 import com.gyver.matrixmover.generator.Fire;
-import com.gyver.matrixmover.generator.Generator.GeneratorName;
 import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.ColorMapDialog;
 import com.gyver.matrixmover.gui.component.JTextFieldSlider;
@@ -31,7 +30,7 @@ public class FireConfiguration extends javax.swing.JDialog {
     /** Creates new form ColorTableDialog */
     public FireConfiguration(java.awt.Frame parent, boolean modal, Fire generator) {
         super(parent, modal);
-        this.setTitle(GeneratorName.STRING_FIRE+" Configuration");
+        this.setTitle(generator.getName().toString()+" Configuration");
         this.generator = generator;
         initComponents();
         

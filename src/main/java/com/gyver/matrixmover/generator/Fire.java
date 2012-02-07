@@ -18,13 +18,14 @@
 package com.gyver.matrixmover.generator;
 
 import com.gyver.matrixmover.core.MatrixData;
+import com.gyver.matrixmover.generator.enums.GeneratorName;
 import java.awt.Color;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * The Class Fire.
+ * The Class Fire. Computes a fire of flame like effect. 
  * 
  * Code-parts copied from http://github.com/neophob/PixelController
  * 
@@ -51,7 +52,7 @@ public class Fire extends ColorMapAwareGenerator {
     /**
      * Instantiates a new fire.
      *
-     * @param controller the controller
+     * @param md The MatrixData of the matrix.
      */
     public Fire(MatrixData md) {
         super(GeneratorName.FIRE, md, null);
@@ -86,22 +87,24 @@ public class Fire extends ColorMapAwareGenerator {
         r = new Random();
     }
 
-    private void updateColorArray() {
-        float index = 0;
-        float indicesPerColorChange = 256 / (float) (colorMap.size() - 1);
-
-        int thisColor = 0;
-        int nextColor = 1;
-
-        for (int i = 0; i < colors.length; i++) {
-            colors[i] = super.getColor(thisColor, nextColor, index / indicesPerColorChange);
-            index++;
-            if (index > indicesPerColorChange) {
-                index = index - indicesPerColorChange;
-                thisColor++;
-                nextColor++;
-            }
+    @Override
+    public void update() {
+        step += speed;
+        if (step >= 1) {
+            thisFirePicture = nextFirePicture;
+            nextFirePicture = calcNewImage();
+            step -= 1;
         }
+
+        combineBuffers(thisFirePicture, nextFirePicture, step);
+    }
+    
+    @Override
+    public void init() {
+        buffer = new int[internalBufferWidth * (internalBufferHeight + 2)];
+        thisFirePicture = new int[internalBufferHeight * internalBufferWidth];
+        nextFirePicture = new int[internalBufferHeight * internalBufferWidth];
+        
     }
 
     /**
@@ -113,18 +116,6 @@ public class Fire extends ColorMapAwareGenerator {
     public void setColorMap(List<Color> colorMap) {
         super.setColorMap(colorMap);
         updateColorArray();
-    }
-
-    @Override
-    public void update() {
-        step += speed;
-        if (step >= 1) {
-            thisFirePicture = nextFirePicture;
-            nextFirePicture = calcNewImage();
-            step -= 1;
-        }
-
-        combineBuffers(thisFirePicture, nextFirePicture, step);
     }
 
     /**
@@ -241,6 +232,24 @@ public class Fire extends ColorMapAwareGenerator {
             b1 = (short) (b1 - (short) Math.round((b1 - b2) * step));
 
             internalBuffer[i] = (int) (r1 << 16) | (g1 << 8) | b1;
+        }
+    }
+    
+    private void updateColorArray() {
+        float index = 0;
+        float indicesPerColorChange = 256 / (float) (colorMap.size() - 1);
+
+        int thisColor = 0;
+        int nextColor = 1;
+
+        for (int i = 0; i < colors.length; i++) {
+            colors[i] = super.getColor(thisColor, nextColor, index / indicesPerColorChange);
+            index++;
+            if (index > indicesPerColorChange) {
+                index = index - indicesPerColorChange;
+                thisColor++;
+                nextColor++;
+            }
         }
     }
 }

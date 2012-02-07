@@ -18,15 +18,18 @@ package com.gyver.matrixmover.generator;
 
 import com.gyver.matrixmover.core.Controller;
 import com.gyver.matrixmover.core.MatrixData;
+import com.gyver.matrixmover.generator.enums.GeneratorName;
+import com.gyver.matrixmover.generator.enums.RainDirection;
 
 /**
- *
+ * Generator generating rain drop kind of a effect. Drops are 
+ * traveling over the screen in an direkction.
+ * 
  * @author Gyver
  */
 public class Rain extends ObjectsContainingGenerator {
     
     private RainDirection dropDirection = null;
-    
     private int dropsPerScreen = 2;
     private int lengthDrops = 5;
     private double updatesToNextDrop = 0;
@@ -36,53 +39,11 @@ public class Rain extends ObjectsContainingGenerator {
     private int nextColor = 0;
     private int bpm = 120;
 
-    
-
-    
-    public enum RainDirection {
-        LEFT_TO_RIGHT(0),
-        RIGHT_TO_LEFT(1),
-        TOP_TO_BOTTOM(2),
-        BOTTOM_TO_TOP(3);
-        
-        private int mode;
-
-        private RainDirection(int mode) {
-            this.mode = mode;
-        }
-
-        public int getMode() {
-            return mode;
-        }
-
-        public static RainDirection getRainDirection(int nr) {
-            for (RainDirection s : RainDirection.values()) {
-                if (s.getMode() == nr) {
-                    return s;
-                }
-            }
-            return null;
-        }
-
-        @Override
-        public String toString() {
-            switch (this) {
-                case LEFT_TO_RIGHT:
-                    return "Left to Right";
-                case RIGHT_TO_LEFT:
-                    return "Right to Left";
-                case TOP_TO_BOTTOM:
-                    return "Top to Bottom";
-                case BOTTOM_TO_TOP:
-                    return "Bottom to Top";
-                default:
-                    super.toString();
-            }
-            // if it has no string, return the enum-string
-            return super.toString();
-        }
-    }
-    
+    /**
+     * Instantiates a new rain generator.
+     *
+     * @param md the MatrixData of the matrix
+     */
     public Rain(MatrixData md){
         super(GeneratorName.RAIN, md, null);
         
@@ -114,6 +75,77 @@ public class Rain extends ObjectsContainingGenerator {
         
     }
     
+    @Override
+    public void init() {
+        calculateUpdateRates();
+    }
+    
+    /**
+     * Sets the speed as bpm
+     * @param bpm the speed
+     */
+    public void setBpm(int bpm){
+        this.bpm = bpm;
+        calculateUpdateRates();
+    }
+    
+    /**
+     * Returns the speet as bpm
+     * @return the speed
+     */
+    public int getBpm(){
+        return bpm;
+    }
+    
+    /**
+     * Returns the number of drops per screen
+     * @param nrDrops the number of drops
+     */
+    public void setDrosPerScreen(int nrDrops){
+        this.dropsPerScreen = nrDrops;
+        calculateUpdateRates();
+    }
+    
+    /**
+     * Gets the number of drops per screen
+     * @return the number of drops
+     */
+    public int getDropsPerScreen(){
+        return dropsPerScreen;
+    }
+    
+    /**
+     * Sets the drops tail length
+     * @param lengthDrops the length
+     */
+    public void setRainLength(int lengthDrops){
+        this.lengthDrops = lengthDrops;
+    }
+    
+    /**
+     * Returns the drops tail length
+     * @return the length
+     */
+    public int getRainLength(){
+        return lengthDrops;
+    }
+    
+    /**
+     * Returns the RainDirection
+     * @return the RainDirection 
+     */
+    public RainDirection getMode(){
+        return dropDirection;
+    }
+    
+    /**
+     * Sets the RainDirection mode
+     * @param dir the RainDirection
+     */
+    public void setMode(RainDirection dir){
+        this.dropDirection = dir;
+    }
+
     private void leftToRight() {
         while(dropUpdatesDone >= updatesToNextDrop){
             dropUpdatesDone = dropUpdatesDone - updatesToNextDrop;
@@ -158,7 +190,7 @@ public class Rain extends ObjectsContainingGenerator {
             }
         }
     }
-
+    
     private void rightToLeft() {
         while(dropUpdatesDone >= updatesToNextDrop){
             dropUpdatesDone = dropUpdatesDone - updatesToNextDrop;
@@ -311,39 +343,4 @@ public class Rain extends ObjectsContainingGenerator {
         }
         
     }
-    
-    public void setBpm(int bpm){
-        this.bpm = bpm;
-        calculateUpdateRates();
-    }
-    
-    public int getBpm(){
-        return bpm;
-    }
-    
-    public void setDrosPerScreen(int nrDrops){
-        this.dropsPerScreen = nrDrops;
-        calculateUpdateRates();
-    }
-    
-    public int getDropsPerScreen(){
-        return dropsPerScreen;
-    }
-    
-    public void setRainLength(int lengthDrops){
-        this.lengthDrops = lengthDrops;
-    }
-    
-    public int getRainLength(){
-        return lengthDrops;
-    }
-    
-    public RainDirection getMode(){
-        return dropDirection;
-    }
-    
-    public void setMode(RainDirection dir){
-        this.dropDirection = dir;
-    }
-    
 }

@@ -18,6 +18,7 @@
 package com.gyver.matrixmover.generator;
 
 import com.gyver.matrixmover.core.MatrixData;
+import com.gyver.matrixmover.generator.enums.GeneratorName;
 import java.awt.Color;
 import java.util.List;
 
@@ -30,18 +31,17 @@ import java.util.List;
  */
 public class Plasma extends ColorMapAwareGenerator {
 
-    /** The frame count. */
     private float timeDisplacement;
-    
     private float offset = 20;
     private float zoom = 2;
     private int distance = 1024;
     private float speed = 1;
 
     /**
-     * Instantiates a new plasma2.
+     * Instantiates a new plasma.
      *
-     * @param controller the controller
+     * @param matrix The MatrixData of the matrix
+     * @param colorMap The colorMap to use
      */
     public Plasma(MatrixData matrix, List<Color> colorMap) {
         super(GeneratorName.PLASMA, matrix, colorMap);
@@ -75,35 +75,72 @@ public class Plasma extends ColorMapAwareGenerator {
             }
         }
     }
+
+    @Override
+    public void init() {
+        //nothing to do here!
+    }
     
+    /**
+     * Sets the offset
+     * @param offset the offset
+     */
     public void setOffset(int offset){
         this.offset = (float) (offset / 10.0);
     }
     
+    /**
+     * Returns the offset
+     * @return the offset
+     */
     public int getOffset(){
         return (int) (this.offset * 10);
     }
     
+    /**
+     * Sets the zoom
+     * @param zoom the zoom
+     */
     public void setZoom(int zoom){
         this.zoom = (float) (zoom / 100.0);
     }
     
+    /**
+     * Returns the zoom
+     * @return the zoom
+     */
     public int getZoom(){
         return (int) this.zoom*100;
     }
     
+    /**
+     * Sets the distance
+     * @param distance the distance
+     */
     public void setDistance(int distance){
         this.distance = (int) Math.round(Math.pow(1.1, (100-(double)distance)));
     }
 
+    /**
+     * Returns the distance
+     * @return
+     */
     public int getDistance(){
         return (int) Math.round(100 - (Math.log(distance) / Math.log(1.1)));
     }
     
+    /**
+     * Sets the Speed
+     * @return
+     */
     public int getSpeed(){
         return (int) (speed * 50);
     }
     
+    /**
+     * Returns the speed
+     * @param speed
+     */
     public void setSpeed(int speed){
         this.speed = (speed / 50f);
     }

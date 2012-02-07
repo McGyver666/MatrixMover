@@ -11,7 +11,6 @@
 package com.gyver.matrixmover.gui.effect;
 
 import com.gyver.matrixmover.generator.ColorFade;
-import com.gyver.matrixmover.generator.Generator.GeneratorName;
 import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.ColorMapDialog;
 import com.gyver.matrixmover.gui.component.JTextFieldSlider;
@@ -31,7 +30,7 @@ public class ColorFadeConfiguration extends javax.swing.JDialog {
     /** Creates new form ColorTableDialog */
     public ColorFadeConfiguration(java.awt.Frame parent, boolean modal, ColorFade generator) {
         super(parent, modal);
-        this.setTitle(GeneratorName.STRING_COLOR_SCROLL+" Configuration");
+        this.setTitle(generator.getName().toString()+" Configuration");
         this.generator = generator;
         initComponents();
         

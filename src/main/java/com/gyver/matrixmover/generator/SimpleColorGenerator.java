@@ -18,13 +18,14 @@
 package com.gyver.matrixmover.generator;
 
 import com.gyver.matrixmover.core.MatrixData;
+import com.gyver.matrixmover.generator.enums.GeneratorName;
 import java.awt.Color;
 import java.util.Arrays;
 
 /**
- * This Generator simply generates a black image.
+ * This Generator simply generates a one colored image.
  * 
- * @author jonas
+ * @author Gyver
  */
 public class SimpleColorGenerator extends Generator {
 
@@ -33,6 +34,7 @@ public class SimpleColorGenerator extends Generator {
     /**
      * Instantiates a new null generator.
      *
+     * @param matrix the MatrixData of the matrix.
      */
     public SimpleColorGenerator(MatrixData matrix) {
         super(GeneratorName.SIMPLE_COLOR_GENERATOR, matrix);
@@ -40,14 +42,27 @@ public class SimpleColorGenerator extends Generator {
     }
 
     @Override
+    public void init() {
+        // nothing to do here.
+    }
+    
+    @Override
     public void update() {
         Arrays.fill(this.internalBuffer, color.getRGB());
     }
     
+    /**
+     * Sets the color
+     * @param color
+     */
     public void setColor(Color color){
         this.color = color;
     }
     
+    /**
+     * Returns the color
+     * @return
+     */
     public Color getColor(){
         return this.color;
     }

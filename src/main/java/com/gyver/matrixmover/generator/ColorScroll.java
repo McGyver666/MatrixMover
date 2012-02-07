@@ -19,6 +19,8 @@ package com.gyver.matrixmover.generator;
 
 import com.gyver.matrixmover.core.Controller;
 import com.gyver.matrixmover.core.MatrixData;
+import com.gyver.matrixmover.generator.enums.GeneratorName;
+import com.gyver.matrixmover.generator.enums.ScrollMode;
 import java.awt.Color;
 import java.util.List;
 
@@ -45,104 +47,12 @@ public class ColorScroll extends ColorMapAwareGenerator {
     private int speed;
     private double forward;
 
-    /**
-     * The Enum ScrollMode.
-     */
-    public enum ScrollMode {
-
-        LEFT_TO_RIGHT(0),
-        RIGHT_TO_LEFT(1),
-        TOP_TO_BOTTOM(2),
-        BOTTOM_TO_TOP(3),
-        RIGHT_BOTTOM_TO_LEFT_TOP(4),
-        LEFT_BOTTOM_TO_RIGHT_TOP(5),
-        RIGHT_TOP_TO_LEFT_BOTTOM(6),
-        LEFT_TOP_TO_RIGHT_BOTTOM(7),
-        MIDDLE_TO_SIDES_VERTICAL(8),
-        SIDES_TO_MIDDLE_VERTICAL(9),
-        MIDDLE_TO_SIDES_HORIZONTAL(10),
-        SIDES_TO_MIDDLE_HORIZONTAL(11),
-        EXPLODE_CIRCLE(12),
-        IMPLODE_CIRCLE(13);
-        /** The mode. */
-        private int mode;
-
-        /**
-         * Instantiates a new scroll mode.
-         *
-         * @param mode the mode
-         */
-        private ScrollMode(int mode) {
-            this.mode = mode;
-        }
-
-        /**
-         * Gets the mode.
-         *
-         * @return the mode
-         */
-        public int getMode() {
-            return mode;
-        }
-
-        /**
-         * Gets the scroll mode.
-         *
-         * @param nr the nr
-         * @return the scroll mode
-         */
-        public static ScrollMode getScrollMode(int nr) {
-            for (ScrollMode s : ScrollMode.values()) {
-                if (s.getMode() == nr) {
-                    return s;
-                }
-            }
-            return null;
-        }
-
-        @Override
-        public String toString() {
-            switch (this) {
-                case LEFT_TO_RIGHT:
-                    return "Left to Right";
-                case RIGHT_TO_LEFT:
-                    return "Right to Left";
-                case TOP_TO_BOTTOM:
-                    return "Top to Bottom";
-                case BOTTOM_TO_TOP:
-                    return "Bottom to Top";
-                case RIGHT_BOTTOM_TO_LEFT_TOP:
-                    return "Right-Bottom to Left-Top";
-                case LEFT_BOTTOM_TO_RIGHT_TOP:
-                    return "Left-Bottom to Right-Top";
-                case RIGHT_TOP_TO_LEFT_BOTTOM:
-                    return "Right-Top to Left-Bottom";
-                case LEFT_TOP_TO_RIGHT_BOTTOM:
-                    return "Left-Top to Right-Bottom";
-                case MIDDLE_TO_SIDES_VERTICAL:
-                    return "Middle to Sides Vertical";
-                case SIDES_TO_MIDDLE_VERTICAL:
-                    return "Sides to Middle Vertical";
-                case MIDDLE_TO_SIDES_HORIZONTAL:
-                    return "Middle to Sides Horizontal";
-                case SIDES_TO_MIDDLE_HORIZONTAL:
-                    return "Sides to Biddle Horizontal";
-                case EXPLODE_CIRCLE:
-                    return "Explode Circle";
-                case IMPLODE_CIRCLE:
-                    return "Implode Circle";
-                default:
-                    super.toString();
-            }
-            // if it has no string, return the enum-string
-            return super.toString();
-        }
-    }
+    
 
     /**
      * Instantiates a new colorscroll.
      *
-     * @param controller the controller
+     * @param matrix The MatrixData of the matrix
      * @param colorMap the color list
      */
     public ColorScroll(MatrixData matrix, List<Color> colorMap) {
@@ -161,64 +71,50 @@ public class ColorScroll extends ColorMapAwareGenerator {
     @Override
     public void update() {
 
-        int referenceScreenSizeForSpeed = 0;
+//        int referenceScreenSizeForSpeed = 0;
 
         // scroll colors on x axis
         switch (scrollMode) {
             case LEFT_TO_RIGHT:
                 leftToRight();
-                referenceScreenSizeForSpeed = internalBufferWidth;
                 break;
             case RIGHT_TO_LEFT:
                 rightToLeft();
-                referenceScreenSizeForSpeed = internalBufferWidth;
                 break;
             case TOP_TO_BOTTOM:
                 topToBottom();
-                referenceScreenSizeForSpeed = internalBufferHeight;
                 break;
             case BOTTOM_TO_TOP:
-                referenceScreenSizeForSpeed = internalBufferHeight;
                 bottomToTop();
                 break;
             case RIGHT_BOTTOM_TO_LEFT_TOP:
-                referenceScreenSizeForSpeed = internalBufferWidth + internalBufferWidth;
                 rightBottomToLeftTop();
                 break;
             case LEFT_BOTTOM_TO_RIGHT_TOP:
-                referenceScreenSizeForSpeed = internalBufferWidth + internalBufferWidth;
                 leftBottomToRightTop();
                 break;
             case RIGHT_TOP_TO_LEFT_BOTTOM:
-                referenceScreenSizeForSpeed = internalBufferWidth + internalBufferWidth;
                 rightTopToLeftBottom();
                 break;
             case LEFT_TOP_TO_RIGHT_BOTTOM:
-                referenceScreenSizeForSpeed = internalBufferWidth + internalBufferWidth;
                 leftTopToRightBottom();
                 break;
             case MIDDLE_TO_SIDES_VERTICAL:
-                referenceScreenSizeForSpeed = internalBufferHalfWidth;
                 middleToSidesVertical();
                 break;
             case SIDES_TO_MIDDLE_VERTICAL:
-                referenceScreenSizeForSpeed = internalBufferHalfWidth;
                 sidesToMiddleVertical();
                 break;
             case MIDDLE_TO_SIDES_HORIZONTAL:
-                referenceScreenSizeForSpeed = internalBufferHalfHeight;
                 middleToSidesHorizontal();
                 break;
             case SIDES_TO_MIDDLE_HORIZONTAL:
-                referenceScreenSizeForSpeed = internalBufferHalfHeight;
                 sidesToMiddleHorizontal();
                 break;
             case EXPLODE_CIRCLE:
-                referenceScreenSizeForSpeed = Math.max(internalBufferHalfHeight, internalBufferHalfWidth);
                 explodeCircle();
                 break;
             case IMPLODE_CIRCLE:
-                referenceScreenSizeForSpeed = Math.max(internalBufferHalfHeight, internalBufferHalfWidth);
                 implodeCircle();
                 break;
         }
@@ -230,42 +126,59 @@ public class ColorScroll extends ColorMapAwareGenerator {
         frameCount = (float) (frameCount + forward);
     }
 
+    @Override
+    public void init() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
+     * Sets the speed
+     * @param speed
+     */
     public void setSpeed(int speed) {
         this.speed = speed;
     }
 
+    /**
+     * Returns the speed
+     * @return
+     */
     public int getSpeed() {
         return speed;
     }
 
     /**
-     * Sets the scroll mode.
-     *
-     * @param scrollMode the new scroll mode
+     * Sets the scrollMode
+     * @param scrollMode the scrollMode to set
      */
-    void setScrollMode(int scrollMode) {
-        this.scrollMode = ScrollMode.getScrollMode(scrollMode);
+    public void setScrollMode(ScrollMode scrollMode) {
+        this.scrollMode = scrollMode;
+    }
+
+    /**
+     * Returns the scrollMode
+     * @return the scrollMode
+     */
+    public ScrollMode getScrollMode() {
+        return scrollMode;
     }
 
     /**
      * Sets the fade length.
-     *
      * @param fadeLength the new fade length
      */
     public void setFadeLength(int fadeLength) {
         this.fade = fadeLength;
     }
 
+    /**
+     * Returns the fade length.
+     * @return the fade length.
+     */
     public int getFadeLength() {
         return fade;
     }
 
-    /**
-     * Gets the color.
-     *
-     * @param val the val
-     * @return the color
-     */
     private int getColor(double val) {
         int saveFade = this.fade;
         if (saveFade == 0) {
@@ -587,19 +500,5 @@ public class ColorScroll extends ColorMapAwareGenerator {
         if (y >= 0 && y < internalBufferHeight && x >= 0 && x < internalBufferWidth) {
             this.internalBuffer[y * internalBufferWidth + x] = col;
         }
-    }
-
-    /**
-     * @return the scrollMode
-     */
-    public ScrollMode getScrollMode() {
-        return scrollMode;
-    }
-
-    /**
-     * @param scrollMode the scrollMode to set
-     */
-    public void setScrollMode(ScrollMode scrollMode) {
-        this.scrollMode = scrollMode;
     }
 }

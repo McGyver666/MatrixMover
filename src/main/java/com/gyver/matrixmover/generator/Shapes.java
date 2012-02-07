@@ -18,12 +18,16 @@ package com.gyver.matrixmover.generator;
 
 import com.gyver.matrixmover.core.Controller;
 import com.gyver.matrixmover.core.MatrixData;
+import com.gyver.matrixmover.generator.enums.GeneratorName;
+import com.gyver.matrixmover.generator.enums.ShapeDirection;
+import com.gyver.matrixmover.generator.enums.ShapeObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- *
+ * Generator calculating objects (shapes) in various (random) ways.
+ * 
  * @author Gyver
  */
 public class Shapes extends ObjectsContainingGenerator {
@@ -37,106 +41,15 @@ public class Shapes extends ObjectsContainingGenerator {
     private int expand = 0;
     private double updatesToNextDrop = 0;
     private double dropUpdatesDone = 0;
-    private ObjectShape objectShape = null;
-    private ObjectDirection objectDirection = null;
+    private ShapeObject objectShape = null;
+    private ShapeDirection objectDirection = null;
     private ArrayList<ShapeObjects> objectList = null;
 
     /**
-     * @return the objectShape
+     * Instantiates a new shapes generator.
+     *
+     * @param md the MatrixData of the matrix
      */
-    public ObjectShape getObjectShape() {
-        return objectShape;
-    }
-
-    /**
-     * @return the objectDirection
-     */
-    public ObjectDirection getObjectDirection() {
-        return objectDirection;
-    }
-
-    public enum ObjectShape {
-
-        SQUARE_EMPTY(0),
-        SQUARE_FILLED(1),
-        CIRCLE_EMPTY(2),
-        CIRCLE_FILLED(3);
-        private int mode;
-
-        private ObjectShape(int mode) {
-            this.mode = mode;
-        }
-
-        public int getMode() {
-            return mode;
-        }
-
-        public static ObjectShape getObjectShape(int nr) {
-            for (ObjectShape s : ObjectShape.values()) {
-                if (s.getMode() == nr) {
-                    return s;
-                }
-            }
-            return null;
-        }
-
-        @Override
-        public String toString() {
-            switch (this) {
-                case SQUARE_EMPTY:
-                    return "Squares Empty";
-                case SQUARE_FILLED:
-                    return "Squares Filled";
-                case CIRCLE_EMPTY:
-                    return "Circles Empty";
-                case CIRCLE_FILLED:
-                    return "Circles Filled";
-                default:
-                    super.toString();
-            }
-            // if it has no string, return the enum-string
-            return super.toString();
-        }
-    }
-
-    public enum ObjectDirection {
-
-        EXPLODE(0),
-        IMPODE(1);
-        private int mode;
-
-        private ObjectDirection(int mode) {
-            this.mode = mode;
-        }
-
-        public int getMode() {
-            return mode;
-        }
-
-        public static ObjectDirection getObjectDirection(int nr) {
-            for (ObjectDirection s : ObjectDirection.values()) {
-                if (s.getMode() == nr) {
-                    return s;
-                }
-            }
-            return null;
-        }
-
-        @Override
-        public String toString() {
-            switch (this) {
-                case IMPODE:
-                    return "Imploade";
-                case EXPLODE:
-                    return "Explode";
-                default:
-                    super.toString();
-            }
-            // if it has no string, return the enum-string
-            return super.toString();
-        }
-    }
-
     public Shapes(MatrixData md) {
         super(GeneratorName.SHAPES, md, null);
         this.objectCount = 1;
@@ -145,8 +58,8 @@ public class Shapes extends ObjectsContainingGenerator {
         this.alive = 15;
         this.fade = 15;
         this.expand = 2;
-        this.objectShape = ObjectShape.SQUARE_EMPTY;
-        this.objectDirection = ObjectDirection.EXPLODE;
+        this.objectShape = ShapeObject.SQUARE_EMPTY;
+        this.objectDirection = ShapeDirection.EXPLODE;
         calculateUpdateRate();
         this.objectList = new ArrayList<ShapeObjects>();
     }
@@ -184,17 +97,37 @@ public class Shapes extends ObjectsContainingGenerator {
 
     }
 
+    @Override
+    public void init() {
+        // nothing to do here
+    }
+
+
+    /**
+     * @return the objectShape
+     */
+    public ShapeObject getObjectShape() {
+        return objectShape;
+    }
+
+    /**
+     * @return the objectDirection
+     */
+    public ShapeDirection getObjectDirection() {
+        return objectDirection;
+    }
+
     /**
      * @param objectShape the objectShape to set
      */
-    public void setObjectShape(ObjectShape objectShape) {
+    public void setObjectShape(ShapeObject objectShape) {
         this.objectShape = objectShape;
     }
 
     /**
      * @param objectDirection the objectDirection to set
      */
-    public void setObjectDirection(ObjectDirection objectDirection) {
+    public void setObjectDirection(ShapeDirection objectDirection) {
         this.objectDirection = objectDirection;
     }
 

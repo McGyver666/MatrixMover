@@ -25,7 +25,7 @@ import com.gyver.matrixmover.fader.Fader.FaderName;
 import com.gyver.matrixmover.fader.LinearFader;
 import com.gyver.matrixmover.fader.WhiteFader;
 import com.gyver.matrixmover.generator.Generator;
-import com.gyver.matrixmover.generator.Generator.GeneratorName;
+import com.gyver.matrixmover.generator.enums.GeneratorName;
 import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.LedScreen;
 import com.gyver.matrixmover.mapping.OutputMapping;
@@ -33,26 +33,28 @@ import com.gyver.matrixmover.mapping.PixelRgbMapping;
 import com.gyver.matrixmover.output.Output;
 import com.gyver.matrixmover.properties.PropertiesHelper;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTextField;
-import sun.misc.FpUtils;
 
 /**
- * This is a singelton. Holds the two GeneratorVisuals, the MasterVisuals and
- * performs all the calculations.
+ * This is a singelton. Performs all the calculations.
  * 
  * @author Gyver
  */
 public class Controller {
 
-    /** The log. */
-    private static final Logger LOG = Logger.getLogger(Controller.class.getName());
+    /**
+     * The left side generator setup
+     */
     public static final int LEFT_SIDE = 1;
+    /**
+     * The right side generator setup
+     */
     public static final int RIGHT_SIDE = 2;
+    
+    private static final Logger LOG = Logger.getLogger(Controller.class.getName());
     private static Controller instance = new Controller();
     private PropertiesHelper ph = null;
     private Output output = null;
@@ -79,6 +81,11 @@ public class Controller {
     private Controller() {
     }
 
+    /**
+     * Inits a new Controller.
+     * @param ph the PropertiesHelper
+     * @param output The Output to use
+     */
     public void initController(PropertiesHelper ph, Output output) {
         this.ph = ph;
         this.output = output;
@@ -100,12 +107,24 @@ public class Controller {
         }
     }
 
+    /**
+     * Sets the LED-Simulation Screens
+     * @param leftVisual
+     * @param rightVisual
+     * @param masterVisual
+     */
     public void setLedScreens(LedScreen leftVisual, LedScreen rightVisual, LedScreen masterVisual) {
         this.leftLedScreen = leftVisual;
         this.rightLedScreen = rightVisual;
         this.masterLedScreen = masterVisual;
     }
 
+    /**
+     * Sets the generator "nr" of side "side" for GeneratorName "generator"
+     * @param side the side
+     * @param nr the number of the generator to be set
+     * @param generator the generator to set to
+     */
     public void setGenerator(int side, int nr, GeneratorName generator) {
         if (side == LEFT_SIDE) {
             LOG.log(Level.FINE, "Generator{0} on left side set to {1}", new Object[]{nr, generator});
@@ -118,6 +137,12 @@ public class Controller {
         }
     }
 
+    /**
+     * Sets the effect "nr" of side "side" for String "effectString"
+     * @param side the side
+     * @param nr the number of the effect to be set
+     * @param effectString the effect to set to
+     */
     public void setEffect(int side, int nr, String effectString) {
         if (side == LEFT_SIDE) {
             LOG.log(Level.FINE, "Effect{0} on left side set to {1}", new Object[]{nr, effectString});
@@ -130,6 +155,11 @@ public class Controller {
         }
     }
 
+    /**
+     * Sets the mixer for side "side" from String "mixerString"
+     * @param side the side
+     * @param mixerString the mixer to be set to
+     */
     public void setMixer(int side, String mixerString) {
         if (side == LEFT_SIDE) {
             LOG.log(Level.FINE, "Mixer on left side set to {0}", new Object[]{mixerString});
@@ -357,9 +387,6 @@ public class Controller {
 
     }
 
-    /**
-     * @param isFading the isFading to set
-     */
     public void setIsFading(boolean isFading) {
         this.isFading = isFading;
     }

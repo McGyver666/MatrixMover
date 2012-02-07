@@ -10,8 +10,9 @@
  */
 package com.gyver.matrixmover.gui.effect;
 
-import com.gyver.matrixmover.generator.Generator.GeneratorName;
 import com.gyver.matrixmover.generator.Shapes;
+import com.gyver.matrixmover.generator.enums.ShapeDirection;
+import com.gyver.matrixmover.generator.enums.ShapeObject;
 import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.ColorMapDialog;
 import com.gyver.matrixmover.gui.component.JTextFieldSlider;
@@ -32,7 +33,7 @@ public class ShapesConfiguration extends javax.swing.JDialog {
     /** Creates new form ColorTableDialog */
     public ShapesConfiguration(java.awt.Frame parent, boolean modal, Shapes generator) {
         super(parent, modal);
-        this.setTitle(GeneratorName.STRING_SHAPES+" Configuration");
+        this.setTitle(generator.getName().toString()+" Configuration");
         this.generator = generator;
         initComponents();
         
@@ -44,10 +45,10 @@ public class ShapesConfiguration extends javax.swing.JDialog {
         tfsExpand.setValue(generator.getExpand());
         
         
-        cbObjectShape.setModel(new DefaultComboBoxModel(Shapes.ObjectShape.values()));
+        cbObjectShape.setModel(new DefaultComboBoxModel(ShapeObject.values()));
         cbObjectShape.setSelectedItem(generator.getObjectShape());
         
-        cbObjectDirection.setModel(new DefaultComboBoxModel(Shapes.ObjectDirection.values()));
+        cbObjectDirection.setModel(new DefaultComboBoxModel(ShapeDirection.values()));
         cbObjectDirection.setSelectedItem(generator.getObjectDirection());
         
         tfsSpeed.addTFSListener(new TFSListener() {
@@ -379,7 +380,7 @@ public class ShapesConfiguration extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbObjectShapeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbObjectShapeActionPerformed
-        generator.setObjectShape((Shapes.ObjectShape) cbObjectShape.getSelectedItem());
+        generator.setObjectShape((ShapeObject) cbObjectShape.getSelectedItem());
     }//GEN-LAST:event_cbObjectShapeActionPerformed
 
     private void bColorMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bColorMapActionPerformed
@@ -393,7 +394,7 @@ public class ShapesConfiguration extends javax.swing.JDialog {
     }//GEN-LAST:event_bSaveExitActionPerformed
 
     private void cbObjectDirectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbObjectDirectionActionPerformed
-        generator.setObjectDirection((Shapes.ObjectDirection) cbObjectDirection.getSelectedItem());
+        generator.setObjectDirection((ShapeDirection) cbObjectDirection.getSelectedItem());
     }//GEN-LAST:event_cbObjectDirectionActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed

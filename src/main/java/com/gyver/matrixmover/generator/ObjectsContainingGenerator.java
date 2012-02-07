@@ -17,6 +17,7 @@
 package com.gyver.matrixmover.generator;
 
 import com.gyver.matrixmover.core.MatrixData;
+import com.gyver.matrixmover.generator.enums.GeneratorName;
 import java.awt.Color;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -24,7 +25,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * The class ObjectsContainingGenerator, a parent class for all generators using 
+ * single objects with certain properties.
+ * 
  * @author Gyver
  */
 public abstract class ObjectsContainingGenerator extends Generator {
@@ -37,9 +40,10 @@ public abstract class ObjectsContainingGenerator extends Generator {
     private boolean random = false;
 
     /**
-     *
-     * @param name
-     * @param colorMap
+     * Constructor of ObjectsContainingGenerator. 
+     * @param name The name of the generator.
+     * @param matrix The MatrixData of the Matrix.
+     * @param colorMap The ColorMap to use for the effect.
      */
     public ObjectsContainingGenerator(GeneratorName name, MatrixData matrix, List<Color> colorMap) {
         super(name, matrix);
@@ -60,6 +64,11 @@ public abstract class ObjectsContainingGenerator extends Generator {
 
     }
 
+    /**
+     * Returns the color with number colornumber from colorMap
+     * @param colornumber the number of the color
+     * @return the color as an int
+     */
     protected int getColor(int colornumber) {
         if(random){
             return colorMap.get((int)Math.floor(colorMap.size() * Math.random())).getRGB();
@@ -67,13 +76,16 @@ public abstract class ObjectsContainingGenerator extends Generator {
         return colorMap.get(colornumber % colorMap.size()).getRGB();
     }
 
+    /**
+     * Set the color to be chosen randomly
+     * @param random 
+     */
     public void setRandom(boolean random){
         this.random = random;
     }
 
     /**
-     * Update the color map
-     *
+     * Set the colorMap
      * @param colorMap
      */
     public void setColorMap(List<Color> colorMap) {
@@ -81,7 +93,8 @@ public abstract class ObjectsContainingGenerator extends Generator {
     }
 
     /**
-     * @return the colorMapAsString
+     * Return the ColorMap
+     * @return the colorMap
      */
     public List<Color> getColorMap() {
         return colorMap;

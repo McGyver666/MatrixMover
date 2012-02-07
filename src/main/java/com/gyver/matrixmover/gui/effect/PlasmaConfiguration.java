@@ -10,7 +10,6 @@
  */
 package com.gyver.matrixmover.gui.effect;
 
-import com.gyver.matrixmover.generator.Generator.GeneratorName;
 import com.gyver.matrixmover.generator.Plasma;
 import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.ColorMapDialog;
@@ -31,7 +30,7 @@ public class PlasmaConfiguration extends javax.swing.JDialog {
     /** Creates new form ColorTableDialog */
     public PlasmaConfiguration(java.awt.Frame parent, boolean modal, Plasma generator) {
         super(parent, modal);
-        this.setTitle(GeneratorName.STRING_PLASMA+" Configuration");
+        this.setTitle(generator.getName().toString()+" Configuration");
         this.generator = generator;
         initComponents();
         

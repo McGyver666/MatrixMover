@@ -18,6 +18,7 @@
 package com.gyver.matrixmover.generator;
 
 import com.gyver.matrixmover.core.MatrixData;
+import com.gyver.matrixmover.generator.enums.GeneratorName;
 import java.awt.Color;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -40,9 +41,10 @@ public abstract class ColorMapAwareGenerator extends Generator {
     protected List<Color> colorMap;
 
     /**
-     *
-     * @param name
-     * @param colorMap
+     * Constructor of ColorMapAwareGenerator. 
+     * @param name The name of the generator.
+     * @param matrix The MatrixData of the Matrix.
+     * @param colorMap The colorMap for the generator.
      */
     public ColorMapAwareGenerator(GeneratorName name, MatrixData matrix, List<Color> colorMap) {
         super(name, matrix);
@@ -69,11 +71,13 @@ public abstract class ColorMapAwareGenerator extends Generator {
     }
 
     /**
-     *
-     * @param colornumber
-     * @param nextcolornumber
-     * @param ratio
-     * @return
+     * Returns a color between two colors of the colorMap of this. The color 
+     * is calculated from colorMap[colornumber] and colorMap[nextcolornumber] 
+     * in respect to the ratio. 
+     * @param colornumber The fist color number.
+     * @param nextcolornumber The next color number.
+     * @param ratio The ratio of the fist to the second color.
+     * @return The calculated color as an int.
      */
     protected int getColor(int colornumber, int nextcolornumber, float ratio) {
         Color currentColor = new Color(0);
@@ -105,7 +109,7 @@ public abstract class ColorMapAwareGenerator extends Generator {
     }
 
     /**
-     * @return the colorMapAsString
+     * @return the colorMap
      */
     public List<Color> getColorMap() {
         return colorMap;

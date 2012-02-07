@@ -22,7 +22,7 @@ import com.gyver.matrixmover.generator.ColorScroll;
 import com.gyver.matrixmover.generator.Fire;
 import com.gyver.matrixmover.generator.Rain;
 import com.gyver.matrixmover.generator.Generator;
-import com.gyver.matrixmover.generator.Generator.GeneratorName;
+import com.gyver.matrixmover.generator.enums.GeneratorName;
 import com.gyver.matrixmover.generator.MetaBalls;
 import com.gyver.matrixmover.generator.Plasma;
 import com.gyver.matrixmover.generator.Shapes;

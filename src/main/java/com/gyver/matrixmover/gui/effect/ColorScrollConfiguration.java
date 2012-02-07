@@ -11,8 +11,7 @@
 package com.gyver.matrixmover.gui.effect;
 
 import com.gyver.matrixmover.generator.ColorScroll;
-import com.gyver.matrixmover.generator.ColorScroll.ScrollMode;
-import com.gyver.matrixmover.generator.Generator.GeneratorName;
+import com.gyver.matrixmover.generator.enums.ScrollMode;
 import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.ColorMapDialog;
 import com.gyver.matrixmover.gui.component.JTextFieldSlider;
@@ -33,7 +32,7 @@ public class ColorScrollConfiguration extends javax.swing.JDialog {
     /** Creates new form ColorTableDialog */
     public ColorScrollConfiguration(java.awt.Frame parent, boolean modal, ColorScroll generator) {
         super(parent, modal);
-        this.setTitle(GeneratorName.STRING_COLOR_SCROLL+" Configuration");
+        this.setTitle(generator.getName().toString()+" Configuration");
         this.generator = generator;
         initComponents();
         

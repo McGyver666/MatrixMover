@@ -18,6 +18,7 @@
 package com.gyver.matrixmover.generator;
 
 import com.gyver.matrixmover.core.MatrixData;
+import com.gyver.matrixmover.generator.enums.GeneratorName;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,97 +32,6 @@ import java.util.logging.Logger;
  */
 public abstract class Generator implements Serializable {
 
-    /**
-     * The Enum GeneratorName.
-     */
-    public enum GeneratorName {
-
-        /** The NULLGENERATOR. */
-        SIMPLE_COLOR_GENERATOR(0),
-        /** The COLOR_SCROLL. */
-        COLOR_SCROLL(1),
-        /** The COLOR_FADE */
-        COLOR_FADE(2),
-        /** The PLASMA */
-        PLASMA(3),
-        /** The RAIN */
-        RAIN(4),
-        /** The FIRE */
-        SHAPES(5),
-        /** The FIRE */
-        FIRE(6),
-        /** The TEXTWRITER */
-        TEXTWRITER(7), 
-        /** The METABALLS */
-        METABALLS(8);
-        
-        /*
-         * If you add generators, keep in mind to add a case in 
-         * core.GeneratorVisual.setGeneratorFromString(int, String), so that a 
-         * change via the gui reaches the Visuals. Without changes, 
-         * new Generators are not executed. Additionally a case should 
-         * be added in gui.listener.GeneratorSetupListener.openGeneratorSettingsDialog(String, Generator)
-         * to open a Settings dialog.
-         */
-        public static final String STRING_SIMPLE_COLOR_GENERATOR = "Simple Color";
-        public static final String STRING_COLOR_SCROLL = "Color Scroll";
-        public static final String STRING_COLOR_FADE = "Color Fade";
-        public static final String STRING_PLASMA = "Plasma";
-        public static final String STRING_RAIN = "Rain";
-        public static final String STRING_SHAPES = "Shapes";
-        public static final String STRING_FIRE = "Flames";
-        public static final String STRING_TEXTWRITER = "Text";
-        public static final String STRING_METABALLS = "Metaballs";
-        /** The id. */
-        private int id;
-
-        /**
-         * Instantiates a new generator name.
-         *
-         * @param id the id
-         */
-        GeneratorName(int id) {
-            this.id = id;
-        }
-
-        /**
-         * Gets the id.
-         *
-         * @return the id
-         */
-        public int getId() {
-            return id;
-        }
-
-        /**
-         * Returns a human readable string for the Generator
-         */
-        @Override
-        public String toString() {
-            switch (this) {
-                case SIMPLE_COLOR_GENERATOR:
-                    return STRING_SIMPLE_COLOR_GENERATOR;
-                case COLOR_SCROLL:
-                    return STRING_COLOR_SCROLL;
-                case COLOR_FADE:
-                    return STRING_COLOR_FADE;
-                case PLASMA:
-                    return STRING_PLASMA;
-                case FIRE:
-                    return STRING_FIRE;
-                case RAIN:
-                    return STRING_RAIN;
-                case SHAPES:
-                    return STRING_SHAPES;
-                case TEXTWRITER:
-                    return STRING_TEXTWRITER;
-                case METABALLS:
-                    return STRING_METABALLS;
-            }
-            // if it has no string, return the enum-string
-            return super.toString();
-        }
-    }
     /** The log. */
     private static final Logger LOG = Logger.getLogger(Generator.class.getName());
     /** The name. */
@@ -138,9 +48,8 @@ public abstract class Generator implements Serializable {
     /**
      * Instantiates a new generator.
      *
-     * @param controller the controller
      * @param name the name
-     * @param resizeOption the resize option
+     * @param matrix the MatrixData of the Matrix 
      */
     public Generator(GeneratorName name, MatrixData matrix) {
         this.name = name;
@@ -157,6 +66,11 @@ public abstract class Generator implements Serializable {
      * update the generator.
      */
     public abstract void update();
+
+    /**
+     * inits the Effect. Init arrays, that need a init after size changed, here.
+     */
+    public abstract void init();
 
     /**
      * deinit generator.
@@ -181,13 +95,21 @@ public abstract class Generator implements Serializable {
     public int getInternalBufferYSize() {
         return internalBufferHeight;
     }
-    
-    public void setInternalBufferXSize(int width){
+
+    /**
+     * Sets the internal X buffer size of this.
+     * @param width
+     */
+    public void setInternalBufferXSize(int width) {
         this.internalBufferWidth = width;
         this.internalBuffer = new int[internalBufferWidth * internalBufferHeight];
     }
 
-    public void setInternalBufferYSize(int height){
+    /**
+     * Sets the internal Y buffer size of this
+     * @param height
+     */
+    public void setInternalBufferYSize(int height) {
         this.internalBufferHeight = height;
         this.internalBuffer = new int[internalBufferWidth * internalBufferHeight];
     }
@@ -220,44 +142,11 @@ public abstract class Generator implements Serializable {
     }
 
     /**
-     * this method get called if the generator gets activated
-     */
-    protected void nowActive() {
-    }
-
-    /**
-     * this method get called if the generator gets inactive
-     */
-    protected void nowInactive() {
-    }
-
-    /**
      * Gets the id.
      *
      * @return the id
      */
     public int getId() {
         return this.name.getId();
-    }
-
-    /**
-     * is generator selected?
-     * @return
-     */
-    public boolean isActive() {
-        return active;
-    }
-
-    /**
-     * update state
-     * @param active
-     */
-    public void setActive(boolean active) {
-        if (!active && this.active) {
-            nowInactive();
-        } else if (active && !this.active) {
-            nowActive();
-        }
-        this.active = active;
     }
 }

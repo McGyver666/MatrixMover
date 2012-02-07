@@ -81,8 +81,10 @@ public abstract class SceneReader {
         for (VisualSetup setup : leftScenes) {
             setup.getGenerator1().setInternalBufferXSize(md.getWidth());
             setup.getGenerator1().setInternalBufferYSize(md.getHeight());
+            setup.getGenerator1().init();
             setup.getGenerator2().setInternalBufferXSize(md.getWidth());
             setup.getGenerator2().setInternalBufferYSize(md.getHeight());
+            setup.getGenerator2().init();
             setup.getEffect1().setInternalBufferXSize(md.getWidth());
             setup.getEffect1().setInternalBufferYSize(md.getHeight());
             setup.getEffect2().setInternalBufferXSize(md.getWidth());
@@ -91,8 +93,10 @@ public abstract class SceneReader {
         for (VisualSetup setup : rightScenes) {
             setup.getGenerator1().setInternalBufferXSize(md.getWidth());
             setup.getGenerator1().setInternalBufferYSize(md.getHeight());
+            setup.getGenerator1().init();
             setup.getGenerator2().setInternalBufferXSize(md.getWidth());
             setup.getGenerator2().setInternalBufferYSize(md.getHeight());
+            setup.getGenerator2().init();
             setup.getEffect1().setInternalBufferXSize(md.getWidth());
             setup.getEffect1().setInternalBufferYSize(md.getHeight());
             setup.getEffect2().setInternalBufferXSize(md.getWidth());

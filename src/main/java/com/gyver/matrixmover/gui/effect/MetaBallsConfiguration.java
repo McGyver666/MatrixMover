@@ -10,11 +10,7 @@
  */
 package com.gyver.matrixmover.gui.effect;
 
-import com.gyver.matrixmover.generator.Generator.GeneratorName;
 import com.gyver.matrixmover.generator.MetaBalls;
-import com.gyver.matrixmover.generator.Plasma;
-import com.gyver.matrixmover.gui.Frame;
-import com.gyver.matrixmover.gui.ColorMapDialog;
 import com.gyver.matrixmover.gui.component.JTextFieldSlider;
 import com.gyver.matrixmover.gui.listener.interfaces.TFSListener;
 import java.awt.Dimension;
@@ -32,7 +28,7 @@ public class MetaBallsConfiguration extends javax.swing.JDialog {
     /** Creates new form ColorTableDialog */
     public MetaBallsConfiguration(java.awt.Frame parent, boolean modal, MetaBalls generator) {
         super(parent, modal);
-        this.setTitle(GeneratorName.STRING_METABALLS+" Configuration");
+        this.setTitle(generator.getName().toString()+" Configuration");
         this.generator = generator;
         initComponents();
         

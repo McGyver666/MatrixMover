@@ -11,8 +11,7 @@
 package com.gyver.matrixmover.gui.effect;
 
 import com.gyver.matrixmover.generator.Rain;
-import com.gyver.matrixmover.generator.Rain.RainDirection;
-import com.gyver.matrixmover.generator.Generator.GeneratorName;
+import com.gyver.matrixmover.generator.enums.RainDirection;
 import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.ColorMapDialog;
 import com.gyver.matrixmover.gui.component.JTextFieldSlider;
@@ -33,7 +32,7 @@ public class DropsConfiguration extends javax.swing.JDialog {
     /** Creates new form ColorTableDialog */
     public DropsConfiguration(java.awt.Frame parent, boolean modal, Rain generator) {
         super(parent, modal);
-        this.setTitle(GeneratorName.STRING_RAIN+" Configuration");
+        this.setTitle(generator.getName().toString()+" Configuration");
         this.generator = generator;
         initComponents();
         

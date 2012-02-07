@@ -27,7 +27,7 @@ import com.gyver.matrixmover.generator.ColorScroll;
 import com.gyver.matrixmover.generator.Rain;
 import com.gyver.matrixmover.generator.Fire;
 import com.gyver.matrixmover.generator.Generator;
-import com.gyver.matrixmover.generator.Generator.GeneratorName;
+import com.gyver.matrixmover.generator.enums.GeneratorName;
 import com.gyver.matrixmover.generator.MetaBalls;
 import com.gyver.matrixmover.generator.Plasma;
 import com.gyver.matrixmover.generator.Shapes;
@@ -109,23 +109,23 @@ public class GeneratorVisual extends Visual {
      */
     public void setGeneratorFromString(int nr, GeneratorName generator){
         Generator newGen = null;
-        if(generator.equals(Generator.GeneratorName.SIMPLE_COLOR_GENERATOR)){
+        if(generator.equals(GeneratorName.SIMPLE_COLOR_GENERATOR)){
             newGen = new SimpleColorGenerator(md);
-        } else if (generator.equals(Generator.GeneratorName.COLOR_FADE)){
+        } else if (generator.equals(GeneratorName.COLOR_FADE)){
             newGen = new ColorFade(md, null);
-        } else if (generator.equals(Generator.GeneratorName.COLOR_SCROLL)){
+        } else if (generator.equals(GeneratorName.COLOR_SCROLL)){
             newGen = new ColorScroll(md, null);
-        } else if (generator.equals(Generator.GeneratorName.PLASMA)){
+        } else if (generator.equals(GeneratorName.PLASMA)){
             newGen = new Plasma(md, null);
-        } else if (generator.equals(Generator.GeneratorName.FIRE)){
+        } else if (generator.equals(GeneratorName.FIRE)){
             newGen = new Fire(md);
-        } else if (generator.equals(Generator.GeneratorName.RAIN)){
+        } else if (generator.equals(GeneratorName.RAIN)){
             newGen = new Rain(md);
-        } else if (generator.equals(Generator.GeneratorName.SHAPES)){
+        } else if (generator.equals(GeneratorName.SHAPES)){
             newGen = new Shapes(md);
-        } else if (generator.equals(Generator.GeneratorName.METABALLS)){
+        } else if (generator.equals(GeneratorName.METABALLS)){
             newGen = new MetaBalls(md);
-        } else if (generator.equals(Generator.GeneratorName.TEXTWRITER)){
+        } else if (generator.equals(GeneratorName.TEXTWRITER)){
             newGen = new Textwriter(md);
         } else {
             newGen = new SimpleColorGenerator(md);

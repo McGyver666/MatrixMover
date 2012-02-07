@@ -19,12 +19,15 @@ package com.gyver.matrixmover.generator;
 
 import com.gyver.matrixmover.core.Controller;
 import com.gyver.matrixmover.core.MatrixData;
+import com.gyver.matrixmover.generator.enums.GeneratorName;
 import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * The class ColorFase
+ * The class ColorFade. Calculates a simple color fader. The
+ * whole matrix has one color. Colors change dependent on the 
+ * color map.
  * 
  * Code-parts copied from http://github.com/neophob/PixelController
  * 
@@ -40,7 +43,8 @@ public class ColorFade extends ColorMapAwareGenerator {
     /**
      * Instantiates a new colorscroll
      *
-     * @param controller the controller
+     * @param matrix The MatrixData of the matrix.
+     * @param colorMap The colorMap for the effect.
      */
     public ColorFade(MatrixData matrix, List<Color> colorMap) {
         super(GeneratorName.COLOR_FADE, matrix, colorMap);
@@ -57,20 +61,11 @@ public class ColorFade extends ColorMapAwareGenerator {
         frameCount = (float) (frameCount + forward);
     }
 
-    /**
-     * Gets the color.
-     *
-     * @param val the val
-     * @return the color
-     */
-    private int getColor() {
-        int colornumber = (int) (Math.round(Math.floor(frameCount / fade)));
-        colornumber = colornumber % colorMap.size();
-        int nextcolornumber = (colornumber + 1) % colorMap.size();
-        float ratio = (float) ((frameCount % fade) / (float) fade);
-        return super.getColor(colornumber, nextcolornumber, ratio);
+    @Override
+    public void init() {
+        calcForward();
     }
-
+    
     /**
      * @return the colorFadeTime
      */
@@ -85,7 +80,8 @@ public class ColorFade extends ColorMapAwareGenerator {
     }
 
     /**
-     * @param colorFadeTime the colorFadeTime to set
+     * Sets the speed of this (in beats per minute)
+     * @param bpm the speed in bpm
      */
     public void setSpeed(int bpm) {
         this.speed = bpm;
@@ -100,5 +96,13 @@ public class ColorFade extends ColorMapAwareGenerator {
         int fps = Controller.getControllerInstance().getFps();
         forward = (speed / 60F);
         forward = forward * (fade / (float) fps);
+    }
+
+    private int getColor() {
+        int colornumber = (int) (Math.round(Math.floor(frameCount / fade)));
+        colornumber = colornumber % colorMap.size();
+        int nextcolornumber = (colornumber + 1) % colorMap.size();
+        float ratio = (float) ((frameCount % fade) / (float) fade);
+        return super.getColor(colornumber, nextcolornumber, ratio);
     }
 }

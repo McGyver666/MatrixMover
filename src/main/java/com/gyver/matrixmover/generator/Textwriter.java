@@ -18,6 +18,7 @@
 package com.gyver.matrixmover.generator;
 
 import com.gyver.matrixmover.core.MatrixData;
+import com.gyver.matrixmover.generator.enums.GeneratorName;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -35,13 +36,15 @@ import org.apache.commons.lang.StringUtils;
 /**
  * The Class Textwriter.
  * 
+ * This class needs some work!
+ * 
  * Code-parts copied from http://github.com/neophob/PixelController
  * 
  * @author Gyver
  */
 public class Textwriter extends Generator {
 
-    public static final String INITIAL_TEXT = "MatrixMover";
+    private static final String INITIAL_TEXT = "MatrixMover";
     
     /** The Constant TEXT_BUFFER_X_SIZE. */
     private static final int TEXT_BUFFER_X_SIZE = 128;
@@ -75,10 +78,7 @@ public class Textwriter extends Generator {
     /**
      * Instantiates a new textwriter.
      *
-     * @param controller the controller
-     * @param fontName the font name
-     * @param fontSize the font size
-     * @param text the text
+     * @param md the MatrixData of this
      */
     public Textwriter(MatrixData md) {
         super(GeneratorName.TEXTWRITER, md);
@@ -213,5 +213,10 @@ public class Textwriter extends Generator {
      */
     public String getText() {
         return text;
+    }
+
+    @Override
+    public void init() {
+        // nothing to do here!
     }
 }

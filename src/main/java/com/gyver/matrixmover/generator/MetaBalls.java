@@ -18,9 +18,10 @@
 package com.gyver.matrixmover.generator;
 
 import com.gyver.matrixmover.core.MatrixData;
+import com.gyver.matrixmover.generator.enums.GeneratorName;
 
 /**
- * The Class Metaballs.
+ * The Class Metaballs. Calculates a classic metaballs effect.
  * 
  * Code-parts copied from http://github.com/neophob/PixelController
  * 
@@ -29,17 +30,14 @@ import com.gyver.matrixmover.core.MatrixData;
  */
 public class MetaBalls extends Generator {
 
-    /** The Constant NUM_BLOBS. */
-    private static final int NUM_BLOBS = 2;
     /** The blob px. */
-    private float[] blobPx;// = {10, 40, 36, 33, 44, 32, 22};
+    private float[] blobPx;
     /** The blob py. */
-    private float[] blobPy;// = {4, 60, 45, 21, 13, 41, 32};
-// Movement vector for each blob
+    private float[] blobPy;
     /** The blob dx. */
-    private float[] blobDx;// = {0F, 0.1F, 1F, 1F, 1F, 1F, -0.5F};
+    private float[] blobDx;
     /** The blob dy. */
-    private float[] blobDy;// = {1F, 0.2F, 1F, 1F, 0.5F, -0.5F, 1F};
+    private float[] blobDy;
     /** The vx. */
     private int[][] vy, vx;
     /** The a. */
@@ -54,33 +52,41 @@ public class MetaBalls extends Generator {
     /**
      * Instantiates a new metaballs.
      *
-     * @param controller the controller
+     * @param md the MatrixData of the Matrix
      */
     public MetaBalls(MatrixData md) {
         super(GeneratorName.METABALLS, md);
-        numBlobs = NUM_BLOBS;
+        this.numBlobs = 2;
         this.size = 1000;
         this.speed = 0.1F;
         this.applyThreshold = false;
         this.threshold = 128;
-        init();
-    }
-    
-    public void init(){
-        blobPx = new float[getNumBlobs()];
-        blobPy = new float[getNumBlobs()];
-        blobDx = new float[getNumBlobs()];
-        blobDy = new float[getNumBlobs()];
         
-        for (int i = 0; i < getNumBlobs(); i++){
+        blobPx = new float[numBlobs];
+        blobPy = new float[numBlobs];
+        blobDx = new float[numBlobs];
+        blobDy = new float[numBlobs];
+        
+        for (int i = 0; i < numBlobs; i++){
             blobPx[i] = (int) Math.floor(Math.random()*internalBufferWidth);
             blobPy[i] = (int) Math.floor(Math.random()*internalBufferHeight);
             blobDx[i] = (float) ((Math.random()-0.5)*2);
             blobDy[i] = (float) ((Math.random()-0.5)*2);
         }
         
-        vy = new int[getNumBlobs()][getInternalBufferYSize()];
-        vx = new int[getNumBlobs()][getInternalBufferXSize()];
+        vy = new int[numBlobs][getInternalBufferYSize()];
+        vx = new int[numBlobs][getInternalBufferXSize()];
+    }
+    
+    @Override
+    public void init(){
+        for (int i = 0; i < getNumBlobs(); i++){
+            blobPx[i] = (int) Math.floor(Math.random()*internalBufferWidth);
+            blobPy[i] = (int) Math.floor(Math.random()*internalBufferHeight);
+        }
+        
+        vy = new int[getNumBlobs()][internalBufferHeight];
+        vx = new int[getNumBlobs()][internalBufferWidth];
     }
     
     @Override
@@ -161,6 +167,7 @@ public class MetaBalls extends Generator {
     }
 
     /**
+     * Returns the number of blobs
      * @return the numBlobs
      */
     public int getNumBlobs() {
@@ -168,6 +175,7 @@ public class MetaBalls extends Generator {
     }
 
     /**
+     * Sets the number of blobs
      * @param numBlobs the numBlobs to set
      */
     public void setNumBlobs(int numBlobs) {
@@ -176,6 +184,7 @@ public class MetaBalls extends Generator {
     }
 
     /**
+     * Returns the size of the blobs
      * @return the size
      */
     public int getSize() {
@@ -183,6 +192,7 @@ public class MetaBalls extends Generator {
     }
 
     /**
+     * Sets the size of the blobs
      * @param size the size to set
      */
     public void setSize(int size) {
@@ -190,6 +200,7 @@ public class MetaBalls extends Generator {
     }
 
     /**
+     * Returns the speed of the blobs
      * @return the speed
      */
     public int getSpeed() {
@@ -197,6 +208,7 @@ public class MetaBalls extends Generator {
     }
 
     /**
+     * Sets the speed of the blobs
      * @param speed the speed to set
      */
     public void setSpeed(float speed) {
@@ -204,6 +216,7 @@ public class MetaBalls extends Generator {
     }
 
     /**
+     * Returns the threshold
      * @return the threshold
      */
     public int getThreshold() {
@@ -211,6 +224,7 @@ public class MetaBalls extends Generator {
     }
 
     /**
+     * Sets the threshold
      * @param threshold the threshold to set
      */
     public void setThreshold(int threshold) {
@@ -218,6 +232,7 @@ public class MetaBalls extends Generator {
     }
 
     /**
+     * Returns, if threshold is applied
      * @return the applyThreshold
      */
     public boolean isApplyThreshold() {
@@ -225,6 +240,7 @@ public class MetaBalls extends Generator {
     }
 
     /**
+     * Sets to apply the threshold or not
      * @param applyThreshold the applyThreshold to set
      */
     public void setApplyThreshold(boolean applyThreshold) {
