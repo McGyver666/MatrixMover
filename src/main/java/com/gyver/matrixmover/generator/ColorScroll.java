@@ -429,7 +429,7 @@ public class ColorScroll extends ColorMapAwareGenerator {
     private void middleToSidesVertical() {
         int ySize = internalBufferHeight;
 
-        for (int x = 0; x < internalBufferHalfWidth; x++) {
+        for (int x = 0; x <= internalBufferHalfWidth; x++) {
             int col = getColor(x);
 
             for (int y = 0; y < ySize; y++) {
@@ -445,9 +445,9 @@ public class ColorScroll extends ColorMapAwareGenerator {
     private void sidesToMiddleVertical() {
         int ySize = internalBufferHeight;
 
-        for (int x = 0; x < internalBufferHalfWidth; x++) {
+        for (int x = 0; x <= internalBufferHalfWidth; x++) {
 
-            int xRev = (internalBufferHalfWidth) - x - 1;
+            int xRev = (internalBufferHalfWidth) - x;
             int col = getColor(x);
             for (int y = 0; y < ySize; y++) {
                 this.internalBuffer[y * internalBufferWidth + xRev] = col;
@@ -462,7 +462,7 @@ public class ColorScroll extends ColorMapAwareGenerator {
     private void middleToSidesHorizontal() {
         int xSize = internalBufferWidth;
 
-        for (int y = 0; y < internalBufferHalfHeight; y++) {
+        for (int y = 0; y <= internalBufferHalfHeight; y++) {
 
             int col = getColor(y);
 
@@ -479,9 +479,9 @@ public class ColorScroll extends ColorMapAwareGenerator {
     private void sidesToMiddleHorizontal() {
         int xSize = internalBufferWidth;
 
-        for (int y = 0; y < internalBufferHalfHeight; y++) {
+        for (int y = 0; y <= internalBufferHalfHeight; y++) {
 
-            int yRev = internalBufferHalfHeight - y - 1;
+            int yRev = internalBufferHalfHeight - y;
             int col = getColor(y);
 
             for (int x = 0; x < xSize; x++) {

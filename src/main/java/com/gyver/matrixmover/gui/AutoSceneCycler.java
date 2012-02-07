@@ -16,23 +16,25 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Timer;
 
-/**
- *
- * @author Gyver
- */
 public class AutoSceneCycler extends javax.swing.JDialog {
 
     private static AutoSceneCycler autoSceneCycler = null;
     private Timer timer = null;
+    private boolean isRunning;
 
     /** Make this a singelton to keep settings easily */
     private AutoSceneCycler(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        isRunning = false;
         setTitle("Auto Scene Cycler");
         initComponents();
         centerWindow();
     }
 
+    /**
+     * This is a Singelton. Returns the instance of this.
+     * @return the AutoSceneCycler of this.
+     */
     public static AutoSceneCycler getInstance() {
         if (autoSceneCycler == null) {
             autoSceneCycler = new AutoSceneCycler(Frame.getFrameInstance(), true);
@@ -224,17 +226,21 @@ public class AutoSceneCycler extends javax.swing.JDialog {
     }//GEN-LAST:event_bExitActionPerformed
 
     private void bStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bStartActionPerformed
-        timer = new Timer();
-        AutoSceneCyclerTimerTask asctt = new AutoSceneCyclerTimerTask(Controller.getControllerInstance());
-        try {
-            asctt.setLeftSceneListFromString(tfLeftSceneList.getText());
-            asctt.setRightSceneListFromString(tfRightSceneList.getText());
-            int timeToWait = Integer.parseInt(tfSecondsToWait.getText()) * 1000;
-            timer.scheduleAtFixedRate(asctt, 0, timeToWait);
-            setTextRunnig();
-        } catch (NumberFormatException nfe) {
-            Frame.getFrameInstance().showWarning("Input is not valid. Check number format.");
+        if (!isRunning) {
+            timer = new Timer();
+            AutoSceneCyclerTimerTask asctt = new AutoSceneCyclerTimerTask(Controller.getControllerInstance());
+            try {
+                asctt.setLeftSceneListFromString(tfLeftSceneList.getText());
+                asctt.setRightSceneListFromString(tfRightSceneList.getText());
+                int timeToWait = Integer.parseInt(tfSecondsToWait.getText()) * 1000;
+                timer.scheduleAtFixedRate(asctt, 0, timeToWait);
+                setTextRunnig();
+                isRunning = true;
+            } catch (NumberFormatException nfe) {
+                Frame.getFrameInstance().showWarning("Input is not valid. Check number format.");
+            }
         }
+
 
 
     }//GEN-LAST:event_bStartActionPerformed
@@ -242,6 +248,7 @@ public class AutoSceneCycler extends javax.swing.JDialog {
     private void bStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bStopActionPerformed
         if (timer != null) {
             timer.cancel();
+            isRunning = false;
             setTextStopped();
         }
     }//GEN-LAST:event_bStopActionPerformed
@@ -250,6 +257,7 @@ public class AutoSceneCycler extends javax.swing.JDialog {
         lStatus.setText("Running");
         lStatus.setForeground(new java.awt.Color(0, 255, 0));
     }
+
     public void setTextStopped() {
         lStatus.setText("Stopped");
         lStatus.setForeground(new java.awt.Color(255, 0, 0));

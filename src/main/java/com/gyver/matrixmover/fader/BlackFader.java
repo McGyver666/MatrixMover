@@ -57,7 +57,7 @@ public class BlackFader extends Fader {
                 rightRed = (short) (Math.round(leftRed * newratio));
                 rightGreen = (short) (Math.round(leftGreen * newratio));
                 rightBlue = (short) (Math.round(leftBlue * newratio));
-            } else if (ratio > 0.5) {
+            } else if (ratio >= 0.5) {
                 float newratio = 1 - ((1 - ratio ) * 2);
                 rightRed = (short) (Math.round(rightRed * newratio));
                 rightGreen = (short) (Math.round(rightGreen * newratio));
