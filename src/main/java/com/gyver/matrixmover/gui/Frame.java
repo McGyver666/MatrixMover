@@ -93,14 +93,16 @@ public class Frame extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        masterSettings1 = new com.gyver.matrixmover.gui.MasterSettings();
         effectPanelLeft = new com.gyver.matrixmover.gui.GeneratorPanel();
         effectPanelRight = new com.gyver.matrixmover.gui.GeneratorPanel();
         masterPanel = new com.gyver.matrixmover.gui.MasterPanel();
         logoPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         generatorSetupLeft = new com.gyver.matrixmover.gui.GeneratorSetup();
         generatorSetupRight = new com.gyver.matrixmover.gui.GeneratorSetup();
-        masterSettings1 = new com.gyver.matrixmover.gui.MasterSettings();
+        masterSettings2 = new com.gyver.matrixmover.gui.MasterSettings();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MatrixMover");
@@ -153,11 +155,21 @@ public class Frame extends javax.swing.JFrame {
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(masterPanel, gridBagConstraints);
+
+        logoPanel.setLayout(new java.awt.GridBagLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        logoPanel.add(jLabel1, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipady = 50;
         getContentPane().add(logoPanel, gridBagConstraints);
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -179,8 +191,8 @@ public class Frame extends javax.swing.JFrame {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
-        jPanel1.add(masterSettings1, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel1.add(masterSettings2, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -207,10 +219,12 @@ public class Frame extends javax.swing.JFrame {
     private com.gyver.matrixmover.gui.GeneratorPanel effectPanelRight;
     private com.gyver.matrixmover.gui.GeneratorSetup generatorSetupLeft;
     private com.gyver.matrixmover.gui.GeneratorSetup generatorSetupRight;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel logoPanel;
     private com.gyver.matrixmover.gui.MasterPanel masterPanel;
     private com.gyver.matrixmover.gui.MasterSettings masterSettings1;
+    private com.gyver.matrixmover.gui.MasterSettings masterSettings2;
     // End of variables declaration//GEN-END:variables
 
     private void setUpComboBoxes() {

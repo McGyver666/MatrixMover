@@ -29,7 +29,7 @@ import java.util.logging.Logger;
  */
 public abstract class MMSplashScreen {
 
-    private static final int BAR_OFFSET = 10;
+    private static final int BAR_OFFSET = 2;
     private static SplashScreen splash = null;
     private static Graphics2D g = null;
 
@@ -54,12 +54,12 @@ public abstract class MMSplashScreen {
         g.setBackground(new Color(0, 0, 0, 0));
         g.clearRect(0, 0, splash.getBounds().width, splash.getBounds().height);
         
-        g.setColor(new Color(192,0,0));
+        g.setColor(new Color(255,64,64));
         g.fillRect(BAR_OFFSET, barYPos, (int) Math.round(barWidth / 100F * (float) i), 5);
         
-        g.setColor(Color.LIGHT_GRAY);
+        g.setColor(Color.WHITE);
         g.setFont(new Font("Dialog", Font.PLAIN, 10));
-        g.drawString(text, BAR_OFFSET, barYPos+15);
+        g.drawString(text, 5, barYPos+15);
         
         splash.update();
         try {
