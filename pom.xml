@@ -99,5 +99,10 @@
             <artifactId>artnet4j</artifactId>
             <version>0001</version>
         </dependency>
+        <dependency>
+            <groupId>fontchooser</groupId>
+            <artifactId>fontshooser</artifactId>
+            <version>1.0.5</version>
+        </dependency>
     </dependencies>
 </project>

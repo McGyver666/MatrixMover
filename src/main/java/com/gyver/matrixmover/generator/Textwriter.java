@@ -51,7 +51,7 @@ public class Textwriter extends Generator {
     /** The Constant CHANGE_SCROLLING_DIRECTION_TIMEOUT. */
     private static final int CHANGE_SCROLLING_DIRECTION_TIMEOUT = 12;
     /** The Constant SCROLL_AMMOUNT. */
-    private static final int SCROLL_AMMOUNT = 4;
+    private static final int SCROLL_AMMOUNT = 1;
     /** The log. */
     private static final Logger LOG = Logger.getLogger(Textwriter.class.getName());
     /** The ypos. */
@@ -74,6 +74,9 @@ public class Textwriter extends Generator {
     private int[] tmp;
     /** The text. */
     private String text;
+    
+    private int yOffset;
+    private boolean antialiasing;
 
     /**
      * Instantiates a new textwriter.
@@ -84,10 +87,12 @@ public class Textwriter extends Generator {
         super(GeneratorName.TEXTWRITER, md);
         color = new Color(255, 255, 255);
         xpos = 0;
+        yOffset = 0;
+        antialiasing = true;
         ypos = md.getHeight();
         try {
             tmp = new int[internalBuffer.length];
-            font = new Font("Dialog", 1, 12);
+            font = new Font("Dialog", 1, 9);
         } catch (Exception e) {
             LOG.log(Level.WARNING, "Failed to load font", e);
         }
@@ -117,7 +122,7 @@ public class Textwriter extends Generator {
 
         int h = (int) (0.5f + rect.getHeight());
         maxXPos = (int) (0.5f + rect.getWidth()) + 5;
-        ypos = internalBufferHeight - (internalBufferHeight - h) / 2;
+        ypos = yOffset + internalBufferHeight - (internalBufferHeight - h) / 2;
 
         img = new BufferedImage(maxXPos, internalBufferHeight, BufferedImage.TYPE_INT_RGB);
         g2 = img.createGraphics();
@@ -125,8 +130,10 @@ public class Textwriter extends Generator {
         g2.setColor(color);
         g2.setFont(font);
         g2.setClip(0, 0, maxXPos, internalBufferHeight);
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+        
+        if(this.antialiasing) {
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        }
 
         g2.setRenderingHint(RenderingHints.KEY_RENDERING,
                 RenderingHints.VALUE_RENDER_SPEED);
@@ -217,6 +224,20 @@ public class Textwriter extends Generator {
 
     @Override
     public void init() {
-        // nothing to do here!
+        createTextImage(this.text);
+    }
+
+    /**
+     * @return the yOffset
+     */
+    public int getyOffset() {
+        return yOffset;
+    }
+
+    /**
+     * @param yOffset the yOffset to set
+     */
+    public void setyOffset(int yOffset) {
+        this.yOffset = yOffset;
     }
 }
