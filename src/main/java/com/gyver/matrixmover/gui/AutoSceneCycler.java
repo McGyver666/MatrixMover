@@ -88,11 +88,6 @@ public class AutoSceneCycler extends javax.swing.JDialog {
         tfSecondsToWait.setMaximumSize(new java.awt.Dimension(50, 22));
         tfSecondsToWait.setMinimumSize(new java.awt.Dimension(50, 22));
         tfSecondsToWait.setPreferredSize(new java.awt.Dimension(50, 22));
-        tfSecondsToWait.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfSecondsToWaitActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -212,10 +207,6 @@ public class AutoSceneCycler extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tfSecondsToWaitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSecondsToWaitActionPerformed
-// TODO add your handling code here:
-    }//GEN-LAST:event_tfSecondsToWaitActionPerformed
 
     private void bExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExitActionPerformed
         this.dispose();

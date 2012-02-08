@@ -14,12 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-/*
- * Frame.java
- *
- * Created on 17.01.2012, 09:58:43
- */
 package com.gyver.matrixmover.gui;
 
 import com.gyver.matrixmover.core.Controller;
@@ -29,28 +23,39 @@ import com.gyver.matrixmover.effect.Effect.EffectName;
 import com.gyver.matrixmover.generator.enums.GeneratorName;
 import com.gyver.matrixmover.mixer.Mixer.MixerName;
 import com.gyver.matrixmover.properties.PropertiesHelper;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * This is a singelton. The Main frame of the MatrixMover gui. Holds all the panels
+ * 
  * @author Gyver
  */
 public class Frame extends javax.swing.JFrame {
 
     private PropertiesHelper ph = null;
     private MatrixData md = null;
-    private static Frame instance = new Frame();
+    private static Frame instance = null;
 
     /** Creates new form Frame */
     private Frame() {
     }
 
+    /**
+     * Returns the instance of this.
+     * @return
+     */
     public static Frame getFrameInstance() {
+        if (instance == null) {
+            instance = new Frame();
+        }
         return instance;
     }
 
+    /**
+     * Initiates this frame instance
+     * @param ph the properties helper
+     * @param cont the controller
+     */
     public void initFrame(PropertiesHelper ph, Controller cont) {
         this.ph = ph;
         this.md = cont.getMatrixData();
@@ -68,7 +73,7 @@ public class Frame extends javax.swing.JFrame {
         cont.setLedScreens(effectPanelLeft.getLedScreen(), effectPanelRight.getLedScreen(), getMasterPanel().getLedScreen());
 
         setUpComboBoxes();
-        
+
     }
 
     /** This method is called from within the constructor to
@@ -201,7 +206,6 @@ public class Frame extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         Controller.getControllerInstance().saveScenes();
     }//GEN-LAST:event_formWindowClosing
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.gyver.matrixmover.gui.GeneratorPanel effectPanelLeft;
     private com.gyver.matrixmover.gui.GeneratorPanel effectPanelRight;
@@ -227,6 +231,11 @@ public class Frame extends javax.swing.JFrame {
         generatorSetupRight.setMixerListToComboBoxes(MixerName.values());
     }
 
+    /**
+     * Sets the combo boxes to the correct indices if the scene has changed
+     * @param side the side of the gui where to set the comboboxes
+     * @param newActiveVisualSetup the visual setup to set the comboboxes indices to
+     */
     public void setComboBoxesForChangedScene(int side, VisualSetup newActiveVisualSetup) {
 
         if (side == Controller.LEFT_SIDE) {
@@ -240,49 +249,73 @@ public class Frame extends javax.swing.JFrame {
         //remove all from actionlistener when setting a new scene
         //else scene is marked as changed, due to actionlistener fired!
         generatorSetup.removeAllFromActionListener();
-        
-        generatorSetup.getCbGenerator1().setSelectedItem(newActiveVisualSetup.getGenerator1().getName());                
-        generatorSetup.getCbGenerator2().setSelectedItem(newActiveVisualSetup.getGenerator2().getName());                
+
+        generatorSetup.getCbGenerator1().setSelectedItem(newActiveVisualSetup.getGenerator1().getName());
+        generatorSetup.getCbGenerator2().setSelectedItem(newActiveVisualSetup.getGenerator2().getName());
         generatorSetup.getCbEffect1().setSelectedItem(newActiveVisualSetup.getEffect1().getName());
         generatorSetup.getCbEffect2().setSelectedItem(newActiveVisualSetup.getEffect2().getName());
         generatorSetup.getCbMixer().setSelectedItem(newActiveVisualSetup.getMixer().getName());
-        
+
         generatorSetup.getIntensitySlider1().setValue(newActiveVisualSetup.getGenerator1Intensity());
         generatorSetup.getIntensitySlider2().setValue(newActiveVisualSetup.getGenerator2Intensity());
-        
+
         generatorSetup.addAllToActionListener();
-        
+
     }
 
+    /**
+     * Returns the left generator panel
+     * @return the panel
+     */
     public GeneratorPanel getLeftGeneratorPanel() {
         return this.effectPanelLeft;
     }
 
+    /**
+     * Returns the right generator panel
+     * @return the panel
+     */
     public GeneratorPanel getRightGeneratorPanel() {
         return this.effectPanelRight;
     }
 
+    /**
+     * Returns the left generator setup panel
+     * @return the panel
+     */
     public GeneratorSetup getLeftGeneratorSetup() {
         return this.generatorSetupLeft;
     }
 
+    /**
+     * Returns the right generator setup panel
+     * @return the panel
+     */
     public GeneratorSetup getRightGeneratorSetup() {
         return this.generatorSetupRight;
     }
 
-    public void setAudioLevel(int[] level) {
-        this.masterSettings1.setAudioLevel(level);
-    }
-
-    public void showWarning(String string) {
-        JOptionPane.showMessageDialog(this, string, "Warning", JOptionPane.WARNING_MESSAGE);
-    }
-
     /**
-     * @return the masterPanel
+     * Returns the master panel
+     * @return the panel
      */
     public com.gyver.matrixmover.gui.MasterPanel getMasterPanel() {
         return masterPanel;
     }
-   
+
+    /**
+     * Sets the audio level
+     * @param level the level
+     */
+    public void setAudioLevel(int[] level) {
+        this.masterSettings1.setAudioLevel(level);
+    }
+
+    /**
+     * Shows a warning to the user.
+     * @param string the warning to display
+     */
+    public void showWarning(String string) {
+        JOptionPane.showMessageDialog(this, string, "Warning", JOptionPane.WARNING_MESSAGE);
+    }
 }

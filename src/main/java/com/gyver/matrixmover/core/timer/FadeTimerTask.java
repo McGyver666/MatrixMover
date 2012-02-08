@@ -32,11 +32,19 @@ public class FadeTimerTask extends TimerTask {
     private int[] fadeSteps = null;
     private int currentStep = 0;
     
+    /**
+     * Creates new form FadeTimerTask
+     * @param controller the controller
+     * @param fadeSteps array of fader positions to run through
+     */
     public FadeTimerTask(Controller controller, int[] fadeSteps){
         this.controller = controller;
         this.fadeSteps = fadeSteps;
     }
 
+    /**
+     * Runs the timer.
+     */
     @Override
     public void run() {
         controller.setCrossfaderValue(fadeSteps[currentStep]);

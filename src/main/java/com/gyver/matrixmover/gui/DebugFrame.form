@@ -30,11 +30,11 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;There was an error and the application has crashed.&lt;br&gt;Send this report to the developer to help finding the error.&lt;/html&gt;"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;There was an error and the application has crashed.&lt;br&gt;Send this report and your config.properties to the developer to help finding the error.&lt;/html&gt;"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="10" y="10" width="410" height="-1"/>
+          <AbsoluteConstraints x="10" y="10" width="620" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -44,7 +44,7 @@
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="10" y="60" width="670" height="260"/>
+          <AbsoluteConstraints x="10" y="50" width="670" height="270"/>
         </Constraint>
       </Constraints>
 

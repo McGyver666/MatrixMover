@@ -71,17 +71,6 @@ public class MatrixMover {
         LOG.log(Level.INFO, "MatrixMover Setup START");
         MMSplashScreen.initSplash();
 
-        /* Set uncaught exception handler for controlled crashing */
-        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-
-            @Override
-            public void uncaughtException(Thread t, Throwable e) {
-                showCrashMessage(e);
-            }
-        });
-
-
-
         MMSplashScreen.setProgress(10, "loading properties");
         config = new Properties();
         try {
@@ -191,15 +180,24 @@ public class MatrixMover {
      * @param args
      */
     public static void main(String[] args) {
+        // Set uncaught exception handler for controlled crashing
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                showCrashMessage(e);
+            }
+        });
+
         MatrixMover matmove = new MatrixMover();
-        try {
-            matmove.setup();
-        } catch (Exception e) {
-            showCrashMessage(e);
-        }
+        matmove.setup();
     }
 
-    public static void showCrashMessage(Throwable e) {
+    /**
+     * Shows an error massage to the user if MatrixMover has chrashed.
+     * @param e the throwable to display the massage of
+     */
+    private static void showCrashMessage(Throwable e) {
         //shut everything down!
         if (fpsTimer != null) {
             fpsTimer.cancel();
@@ -217,7 +215,6 @@ public class MatrixMover {
             controller.shutDown();
             controller = null;
         }
-
 
         if (guiFrame != null) {
             guiFrame.dispose();

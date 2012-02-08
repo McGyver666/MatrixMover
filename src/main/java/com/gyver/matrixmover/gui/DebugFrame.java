@@ -15,11 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * DebugFrame.java
- *
- * Created on 07.02.2012, 13:32:16
- */
 package com.gyver.matrixmover.gui;
 
 import java.io.PrintWriter;
@@ -88,16 +83,16 @@ public class DebugFrame extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        jLabel1.setText("<html>There was an error and the application has crashed.<br>Send this report to the developer to help finding the error.</html>");
+        jLabel1.setText("<html>There was an error and the application has crashed.<br>Send this report and your config.properties to the developer to help finding the error.</html>");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 10, 410, 36);
+        jLabel1.setBounds(10, 10, 620, 36);
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 60, 670, 260);
+        jScrollPane1.setBounds(10, 50, 670, 270);
 
         jButton1.setText("Exit");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
