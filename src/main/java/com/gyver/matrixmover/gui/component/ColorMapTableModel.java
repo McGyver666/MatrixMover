@@ -99,6 +99,9 @@ public class ColorMapTableModel extends AbstractTableModel {
     }
 
     public List<Color> getColorMap() {
+        if(colorMap.size() <= 0){
+            addRow();
+        }
         return colorMap;
     }
 
