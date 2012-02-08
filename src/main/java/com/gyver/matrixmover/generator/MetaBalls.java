@@ -80,9 +80,16 @@ public class MetaBalls extends Generator {
     
     @Override
     public void init(){
-        for (int i = 0; i < getNumBlobs(); i++){
+        blobPx = new float[numBlobs];
+        blobPy = new float[numBlobs];
+        blobDx = new float[numBlobs];
+        blobDy = new float[numBlobs];
+        
+        for (int i = 0; i < numBlobs; i++){
             blobPx[i] = (int) Math.floor(Math.random()*internalBufferWidth);
             blobPy[i] = (int) Math.floor(Math.random()*internalBufferHeight);
+            blobDx[i] = (float) ((Math.random()-0.5)*2);
+            blobDy[i] = (float) ((Math.random()-0.5)*2);
         }
         
         vy = new int[getNumBlobs()][internalBufferHeight];
