@@ -1,25 +1,30 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2012 Gyver
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * ColorMapDialog.java
- *
- * Created on 22.01.2012, 14:16:12
- */
 package com.gyver.matrixmover.gui;
 
 import com.gyver.matrixmover.gui.component.ColorMapTableModel;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Jonas
+ * Configuration dialog to edit colorMaps
+ * 
+ * @author Gyver
  */
 public class ColorMapDialog extends javax.swing.JDialog {
 
@@ -33,20 +38,7 @@ public class ColorMapDialog extends javax.swing.JDialog {
         cmTableModel = new ColorMapTableModel(colorMap);
         initComponents();
         jTable1.setModel(cmTableModel);
-        centerWindow();
-    }
-
-    private void centerWindow() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension frameSize = this.getSize();
-        if (frameSize.height > screenSize.height) {
-            frameSize.height = screenSize.height;
-        }
-        if (frameSize.width > screenSize.width) {
-            frameSize.width = screenSize.width;
-        }
-        this.setLocation((screenSize.width - frameSize.width) / 2,
-                (screenSize.height - frameSize.height) / 2);
+        setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to

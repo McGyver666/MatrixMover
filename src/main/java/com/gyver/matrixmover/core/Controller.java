@@ -367,7 +367,16 @@ public class Controller {
             int currentPosition = Frame.getFrameInstance().getMasterPanel().getSFadePosition().getValue();
             int[] fadeSteps = null;
             float secondsForFading = fadeTime / 1000F;
-            fadeSteps = new int[(int) Math.round(ph.getFps() * secondsForFading)];
+            
+            int numberOfFadeSteps = (int) Math.round(ph.getFps() * secondsForFading);
+            
+            if(numberOfFadeSteps < 2) {
+                Frame.getFrameInstance().showWarning("Fadetime is to small. Give it more time!");
+                isFading = false;
+                return;
+            }
+            
+            fadeSteps = new int[numberOfFadeSteps];
 
             //fade to right side
             if (currentPosition < 500) {

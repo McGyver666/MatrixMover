@@ -22,8 +22,6 @@
  */
 package com.gyver.matrixmover.gui;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -69,19 +67,6 @@ public class DebugFrame extends javax.swing.JFrame {
         sb.append("java.home = ").append(System.getProperty("java.home")).append("\n");
 
         jTextArea1.setText(sb.toString());
-    }
-
-    public void centerWindow() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension frameSize = this.getSize();
-        if (frameSize.height > screenSize.height) {
-            frameSize.height = screenSize.height;
-        }
-        if (frameSize.width > screenSize.width) {
-            frameSize.width = screenSize.width;
-        }
-        this.setLocation((screenSize.width - frameSize.width) / 2,
-                (screenSize.height - frameSize.height) / 2);
     }
 
     /** This method is called from within the constructor to

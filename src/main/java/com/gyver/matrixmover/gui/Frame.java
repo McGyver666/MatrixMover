@@ -68,19 +68,7 @@ public class Frame extends javax.swing.JFrame {
         cont.setLedScreens(effectPanelLeft.getLedScreen(), effectPanelRight.getLedScreen(), getMasterPanel().getLedScreen());
 
         setUpComboBoxes();
-    }
-    
-    public void centerWindow() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension frameSize = this.getSize();
-        if (frameSize.height > screenSize.height) {
-          frameSize.height = screenSize.height;
-        }
-        if (frameSize.width > screenSize.width) {
-          frameSize.width = screenSize.width;
-        }
-        this.setLocation((screenSize.width - frameSize.width) / 2,
-                       (screenSize.height - frameSize.height) / 2);
+        
     }
 
     /** This method is called from within the constructor to

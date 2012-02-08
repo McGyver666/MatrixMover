@@ -142,7 +142,7 @@ public class MatrixMover {
                 guiFrame = Frame.getFrameInstance();
                 guiFrame.initFrame(ph, controller);
                 guiFrame.setSize(1000, 600);
-                guiFrame.centerWindow();
+                guiFrame.setLocationRelativeTo(null);
                 MatrixMover.guiReady(true);
             }
         });
@@ -228,7 +228,7 @@ public class MatrixMover {
 
         DebugFrame df = new DebugFrame(e);
         df.setSize(705, 405);
-        df.centerWindow();
+        df.setLocationRelativeTo(null);
         df.setVisible(true);
     }
 }

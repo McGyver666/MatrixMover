@@ -1,13 +1,20 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2012 Gyver
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * ColorTableDialog.java
- *
- * Created on 20.01.2012, 10:07:13
- */
 package com.gyver.matrixmover.gui.effect;
 
 import com.gyver.matrixmover.generator.ColorFade;
@@ -15,54 +22,42 @@ import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.ColorMapDialog;
 import com.gyver.matrixmover.gui.component.JTextFieldSlider;
 import com.gyver.matrixmover.gui.listener.interfaces.TFSListener;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import javax.swing.event.ChangeEvent;
 
 /**
- *
- * @author Jonas
+ * Configuration dialog for ColorFade Generator
+ * 
+ * @author Gyver
  */
 public class ColorFadeConfiguration extends javax.swing.JDialog {
-    
+
     private ColorFade generator = null;
 
     /** Creates new form ColorTableDialog */
     public ColorFadeConfiguration(java.awt.Frame parent, boolean modal, ColorFade generator) {
         super(parent, modal);
-        this.setTitle(generator.getName().toString()+" Configuration");
+        this.setTitle(generator.getName().toString() + " Configuration");
         this.generator = generator;
         initComponents();
-        
+
         tfsSpeed.setMinimum(1);
         tfsSpeed.setMaximum(1000);
-                
+
         tfsSpeed.setValue(generator.getSpeed());
-        
-       tfsSpeed.addTFSListener(new TFSListener() {
+
+        tfsSpeed.addTFSListener(new TFSListener() {
+
             @Override
             public void stateChanged(ChangeEvent e) {
                 tpsSpeedStateChanged(e);
             }
         });
-        
-        centerWindow();
+
+        setLocationRelativeTo(null);
+
     }
 
-    private void centerWindow() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension frameSize = this.getSize();
-        if (frameSize.height > screenSize.height) {
-            frameSize.height = screenSize.height;
-        }
-        if (frameSize.width > screenSize.width) {
-            frameSize.width = screenSize.width;
-        }
-        this.setLocation((screenSize.width - frameSize.width) / 2,
-                (screenSize.height - frameSize.height) / 2);
-    }
-    
-    private void tpsSpeedStateChanged(ChangeEvent e){
+    private void tpsSpeedStateChanged(ChangeEvent e) {
         int speed = ((JTextFieldSlider) e.getSource()).getValue();
         generator.setSpeed(speed);
     }
@@ -144,7 +139,6 @@ public class ColorFadeConfiguration extends javax.swing.JDialog {
     private void bSaveExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSaveExitActionPerformed
         this.dispose();
     }//GEN-LAST:event_bSaveExitActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bColorMap;
     private javax.swing.JButton bSaveExit;

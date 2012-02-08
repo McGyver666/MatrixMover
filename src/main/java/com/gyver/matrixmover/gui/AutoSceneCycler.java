@@ -1,21 +1,30 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2012 Gyver
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * AutoSceneCycler.java
- *
- * Created on 04.02.2012, 18:42:55
- */
 package com.gyver.matrixmover.gui;
 
 import com.gyver.matrixmover.core.Controller;
 import com.gyver.matrixmover.core.timer.AutoSceneCyclerTimerTask;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.Timer;
 
+/**
+ * 
+ * @author Gyver
+ */
 public class AutoSceneCycler extends javax.swing.JDialog {
 
     private static AutoSceneCycler autoSceneCycler = null;
@@ -28,7 +37,7 @@ public class AutoSceneCycler extends javax.swing.JDialog {
         isRunning = false;
         setTitle("Auto Scene Cycler");
         initComponents();
-        centerWindow();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -40,19 +49,6 @@ public class AutoSceneCycler extends javax.swing.JDialog {
             autoSceneCycler = new AutoSceneCycler(Frame.getFrameInstance(), true);
         }
         return autoSceneCycler;
-    }
-
-    private void centerWindow() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension frameSize = this.getSize();
-        if (frameSize.height > screenSize.height) {
-            frameSize.height = screenSize.height;
-        }
-        if (frameSize.width > screenSize.width) {
-            frameSize.width = screenSize.width;
-        }
-        this.setLocation((screenSize.width - frameSize.width) / 2,
-                (screenSize.height - frameSize.height) / 2);
     }
 
     /** This method is called from within the constructor to

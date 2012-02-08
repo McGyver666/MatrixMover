@@ -23,7 +23,7 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author jonas
+ * @author Gyver
  */
 public class ColorMapTableModel extends AbstractTableModel {
 
