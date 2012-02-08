@@ -1,3 +1,10 @@
+0.3 beta
+* added multiple artnet node output
+
+0.2.2 beta
+* fixed metaballs bug
+* fixed small fading time bug
+
 0.2.1 beta
 * fixed metaballs crashing when resolution of matrix changed
 * edited splash screen

@@ -34,12 +34,18 @@ public abstract class Output {
     /** The outputDeviceEnum. */
     private OutputDeviceEnum outputDeviceEnum;
 
+    /**
+     * 
+     * @param outputDeviceEnum
+     * @param ph
+     */
     public Output(OutputDeviceEnum outputDeviceEnum, PropertiesHelper ph) {
         this.outputDeviceEnum = outputDeviceEnum;
     }
 
     /**
      * Update the output device
+     * @param buffer the buffer to send
      */
     public abstract void update(int[] buffer);
 

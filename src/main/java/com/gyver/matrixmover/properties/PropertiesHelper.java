@@ -47,7 +47,7 @@ public class PropertiesHelper {
     /**
      * Instantiates a new properties helper.
      *
-     * @param input the input
+     * @param config the config
      */
     public PropertiesHelper(Properties config) {
         this.config = config;
@@ -55,22 +55,6 @@ public class PropertiesHelper {
         parsOutputDevice(config);
 
 
-    }
-
-    private void parsOutputDevice(Properties config) {
-
-        String rawConfig = config.getProperty(ConfigConstants.OUTPUT_DEVICE);
-        if (rawConfig == null || rawConfig.isEmpty()) {
-            throw new IllegalArgumentException("Output device has to be set in parameter: " + ConfigConstants.OUTPUT_DEVICE);
-        }
-
-        if (rawConfig.equals("null")) {
-            this.outputDeviceEnum = OutputDeviceEnum.NULL;
-        } else if (rawConfig.equals("artnet")) {
-            this.outputDeviceEnum = OutputDeviceEnum.ARTNET;
-        } else {
-            throw new IllegalArgumentException("Given output device '"+rawConfig+"' not found");
-        }
     }
 
     public OutputDeviceEnum getOutputDevice() {
@@ -114,36 +98,51 @@ public class PropertiesHelper {
     }
 
     /**
-     * get configured artnet ip.
+     * Get configured artnet ip for given node.
      *
+     * @param nodeNumber the node
      * @return the art net ip
      */
-    public String getArtNetIp() {
-        return config.getProperty(ConfigConstants.ARTNET_IP);
+    public String getArtNetIp(int nodeNumber) {
+        String ip = config.getProperty(ConfigConstants.ARTNET_IP+"."+nodeNumber);
+        return ip;
     }
 
     /**
-     * how many pixels (=3 Channels) per DMX universe
-     * @return
+     * How many pixels (=3 Channels) per DMX universe for given node number.
+     * @param nodeNumber the node
+     * @return the number of pixels
      */
-    public int getArtNetPixelsPerUniverse() {
-        return parseInt(ConfigConstants.ARTNET_PIXELS_PER_UNIVERSE, 170);
+    public int getArtNetPixelsPerUniverse(int nodeNumber) {
+        return parseInt(ConfigConstants.ARTNET_PIXELS_PER_UNIVERSE+"."+nodeNumber, 170);
     }
 
     /**
-     * get first arnet universe id
-     * @return
+     * Get first arnet universe id for given node.
+     * @param nodeNumber the node
+     * @return the start universe
      */
-    public int getArtNetStartUniverseId() {
-        return parseInt(ConfigConstants.ARTNET_FIRST_UNIVERSE_ID, 0);
+    public int getArtNetStartUniverseId(int nodeNumber) {
+        return parseInt(ConfigConstants.ARTNET_FIRST_UNIVERSE_ID+"."+nodeNumber, 0);
+    }
+    
+    /**
+     * Gets the number of universes per node
+     * @param nodeNumber the node
+     * @return the number of universes
+     */
+    public int getUniversesPerNode(int nodeNumber) {
+        return parseInt(ConfigConstants.ARTNET_UNIVERSES_PER_NODE+"."+nodeNumber, 0);
+    }
+    
+    /**
+     * Gets the number of used artnet nodes.
+     * @return the number of nodes
+     */
+    public int getArtNetNodesCount() {
+        return parseInt(ConfigConstants.ARTNET_NODES, 0);
     }
 
-    /**
-     * get a int value from the config file.
-     *
-     * @param property the property
-     * @return the int
-     */
     private int parseInt(String property, int defaultValue) {
         String rawConfig = config.getProperty(property);
         if (StringUtils.isNotBlank(rawConfig)) {
@@ -198,5 +197,21 @@ public class PropertiesHelper {
         }
         Frame.getFrameInstance().showWarning("Unable to parse pixel mode '" + rawString + "'. Using RGB mode instead.");
         return PixelRgbMapping.PIXEL_MAPPING_RGB;
+    }
+
+    private void parsOutputDevice(Properties config) {
+
+        String rawConfig = config.getProperty(ConfigConstants.OUTPUT_DEVICE);
+        if (rawConfig == null || rawConfig.isEmpty()) {
+            throw new IllegalArgumentException("Output device has to be set in parameter: " + ConfigConstants.OUTPUT_DEVICE);
+        }
+
+        if (rawConfig.equals("null")) {
+            this.outputDeviceEnum = OutputDeviceEnum.NULL;
+        } else if (rawConfig.equals("artnet")) {
+            this.outputDeviceEnum = OutputDeviceEnum.ARTNET;
+        } else {
+            throw new IllegalArgumentException("Given output device '"+rawConfig+"' not found");
+        }
     }
 }

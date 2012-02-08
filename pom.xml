@@ -5,7 +5,7 @@
 
     <groupId>com.gyver</groupId>
     <artifactId>matrixmover</artifactId>
-    <version>0.2.2_beta</version>
+    <version>0.3_beta</version>
     <packaging>jar</packaging>
 
     <name>matrixmover</name>
