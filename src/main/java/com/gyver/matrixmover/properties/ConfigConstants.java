@@ -41,7 +41,7 @@ public final class ConfigConstants {
     public static final String ARTNET_PIXELS_PER_UNIVERSE = "artnet.pixels.per.universe";
     public static final String ARTNET_FIRST_UNIVERSE_ID = "artnet.first.universe.id";
     public static final String ARTNET_UNIVERSES_PER_NODE = "artnet.universes.per.node";
+    public static final String ARTNET_SUBNETS_PER_UNIVERSES = "artnet.subnet.per.universe";
     public static final String ARTNET_NODES = "artnet.nodes";
     public static final String SCENES_FILE = "scenes.file";
-
 }

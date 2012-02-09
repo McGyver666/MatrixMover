@@ -22,7 +22,6 @@ import artnet4j.ArtNet;
 import artnet4j.packets.ArtDmxPacket;
 import com.gyver.matrixmover.properties.PropertiesHelper;
 import java.net.InetAddress;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,7 +39,9 @@ public class ArtnetDevice extends Output {
     private int artnetNodes;
     private int[] pixelsPerUniverse;
     private int[] nrOfUniverse;
+    private int[] nrOfSubnet;
     private int[] universesPerNode;
+    private int[] subnetsPerUniverse;
     private int[] firstUniverseId;
     private ArtNet artnet;
     private InetAddress[] targetAdress;
@@ -58,6 +59,8 @@ public class ArtnetDevice extends Output {
             this.firstUniverseId = new int[this.artnetNodes];
             this.universesPerNode = new int[this.artnetNodes];
             this.nrOfUniverse = new int[this.artnetNodes];
+            this.nrOfSubnet = new int[this.artnetNodes];
+            this.subnetsPerUniverse = new int[this.artnetNodes];
             this.targetAdress = new InetAddress[this.artnetNodes];
 
             for (int i = 0; i < this.artnetNodes; i++) {
@@ -65,6 +68,7 @@ public class ArtnetDevice extends Output {
                 this.targetAdress[i] = InetAddress.getByName(ph.getArtNetIp(i));
                 this.firstUniverseId[i] = ph.getArtNetStartUniverseId(i);
                 this.universesPerNode[i] = ph.getUniversesPerNode(i);
+                this.subnetsPerUniverse[i] = ph.getSubnetsPerUniverse(i);
             }
             this.artnet.init();
             this.artnet.start();
@@ -74,13 +78,20 @@ public class ArtnetDevice extends Output {
 
             for (int i = 0; i < this.artnetNodes; i++) {
                 this.nrOfUniverse[i] = 0;
-                while (bufferSize > pixelsPerUniverse[i] && this.nrOfUniverse[i] < universesPerNode[i]) {
+                while (bufferSize > 0 && this.nrOfUniverse[i] < universesPerNode[i]) {
+                    this.nrOfSubnet[i] = 0;
+                    while (bufferSize > 0 && this.nrOfSubnet[i] < subnetsPerUniverse[i]) {
+                        if (bufferSize >= pixelsPerUniverse[i]) {
+                            LOG.log(Level.FINE, "{0} Pixels in universe {1}, subnet {4} of node {2} ({3})", new Object[]{pixelsPerUniverse[i], nrOfUniverse[i], i, this.targetAdress[i].toString(), nrOfSubnet[i]});
+                        } else {
+                            LOG.log(Level.FINE, "{0} Pixels in universe {1}, subnet {4} of node {2} ({3})", new Object[]{bufferSize, nrOfUniverse[i], i, this.targetAdress[i].toString(), nrOfSubnet[i]});
+                        }
+                        bufferSize -= pixelsPerUniverse[i];
+                        this.nrOfSubnet[i]++;
+                    }
                     this.nrOfUniverse[i]++;
-                    bufferSize -= pixelsPerUniverse[i];
-                    LOG.log(Level.FINEST, "{0} Pixels in universe {1} of node {2} ({3})", new Object[]{pixelsPerUniverse[i], nrOfUniverse[i], i, this.targetAdress[i].toString()});
                 }
             }
-
             this.initialized = true;
         } catch (Exception e) {
             LOG.log(Level.WARNING, "failed to initialize ArtNet port:", e);
@@ -94,21 +105,23 @@ public class ArtnetDevice extends Output {
     @Override
     public void update(int[] buffer) {
         if (this.initialized) {
-            
+
             int remainingInt = buffer.length;
             int ofs = 0;
-            
+
             for (int n = 0; n < artnetNodes; n++) {
                 for (int i = 0; i < this.nrOfUniverse[n]; i++) {
-                    int tmp = pixelsPerUniverse[n];
-                    if (remainingInt < pixelsPerUniverse[n]) {
-                        tmp = remainingInt;
+                    for (int j = 0; j < this.nrOfSubnet[n]; j++) {
+                        int tmp = pixelsPerUniverse[n];
+                        if (remainingInt < pixelsPerUniverse[n]) {
+                            tmp = remainingInt;
+                        }
+                        int[] sendBuffer = new int[tmp];
+                        System.arraycopy(buffer, ofs, sendBuffer, 0, tmp);
+                        remainingInt -= tmp;
+                        ofs += tmp;
+                        sendBufferToArtnetReceiver(this.firstUniverseId[n] + i, j, convertIntToByteBuffer(sendBuffer), targetAdress[n]);
                     }
-                    int[] sendBuffer = new int[tmp];
-                    System.arraycopy(buffer, ofs, sendBuffer, 0, tmp);
-                    remainingInt -= tmp;
-                    ofs += tmp;
-                    sendBufferToArtnetReceiver(this.firstUniverseId[n]+i, convertIntToByteBuffer(sendBuffer), targetAdress[n]);
                 }
             }
         }
@@ -127,9 +140,9 @@ public class ArtnetDevice extends Output {
      * @param artnetReceiver
      * @param frameBuf
      */
-    private void sendBufferToArtnetReceiver(int universe, byte[] buffer, InetAddress adress) {
+    private void sendBufferToArtnetReceiver(int universe, int subnet, byte[] buffer, InetAddress adress) {
         ArtDmxPacket dmx = new ArtDmxPacket();
-        dmx.setUniverse(0, universe);
+        dmx.setUniverse(subnet, universe);
         dmx.setSequenceID(sequenceID % 255);
         dmx.setDMX(buffer, buffer.length);
         this.artnet.unicastPacket(dmx, adress);

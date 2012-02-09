@@ -134,6 +134,15 @@ public class PropertiesHelper {
     public int getUniversesPerNode(int nodeNumber) {
         return parseInt(ConfigConstants.ARTNET_UNIVERSES_PER_NODE+"."+nodeNumber, 0);
     }
+
+    /**
+     * Gets the number of subnets per universe
+     * @param nodeNumber the node
+     * @return the number of subnets
+     */
+    public int getSubnetsPerUniverse(int nodeNumber) {
+        return parseInt(ConfigConstants.ARTNET_SUBNETS_PER_UNIVERSES+"."+nodeNumber, 0);
+    }
     
     /**
      * Gets the number of used artnet nodes.
