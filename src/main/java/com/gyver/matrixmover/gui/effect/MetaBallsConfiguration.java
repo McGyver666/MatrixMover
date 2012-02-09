@@ -143,7 +143,7 @@ public class MetaBallsConfiguration extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 10);
         getContentPane().add(tfsBlobCount, gridBagConstraints);
 
-        tfsSize.setMaximum(5000);
+        tfsSize.setMaximum(50000);
         tfsSize.setMinimum(0);
         tfsSize.setValue(10);
         gridBagConstraints = new java.awt.GridBagConstraints();
