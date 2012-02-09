@@ -42,7 +42,6 @@
                         </manifestEntries>
                     </archive>
                 </configuration>
-        
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -61,6 +60,43 @@
                 </configuration>
             </plugin>
             
+            <!-- use the Maven Install Plugin to deploy needed jars to the local
+            repository since they aren't available in the public Maven repositories. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.3.1</version>
+                <executions>
+                    <execution>
+                        <id>artnet4j-0001.jar</id>
+                        <configuration>
+                            <file>lib/artnet4j-0001.jar</file>
+                            <groupId>artnet4j</groupId>
+                            <artifactId>artnet4j</artifactId>
+                            <version>0001</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jfontchooser-1.0.5.jar</id>
+                        <configuration>
+                            <file>lib/jfontchooser-1.0.5.jar</file>
+                            <groupId>jfontchooser</groupId>
+                            <artifactId>jfontchooser</artifactId>
+                            <version>1.0.5</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         
     </build>
@@ -100,8 +136,8 @@
             <version>0001</version>
         </dependency>
         <dependency>
-            <groupId>fontchooser</groupId>
-            <artifactId>fontshooser</artifactId>
+            <groupId>jfontchooser</groupId>
+            <artifactId>jfontchooser</artifactId>
             <version>1.0.5</version>
         </dependency>
     </dependencies>

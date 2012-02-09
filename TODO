@@ -1,9 +1,9 @@
 Todo list for MatrixMover
-* Update maven building
 * Remake Textwriter generator and add settings dialog
 * Add audio muting, gain control and fft
 * Add Audio Effects
 * Add global speed and options in effects to fit it
 * Add tab button to set global speed
 * Remake save and load 
+* Export/Import single scenes
 
