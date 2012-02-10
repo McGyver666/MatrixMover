@@ -35,7 +35,7 @@ public class AudioTimerTask extends TimerTask {
 
     @Override
     public void run() {
-        controller.captureAudio();
+        controller.updateVuMeter();
     }
     
 }

@@ -16,7 +16,6 @@
  */
 package com.gyver.matrixmover.core.timer;
 
-import com.gyver.matrixmover.MatrixMover;
 import com.gyver.matrixmover.core.Controller;
 import java.util.TimerTask;
 

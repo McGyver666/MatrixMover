@@ -16,7 +16,7 @@
  */
 package com.gyver.matrixmover.core;
 
-import com.gyver.matrixmover.core.audio.AudioCapture;
+import com.gyver.matrixmover.core.audio.AudioCaptureThread;
 import com.gyver.matrixmover.core.timer.FadeTimerTask;
 import com.gyver.matrixmover.fader.BlackFader;
 import com.gyver.matrixmover.fader.CrossFader;
@@ -33,6 +33,7 @@ import com.gyver.matrixmover.mapping.PixelRgbMapping;
 import com.gyver.matrixmover.output.Output;
 import com.gyver.matrixmover.properties.PropertiesHelper;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.logging.Level;
@@ -71,9 +72,10 @@ public class Controller {
     private int masterIntensity = 255;
     private OutputMapping om = null;
     private PixelRgbMapping prm = null;
-    private AudioCapture ac = null;
     private boolean isFading = false;
     private Timer fadingTimer = null;
+    private AudioCaptureThread act = null;
+    private Thread actThread = null;
 
     /**
      * Instantiates a new controller.
@@ -101,10 +103,6 @@ public class Controller {
         om = new OutputMapping(matrixData);
         prm = new PixelRgbMapping();
 
-        ac = new AudioCapture();
-        if (ac.getAvalibalMixer() != null && ac.getAvalibalMixer().length > 0) {
-            ac.startAudio(ac.getAvalibalMixer()[0]);
-        }
     }
 
     /**
@@ -232,13 +230,6 @@ public class Controller {
         } else {
             throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
         }
-    }
-
-    public void captureAudio() {
-        //readout newest audio
-        ac.captureAudio();
-        //get the levels
-        Frame.getFrameInstance().setAudioLevel(ac.getLevel());
     }
 
     public void computeLeftVisual() {
@@ -395,6 +386,11 @@ public class Controller {
         }
 
     }
+    
+    public void setAudioCapture(AudioCaptureThread act, Thread actThread) {
+        this.act = act;
+        this.actThread = actThread;
+    }
 
     public void setIsFading(boolean isFading) {
         this.isFading = isFading;
@@ -405,6 +401,12 @@ public class Controller {
             fadingTimer.cancel();
             fadingTimer.purge();
             fadingTimer = null;
+        }
+    }
+
+    public void updateVuMeter() {
+        if(act != null){
+            Frame.getFrameInstance().setAudioLevel(act.getRmsLevel());
         }
     }
 }

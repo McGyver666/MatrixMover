@@ -18,6 +18,8 @@
 package com.gyver.matrixmover.gui;
 
 import com.gyver.matrixmover.gui.listener.MasterSettingsListener;
+//import java.util.Arrays;
+import java.util.Arrays;
 import javax.swing.JSlider;
 import javax.swing.JToggleButton;
 
@@ -36,11 +38,6 @@ public class MasterSettings extends javax.swing.JPanel {
         sMasterIntensity.addChangeListener(msListener);
         tbBlackout.addActionListener(msListener);
         bSetup.addActionListener(msListener);
-        pbVolumeLeft.setMinimum(0);
-        pbVolumeLeft.setMaximum(80);
-        pbVolumeRight.setMinimum(0);
-        pbVolumeRight.setMaximum(80);
-        
     }
     
     public JSlider getMasterIntensitySlider(){
@@ -51,10 +48,9 @@ public class MasterSettings extends javax.swing.JPanel {
         return tbBlackout;
     }
     
-    public void setAudioLevel(int[] level){
-        pbVolumeLeft.setValue(level[0]);
-        pbVolumeRight.setValue(level[1]);
-        
+    public void setAudioLevel(float[] level){
+        vuMeterPanel1.setVuValue(level[0]);
+        vuMeterPanel2.setVuValue(level[1]);
     }
 
     /** This method is called from within the constructor to
@@ -69,11 +65,11 @@ public class MasterSettings extends javax.swing.JPanel {
 
         sMasterIntensity = new javax.swing.JSlider();
         sVolumeLevel = new javax.swing.JSlider();
-        pbVolumeLeft = new javax.swing.JProgressBar();
-        pbVolumeRight = new javax.swing.JProgressBar();
         tbBlackout = new javax.swing.JToggleButton();
         tbAudioMute = new javax.swing.JToggleButton();
         bSetup = new javax.swing.JButton();
+        vuMeterPanel1 = new com.gyver.matrixmover.gui.component.VuMeterPanel();
+        vuMeterPanel2 = new com.gyver.matrixmover.gui.component.VuMeterPanel();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Master Settings"));
         setLayout(new java.awt.GridBagLayout());
@@ -97,28 +93,6 @@ public class MasterSettings extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         add(sVolumeLevel, gridBagConstraints);
-
-        pbVolumeLeft.setOrientation(1);
-        pbVolumeLeft.setValue(50);
-        pbVolumeLeft.setPreferredSize(new java.awt.Dimension(14, 50));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
-        add(pbVolumeLeft, gridBagConstraints);
-
-        pbVolumeRight.setOrientation(1);
-        pbVolumeRight.setValue(50);
-        pbVolumeRight.setPreferredSize(new java.awt.Dimension(14, 50));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        add(pbVolumeRight, gridBagConstraints);
 
         tbBlackout.setText("Black");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -144,16 +118,34 @@ public class MasterSettings extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         add(bSetup, gridBagConstraints);
+
+        vuMeterPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 22, 8, 0);
+        add(vuMeterPanel1, gridBagConstraints);
+
+        vuMeterPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 0, 8, 0);
+        add(vuMeterPanel2, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bSetup;
-    private javax.swing.JProgressBar pbVolumeLeft;
-    private javax.swing.JProgressBar pbVolumeRight;
     private javax.swing.JSlider sMasterIntensity;
     private javax.swing.JSlider sVolumeLevel;
     private javax.swing.JToggleButton tbAudioMute;
     private javax.swing.JToggleButton tbBlackout;
+    private com.gyver.matrixmover.gui.component.VuMeterPanel vuMeterPanel1;
+    private com.gyver.matrixmover.gui.component.VuMeterPanel vuMeterPanel2;
     // End of variables declaration//GEN-END:variables
 
     public javax.swing.JButton getSetupButton() {

@@ -17,8 +17,9 @@
  */
 package com.gyver.matrixmover;
 
-import com.gyver.matrixmover.core.timer.AudioTimerTask;
 import com.gyver.matrixmover.core.Controller;
+import com.gyver.matrixmover.core.audio.AudioCaptureThread;
+import com.gyver.matrixmover.core.timer.AudioTimerTask;
 import com.gyver.matrixmover.core.timer.ExecutionTimerTask;
 import com.gyver.matrixmover.gui.DebugFrame;
 import com.gyver.matrixmover.gui.Frame;
@@ -28,7 +29,6 @@ import com.gyver.matrixmover.output.Output;
 import com.gyver.matrixmover.output.OutputDeviceEnum;
 import com.gyver.matrixmover.properties.PropertiesHelper;
 import com.gyver.matrixmover.splash.MMSplashScreen;
-import java.awt.Font;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
@@ -39,7 +39,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import net.sf.nimrod.NimRODLookAndFeel;
 import net.sf.nimrod.NimRODTheme;
-import say.swing.JFontChooser;
 
 /**
  * Class MatrixMover starting the MatrixMover Programm.
@@ -162,19 +161,18 @@ public class MatrixMover {
         audioTimer = new Timer();
         long millisecondsDelay = 1000 / ph.getFps();
         fpsTimer.scheduleAtFixedRate(new ExecutionTimerTask(controller), 1, millisecondsDelay);
-        audioTimer.schedule(new AudioTimerTask(controller), 1000, millisecondsDelay / 2);
-
+        audioTimer.schedule(new AudioTimerTask(controller), 100, millisecondsDelay / 2);
+        
+        AudioCaptureThread act = new AudioCaptureThread();
+        Thread thread = new Thread(act);
+        thread.start();
+        controller.setAudioCapture(act, thread);
 
         LOG.log(Level.INFO, "MatrixMover Setup END");
         MMSplashScreen.setProgress(100, "done loading");
         MMSplashScreen.close();
         if (guiFrame != null) {
             guiFrame.setVisible(true);
-            JFontChooser fchooser = new JFontChooser();
-            int option = fchooser.showDialog(guiFrame);
-            if(option == JFontChooser.OK_OPTION) {
-                Font font = fchooser.getSelectedFont();
-            }
         }
     }
 

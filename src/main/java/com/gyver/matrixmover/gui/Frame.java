@@ -307,8 +307,8 @@ public class Frame extends javax.swing.JFrame {
      * Sets the audio level
      * @param level the level
      */
-    public void setAudioLevel(int[] level) {
-        this.masterSettings1.setAudioLevel(level);
+    public void setAudioLevel(float[] level) {
+        this.masterSettings2.setAudioLevel(level);
     }
 
     /**

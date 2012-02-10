@@ -17,6 +17,7 @@
 package com.gyver.matrixmover.core.audio;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.AudioFormat;
@@ -47,7 +48,9 @@ public class AudioCapture {
     byte[] buffer = null;
     float[] leftChanel = null;
     float[] rightChanel = null;
-
+    
+    int dbMax = 0;
+    
     public AudioCapture() {
 
         // load all supported Mixers into mixerinfo
@@ -111,12 +114,29 @@ public class AudioCapture {
         }
     }
 
-    public int[] getLevel() {
-        int[] level = {calculateRMSLevel(leftChanel), calculateRMSLevel(rightChanel)};
+    public float[] getLevel() {
+        double leftChan = calculateRMSLevel(leftChanel);
+        double rightChan = calculateRMSLevel(rightChanel);
+        float[] level = new float[2];
+        
+        level[0] = (float) (Math.log((double)((leftChan==0.0)?0.0001:leftChan))/Math.log(10.0) * 20.0);
+        level[1] = (float) (Math.log((double)((rightChan==0.0)?0.0001:rightChan))/Math.log(10.0) * 20.0);
+        
+//        // maximum db is 35. So add 65 to scale from 0 to 100 (-65 to +35 db)
+//        level[0] = (int) (20*Math.log10(level[0]))+65;
+//        if(level[0] < 0){
+//           level[0] = 0;
+//        }
+//        
+//        level[1] = (int) (20*Math.log10(level[1]))+65;
+//        if(level[1] < 0){
+//           level[1] = 0;
+//        }
+        
         return level;
     }
 
-    private int calculateRMSLevel(float[] data) {
+    private double calculateRMSLevel(float[] data) {
         //calculade the rms
         double sum = 0;
         for (int i = 0; i < data.length; i++) {
@@ -131,6 +151,6 @@ public class AudioCapture {
         }
 
         double avgMeanSquare = sumMeanSquare / data.length;
-        return (int) (Math.pow(avgMeanSquare, 0.5d) * 100d);
+        return Math.pow(avgMeanSquare, 0.5d) * 100d;
     }
 }
