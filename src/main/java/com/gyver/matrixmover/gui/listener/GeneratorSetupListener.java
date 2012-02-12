@@ -27,6 +27,7 @@ import com.gyver.matrixmover.generator.MetaBalls;
 import com.gyver.matrixmover.generator.Plasma;
 import com.gyver.matrixmover.generator.Shapes;
 import com.gyver.matrixmover.generator.SimpleColorGenerator;
+import com.gyver.matrixmover.generator.Textwriter;
 import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.GeneratorPanel;
 import com.gyver.matrixmover.gui.GeneratorSetup;
@@ -38,6 +39,7 @@ import com.gyver.matrixmover.gui.effect.FireConfiguration;
 import com.gyver.matrixmover.gui.effect.MetaBallsConfiguration;
 import com.gyver.matrixmover.gui.effect.PlasmaConfiguration;
 import com.gyver.matrixmover.gui.effect.SimpleColorConfiguration;
+import com.gyver.matrixmover.gui.effect.TextwriterConfiguration;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
@@ -145,6 +147,9 @@ public class GeneratorSetupListener implements ActionListener, ChangeListener {
         } else if (activGenerator instanceof MetaBalls) {
             MetaBallsConfiguration mbDialog = new MetaBallsConfiguration(Frame.getFrameInstance(), true, (MetaBalls) activGenerator);
             mbDialog.setVisible(true);
+        } else if (activGenerator instanceof Textwriter) {
+            TextwriterConfiguration twDialog = new TextwriterConfiguration(Frame.getFrameInstance(), true, (Textwriter) activGenerator);
+            twDialog.setVisible(true);
         } else if (activGenerator instanceof Shapes) {
             ShapesConfiguration sDialog = new ShapesConfiguration(Frame.getFrameInstance(), true, (Shapes) activGenerator);
             sDialog.setVisible(true);

@@ -1,5 +1,6 @@
 0.3 beta
 * added multiple artnet node output
+* fixed colorMap size 0 bug
 
 0.2.2 beta
 * fixed metaballs bug

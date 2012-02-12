@@ -29,7 +29,6 @@ public class AudioCaptureThread implements Runnable {
     public void run() {
         while(true) {
             ac.captureAudio();
-            this.rmsLevel = ac.getLevel();
         }
     }
 
@@ -37,14 +36,14 @@ public class AudioCaptureThread implements Runnable {
      * @return the rmsLevel
      */
     public float[] getRmsLevel() {
-        return rmsLevel;
+        return ac.getLevel();
     }
 
     /**
      * @return the spectrum
      */
-    public int[] getSpectrum() {
-        return spectrum;
+    public float[] getSpectrum(int bands) {
+        return ac.getFftOutput(bands);
     }
     
 }

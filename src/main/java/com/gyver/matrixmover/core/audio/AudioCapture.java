@@ -41,16 +41,14 @@ public class AudioCapture {
     private final int CHANNELS = 2;
     private final boolean SIGNED = true;
     private final boolean BIG_ENDIAN = false;
-
     private AudioFormat format = null;
     private Mixer.Info[] mixerInfo = null;
     TargetDataLine line = null;
     byte[] buffer = null;
     float[] leftChanel = null;
     float[] rightChanel = null;
-    
     int dbMax = 0;
-    
+
     public AudioCapture() {
 
         // load all supported Mixers into mixerinfo
@@ -118,21 +116,10 @@ public class AudioCapture {
         double leftChan = calculateRMSLevel(leftChanel);
         double rightChan = calculateRMSLevel(rightChanel);
         float[] level = new float[2];
-        
-        level[0] = (float) (Math.log((double)((leftChan==0.0)?0.0001:leftChan))/Math.log(10.0) * 20.0);
-        level[1] = (float) (Math.log((double)((rightChan==0.0)?0.0001:rightChan))/Math.log(10.0) * 20.0);
-        
-//        // maximum db is 35. So add 65 to scale from 0 to 100 (-65 to +35 db)
-//        level[0] = (int) (20*Math.log10(level[0]))+65;
-//        if(level[0] < 0){
-//           level[0] = 0;
-//        }
-//        
-//        level[1] = (int) (20*Math.log10(level[1]))+65;
-//        if(level[1] < 0){
-//           level[1] = 0;
-//        }
-        
+
+        level[0] = (float) (Math.log((double) ((leftChan == 0.0) ? 0.0001 : leftChan)) / Math.log(10.0) * 20.0);
+        level[1] = (float) (Math.log((double) ((rightChan == 0.0) ? 0.0001 : rightChan)) / Math.log(10.0) * 20.0);
+
         return level;
     }
 
@@ -152,5 +139,62 @@ public class AudioCapture {
 
         double avgMeanSquare = sumMeanSquare / data.length;
         return Math.pow(avgMeanSquare, 0.5d) * 100d;
+    }
+
+    float[] getFftOutput(int bands) {
+        
+        double[] a = new double[leftChanel.length];
+        double[] b = new double[leftChanel.length];
+        
+        for (int i = 0; i < a.length; i++){
+            a[i] = leftChanel[i];
+        }
+        
+        computeFFT(1, 512, a, b);
+        
+        
+        
+        return new float[99];
+    }
+
+    public static void computeFFT(int sign, int n, double[] ar, double[] ai) {
+        double scale = 2.0 / (double) n;
+        int i, j;
+        for (i = j = 0; i < n; ++i) {
+            if (j >= i) {
+                double tempr = ar[j] * scale;
+                double tempi = ai[j] * scale;
+                ar[j] = ar[i] * scale;
+                ai[j] = ai[i] * scale;
+                ar[i] = tempr;
+                ai[i] = tempi;
+            }
+            int m = n / 2;
+            while ((m >= 1) && (j >= m)) {
+                j -= m;
+                m /= 2;
+            }
+            j += m;
+        }
+
+        int mmax, istep;
+        for (mmax = 1, istep = 2 * mmax; mmax < n; mmax = istep, istep = 2 * mmax) {
+            double delta = sign * Math.PI / (double) mmax;
+            for (int m = 0; m < mmax; ++m) {
+                double w = m * delta;
+                double wr = Math.cos(w);
+                double wi = Math.sin(w);
+                for (i = m; i < n; i += istep) {
+                    j = i + mmax;
+                    double tr = wr * ar[j] - wi * ai[j];
+                    double ti = wr * ai[j] + wi * ar[j];
+                    ar[j] = ar[i] - tr;
+                    ai[j] = ai[i] - ti;
+                    ar[i] += tr;
+                    ai[i] += ti;
+                }
+            }
+            mmax = istep;
+        }
     }
 }

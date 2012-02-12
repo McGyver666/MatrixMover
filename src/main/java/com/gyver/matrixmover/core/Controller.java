@@ -395,6 +395,13 @@ public class Controller {
     public void setIsFading(boolean isFading) {
         this.isFading = isFading;
     }
+    
+    public float[] getSpectrum(int bands) {
+        if(act != null){
+            return act.getSpectrum(bands);
+        }
+        return new float[bands];
+    }
 
     public void shutDown() {
         if (fadingTimer != null) {

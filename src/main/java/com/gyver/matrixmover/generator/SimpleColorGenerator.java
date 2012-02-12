@@ -17,6 +17,7 @@
  */
 package com.gyver.matrixmover.generator;
 
+import com.gyver.matrixmover.core.Controller;
 import com.gyver.matrixmover.core.MatrixData;
 import com.gyver.matrixmover.generator.enums.GeneratorName;
 import java.awt.Color;
@@ -48,6 +49,7 @@ public class SimpleColorGenerator extends Generator {
     
     @Override
     public void update() {
+        Controller.getControllerInstance().getSpectrum(8);
         Arrays.fill(this.internalBuffer, color.getRGB());
     }
     
