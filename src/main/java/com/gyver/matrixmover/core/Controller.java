@@ -54,6 +54,7 @@ public class Controller {
      * The right side generator setup
      */
     public static final int RIGHT_SIDE = 2;
+    private final float VU_DECAY = 2.5F;
     private static final Logger LOG = Logger.getLogger(Controller.class.getName());
     private static Controller instance = new Controller();
     private PropertiesHelper ph = null;
@@ -70,6 +71,7 @@ public class Controller {
     private int[] outputLedImage = null;
     private int crossfaderValue = 0;
     private int masterIntensity = 255;
+    private float[] decayedLevel = null;
     private OutputMapping om = null;
     private PixelRgbMapping prm = null;
     private boolean isFading = false;
@@ -92,6 +94,8 @@ public class Controller {
         this.ph = ph;
         this.output = output;
         matrixData = new MatrixData(ph.getOutputDeviceDimensionWidth(), ph.getOutputDeviceDimensionHeight());
+
+        this.decayedLevel = new float[2];
 
         //init and hold the Visuals
         leftVisual = new GeneratorVisual(matrixData);
@@ -358,15 +362,15 @@ public class Controller {
             int currentPosition = Frame.getFrameInstance().getMasterPanel().getSFadePosition().getValue();
             int[] fadeSteps = null;
             float secondsForFading = fadeTime / 1000F;
-            
+
             int numberOfFadeSteps = (int) Math.round(ph.getFps() * secondsForFading);
-            
-            if(numberOfFadeSteps < 2) {
+
+            if (numberOfFadeSteps < 2) {
                 Frame.getFrameInstance().showWarning("Fadetime is to small. Give it more time!");
                 isFading = false;
                 return;
             }
-            
+
             fadeSteps = new int[numberOfFadeSteps];
 
             //fade to right side
@@ -386,7 +390,7 @@ public class Controller {
         }
 
     }
-    
+
     public void setAudioCapture(AudioCaptureThread act, Thread actThread) {
         this.act = act;
         this.actThread = actThread;
@@ -395,9 +399,9 @@ public class Controller {
     public void setIsFading(boolean isFading) {
         this.isFading = isFading;
     }
-    
+
     public float[] getSpectrum(int bands) {
-        if(act != null){
+        if (act != null) {
             return act.getSpectrum(bands);
         }
         return new float[bands];
@@ -412,8 +416,32 @@ public class Controller {
     }
 
     public void updateVuMeter() {
-        if(act != null){
-            Frame.getFrameInstance().setAudioLevel(act.getRmsLevel());
+        float[] newLevel = new float[2];
+
+        if (act != null) {
+            newLevel = act.getRmsLevel();
         }
+
+        // decay left channel
+        if (newLevel[0] >= decayedLevel[0]) {
+            decayedLevel[0] = newLevel[0];
+        } else {
+            decayedLevel[0] -= VU_DECAY;
+            if (newLevel[0] >= decayedLevel[0]) {
+                decayedLevel[0] = newLevel[0];
+            }
+        }
+
+        // right channel
+        if (newLevel[1] >= decayedLevel[1]) {
+            decayedLevel[1] = newLevel[1];
+        } else {
+            decayedLevel[1] -= VU_DECAY;
+            if (newLevel[1] >= decayedLevel[1]) {
+                decayedLevel[1] = newLevel[1];
+            }
+        }
+
+        Frame.getFrameInstance().setAudioLevel(decayedLevel);
     }
 }
