@@ -209,27 +209,30 @@ public class AudioCapture {
     }
 
     private float[] stripToBands(double[] amplitude, int bands) {
-        float[] spectrum = new float[bands];
+        float[] spectrum = new float[amplitude.length];
         
-        float freqPerBand = amplitude.length / (float) bands;
-        if(freqPerBand < 1) {
-            freqPerBand = 1F;
-        }
-        int spectrumIndex = 0;
-        
-        int currentBands = 0;
-        
+//        float freqPerBand = amplitude.length / (float) bands;
+//        if(freqPerBand < 1) {
+//            freqPerBand = 1F;
+//        }
+//        int spectrumIndex = 0;
+//        
+//        int currentBands = 0;
+//        
         for(int i = 0; i < amplitude.length; i++){
-            if (i >= (spectrumIndex+1)*freqPerBand) {
-                spectrum[spectrumIndex] = spectrum[spectrumIndex] / (float) currentBands;
-                
-                spectrumIndex++;
-                currentBands = 0;
-            }
-            
-            spectrum[spectrumIndex] += amplitude[i];
-            
+//            if (i >= (spectrumIndex+1)*freqPerBand) {
+//                spectrum[spectrumIndex] = spectrum[spectrumIndex] / (float) currentBands;
+//                
+//                spectrumIndex++;
+//                currentBands = 0;
+//            }
+//            
+//            spectrum[spectrumIndex] += amplitude[i];
+//            currentBands++;
+//            
+            spectrum[i] = (float) amplitude[i];
         }
+        
         
         return spectrum;
     }
