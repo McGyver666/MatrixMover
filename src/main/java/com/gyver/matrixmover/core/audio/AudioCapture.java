@@ -16,6 +16,8 @@
  */
 package com.gyver.matrixmover.core.audio;
 
+import edu.emory.mathcs.jtransforms.fft.DoubleFFT_1D;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -30,7 +32,7 @@ import javax.sound.sampled.TargetDataLine;
 
 /**
  *
- * @author jonas
+ * @author Gyver
  */
 public class AudioCapture {
 
@@ -124,21 +126,29 @@ public class AudioCapture {
     }
 
     public float[] getFftOutput(int bands) {
-        
-        double[] a = new double[leftChanel.length];
-        double[] b = new double[leftChanel.length];
-        
-        for (int i = 0; i < a.length; i++){
+
+        double[] a = new double[bands*2];
+
+        for (int i = 0; i < a.length; i++) {
             a[i] = leftChanel[i];
         }
-        
-        computeFFT(1, 512, a, b);
-        
-        double[] amplitude = computeAmplitude(a, b);
-        
-        float[] spectrum = stripToBands(amplitude, bands);
-        
-        return spectrum;
+
+//        computeFFT(1, 512, a, b);
+        DoubleFFT_1D fft = new DoubleFFT_1D(a.length);
+        fft.realForward(a);
+//        System.out.println(Arrays.toString(a));
+
+        float[] amplitude = computeAmplitude(a);
+//        System.out.println(Arrays.toString(amplitude));
+
+//        float[] spectrum = stripToBands(amplitude, amplitude.length);
+
+//        float[] spectrum = new float[amplitude.length];
+//        for (int i = 0; i < spectrum.length; i++) {
+//            spectrum[i] = (float) amplitude[i];
+//        }
+
+        return amplitude;
     }
 
     private double calculateRMSLevel(float[] data) {
@@ -159,78 +169,39 @@ public class AudioCapture {
         return Math.pow(avgMeanSquare, 0.5d) * 100d;
     }
 
-    private static void computeFFT(int sign, int n, double[] ar, double[] ai) {
-        double scale = 2.0 / (double) n;
-        int i, j;
-        for (i = j = 0; i < n; ++i) {
-            if (j >= i) {
-                double tempr = ar[j] * scale;
-                double tempi = ai[j] * scale;
-                ar[j] = ar[i] * scale;
-                ai[j] = ai[i] * scale;
-                ar[i] = tempr;
-                ai[i] = tempi;
-            }
-            int m = n / 2;
-            while ((m >= 1) && (j >= m)) {
-                j -= m;
-                m /= 2;
-            }
-            j += m;
-        }
+    private float[] computeAmplitude(double[] a) {
+        float[] amplitude = new float[a.length / 2];
 
-        int mmax, istep;
-        for (mmax = 1, istep = 2 * mmax; mmax < n; mmax = istep, istep = 2 * mmax) {
-            double delta = sign * Math.PI / (double) mmax;
-            for (int m = 0; m < mmax; ++m) {
-                double w = m * delta;
-                double wr = Math.cos(w);
-                double wi = Math.sin(w);
-                for (i = m; i < n; i += istep) {
-                    j = i + mmax;
-                    double tr = wr * ar[j] - wi * ai[j];
-                    double ti = wr * ai[j] + wi * ar[j];
-                    ar[j] = ar[i] - tr;
-                    ai[j] = ai[i] - ti;
-                    ar[i] += tr;
-                    ai[i] += ti;
-                }
-            }
-            mmax = istep;
-        }
-    }
-
-    private double[] computeAmplitude(double[] a, double[] b) {
-        double[] amplitude = new double[a.length/2];
-        for(int i = 0; i < amplitude.length; i++){
-            amplitude[i] = Math.sqrt((a[i]*a[i])+(b[i]*b[i]));
+        amplitude[0] = (float) a[0];
+        for (int k = 1; k < amplitude.length; k++) {
+            amplitude[k] = (float) (10 * Math.log10((a[2 * k] * a[2 * k]) + (a[2 * k + 1] * a[2 * k + 1])));
         }
         return amplitude;
     }
 
     private float[] stripToBands(double[] amplitude, int bands) {
         float[] spectrum = new float[bands];
-        
+
         float freqPerBand = amplitude.length / (float) bands;
-        if(freqPerBand < 1) {
+        if (freqPerBand < 1) {
             freqPerBand = 1F;
         }
         int spectrumIndex = 0;
-        
+
         int currentBands = 0;
-        
-        for(int i = 0; i < amplitude.length; i++){
-            if (i >= (spectrumIndex+1)*freqPerBand) {
+
+        for (int i = 0; i < amplitude.length; i++) {
+            if (i >= (spectrumIndex + 1) * freqPerBand) {
                 spectrum[spectrumIndex] = spectrum[spectrumIndex] / (float) currentBands;
-                
+
                 spectrumIndex++;
                 currentBands = 0;
             }
-            
+
             spectrum[spectrumIndex] += amplitude[i];
-            
+
         }
-        
+
         return spectrum;
     }
 }

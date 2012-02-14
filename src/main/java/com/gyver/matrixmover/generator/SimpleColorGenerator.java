@@ -31,7 +31,8 @@ import java.util.Arrays;
 public class SimpleColorGenerator extends Generator {
 
     private Color color = null;
-    
+    private float[] decayedSpectrum = null;
+
     /**
      * Instantiates a new null generator.
      *
@@ -46,26 +47,57 @@ public class SimpleColorGenerator extends Generator {
     public void init() {
         // nothing to do here.
     }
-    
+
     @Override
     public void update() {
-        Controller.getControllerInstance().getSpectrum(8);
-        Arrays.fill(this.internalBuffer, color.getRGB());
+
+        int bands = 32;
+
+        float[] spectrum = Controller.getControllerInstance().getSpectrum(bands);
+
+        if (decayedSpectrum == null) {
+            decayedSpectrum = new float[bands];
+        }
+
+        for (int i = 0; i < bands; i++) {
+            spectrum[i] = spectrum[i] * ((i/3)+1) / 2.5F - 1;
+            if (spectrum[i] >= decayedSpectrum[i]) {
+                decayedSpectrum[i] = spectrum[i];
+            } else {
+                decayedSpectrum[i] -= 2F;
+                if (spectrum[i] >= decayedSpectrum[i]) {
+                    decayedSpectrum[i] = spectrum[i];
+                }
+            }
+        }
+
+        for (int i = 0; i < this.internalBufferWidth; i++) {
+            for (int j = 0; j < this.internalBufferHeight; j++) {
+                if (decayedSpectrum[i] > j) {
+                    internalBuffer[i + (j * internalBufferWidth)] = 0xFFFFFF;
+                } else {
+                    internalBuffer[i + (j * internalBufferWidth)] = 0x000000;
+                }
+            }
+        }
+
+
+//        Arrays.fill(this.internalBuffer, color.getRGB());
     }
-    
+
     /**
      * Sets the color
      * @param color
      */
-    public void setColor(Color color){
+    public void setColor(Color color) {
         this.color = color;
     }
-    
+
     /**
      * Returns the color
      * @return
      */
-    public Color getColor(){
+    public Color getColor() {
         return this.color;
     }
 }
