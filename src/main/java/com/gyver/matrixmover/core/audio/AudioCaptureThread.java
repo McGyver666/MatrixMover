@@ -4,7 +4,8 @@
  */
 package com.gyver.matrixmover.core.audio;
 
-import com.gyver.matrixmover.core.Controller;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,6 +30,11 @@ public class AudioCaptureThread implements Runnable {
     public void run() {
         while(true) {
             ac.captureAudio();
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(AudioCaptureThread.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

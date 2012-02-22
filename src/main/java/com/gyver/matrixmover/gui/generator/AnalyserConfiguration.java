@@ -15,9 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.gyver.matrixmover.gui.effect;
+package com.gyver.matrixmover.gui.generator;
 
-import com.gyver.matrixmover.generator.ColorScroll;
+import com.gyver.matrixmover.generator.Analyser;
+import com.gyver.matrixmover.generator.enums.AnalyserDirection;
 import com.gyver.matrixmover.generator.enums.ScrollMode;
 import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.ColorMapDialog;
@@ -27,53 +28,41 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.event.ChangeEvent;
 
 /**
- * Configuration dialog for ColorScroll generator
+ * Configuration dialog for Analyser generator
  * @author Gyver
  */
-public class ColorScrollConfiguration extends javax.swing.JDialog {
+public class AnalyserConfiguration extends javax.swing.JDialog {
     
-    private ColorScroll generator = null;
+    private Analyser generator = null;
 
     /** Creates new form ColorTableDialog */
-    public ColorScrollConfiguration(java.awt.Frame parent, boolean modal, ColorScroll generator) {
+    public AnalyserConfiguration(java.awt.Frame parent, boolean modal, Analyser generator) {
         super(parent, modal);
         this.setTitle(generator.getName().toString()+" Configuration");
         this.generator = generator;
         initComponents();
         
-        tfsDistance.setValue(generator.getFadeLength());
+        tfsGain.setValue(generator.getGain());
+        tfsGain.setMinimum(0);
+        tfsGain.setMaximum(100);
         
-        tfsSpeed.setValue(generator.getSpeed());
+        cbAnalyserDirection.setModel(new DefaultComboBoxModel(AnalyserDirection.values()));
         
-        cbScrollMode.setModel(new DefaultComboBoxModel(ScrollMode.values()));
+        cbAnalyserDirection.setSelectedItem(generator.getAnalyserDirection());
         
-        cbScrollMode.setSelectedItem(generator.getScrollMode());
-        
-        tfsDistance.addTFSListener(new TFSListener() {
+        tfsGain.addTFSListener(new TFSListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                tpsDistanceStateChanged(e);
-            }
-        });
-        
-        tfsSpeed.addTFSListener(new TFSListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                tpsSpeedStateChanged(e);
+                tpsGainStateChanged(e);
             }
         });
         
         setLocationRelativeTo(null);
     }
 
-    private void tpsDistanceStateChanged(ChangeEvent e){
-        int distance = ((JTextFieldSlider) e.getSource()).getValue();
-        generator.setFadeLength(distance);
-    }
-
-    private void tpsSpeedStateChanged(ChangeEvent e){
-        int speed = ((JTextFieldSlider) e.getSource()).getValue();
-        generator.setSpeed(speed);
+    private void tpsGainStateChanged(ChangeEvent e){
+        int gain = ((JTextFieldSlider) e.getSource()).getValue();
+        generator.setGain(gain);
     }
 
     /** This method is called from within the constructor to
@@ -87,11 +76,9 @@ public class ColorScrollConfiguration extends javax.swing.JDialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         bColorMap = new javax.swing.JButton();
-        tfsSpeed = new com.gyver.matrixmover.gui.component.JTextFieldSlider();
-        tfsDistance = new com.gyver.matrixmover.gui.component.JTextFieldSlider();
+        tfsGain = new com.gyver.matrixmover.gui.component.JTextFieldSlider();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        cbScrollMode = new javax.swing.JComboBox();
+        cbAnalyserDirection = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         bSaveExit = new javax.swing.JButton();
 
@@ -111,29 +98,18 @@ public class ColorScrollConfiguration extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 5, 5);
         getContentPane().add(bColorMap, gridBagConstraints);
 
-        tfsSpeed.setMaximum(6000);
-        tfsSpeed.setMinimum(1);
-        tfsSpeed.setValue(120);
+        tfsGain.setMaximum(6000);
+        tfsGain.setMinimum(1);
+        tfsGain.setValue(120);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 10);
-        getContentPane().add(tfsSpeed, gridBagConstraints);
+        getContentPane().add(tfsGain, gridBagConstraints);
 
-        tfsDistance.setMaximum(100);
-        tfsDistance.setMinimum(1);
-        tfsDistance.setValue(10);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 10);
-        getContentPane().add(tfsDistance, gridBagConstraints);
-
-        jLabel1.setText("BPM:");
+        jLabel1.setText("Height:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -141,18 +117,10 @@ public class ColorScrollConfiguration extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
         getContentPane().add(jLabel1, gridBagConstraints);
 
-        jLabel2.setText("Distance:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 5);
-        getContentPane().add(jLabel2, gridBagConstraints);
-
-        cbScrollMode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbScrollMode.addActionListener(new java.awt.event.ActionListener() {
+        cbAnalyserDirection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbAnalyserDirection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbScrollModeActionPerformed(evt);
+                cbAnalyserDirectionActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -161,9 +129,9 @@ public class ColorScrollConfiguration extends javax.swing.JDialog {
         gridBagConstraints.ipadx = 150;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 15);
-        getContentPane().add(cbScrollMode, gridBagConstraints);
+        getContentPane().add(cbAnalyserDirection, gridBagConstraints);
 
-        jLabel3.setText("Scroll Direction:");
+        jLabel3.setText("Analyser Direction:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -188,9 +156,9 @@ public class ColorScrollConfiguration extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbScrollModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbScrollModeActionPerformed
-        generator.setScrollMode((ScrollMode) cbScrollMode.getSelectedItem());
-    }//GEN-LAST:event_cbScrollModeActionPerformed
+    private void cbAnalyserDirectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAnalyserDirectionActionPerformed
+        generator.setAnalyserDirection((AnalyserDirection) cbAnalyserDirection.getSelectedItem());
+    }//GEN-LAST:event_cbAnalyserDirectionActionPerformed
 
     private void bColorMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bColorMapActionPerformed
         ColorMapDialog cmDialog = new ColorMapDialog(Frame.getFrameInstance(), true, generator.getColorMap());
@@ -205,11 +173,9 @@ public class ColorScrollConfiguration extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bColorMap;
     private javax.swing.JButton bSaveExit;
-    private javax.swing.JComboBox cbScrollMode;
+    private javax.swing.JComboBox cbAnalyserDirection;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private com.gyver.matrixmover.gui.component.JTextFieldSlider tfsDistance;
-    private com.gyver.matrixmover.gui.component.JTextFieldSlider tfsSpeed;
+    private com.gyver.matrixmover.gui.component.JTextFieldSlider tfsGain;
     // End of variables declaration//GEN-END:variables
 }

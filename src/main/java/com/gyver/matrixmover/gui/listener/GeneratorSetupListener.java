@@ -17,6 +17,8 @@
 package com.gyver.matrixmover.gui.listener;
 
 import com.gyver.matrixmover.core.Controller;
+import com.gyver.matrixmover.generator.Analyser;
+import com.gyver.matrixmover.generator.AudioStrobe;
 import com.gyver.matrixmover.generator.ColorFade;
 import com.gyver.matrixmover.generator.ColorScroll;
 import com.gyver.matrixmover.generator.Fire;
@@ -31,15 +33,17 @@ import com.gyver.matrixmover.generator.Textwriter;
 import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.GeneratorPanel;
 import com.gyver.matrixmover.gui.GeneratorSetup;
-import com.gyver.matrixmover.gui.effect.ColorFadeConfiguration;
-import com.gyver.matrixmover.gui.effect.ColorScrollConfiguration;
-import com.gyver.matrixmover.gui.effect.ShapesConfiguration;
-import com.gyver.matrixmover.gui.effect.DropsConfiguration;
-import com.gyver.matrixmover.gui.effect.FireConfiguration;
-import com.gyver.matrixmover.gui.effect.MetaBallsConfiguration;
-import com.gyver.matrixmover.gui.effect.PlasmaConfiguration;
-import com.gyver.matrixmover.gui.effect.SimpleColorConfiguration;
-import com.gyver.matrixmover.gui.effect.TextwriterConfiguration;
+import com.gyver.matrixmover.gui.generator.AnalyserConfiguration;
+import com.gyver.matrixmover.gui.generator.ColorFadeConfiguration;
+import com.gyver.matrixmover.gui.generator.ColorScrollConfiguration;
+import com.gyver.matrixmover.gui.generator.ShapesConfiguration;
+import com.gyver.matrixmover.gui.generator.DropsConfiguration;
+import com.gyver.matrixmover.gui.generator.FireConfiguration;
+import com.gyver.matrixmover.gui.generator.MetaBallsConfiguration;
+import com.gyver.matrixmover.gui.generator.PlasmaConfiguration;
+import com.gyver.matrixmover.gui.generator.AudioStrobeConfiguration;
+import com.gyver.matrixmover.gui.generator.SimpleColorConfiguration;
+import com.gyver.matrixmover.gui.generator.TextwriterConfiguration;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
@@ -153,7 +157,13 @@ public class GeneratorSetupListener implements ActionListener, ChangeListener {
         } else if (activGenerator instanceof Shapes) {
             ShapesConfiguration sDialog = new ShapesConfiguration(Frame.getFrameInstance(), true, (Shapes) activGenerator);
             sDialog.setVisible(true);
-        }
+        } else if (activGenerator instanceof Analyser) {
+            AnalyserConfiguration aDialog = new AnalyserConfiguration(Frame.getFrameInstance(), true, (Analyser) activGenerator);
+            aDialog.setVisible(true);
+        } else if (activGenerator instanceof AudioStrobe) {
+            AudioStrobeConfiguration ascDialog = new AudioStrobeConfiguration(Frame.getFrameInstance(), true, (AudioStrobe) activGenerator);
+            ascDialog.setVisible(true);
+        } 
         activeButtonChanged(true);
     }
 

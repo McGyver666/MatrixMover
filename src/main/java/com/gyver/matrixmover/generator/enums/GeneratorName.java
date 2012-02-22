@@ -43,7 +43,11 @@ public enum GeneratorName {
     /** The TEXTWRITER */
     TEXTWRITER(7),
     /** The METABALLS */
-    METABALLS(8);
+    METABALLS(8),
+    /** The ANALYSER */
+    ANALYSER(9),
+    /** The AUDIO_STROBE */
+    AUDIO_STROBE(10);
     
     /*
      * If you add generators, keep in mind to add a case in 
@@ -63,6 +67,8 @@ public enum GeneratorName {
     private static final String STRING_FIRE = "Flames";
     private static final String STRING_TEXTWRITER = "Text";
     private static final String STRING_METABALLS = "Metaballs";
+    private static final String STRING_ANALYSER = "Spectrum Analyser";
+    private static final String STRING_AUDIO_STROBE = "Audio Strobe";
     /** The id. */
     private int id;
 
@@ -109,6 +115,10 @@ public enum GeneratorName {
                 return STRING_TEXTWRITER;
             case METABALLS:
                 return STRING_METABALLS;
+            case ANALYSER:
+                return STRING_ANALYSER;
+            case AUDIO_STROBE:
+                return STRING_AUDIO_STROBE;
         }
         // if it has no string, return the enum-string
         return super.toString();

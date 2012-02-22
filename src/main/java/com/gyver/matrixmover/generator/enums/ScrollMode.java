@@ -82,7 +82,25 @@ public enum ScrollMode {
     /**
      * Mode implode circle
      */
-    IMPLODE_CIRCLE(13);
+    IMPLODE_CIRCLE(13),
+    /**
+     * Mode explode diamond
+     */
+    EXPLODE_DIAMOND(14),
+    /**
+     * Mode implode diamond
+     */
+    IMPLODE_DIAMOND(15),
+    /**
+     * Mode explode diamond
+     */
+    EXPLODE_HYPERBEL(16),
+    /**
+     * Mode implode diamond
+     */
+    IMPLODE_HYPERBEL(17);
+    
+    
     /** The mode. */
     private int mode;
 
@@ -154,6 +172,14 @@ public enum ScrollMode {
                 return "Explode Circle";
             case IMPLODE_CIRCLE:
                 return "Implode Circle";
+            case EXPLODE_DIAMOND:
+                return "Explode Diamond";
+            case IMPLODE_DIAMOND:
+                return "Implode Diamond";
+            case EXPLODE_HYPERBEL:
+                return "Explode Hyperbel";
+            case IMPLODE_HYPERBEL:
+                return "Implode Hyperbel";
             default:
                 super.toString();
         }

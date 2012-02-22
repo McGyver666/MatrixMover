@@ -31,7 +31,6 @@ import java.util.Arrays;
 public class SimpleColorGenerator extends Generator {
 
     private Color color = null;
-    float[] oldspectrum = new float[256];
 
     /**
      * Instantiates a new null generator.
@@ -50,35 +49,7 @@ public class SimpleColorGenerator extends Generator {
 
     @Override
     public void update() {
-        float[] spectrum = Controller.getControllerInstance().getSpectrum(128);
-
-
-
-        for (int i = 0; i < 18; i++) {
-            spectrum[i] -= 0.01F;
-            spectrum[i] *= 90F;
-            spectrum[i] *= (i + 1);
-
-            // decay left channel
-            if (spectrum[i] >= oldspectrum[i]) {
-                oldspectrum[i] = spectrum[i];
-            } else {
-                oldspectrum[i]--;
-                if (spectrum[i] >= oldspectrum[i]) {
-                    oldspectrum[i] = spectrum[i];
-                }
-            }
-
-            for (int j = 0; j < 9; j++) {
-                if (oldspectrum[i] > j) {
-                    internalBuffer[i + (j * internalBufferWidth)] = 0XFFFFFF;
-                } else {
-                    internalBuffer[i + (j * internalBufferWidth)] = 0;
-                }
-            }
-        }
-
-//        Arrays.fill(this.internalBuffer, color.getRGB());
+        Arrays.fill(this.internalBuffer, color.getRGB());
     }
 
     /**

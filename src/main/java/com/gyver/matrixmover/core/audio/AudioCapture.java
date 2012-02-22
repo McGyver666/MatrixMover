@@ -16,8 +16,9 @@
  */
 package com.gyver.matrixmover.core.audio;
 
+import edu.emory.mathcs.jtransforms.fft.DoubleFFT_1D;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.AudioFormat;
@@ -30,24 +31,30 @@ import javax.sound.sampled.TargetDataLine;
 
 /**
  *
- * @author jonas
+ * @author Gyver
  */
 public class AudioCapture {
 
     private final int CHANNEL_BUFFER_LENGTH = 512;
+    private final int listBuffer = 2;
     // set the audio format
-    private final float SAMPLE_RATE = 44100F;
+//    private final float SAMPLE_RATE = 44100F;
+    private final float SAMPLE_RATE = 32000F;
+    
     private final int SAMPLE_SIZE_IN_BITS = 16;
     private final int CHANNELS = 2;
     private final boolean SIGNED = true;
     private final boolean BIG_ENDIAN = false;
+    private static final Object stackLock = new Object();
+    private byte[] buffer = null;
+    private float[] leftChanel = null;
+    private float[] rightChanel = null;
+    private double[] monoChanel = null;
+    private LinkedList<double[]> fftStack = null;
+    private DoubleFFT_1D fft = null;
     private AudioFormat format = null;
     private Mixer.Info[] mixerInfo = null;
-    TargetDataLine line = null;
-    byte[] buffer = null;
-    float[] leftChanel = null;
-    float[] rightChanel = null;
-    int dbMax = 0;
+    private TargetDataLine line = null;
 
     public AudioCapture() {
 
@@ -73,6 +80,11 @@ public class AudioCapture {
         buffer = new byte[CHANNEL_BUFFER_LENGTH * 4];
         leftChanel = new float[CHANNEL_BUFFER_LENGTH];
         rightChanel = new float[CHANNEL_BUFFER_LENGTH];
+        monoChanel = new double[CHANNEL_BUFFER_LENGTH];
+        
+        fftStack = new LinkedList<double[]>();
+
+        fft = new DoubleFFT_1D(CHANNEL_BUFFER_LENGTH);
 
     }
 
@@ -109,7 +121,18 @@ public class AudioCapture {
         for (int i = 0; i < leftChanel.length; n += 4, i++) {
             leftChanel[i] = (((buffer[(n + 1)] << 8) + buffer[n]) / 32767.0F);
             rightChanel[i] = (((buffer[(n + 3)] << 8) + buffer[(n + 2)]) / 32767.0F);
+            monoChanel[i] = (leftChanel[i] + rightChanel[i]) / 2.0;
         }
+
+        //calculate fft
+        fft.realForward(monoChanel);
+
+        //extract amplitudes
+        double[] amplitude = computeAmplitude(monoChanel);
+
+        //stack result until its read.
+        addToStack(amplitude);
+
     }
 
     public float[] getLevel() {
@@ -124,20 +147,18 @@ public class AudioCapture {
     }
 
     public float[] getFftOutput(int bands) {
-        
-        double[] a = new double[leftChanel.length];
-        double[] b = new double[leftChanel.length];
-        
-        for (int i = 0; i < a.length; i++){
-            a[i] = leftChanel[i];
+        // save stack to local copy and clear it
+        double[] a = getStack();
+
+        float[] spectrum = stripToBands(a, bands);
+
+        for (int i = 0; i < spectrum.length; i++) {
+            // to logarithmic scale
+            spectrum[i] = (float) (Math.log10(spectrum[i]) + 0.99999F);
+            // bring all frequencies to same level
+            spectrum[i] = (float) (spectrum[i] / 2.8);
         }
-        
-        computeFFT(1, 512, a, b);
-        
-        double[] amplitude = computeAmplitude(a, b);
-        
-        float[] spectrum = stripToBands(amplitude, bands);
-        
+
         return spectrum;
     }
 
@@ -159,81 +180,81 @@ public class AudioCapture {
         return Math.pow(avgMeanSquare, 0.5d) * 100d;
     }
 
-    private static void computeFFT(int sign, int n, double[] ar, double[] ai) {
-        double scale = 2.0 / (double) n;
-        int i, j;
-        for (i = j = 0; i < n; ++i) {
-            if (j >= i) {
-                double tempr = ar[j] * scale;
-                double tempi = ai[j] * scale;
-                ar[j] = ar[i] * scale;
-                ai[j] = ai[i] * scale;
-                ar[i] = tempr;
-                ai[i] = tempi;
-            }
-            int m = n / 2;
-            while ((m >= 1) && (j >= m)) {
-                j -= m;
-                m /= 2;
-            }
-            j += m;
+    private double[] computeAmplitude(double[] a) {
+        double subFactorForNoise = 0.1;
+        
+        double[] amplitude = new double[a.length / 2];
+
+        amplitude[amplitude.length - 1] = (double) Math.abs(a[1]);
+        amplitude[amplitude.length - 1] -= subFactorForNoise;
+        if (amplitude[amplitude.length - 1] < 0) {
+            amplitude[amplitude.length - 1] = 0;
         }
 
-        int mmax, istep;
-        for (mmax = 1, istep = 2 * mmax; mmax < n; mmax = istep, istep = 2 * mmax) {
-            double delta = sign * Math.PI / (double) mmax;
-            for (int m = 0; m < mmax; ++m) {
-                double w = m * delta;
-                double wr = Math.cos(w);
-                double wi = Math.sin(w);
-                for (i = m; i < n; i += istep) {
-                    j = i + mmax;
-                    double tr = wr * ar[j] - wi * ai[j];
-                    double ti = wr * ai[j] + wi * ar[j];
-                    ar[j] = ar[i] - tr;
-                    ai[j] = ai[i] - ti;
-                    ar[i] += tr;
-                    ai[i] += ti;
-                }
+        for (int k = 1; k < amplitude.length; k++) {
+            amplitude[k - 1] = Math.sqrt((a[2 * k] * a[2 * k]) + (a[2 * k + 1] * a[2 * k + 1]));
+            amplitude[k - 1] -= subFactorForNoise;
+            if (amplitude[k - 1] < 0) {
+                amplitude[k - 1] = 0;
             }
-            mmax = istep;
-        }
-    }
-
-    private double[] computeAmplitude(double[] a, double[] b) {
-        double[] amplitude = new double[a.length/2];
-        for(int i = 0; i < amplitude.length; i++){
-            amplitude[i] = Math.sqrt((a[i]*a[i])+(b[i]*b[i]));
         }
         return amplitude;
     }
 
     private float[] stripToBands(double[] amplitude, int bands) {
-        float[] spectrum = new float[amplitude.length];
-        
-//        float freqPerBand = amplitude.length / (float) bands;
-//        if(freqPerBand < 1) {
-//            freqPerBand = 1F;
-//        }
-//        int spectrumIndex = 0;
-//        
-//        int currentBands = 0;
-//        
-        for(int i = 0; i < amplitude.length; i++){
-//            if (i >= (spectrumIndex+1)*freqPerBand) {
-//                spectrum[spectrumIndex] = spectrum[spectrumIndex] / (float) currentBands;
-//                
-//                spectrumIndex++;
-//                currentBands = 0;
-//            }
-//            
-//            spectrum[spectrumIndex] += amplitude[i];
-//            currentBands++;
-//            
-            spectrum[i] = (float) amplitude[i];
+
+        double band_elong = 1;
+
+        double x = Math.pow(Math.sqrt(2 * amplitude.length - 1.75), 1 / ((double) bands * band_elong - 1));
+
+        float[] spectrum = new float[bands];
+
+        double freqPerBand[] = new double[bands];
+        for (int i = 0; i < bands; i++) {
+            freqPerBand[i] = Math.pow(x, (double) i);
+            if (freqPerBand[i] < 1) {
+                freqPerBand[i] = 1;
+            }
+        }
+
+        int aplitudeIndex = 0;
+        double runningSum = 0;
+
+        for (int i = 0; i < bands; i++) {
+            runningSum += freqPerBand[i];
+            while (runningSum > aplitudeIndex) {
+                aplitudeIndex++;
+                spectrum[i] += amplitude[aplitudeIndex]; //skip first amplitude
+            }
         }
         
-        
         return spectrum;
+    }
+
+    private void addToStack(double[] amplitude) {
+        synchronized (stackLock) {
+            fftStack.add(amplitude);
+            if (fftStack.size() > listBuffer) {
+                fftStack.remove();
+            }
+        }
+    }
+
+    private double[] getStack() {
+        if (fftStack.size() == 0) {
+            return new double[CHANNEL_BUFFER_LENGTH];
+        }
+        synchronized (stackLock) {
+            double[] ret = new double[fftStack.get(0).length];
+            for (double[] elem : fftStack) {
+                for (int i = 0; i < elem.length; i++) {
+                    ret[i] += elem[i];
+                }
+            }
+            for (int i = 0; i < ret.length; i++) {
+                ret[i] /= fftStack.size();
+            }
+            return ret;
+        }
     }
 }

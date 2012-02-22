@@ -47,8 +47,6 @@ public class ColorScroll extends ColorMapAwareGenerator {
     private int speed;
     private double forward;
 
-    
-
     /**
      * Instantiates a new colorscroll.
      *
@@ -116,6 +114,18 @@ public class ColorScroll extends ColorMapAwareGenerator {
                 break;
             case IMPLODE_CIRCLE:
                 implodeCircle();
+                break;
+            case EXPLODE_DIAMOND:
+                explodeDiamond();
+                break;
+            case IMPLODE_DIAMOND:
+                imploadDiamond();
+                break;
+            case EXPLODE_HYPERBEL:
+                explodeHyperbel();
+                break;
+            case IMPLODE_HYPERBEL:
+                implodeHyperbel();
                 break;
         }
 
@@ -409,39 +419,14 @@ public class ColorScroll extends ColorMapAwareGenerator {
      */
     private void implodeCircle() {
 
-        int upToValue = (int) (Math.max(internalBufferWidth, internalBufferHeight) * 1.42f);
-        for (double r = 0; r < upToValue; r = r + 0.1) {
-            int col = getColor(r);
-
-            double f = 1 - r;
-            int ddFx = 1;
-            double ddFy = -2 * r;
-            int x = 0;
-            double y = r;
-
-            setPixel(internalBufferHalfWidth, (int) Math.round(internalBufferHalfHeight + r), col);
-            setPixel(internalBufferHalfWidth, (int) Math.round(internalBufferHalfHeight - r), col);
-            setPixel((int) Math.round(internalBufferHalfWidth + r), internalBufferHalfHeight, col);
-            setPixel((int) Math.round(internalBufferHalfWidth - r), internalBufferHalfHeight, col);
-
-            while (x < y) {
-                if (f >= 0) {
-                    y--;
-                    ddFy += 2;
-                    f += ddFy;
-                }
-                x++;
-                ddFx += 2;
-                f += ddFx;
-                setPixel(internalBufferHalfWidth + x, (int) Math.round(internalBufferHalfHeight + y), col);
-                setPixel(internalBufferHalfWidth - x, (int) Math.round(internalBufferHalfHeight + y), col);
-                setPixel(internalBufferHalfWidth + x, (int) Math.round(internalBufferHalfHeight - y), col);
-                setPixel(internalBufferHalfWidth - x, (int) Math.round(internalBufferHalfHeight - y), col);
-                setPixel((int) Math.round(internalBufferHalfWidth + y), internalBufferHalfHeight + x, col);
-                setPixel((int) Math.round(internalBufferHalfWidth - y), internalBufferHalfHeight + x, col);
-                setPixel((int) Math.round(internalBufferHalfWidth + y), internalBufferHalfHeight - x, col);
-                setPixel((int) Math.round(internalBufferHalfWidth - y), internalBufferHalfHeight - x, col);
-
+        for (int i = 0; i < internalBufferWidth; i++) {
+            for (int j = 0; j < internalBufferHeight; j++) {
+                //calculate distance to center:
+                double x = (internalBufferWidth / 2) - i;
+                double y = (internalBufferHeight / 2) - j;
+                double r = Math.sqrt((x * x) + (y * y));
+                int col = getColor(r);
+                setPixel(i, j, col);
             }
         }
     }
@@ -451,40 +436,97 @@ public class ColorScroll extends ColorMapAwareGenerator {
      */
     private void explodeCircle() {
 
-        int upToValue = (int) (Math.max(internalBufferWidth, internalBufferHeight) * 1.42f);
-        for (double r = 0; r < upToValue; r = r + 0.1) {
-            double rRev = upToValue - r;
-            int col = getColor(rRev);
+        double maxX = (internalBufferWidth / 2) - 0;
+        double maxY = (internalBufferHeight / 2) - 0;
+        double maxR = Math.sqrt((maxX * maxX) + (maxY * maxY));
 
-            double f = 1 - r;
-            int ddFx = 1;
-            double ddFy = -2 * r;
-            int x = 0;
-            double y = r;
+        for (int i = 0; i < internalBufferWidth; i++) {
+            for (int j = 0; j < internalBufferHeight; j++) {
+                //calculate distance to center:
+                double x = (internalBufferWidth / 2) - i;
+                double y = (internalBufferHeight / 2) - j;
+                double r = Math.sqrt((x * x) + (y * y));
+                r = maxR - r;
+                int col = getColor(r);
+                setPixel(i, j, col);
+            }
+        }
 
-            setPixel(internalBufferHalfWidth, (int) Math.round(internalBufferHalfHeight + r), col);
-            setPixel(internalBufferHalfWidth, (int) Math.round(internalBufferHalfHeight - r), col);
-            setPixel((int) Math.round(internalBufferHalfWidth + r), internalBufferHalfHeight, col);
-            setPixel((int) Math.round(internalBufferHalfWidth - r), internalBufferHalfHeight, col);
+    }
 
-            while (x < y) {
-                if (f >= 0) {
-                    y--;
-                    ddFy += 2;
-                    f += ddFy;
-                }
-                x++;
-                ddFx += 2;
-                f += ddFx;
-                setPixel(internalBufferHalfWidth + x, (int) Math.round(internalBufferHalfHeight + y), col);
-                setPixel(internalBufferHalfWidth - x, (int) Math.round(internalBufferHalfHeight + y), col);
-                setPixel(internalBufferHalfWidth + x, (int) Math.round(internalBufferHalfHeight - y), col);
-                setPixel(internalBufferHalfWidth - x, (int) Math.round(internalBufferHalfHeight - y), col);
-                setPixel((int) Math.round(internalBufferHalfWidth + y), internalBufferHalfHeight + x, col);
-                setPixel((int) Math.round(internalBufferHalfWidth - y), internalBufferHalfHeight + x, col);
-                setPixel((int) Math.round(internalBufferHalfWidth + y), internalBufferHalfHeight - x, col);
-                setPixel((int) Math.round(internalBufferHalfWidth - y), internalBufferHalfHeight - x, col);
+    /**
+     * Explode diamond.
+     */
+    private void imploadDiamond() {
 
+        for (int i = 0; i < internalBufferWidth; i++) {
+            for (int j = 0; j < internalBufferHeight; j++) {
+                //calculate distance to center:
+                double x = (internalBufferWidth / 2) - i;
+                double y = (internalBufferHeight / 2) - j;
+                double r = Math.abs(x) + Math.abs(y);
+                int col = getColor(r);
+                setPixel(i, j, col);
+            }
+        }
+
+    }
+
+    /**
+     * Explode diamond.
+     */
+    private void explodeDiamond() {
+        double maxX = (internalBufferWidth / 2) - 0;
+        double maxY = (internalBufferHeight / 2) - 0;
+        double maxR = Math.sqrt((maxX * maxX) + (maxY * maxY));
+
+        for (int i = 0; i < internalBufferWidth; i++) {
+            for (int j = 0; j < internalBufferHeight; j++) {
+                //calculate distance to center:
+                double x = (internalBufferWidth / 2) - i;
+                double y = (internalBufferHeight / 2) - j;
+                double r = Math.abs(x) + Math.abs(y);
+                r = maxR - r;
+                int col = getColor(r);
+                setPixel(i, j, col);
+            }
+        }
+
+    }
+
+    /**
+     * Explode hyperbel.
+     */
+    private void explodeHyperbel() {
+        double maxX = (internalBufferWidth / 2) - 0;
+        double maxY = (internalBufferHeight / 2) - 0;
+        double maxR = Math.sqrt((maxX * maxX) + (maxY * maxY));
+
+        for (int i = 0; i < internalBufferWidth; i++) {
+            for (int j = 0; j < internalBufferHeight; j++) {
+                //calculate distance to center:
+                double x = (internalBufferWidth / 2) - i;
+                double y = (internalBufferHeight / 2) - j;
+                double r = Math.abs(x) * Math.abs(y);
+                r = maxR - r;
+                int col = getColor(r);
+                setPixel(i, j, col);
+            }
+        }
+    }
+
+    /**
+     * Impload hyperbel.
+     */
+    private void implodeHyperbel() {
+        for (int i = 0; i < internalBufferWidth; i++) {
+            for (int j = 0; j < internalBufferHeight; j++) {
+                //calculate distance to center:
+                double x = (internalBufferWidth / 2) - i;
+                double y = (internalBufferHeight / 2) - j;
+                double r = Math.abs(x) + Math.abs(y);
+                int col = getColor(r);
+                setPixel(i, j, col);
             }
         }
     }

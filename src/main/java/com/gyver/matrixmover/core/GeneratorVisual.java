@@ -22,6 +22,8 @@ import com.gyver.matrixmover.effect.Inverter;
 import com.gyver.matrixmover.effect.Monocrome;
 import com.gyver.matrixmover.effect.MonocromeInvers;
 import com.gyver.matrixmover.effect.PassThru;
+import com.gyver.matrixmover.generator.Analyser;
+import com.gyver.matrixmover.generator.AudioStrobe;
 import com.gyver.matrixmover.generator.ColorFade;
 import com.gyver.matrixmover.generator.ColorScroll;
 import com.gyver.matrixmover.generator.Rain;
@@ -127,6 +129,10 @@ public class GeneratorVisual extends Visual {
             newGen = new MetaBalls(md);
         } else if (generator.equals(GeneratorName.TEXTWRITER)){
             newGen = new Textwriter(md);
+        } else if (generator.equals(GeneratorName.ANALYSER)){
+            newGen = new Analyser(md);
+        } else if (generator.equals(GeneratorName.AUDIO_STROBE)){
+            newGen = new AudioStrobe(md);
         } else {
             newGen = new SimpleColorGenerator(md);
         }

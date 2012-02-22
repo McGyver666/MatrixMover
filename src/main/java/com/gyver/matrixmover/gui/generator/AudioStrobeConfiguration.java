@@ -14,76 +14,94 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.gyver.matrixmover.gui.generator;
 
-package com.gyver.matrixmover.gui.effect;
-
-import com.gyver.matrixmover.generator.SimpleColorGenerator;
+import com.gyver.matrixmover.generator.AudioStrobe;
 import com.gyver.matrixmover.gui.listener.interfaces.TFSListener;
 import java.awt.Color;
 import javax.swing.event.ChangeEvent;
 
 /**
- * Configuration dialog for SimpleColor generator
+ * Configuration dialog for AudioStrobe generator
  * 
  * @author Gyver
  */
-public class SimpleColorConfiguration extends javax.swing.JDialog {
+public class AudioStrobeConfiguration extends javax.swing.JDialog {
 
-    public SimpleColorGenerator generator = null;
+    public AudioStrobe generator = null;
 
     /** Creates new form SimpleColorConfiguration */
-    public SimpleColorConfiguration(java.awt.Frame parent, boolean modal, SimpleColorGenerator generator) {
+    public AudioStrobeConfiguration(java.awt.Frame parent, boolean modal, AudioStrobe generator) {
         super(parent, modal);
-        this.setTitle(generator.getName().toString()+" Configuration");
+        this.setTitle(generator.getName().toString() + " Configuration");
         this.generator = generator;
         initComponents();
-        
+
         tfsRed.setMinimum(0);
         tfsRed.setMaximum(255);
         tfsGreen.setMinimum(0);
         tfsGreen.setMaximum(255);
         tfsBlue.setMinimum(0);
         tfsBlue.setMaximum(255);
+        tfsBand.setMinimum(0);
+        tfsBand.setMaximum(9);
         
         tfsRed.setValue(generator.getColor().getRed());
         tfsGreen.setValue(generator.getColor().getGreen());
         tfsBlue.setValue(generator.getColor().getBlue());
-        
+
+        tfsBand.setValue(generator.getBand());
+
         tfsRed.addTFSListener(new TFSListener() {
+
             @Override
             public void stateChanged(ChangeEvent e) {
                 changeRed(tfsRed.getValue());
             }
         });
-        
-        
+
+
         tfsGreen.addTFSListener(new TFSListener() {
+
             @Override
             public void stateChanged(ChangeEvent e) {
                 changeGreen(tfsGreen.getValue());
             }
         });
-        
+
         tfsBlue.addTFSListener(new TFSListener() {
+
             @Override
             public void stateChanged(ChangeEvent e) {
                 changeBlue(tfsBlue.getValue());
             }
         });
-        
-       setLocationRelativeTo(null);
+
+        tfsBand.addTFSListener(new TFSListener() {
+
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                changeBand(tfsBand.getValue());
+            }
+        });
+
+        setLocationRelativeTo(null);
     }
-    
-    private void changeRed(int red){
+
+    private void changeRed(int red) {
         generator.setColor(new Color(red, generator.getColor().getGreen(), generator.getColor().getBlue()));
     }
 
-    private void changeGreen(int green){
+    private void changeGreen(int green) {
         generator.setColor(new Color(generator.getColor().getRed(), green, generator.getColor().getBlue()));
     }
 
-    private void changeBlue(int blue){
+    private void changeBlue(int blue) {
         generator.setColor(new Color(generator.getColor().getRed(), generator.getColor().getGreen(), blue));
+    }
+
+    private void changeBand(int band) {
+        generator.setBand(band);
     }
 
     /** This method is called from within the constructor to
@@ -103,6 +121,8 @@ public class SimpleColorConfiguration extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         bSaveExit = new javax.swing.JButton();
+        tfsBand = new com.gyver.matrixmover.gui.component.JTextFieldSlider();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -163,11 +183,27 @@ public class SimpleColorConfiguration extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 10, 10);
         getContentPane().add(bSaveExit, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 10);
+        getContentPane().add(tfsBand, gridBagConstraints);
+
+        jLabel4.setText("Spectrum Band:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
+        getContentPane().add(jLabel4, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -175,13 +211,13 @@ public class SimpleColorConfiguration extends javax.swing.JDialog {
     private void bSaveExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSaveExitActionPerformed
         this.dispose();
     }//GEN-LAST:event_bSaveExitActionPerformed
-
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bSaveExit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private com.gyver.matrixmover.gui.component.JTextFieldSlider tfsBand;
     private com.gyver.matrixmover.gui.component.JTextFieldSlider tfsBlue;
     private com.gyver.matrixmover.gui.component.JTextFieldSlider tfsGreen;
     private com.gyver.matrixmover.gui.component.JTextFieldSlider tfsRed;

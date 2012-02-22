@@ -17,11 +17,11 @@
 package com.gyver.matrixmover.generator.enums;
 
 /**
- * The Enum RainDirection
+ * The Enum SpectrumDirection
  * 
  * @author Gyver
  */
-public enum RainDirection {
+public enum AnalyserDirection {
 
     /**
      * Direction left to right
@@ -41,7 +41,7 @@ public enum RainDirection {
     BOTTOM_TO_TOP(3);
     private int mode;
 
-    private RainDirection(int mode) {
+    private AnalyserDirection(int mode) {
         this.mode = mode;
     }
 
@@ -59,8 +59,8 @@ public enum RainDirection {
      * @param nr the nr
      * @return the rain direction
      */
-    public static RainDirection getRainDirection(int nr) {
-        for (RainDirection s : RainDirection.values()) {
+    public static AnalyserDirection getRainDirection(int nr) {
+        for (AnalyserDirection s : AnalyserDirection.values()) {
             if (s.getMode() == nr) {
                 return s;
             }

@@ -1,5 +1,8 @@
 0.3 beta
 * added multiple artnet node output
+* added Analyser and Configuration Dialog
+* added AudioStrobe and Configuration Dialog
+* tweaked ColorScroll and added some scroll shapes
 * fixed colorMap size 0 bug
 
 0.2.2 beta

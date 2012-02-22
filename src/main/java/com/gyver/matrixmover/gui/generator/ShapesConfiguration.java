@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.gyver.matrixmover.gui.effect;
+package com.gyver.matrixmover.gui.generator;
 
 import com.gyver.matrixmover.generator.Shapes;
 import com.gyver.matrixmover.generator.enums.ShapeDirection;
