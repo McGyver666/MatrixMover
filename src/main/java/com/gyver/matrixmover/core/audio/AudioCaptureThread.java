@@ -20,7 +20,7 @@ public class AudioCaptureThread implements Runnable {
         
         ac = new AudioCapture();
         if (ac.getAvalibalMixer() != null && ac.getAvalibalMixer().length > 0) {
-            ac.startAudio(ac.getAvalibalMixer()[1]);
+            ac.startAudio(ac.getAvalibalMixer()[0]);
         }
         
     }

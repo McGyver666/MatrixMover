@@ -25,7 +25,7 @@ import java.util.Arrays;
 
 /**
  *
- * @author jonas
+ * @author Gyver
  */
 public class LedScreen extends javax.swing.JPanel {
 
@@ -45,7 +45,7 @@ public class LedScreen extends javax.swing.JPanel {
         PixelWidth = 10;
         PixelSpace = 1;
         PixelRatio = PixelWidth / PixelHeigth;
-        this.setBackground(new Color(51,51,51));
+        this.setBackground(new Color(51, 51, 51));
     }
 
     public void init(PropertiesHelper ph, MatrixData md) {
@@ -95,7 +95,12 @@ public class LedScreen extends javax.swing.JPanel {
 
         int newMaxPixelSizeX = (int) Math.round(Math.floor((this.getSize().width - (md.getWidth() * PixelSpace)) / md.getWidth()));
         int newMaxPixelSizeY = (int) Math.round(Math.floor((this.getSize().height - (md.getHeight() * PixelSpace)) / md.getHeight()));
-        if (PixelRatio > (newMaxPixelSizeY / newMaxPixelSizeX)) {
+
+        if (newMaxPixelSizeX == 0 || newMaxPixelSizeY == 0) {
+            PixelHeigth = 0;
+            PixelWidth = 0;
+            Frame.getFrameInstance().showWarning("To many pixels at current screen. Enlarge the programm window or lower the pixel count.");
+        } else if (PixelRatio > newMaxPixelSizeY / newMaxPixelSizeX) {
             PixelHeigth = newMaxPixelSizeY;
             PixelWidth = (int) Math.round(newMaxPixelSizeY * PixelRatio);
         } else {

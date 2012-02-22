@@ -128,7 +128,7 @@ public class ColorScroll extends ColorMapAwareGenerator {
 
     @Override
     public void init() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // do nothing
     }
 
     /**

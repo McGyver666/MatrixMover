@@ -95,6 +95,20 @@
                             <goal>install-file</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>jtransforms-2.4.jar</id>
+                        <configuration>
+                            <file>lib/jtransforms-2.4.jar</file>
+                            <groupId>edu.emory.mathcs</groupId>
+                            <artifactId>jtransforms</artifactId>
+                            <version>2.4</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
@@ -134,6 +148,11 @@
             <groupId>artnet4j</groupId>
             <artifactId>artnet4j</artifactId>
             <version>0001</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.emory.mathcs</groupId>
+            <artifactId>jtransforms</artifactId>
+            <version>2.4</version>
         </dependency>
         <dependency>
             <groupId>jfontchooser</groupId>

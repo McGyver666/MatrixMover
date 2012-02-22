@@ -57,7 +57,7 @@ public class SimpleColorGenerator extends Generator {
         for (int i = 0; i < 18; i++) {
             spectrum[i] -= 0.01F;
             spectrum[i] *= 90F;
-            spectrum[i] *= (i+1);
+            spectrum[i] *= (i + 1);
 
             // decay left channel
             if (spectrum[i] >= oldspectrum[i]) {
