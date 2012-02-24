@@ -37,7 +37,15 @@ public enum ShapeObject {
     /**
      * A filled circle
      */
-    CIRCLE_FILLED(3);
+    CIRCLE_FILLED(3),
+    /**
+     * A vertical line
+     */
+    LINE_VERTICAL(4),
+    /**
+     * A horizontal line
+     */
+    LINE_HORIZONTAL(5);
     private int mode;
 
     private ShapeObject(int mode) {
@@ -82,6 +90,10 @@ public enum ShapeObject {
                 return "Circles Empty";
             case CIRCLE_FILLED:
                 return "Circles Filled";
+            case LINE_HORIZONTAL:
+                return "Line Horizontal";
+            case LINE_VERTICAL:
+                return "Line Vertical";
             default:
                 super.toString();
         }

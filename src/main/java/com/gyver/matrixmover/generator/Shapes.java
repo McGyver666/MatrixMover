@@ -102,7 +102,6 @@ public class Shapes extends ObjectsContainingGenerator {
         // nothing to do here
     }
 
-
     /**
      * @return the objectShape
      */
@@ -251,6 +250,8 @@ public class Shapes extends ObjectsContainingGenerator {
                     switch (getObjectShape()) {
                         case SQUARE_EMPTY:
                         case SQUARE_FILLED:
+                        case LINE_HORIZONTAL:
+                        case LINE_VERTICAL:
                             this.size = size + (2 * expand);
                             break;
                         case CIRCLE_EMPTY:
@@ -270,10 +271,10 @@ public class Shapes extends ObjectsContainingGenerator {
         }
 
         private void update() {
-            
+
             x = x % internalBufferWidth;
             y = y % internalBufferHeight;
-            
+
             alive--;
             if (alive <= 0) {
                 dead = true;
@@ -285,6 +286,8 @@ public class Shapes extends ObjectsContainingGenerator {
                         switch (getObjectShape()) {
                             case SQUARE_EMPTY:
                             case SQUARE_FILLED:
+                            case LINE_HORIZONTAL:
+                            case LINE_VERTICAL:
                                 size = size + 2;
                                 break;
                             case CIRCLE_EMPTY:
@@ -300,6 +303,8 @@ public class Shapes extends ObjectsContainingGenerator {
                         switch (getObjectShape()) {
                             case SQUARE_EMPTY:
                             case SQUARE_FILLED:
+                            case LINE_HORIZONTAL:
+                            case LINE_VERTICAL:
                                 size = size - 2;
                                 break;
                             case CIRCLE_EMPTY:
@@ -335,9 +340,12 @@ public class Shapes extends ObjectsContainingGenerator {
                 case CIRCLE_FILLED:
                     drawFilledCircle();
                     break;
+                case LINE_VERTICAL:
+                    drawLineVertical();
+                    break;
+                case LINE_HORIZONTAL:
+                    drawLineHorrizontal();
             }
-
-
         }
 
         private boolean isDead() {
@@ -394,17 +402,11 @@ public class Shapes extends ObjectsContainingGenerator {
 
             //draw the shape
             //from left to right (linewise)
-
             for (int j = x_l; j <= x_r; j++) {
                 for (int i = y_t; i <= y_b; i++) {
                     setPixel(j, i, usedColor);
-                    if (j >= 0 && j < internalBufferWidth && i >= 0 && i < internalBufferHeight) {
-                        internalBuffer[j + (i * internalBufferWidth)] = usedColor;
-                    }
                 }
             }
-
-
         }
 
         private void drawEmptyCircle() {
@@ -471,6 +473,39 @@ public class Shapes extends ObjectsContainingGenerator {
                     setPixel((int) Math.round(x + y_pos), y - x_pos, usedColor);
                     setPixel((int) Math.round(x - y_pos), y - x_pos, usedColor);
 
+                }
+            }
+        }
+
+        private void drawLineVertical() {
+            //calculate the coordinates
+            int hs = size / 2;
+            int rs = size % 2;
+            int x_l = x - hs;
+            int x_r = x + hs + rs;
+
+            //draw the shape
+            //from left to right (linewise)
+
+            for (int j = x_l; j <= x_r; j++) {
+                for (int i = 0; i < internalBufferHeight; i++) {
+                    setPixel(j, i, usedColor);
+                }
+            }
+        }
+
+        private void drawLineHorrizontal() {
+            //calculate the coordinates
+            int hs = size / 2;
+            int rs = size % 2;
+            int y_t = y - hs;
+            int y_b = y + hs + rs;
+
+            //draw the shape
+            //from left to right (linewise)
+            for (int j = 0; j < internalBufferWidth; j++) {
+                for (int i = y_t; i <= y_b; i++) {
+                    setPixel(j, i, usedColor);
                 }
             }
         }
