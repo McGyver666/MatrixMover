@@ -220,7 +220,7 @@ public class MasterPanel extends javax.swing.JPanel {
     private javax.swing.JTextField tfFadeTime;
     // End of variables declaration//GEN-END:variables
 
-    void recomputeLedPixelSize() {
+    public void recomputeLedPixelSize() {
         ledScreen1.recomputePixelSize();
         ledScreen1.repaint();
     }

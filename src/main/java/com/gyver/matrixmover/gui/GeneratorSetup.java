@@ -332,7 +332,7 @@ public class GeneratorSetup extends javax.swing.JPanel {
         return bClearScene;
     }
 
-    void removeAllFromActionListener() {
+    public void removeAllFromActionListener() {
         
         cbGenerator1.removeActionListener(gsListener);
         cbGenerator2.removeActionListener(gsListener);
@@ -349,7 +349,7 @@ public class GeneratorSetup extends javax.swing.JPanel {
         bConfigGenerator2.removeActionListener(gsListener);
     }
     
-    void addAllToActionListener() {
+    public void addAllToActionListener() {
         cbGenerator1.addActionListener(gsListener);
         cbGenerator2.addActionListener(gsListener);
         cbEffect1.addActionListener(gsListener);
