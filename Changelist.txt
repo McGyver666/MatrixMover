@@ -2,6 +2,7 @@
 * added multiple artnet node output
 * added Analyser and Configuration Dialog
 * added AudioStrobe and Configuration Dialog
+* added lines to shapes generator
 * tweaked ColorScroll and added some scroll shapes
 * fixed colorMap size 0 bug
 
