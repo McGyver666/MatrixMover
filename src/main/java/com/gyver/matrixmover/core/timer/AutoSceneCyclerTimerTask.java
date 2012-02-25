@@ -72,7 +72,7 @@ public class AutoSceneCyclerTimerTask extends TimerTask {
             if (currentLeft >= leftSceneList.length) {
                 currentLeft = 0;
             }
-            controller.sceneSelected(leftSceneList[currentLeft], Controller.LEFT_SIDE);
+            controller.sceneSelected(leftSceneList[currentLeft], Controller.BOTTOM_SIDE);
 
         } else {
             try {
@@ -95,7 +95,7 @@ public class AutoSceneCyclerTimerTask extends TimerTask {
             if (currentRight >= rightSceneList.length) {
                 currentRight = 0;
             }
-            controller.sceneSelected(rightSceneList[currentRight], Controller.RIGHT_SIDE);
+            controller.sceneSelected(rightSceneList[currentRight], Controller.TOP_SIDE);
         }
 
     }

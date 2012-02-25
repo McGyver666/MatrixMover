@@ -30,6 +30,7 @@ import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.LedScreen;
 import com.gyver.matrixmover.mapping.OutputMapping;
 import com.gyver.matrixmover.mapping.PixelRgbMapping;
+import com.gyver.matrixmover.mixer.Mixer.MixerName;
 import com.gyver.matrixmover.output.Output;
 import com.gyver.matrixmover.properties.PropertiesHelper;
 import java.util.ArrayList;
@@ -49,11 +50,12 @@ public class Controller {
     /**
      * The left side generator setup
      */
-    public static final int LEFT_SIDE = 1;
+    public static final int BOTTOM_SIDE = 1;
     /**
      * The right side generator setup
      */
-    public static final int RIGHT_SIDE = 2;
+    public static final int TOP_SIDE = 2;
+    
     private final float VU_DECAY = 2.5F;
     private static final Logger LOG = Logger.getLogger(Controller.class.getName());
     private static Controller instance = new Controller();
@@ -128,10 +130,10 @@ public class Controller {
      * @param generator the generator to set to
      */
     public void setGenerator(int side, int nr, GeneratorName generator) {
-        if (side == LEFT_SIDE) {
+        if (side == BOTTOM_SIDE) {
             LOG.log(Level.FINE, "Generator{0} on left side set to {1}", new Object[]{nr, generator});
             leftVisual.setGeneratorFromString(nr, generator);
-        } else if (side == RIGHT_SIDE) {
+        } else if (side == TOP_SIDE) {
             LOG.log(Level.FINE, "Generator{0} on right side set to {1}", new Object[]{nr, generator});
             rightVisual.setGeneratorFromString(nr, generator);
         } else {
@@ -146,10 +148,10 @@ public class Controller {
      * @param effectString the effect to set to
      */
     public void setEffect(int side, int nr, String effectString) {
-        if (side == LEFT_SIDE) {
+        if (side == BOTTOM_SIDE) {
             LOG.log(Level.FINE, "Effect{0} on left side set to {1}", new Object[]{nr, effectString});
             leftVisual.setEffectFromString(nr, effectString);
-        } else if (side == RIGHT_SIDE) {
+        } else if (side == TOP_SIDE) {
             LOG.log(Level.FINE, "Effect{0} on right side set to {1}", new Object[]{nr, effectString});
             rightVisual.setEffectFromString(nr, effectString);
         } else {
@@ -160,24 +162,24 @@ public class Controller {
     /**
      * Sets the mixer for side "side" from String "mixerString"
      * @param side the side
-     * @param mixerString the mixer to be set to
+     * @param mixerName the mixer to be set to
      */
-    public void setMixer(int side, String mixerString) {
-        if (side == LEFT_SIDE) {
-            LOG.log(Level.FINE, "Mixer on left side set to {0}", new Object[]{mixerString});
-            leftVisual.setMixerFromString(mixerString);
-        } else if (side == RIGHT_SIDE) {
-            LOG.log(Level.FINE, "Mixer on right side set to {0}", new Object[]{mixerString});
-            rightVisual.setMixerFromString(mixerString);
+    public void setMixer(int side, int nr, String mixerName) {
+        if (side == BOTTOM_SIDE) {
+            LOG.log(Level.FINE, "Mixer on left side set to {0}", new Object[]{mixerName});
+            leftVisual.setMixerFromString(nr, mixerName);
+        } else if (side == TOP_SIDE) {
+            LOG.log(Level.FINE, "Mixer on right side set to {0}", new Object[]{mixerName});
+            rightVisual.setMixerFromString(nr, mixerName);
         } else {
             throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
         }
     }
 
     public void setGeneratorIntensity(int side, int nr, int value) {
-        if (side == LEFT_SIDE) {
+        if (side == BOTTOM_SIDE) {
             leftVisual.setGeneratorIntensity(nr, value);
-        } else if (side == RIGHT_SIDE) {
+        } else if (side == TOP_SIDE) {
             rightVisual.setGeneratorIntensity(nr, value);
         } else {
             throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
@@ -185,7 +187,6 @@ public class Controller {
     }
 
     public void setCrossfaderValue(int value) {
-//        LOG.log(Level.FINER, "Set crossfader value to {0}", new Object[]{value});
         this.crossfaderValue = value;
     }
 
@@ -202,30 +203,42 @@ public class Controller {
     }
 
     public Generator getGenerator(int side, int nr) {
-        if (side == LEFT_SIDE) {
+        if (side == BOTTOM_SIDE) {
             if (nr == 1) {
                 return leftVisual.getActiveVisualSetup().getGenerator1();
             } else if (nr == 2) {
                 return leftVisual.getActiveVisualSetup().getGenerator2();
+            } else if (nr == 3) {
+                return leftVisual.getActiveVisualSetup().getGenerator3();
+            } else if (nr == 4) {
+                return leftVisual.getActiveVisualSetup().getGenerator4();
+            } else if (nr == 5) {
+                return leftVisual.getActiveVisualSetup().getGenerator5();
             }
-        } else if (side == RIGHT_SIDE) {
+        } else if (side == TOP_SIDE) {
             if (nr == 1) {
                 return rightVisual.getActiveVisualSetup().getGenerator1();
             } else if (nr == 2) {
                 return rightVisual.getActiveVisualSetup().getGenerator2();
+            } else if (nr == 3) {
+                return rightVisual.getActiveVisualSetup().getGenerator3();
+            } else if (nr == 4) {
+                return rightVisual.getActiveVisualSetup().getGenerator4();
+            } else if (nr == 5) {
+                return rightVisual.getActiveVisualSetup().getGenerator5();
             }
         }
         throw new IllegalArgumentException("There is no Generator nr " + nr + " present for side " + side);
     }
 
     public void sceneSelected(int scene, int side) {
-        if (side == LEFT_SIDE) {
+        if (side == BOTTOM_SIDE) {
             LOG.log(Level.FINE, "Scene {0} selected for left side.", scene);
             Frame.getFrameInstance().getLeftGeneratorPanel().setButtonActive(leftVisual.getActiveScene(), false);
             Frame.getFrameInstance().getLeftGeneratorPanel().setButtonActive(scene, true);
             leftVisual.setActiveScene(scene);
             Frame.getFrameInstance().setComboBoxesForChangedScene(side, leftVisual.getActiveVisualSetup());
-        } else if (side == RIGHT_SIDE) {
+        } else if (side == TOP_SIDE) {
             LOG.log(Level.FINE, "Scene {0} selected for right side.", scene);
             Frame.getFrameInstance().getRightGeneratorPanel().setButtonActive(rightVisual.getActiveScene(), false);
             Frame.getFrameInstance().getRightGeneratorPanel().setButtonActive(scene, true);
@@ -288,9 +301,9 @@ public class Controller {
     }
 
     public int getActiveVisualNumber(int side) {
-        if (side == LEFT_SIDE) {
+        if (side == BOTTOM_SIDE) {
             return leftVisual.getActiveScene();
-        } else if (side == RIGHT_SIDE) {
+        } else if (side == TOP_SIDE) {
             return rightVisual.getActiveScene();
         } else {
             throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
@@ -312,9 +325,9 @@ public class Controller {
     }
 
     public void sceneChanged(int side, int activeVisualNumber, boolean changed) {
-        if (side == LEFT_SIDE) {
+        if (side == BOTTOM_SIDE) {
             leftVisual.getVisualSetup(activeVisualNumber).sceneChanged(changed);
-        } else if (side == RIGHT_SIDE) {
+        } else if (side == TOP_SIDE) {
             rightVisual.getVisualSetup(activeVisualNumber).sceneChanged(changed);
         } else {
             throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
@@ -339,8 +352,8 @@ public class Controller {
         leftVisual.setVisualSetupArray(arrays.get(0));
         rightVisual.setVisualSetupArray(arrays.get(1));
 
-        Frame.getFrameInstance().setComboBoxesForChangedScene(LEFT_SIDE, leftVisual.getActiveVisualSetup());
-        Frame.getFrameInstance().setComboBoxesForChangedScene(RIGHT_SIDE, rightVisual.getActiveVisualSetup());
+        Frame.getFrameInstance().setComboBoxesForChangedScene(BOTTOM_SIDE, leftVisual.getActiveVisualSetup());
+        Frame.getFrameInstance().setComboBoxesForChangedScene(TOP_SIDE, rightVisual.getActiveVisualSetup());
 
         Frame.getFrameInstance().getLeftGeneratorPanel().setChangedScenesButtonsFromVisualSetupArray(leftVisual.getSceneArray());
         Frame.getFrameInstance().getRightGeneratorPanel().setChangedScenesButtonsFromVisualSetupArray(rightVisual.getSceneArray());

@@ -1,8 +1,10 @@
 0.3 beta
+* Gui redisign
 * added multiple artnet node output
 * added Analyser and Configuration Dialog
 * added AudioStrobe and Configuration Dialog
 * added lines to shapes generator
+* added 3 additional generator sets
 * tweaked ColorScroll and added some scroll shapes
 * fixed colorMap size 0 bug
 

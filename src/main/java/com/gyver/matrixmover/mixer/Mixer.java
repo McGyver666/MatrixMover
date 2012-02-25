@@ -42,15 +42,17 @@ public abstract class Mixer implements Serializable {
         /** The MULTIPLY. */
         MULTIPLY(2),
         /** The MIX. */
-        MIX(3),
+        MAX(3),
+        /** The MIX. */
+        MIX(4),
         /** The NEGATIV e_ multiply. */
-        NEGATIVE_MULTIPLY(4),
+        NEGATIVE_MULTIPLY(5),
         /** The XOR. */
-        XOR(5),
+        XOR(6),
         /** The MINU s_ half. */
-        MINUS_HALF(6),
+        MINUS_HALF(7),
         /** The EITHER. */
-        EITHER(7);
+        EITHER(8);
         
         
         /*
@@ -67,6 +69,7 @@ public abstract class Mixer implements Serializable {
         public static final String STRING_XOR = "Xor";
         public static final String STRING_MINUS_HALF = "Minus Half";
         public static final String STRING_EITHER = "Either";
+        public static final String STRING_MAX = "Maximum";
         
         
         /** The id. */
@@ -112,6 +115,8 @@ public abstract class Mixer implements Serializable {
                     return STRING_MINUS_HALF;
                 case EITHER:
                     return STRING_EITHER;
+                case MAX:
+                    return STRING_MAX;
                     
             }
             // if it has no string, return the enum-string

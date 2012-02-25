@@ -37,6 +37,7 @@ import com.gyver.matrixmover.generator.SimpleColorGenerator;
 import com.gyver.matrixmover.generator.Textwriter;
 import com.gyver.matrixmover.mixer.AddSat;
 import com.gyver.matrixmover.mixer.Either;
+import com.gyver.matrixmover.mixer.Max;
 import com.gyver.matrixmover.mixer.MinusHalf;
 import com.gyver.matrixmover.mixer.Mix;
 import com.gyver.matrixmover.mixer.Mixer;
@@ -53,157 +54,164 @@ import java.util.logging.Logger;
  * @author Gyver
  */
 public class GeneratorVisual extends Visual {
-    
+
     /** The log. */
     private static final Logger LOG = Logger.getLogger(GeneratorVisual.class.getName());
-    
     public static final int NUMBER_OF_SCENES = 48;
-    
     private int activeScene = 0;
-    
     private VisualSetup[] scenes = null;
-    
-    public GeneratorVisual(MatrixData matrix){
+
+    public GeneratorVisual(MatrixData matrix) {
         super(matrix);
-        
+
         scenes = new VisualSetup[NUMBER_OF_SCENES];
-        
+
         //fill all visualSetups with initial empty scenes
         for (int i = 0; i < scenes.length; i++) {
             scenes[i] = new VisualSetup(md);
         }
-        
+
     }
-    
-    public void setVisualSetupArray(VisualSetup[] visualSetupArray){
+
+    public void setVisualSetupArray(VisualSetup[] visualSetupArray) {
         this.scenes = visualSetupArray;
     }
-    
-    public void setActiveScene(int scene){
-        this.activeScene = scene-1;
+
+    public void setActiveScene(int scene) {
+        this.activeScene = scene - 1;
     }
-    
-    public int getActiveScene(){
-        return this.activeScene+1;
+
+    public int getActiveScene() {
+        return this.activeScene + 1;
     }
-    
-    public VisualSetup[] getSceneArray(){
+
+    public VisualSetup[] getSceneArray() {
         return scenes;
     }
-    
-    public VisualSetup getVisualSetup(int i){
-        return this.scenes[i-1];
+
+    public VisualSetup getVisualSetup(int i) {
+        return this.scenes[i - 1];
     }
-    
-    public VisualSetup getActiveVisualSetup(){
+
+    public VisualSetup getActiveVisualSetup() {
         return scenes[activeScene];
     }
-    
+
     @Override
     public int[] getVisualOutput() {
         return scenes[activeScene].getSceneOutput();
     }
-    
+
     /**
      * Sets a generator to a Visual
      * @param nr Whether generator1 or generator 2 should be set
      * @param generator String describing the generator (see GeneratorName constants)
      */
-    public void setGeneratorFromString(int nr, GeneratorName generator){
+    public void setGeneratorFromString(int nr, GeneratorName generator) {
         Generator newGen = null;
-        if(generator.equals(GeneratorName.SIMPLE_COLOR_GENERATOR)){
+        if (generator.equals(GeneratorName.SIMPLE_COLOR_GENERATOR)) {
             newGen = new SimpleColorGenerator(md);
-        } else if (generator.equals(GeneratorName.COLOR_FADE)){
+        } else if (generator.equals(GeneratorName.COLOR_FADE)) {
             newGen = new ColorFade(md, null);
-        } else if (generator.equals(GeneratorName.COLOR_SCROLL)){
+        } else if (generator.equals(GeneratorName.COLOR_SCROLL)) {
             newGen = new ColorScroll(md, null);
-        } else if (generator.equals(GeneratorName.PLASMA)){
+        } else if (generator.equals(GeneratorName.PLASMA)) {
             newGen = new Plasma(md, null);
-        } else if (generator.equals(GeneratorName.FIRE)){
+        } else if (generator.equals(GeneratorName.FIRE)) {
             newGen = new Fire(md);
-        } else if (generator.equals(GeneratorName.RAIN)){
+        } else if (generator.equals(GeneratorName.RAIN)) {
             newGen = new Rain(md);
-        } else if (generator.equals(GeneratorName.SHAPES)){
+        } else if (generator.equals(GeneratorName.SHAPES)) {
             newGen = new Shapes(md);
-        } else if (generator.equals(GeneratorName.METABALLS)){
+        } else if (generator.equals(GeneratorName.METABALLS)) {
             newGen = new MetaBalls(md);
-        } else if (generator.equals(GeneratorName.TEXTWRITER)){
+        } else if (generator.equals(GeneratorName.TEXTWRITER)) {
             newGen = new Textwriter(md);
-        } else if (generator.equals(GeneratorName.ANALYSER)){
+        } else if (generator.equals(GeneratorName.ANALYSER)) {
             newGen = new Analyser(md);
-        } else if (generator.equals(GeneratorName.AUDIO_STROBE)){
+        } else if (generator.equals(GeneratorName.AUDIO_STROBE)) {
             newGen = new AudioStrobe(md);
         } else {
             newGen = new SimpleColorGenerator(md);
         }
-        
+
         setGenerator(nr, newGen);
     }
-    
+
     /**
      * Sets a Effect to a Visual
      * @param nr Whether effect1 or effect 2 should be set
      * @param effectString String describing the Effect (see EffectName constants)
      */
-    public void setEffectFromString(int nr, String effectString){
+    public void setEffectFromString(int nr, String effectString) {
         Effect newEff = null;
-        if(effectString.equals(Effect.EffectName.STRING_PASSTHRU)){
+        if (effectString.equals(Effect.EffectName.STRING_PASSTHRU)) {
             newEff = new PassThru(md);
-        } else if (effectString.equals(Effect.EffectName.STRING_INVERTER)){
+        } else if (effectString.equals(Effect.EffectName.STRING_INVERTER)) {
             newEff = new Inverter(md);
-        } else if (effectString.equals(Effect.EffectName.STRING_EMBOSS)){
+        } else if (effectString.equals(Effect.EffectName.STRING_EMBOSS)) {
             newEff = new Emboss(md);
-        } else if (effectString.equals(Effect.EffectName.STRING_MONOCROME)){
+        } else if (effectString.equals(Effect.EffectName.STRING_MONOCROME)) {
             newEff = new Monocrome(md);
-        } else if (effectString.equals(Effect.EffectName.STRING_MONOCROME_INVERS)){
+        } else if (effectString.equals(Effect.EffectName.STRING_MONOCROME_INVERS)) {
             newEff = new MonocromeInvers(md);
         } else {
             newEff = new PassThru(md);
         }
-        
+
         setEffect(nr, newEff);
     }
-    
+
     
 
-    public void setMixerFromString(String mixerString) {
-        if(mixerString.equals(Mixer.MixerName.STRING_PASSTHRU)){
-            scenes[activeScene].setMixer(new PassThruMixer());
-        } else if(mixerString.equals(Mixer.MixerName.STRING_MULTIPLY)){
-            scenes[activeScene].setMixer(new Multiply());
-        } else if(mixerString.equals(Mixer.MixerName.STRING_ADDSAT)){
-            scenes[activeScene].setMixer(new AddSat());
-        } else if(mixerString.equals(Mixer.MixerName.STRING_MIX)){
-            scenes[activeScene].setMixer(new Mix());
-        } else if(mixerString.equals(Mixer.MixerName.STRING_NEGATIVE_MULTIPLY)){
-            scenes[activeScene].setMixer(new NegativeMultiply());
-        } else if(mixerString.equals(Mixer.MixerName.STRING_XOR)){
-            scenes[activeScene].setMixer(new Xor());
-        } else if(mixerString.equals(Mixer.MixerName.STRING_MINUS_HALF)){
-            scenes[activeScene].setMixer(new MinusHalf());
-        } else if(mixerString.equals(Mixer.MixerName.STRING_EITHER)){
-            scenes[activeScene].setMixer(new Either());
+    public void setMixerFromString(int nr, String mixerString) {
+        Mixer mix = null;
+        if (mixerString.equals(Mixer.MixerName.STRING_PASSTHRU)) {
+            mix = new PassThruMixer();
+        } else if (mixerString.equals(Mixer.MixerName.STRING_MULTIPLY)) {
+            mix = new Multiply();
+        } else if (mixerString.equals(Mixer.MixerName.STRING_ADDSAT)) {
+            mix = new AddSat();
+        } else if (mixerString.equals(Mixer.MixerName.STRING_MIX)) {
+            mix = new Mix();
+        } else if (mixerString.equals(Mixer.MixerName.STRING_NEGATIVE_MULTIPLY)) {
+            mix = new NegativeMultiply();
+        } else if (mixerString.equals(Mixer.MixerName.STRING_XOR)) {
+            mix = new Xor();
+        } else if (mixerString.equals(Mixer.MixerName.STRING_MINUS_HALF)) {
+            mix = new MinusHalf();
+        } else if (mixerString.equals(Mixer.MixerName.STRING_EITHER)) {
+            mix = new Either();
+        } else if (mixerString.equals(Mixer.MixerName.STRING_MAX)) {
+            mix = new Max();
         } else {
-            scenes[activeScene].setMixer(new PassThruMixer());
+            mix = new PassThruMixer();
         }
+        setMixer(nr, mix);
     }
-    
+
     void setGeneratorIntensity(int nr, int value) {
-        if(nr == 1){
+        if (nr == 1) {
             scenes[activeScene].setGenerator1Intensity(value);
-        } else if (nr == 2){
+        } else if (nr == 2) {
             scenes[activeScene].setGenerator2Intensity(value);
+        } else if (nr == 3) {
+            scenes[activeScene].setGenerator3Intensity(value);
+        } else if (nr == 4) {
+            scenes[activeScene].setGenerator4Intensity(value);
+        } else if (nr == 5) {
+            scenes[activeScene].setGenerator5Intensity(value);
         }
     }
-    
+
     /**
      * Sets a generator to the visual for generator with the nr
      * @param nr Whether generator1 or generator2 is set
      * @param generator The generator to be set
      */
-    private void setGenerator(int nr, Generator generator){
+    private void setGenerator(int nr, Generator generator) {
         LOG.log(Level.INFO, "Setting {0} for nr {1}", new Object[]{generator.getName(), nr});
-        switch(nr){
+        switch (nr) {
             case 1: {
                 scenes[activeScene].setGenerator1(generator);
                 break;
@@ -212,11 +220,23 @@ public class GeneratorVisual extends Visual {
                 scenes[activeScene].setGenerator2(generator);
                 break;
             }
+            case 3: {
+                scenes[activeScene].setGenerator3(generator);
+                break;
+            }
+            case 4: {
+                scenes[activeScene].setGenerator4(generator);
+                break;
+            }
+            case 5: {
+                scenes[activeScene].setGenerator5(generator);
+                break;
+            }
         }
     }
-    
-    private void setEffect(int nr, Effect effect){
-        switch(nr){
+
+    private void setEffect(int nr, Effect effect) {
+        switch (nr) {
             case 1: {
                 scenes[activeScene].setEffect1(effect);
                 break;
@@ -225,8 +245,39 @@ public class GeneratorVisual extends Visual {
                 scenes[activeScene].setEffect2(effect);
                 break;
             }
+            case 3: {
+                scenes[activeScene].setEffect3(effect);
+                break;
+            }
+            case 4: {
+                scenes[activeScene].setEffect4(effect);
+                break;
+            }
+            case 5: {
+                scenes[activeScene].setEffect5(effect);
+                break;
+            }
         }
     }
 
-    
+    private void setMixer(int nr, Mixer mix) {
+        switch (nr) {
+            case 2: {
+                scenes[activeScene].setMixer2(mix);
+                break;
+            }
+            case 3: {
+                scenes[activeScene].setMixer3(mix);
+                break;
+            }
+            case 4: {
+                scenes[activeScene].setMixer4(mix);
+                break;
+            }
+            case 5: {
+                scenes[activeScene].setMixer5(mix);
+                break;
+            }
+        }
+    }
 }

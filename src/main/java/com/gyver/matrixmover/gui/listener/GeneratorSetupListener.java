@@ -81,40 +81,107 @@ public class GeneratorSetupListener implements ActionListener, ChangeListener {
             LOG.log(Level.FINE, "Performing action for generator2");
             Controller.getControllerInstance().setGenerator(side, 2, (GeneratorName) setupPanel.getCbGenerator2().getSelectedItem());
             activeButtonChanged(true);
+        } else if (ae.getSource().equals(setupPanel.getCbGenerator3())) {
+            LOG.log(Level.FINE, "Performing action for generator3");
+            Controller.getControllerInstance().setGenerator(side, 3, (GeneratorName) setupPanel.getCbGenerator3().getSelectedItem());
+            activeButtonChanged(true);
+        } else if (ae.getSource().equals(setupPanel.getCbGenerator4())) {
+            LOG.log(Level.FINE, "Performing action for generator4");
+            Controller.getControllerInstance().setGenerator(side, 4, (GeneratorName) setupPanel.getCbGenerator4().getSelectedItem());
+            activeButtonChanged(true);
+        } else if (ae.getSource().equals(setupPanel.getCbGenerator5())) {
+            LOG.log(Level.FINE, "Performing action for generator5");
+            Controller.getControllerInstance().setGenerator(side, 5, (GeneratorName) setupPanel.getCbGenerator5().getSelectedItem());
+            activeButtonChanged(true);
         } else if (ae.getSource().equals(setupPanel.getCbEffect1())) {
             Controller.getControllerInstance().setEffect(side, 1, setupPanel.getCbEffect1().getSelectedItem().toString());
             activeButtonChanged(true);
         } else if (ae.getSource().equals(setupPanel.getCbEffect2())) {
             Controller.getControllerInstance().setEffect(side, 2, setupPanel.getCbEffect2().getSelectedItem().toString());
             activeButtonChanged(true);
-        } else if (ae.getSource().equals(setupPanel.getCbMixer())) {
-            Controller.getControllerInstance().setMixer(side, setupPanel.getCbMixer().getSelectedItem().toString());
+        } else if (ae.getSource().equals(setupPanel.getCbEffect3())) {
+            Controller.getControllerInstance().setEffect(side, 3, setupPanel.getCbEffect3().getSelectedItem().toString());
+            activeButtonChanged(true);
+        } else if (ae.getSource().equals(setupPanel.getCbEffect4())) {
+            Controller.getControllerInstance().setEffect(side, 4, setupPanel.getCbEffect4().getSelectedItem().toString());
+            activeButtonChanged(true);
+        } else if (ae.getSource().equals(setupPanel.getCbEffect5())) {
+            Controller.getControllerInstance().setEffect(side, 5, setupPanel.getCbEffect5().getSelectedItem().toString());
+            activeButtonChanged(true);
+        } else if (ae.getSource().equals(setupPanel.getCbMixer2())) {
+            Controller.getControllerInstance().setMixer(side, 2, setupPanel.getCbMixer2().getSelectedItem().toString());
+            activeButtonChanged(true);
+        } else if (ae.getSource().equals(setupPanel.getCbMixer3())) {
+            Controller.getControllerInstance().setMixer(side, 3, setupPanel.getCbMixer3().getSelectedItem().toString());
+            activeButtonChanged(true);
+        } else if (ae.getSource().equals(setupPanel.getCbMixer4())) {
+            Controller.getControllerInstance().setMixer(side, 4, setupPanel.getCbMixer4().getSelectedItem().toString());
+            activeButtonChanged(true);
+        } else if (ae.getSource().equals(setupPanel.getCbMixer5())) {
+            Controller.getControllerInstance().setMixer(side, 5, setupPanel.getCbMixer5().getSelectedItem().toString());
             activeButtonChanged(true);
         } else if (ae.getSource().equals(setupPanel.getBClear())) {
             setupPanel.getCbGenerator1().setSelectedIndex(0);
             setupPanel.getCbGenerator2().setSelectedIndex(0);
+            setupPanel.getCbGenerator3().setSelectedIndex(0);
+            setupPanel.getCbGenerator4().setSelectedIndex(0);
+            setupPanel.getCbGenerator5().setSelectedIndex(0);
+            
             setupPanel.getCbEffect1().setSelectedIndex(0);
             setupPanel.getCbEffect2().setSelectedIndex(0);
-            setupPanel.getCbMixer().setSelectedIndex(0);
-
+            setupPanel.getCbEffect3().setSelectedIndex(0);
+            setupPanel.getCbEffect4().setSelectedIndex(0);
+            setupPanel.getCbEffect5().setSelectedIndex(0);
+            
+            setupPanel.getCbMixer2().setSelectedIndex(0);
+            setupPanel.getCbMixer3().setSelectedIndex(0);
+            setupPanel.getCbMixer4().setSelectedIndex(0);
+            setupPanel.getCbMixer5().setSelectedIndex(0);
+            
+            Controller.getControllerInstance().setGenerator(side, 1, (GeneratorName) setupPanel.getCbGenerator1().getSelectedItem());
             Controller.getControllerInstance().setGenerator(side, 2, (GeneratorName) setupPanel.getCbGenerator2().getSelectedItem());
-            Controller.getControllerInstance().setGenerator(side, 2, (GeneratorName) setupPanel.getCbGenerator2().getSelectedItem());
+            Controller.getControllerInstance().setGenerator(side, 3, (GeneratorName) setupPanel.getCbGenerator3().getSelectedItem());
+            Controller.getControllerInstance().setGenerator(side, 4, (GeneratorName) setupPanel.getCbGenerator4().getSelectedItem());
+            Controller.getControllerInstance().setGenerator(side, 5, (GeneratorName) setupPanel.getCbGenerator5().getSelectedItem());
+            
             Controller.getControllerInstance().setEffect(side, 1, setupPanel.getCbEffect1().getSelectedItem().toString());
-            Controller.getControllerInstance().setEffect(side, 2, setupPanel.getCbEffect1().getSelectedItem().toString());
-            Controller.getControllerInstance().setMixer(side, setupPanel.getCbMixer().getSelectedItem().toString());
-
+            Controller.getControllerInstance().setEffect(side, 2, setupPanel.getCbEffect2().getSelectedItem().toString());
+            Controller.getControllerInstance().setEffect(side, 3, setupPanel.getCbEffect3().getSelectedItem().toString());
+            Controller.getControllerInstance().setEffect(side, 4, setupPanel.getCbEffect4().getSelectedItem().toString());
+            Controller.getControllerInstance().setEffect(side, 5, setupPanel.getCbEffect5().getSelectedItem().toString());
+            
+            Controller.getControllerInstance().setMixer(side, 2, setupPanel.getCbMixer2().getSelectedItem().toString());
+            Controller.getControllerInstance().setMixer(side, 3, setupPanel.getCbMixer3().getSelectedItem().toString());
+            Controller.getControllerInstance().setMixer(side, 4, setupPanel.getCbMixer4().getSelectedItem().toString());
+            Controller.getControllerInstance().setMixer(side, 5, setupPanel.getCbMixer5().getSelectedItem().toString());
+            
             setupPanel.getIntensitySlider1().setValue(setupPanel.getIntensitySlider1().getMaximum());
             setupPanel.getIntensitySlider2().setValue(setupPanel.getIntensitySlider2().getMaximum());
-
+            setupPanel.getIntensitySlider3().setValue(setupPanel.getIntensitySlider3().getMaximum());
+            setupPanel.getIntensitySlider4().setValue(setupPanel.getIntensitySlider4().getMaximum());
+            setupPanel.getIntensitySlider5().setValue(setupPanel.getIntensitySlider5().getMaximum());
+            
             Controller.getControllerInstance().setGeneratorIntensity(side, 1, setupPanel.getIntensitySlider1().getValue());
             Controller.getControllerInstance().setGeneratorIntensity(side, 2, setupPanel.getIntensitySlider2().getValue());
-        
+            Controller.getControllerInstance().setGeneratorIntensity(side, 3, setupPanel.getIntensitySlider3().getValue());
+            Controller.getControllerInstance().setGeneratorIntensity(side, 4, setupPanel.getIntensitySlider4().getValue());
+            Controller.getControllerInstance().setGeneratorIntensity(side, 5, setupPanel.getIntensitySlider5().getValue());
+            
             activeButtonChanged(false);
         } else if (ae.getSource().equals(setupPanel.getConfigGenerator1())) {
             Generator activGen = Controller.getControllerInstance().getGenerator(side, 1);
             openGeneratorSettingsDialog(activGen);
         } else if (ae.getSource().equals(setupPanel.getConfigGenerator2())) {
             Generator activGen = Controller.getControllerInstance().getGenerator(side, 2);
+            openGeneratorSettingsDialog(activGen);
+        } else if (ae.getSource().equals(setupPanel.getConfigGenerator3())) {
+            Generator activGen = Controller.getControllerInstance().getGenerator(side, 3);
+            openGeneratorSettingsDialog(activGen);
+        } else if (ae.getSource().equals(setupPanel.getConfigGenerator4())) {
+            Generator activGen = Controller.getControllerInstance().getGenerator(side, 4);
+            openGeneratorSettingsDialog(activGen);
+        } else if (ae.getSource().equals(setupPanel.getConfigGenerator5())) {
+            Generator activGen = Controller.getControllerInstance().getGenerator(side, 5);
             openGeneratorSettingsDialog(activGen);
         }
     }
@@ -125,6 +192,12 @@ public class GeneratorSetupListener implements ActionListener, ChangeListener {
             Controller.getControllerInstance().setGeneratorIntensity(side, 1, setupPanel.getIntensitySlider1().getValue());
         } else if (e.getSource().equals(setupPanel.getIntensitySlider2())) {
             Controller.getControllerInstance().setGeneratorIntensity(side, 2, setupPanel.getIntensitySlider2().getValue());
+        } else if (e.getSource().equals(setupPanel.getIntensitySlider3())) {
+            Controller.getControllerInstance().setGeneratorIntensity(side, 3, setupPanel.getIntensitySlider2().getValue());
+        } else if (e.getSource().equals(setupPanel.getIntensitySlider4())) {
+            Controller.getControllerInstance().setGeneratorIntensity(side, 4, setupPanel.getIntensitySlider2().getValue());
+        } else if (e.getSource().equals(setupPanel.getIntensitySlider5())) {
+            Controller.getControllerInstance().setGeneratorIntensity(side, 5, setupPanel.getIntensitySlider2().getValue());
         }
         activeButtonChanged(true);
     }
@@ -171,9 +244,9 @@ public class GeneratorSetupListener implements ActionListener, ChangeListener {
         int activeVisualNumber = Controller.getControllerInstance().getActiveVisualNumber(this.side);
         Controller.getControllerInstance().sceneChanged(this.side, activeVisualNumber, changed);
         GeneratorPanel panel = null;
-        if (this.side == Controller.LEFT_SIDE) {
+        if (this.side == Controller.BOTTOM_SIDE) {
             panel = Frame.getFrameInstance().getLeftGeneratorPanel();
-        } else if (this.side == Controller.RIGHT_SIDE) {
+        } else if (this.side == Controller.TOP_SIDE) {
             panel = Frame.getFrameInstance().getRightGeneratorPanel();
         }
         panel.setButtonChanged(activeVisualNumber, changed);

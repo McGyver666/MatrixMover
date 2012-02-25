@@ -61,9 +61,9 @@ public class MasterPanel extends javax.swing.JPanel {
         return sFadePosition;
     }
     
-    public LedScreen getLedScreen(){
-        return ledScreen1;
-    }
+//    public LedScreen getLedScreen(){
+//        return ledScreen1;
+//    }
     
     public void setSelectedButton(JToggleButton button){
         tbGroup.setSelected(button.getModel(), true);
@@ -79,7 +79,6 @@ public class MasterPanel extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        ledScreen1 = new com.gyver.matrixmover.gui.LedScreen();
         sFadePosition = new javax.swing.JSlider();
         jPanel1 = new javax.swing.JPanel();
         tbLinear = new javax.swing.JToggleButton();
@@ -91,42 +90,20 @@ public class MasterPanel extends javax.swing.JPanel {
         bFade = new javax.swing.JButton();
         bAuto = new javax.swing.JButton();
 
+        setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Crossfader"));
         setLayout(new java.awt.GridBagLayout());
-
-        ledScreen1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
-
-        javax.swing.GroupLayout ledScreen1Layout = new javax.swing.GroupLayout(ledScreen1);
-        ledScreen1.setLayout(ledScreen1Layout);
-        ledScreen1Layout.setHorizontalGroup(
-            ledScreen1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 246, Short.MAX_VALUE)
-        );
-        ledScreen1Layout.setVerticalGroup(
-            ledScreen1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 186, Short.MAX_VALUE)
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 100;
-        gridBagConstraints.ipady = 100;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        add(ledScreen1, gridBagConstraints);
 
         sFadePosition.setMajorTickSpacing(1000);
         sFadePosition.setMaximum(1000);
         sFadePosition.setMinorTickSpacing(250);
+        sFadePosition.setOrientation(javax.swing.JSlider.VERTICAL);
         sFadePosition.setPaintTicks(true);
         sFadePosition.setValue(0);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         add(sFadePosition, gridBagConstraints);
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -138,6 +115,7 @@ public class MasterPanel extends javax.swing.JPanel {
         tbLinear.setPreferredSize(new java.awt.Dimension(55, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         jPanel1.add(tbLinear, gridBagConstraints);
 
         tbCross.setText("Cross");
@@ -146,7 +124,10 @@ public class MasterPanel extends javax.swing.JPanel {
         tbCross.setMinimumSize(new java.awt.Dimension(55, 30));
         tbCross.setPreferredSize(new java.awt.Dimension(55, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         jPanel1.add(tbCross, gridBagConstraints);
 
         tbWhite.setText("White");
@@ -155,7 +136,10 @@ public class MasterPanel extends javax.swing.JPanel {
         tbWhite.setMinimumSize(new java.awt.Dimension(55, 30));
         tbWhite.setPreferredSize(new java.awt.Dimension(55, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         jPanel1.add(tbWhite, gridBagConstraints);
 
         tbBlack.setText("Black");
@@ -164,45 +148,52 @@ public class MasterPanel extends javax.swing.JPanel {
         tbBlack.setMinimumSize(new java.awt.Dimension(55, 30));
         tbBlack.setPreferredSize(new java.awt.Dimension(55, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         jPanel1.add(tbBlack, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         add(jPanel1, gridBagConstraints);
 
         jLabel1.setText("Time (ms)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
+        gridBagConstraints.weighty = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 5);
         add(jLabel1, gridBagConstraints);
 
         tfFadeTime.setText("1000");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
         add(tfFadeTime, gridBagConstraints);
 
         bFade.setText("Fade");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 0);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
         add(bFade, gridBagConstraints);
 
         bAuto.setText("Auto");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 0);
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
         add(bAuto, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -211,7 +202,6 @@ public class MasterPanel extends javax.swing.JPanel {
     private javax.swing.JButton bFade;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private com.gyver.matrixmover.gui.LedScreen ledScreen1;
     private javax.swing.JSlider sFadePosition;
     private javax.swing.JToggleButton tbBlack;
     private javax.swing.JToggleButton tbCross;
@@ -220,10 +210,10 @@ public class MasterPanel extends javax.swing.JPanel {
     private javax.swing.JTextField tfFadeTime;
     // End of variables declaration//GEN-END:variables
 
-    public void recomputeLedPixelSize() {
-        ledScreen1.recomputePixelSize();
-        ledScreen1.repaint();
-    }
+//    public void recomputeLedPixelSize() {
+//        ledScreen1.recomputePixelSize();
+//        ledScreen1.repaint();
+//    }
 
     /**
      * @return the tbBlack

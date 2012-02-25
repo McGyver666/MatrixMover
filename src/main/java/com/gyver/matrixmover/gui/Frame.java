@@ -61,16 +61,16 @@ public class Frame extends javax.swing.JFrame {
         this.md = cont.getMatrixData();
 
         initComponents();
-        effectPanelLeft.setSide(Controller.LEFT_SIDE);
-        effectPanelRight.setSide(Controller.RIGHT_SIDE);
+        effectPanelLeft.setSide(Controller.BOTTOM_SIDE);
+        effectPanelRight.setSide(Controller.TOP_SIDE);
 
-        generatorSetupLeft.setSide(Controller.LEFT_SIDE);
-        generatorSetupRight.setSide(Controller.RIGHT_SIDE);
+        generatorSetupLeft.setSide(Controller.BOTTOM_SIDE);
+        generatorSetupRight.setSide(Controller.TOP_SIDE);
 
         effectPanelLeft.getLedScreen().init(ph, md);
         effectPanelRight.getLedScreen().init(ph, md);
-        getMasterPanel().getLedScreen().init(ph, md);
-        cont.setLedScreens(effectPanelLeft.getLedScreen(), effectPanelRight.getLedScreen(), getMasterPanel().getLedScreen());
+        masterLedScreen.init(ph, md);
+        cont.setLedScreens(effectPanelLeft.getLedScreen(), effectPanelRight.getLedScreen(), masterLedScreen);
 
         setUpComboBoxes();
 
@@ -89,17 +89,20 @@ public class Frame extends javax.swing.JFrame {
         masterSettings1 = new com.gyver.matrixmover.gui.MasterSettings();
         effectPanelLeft = new com.gyver.matrixmover.gui.GeneratorPanel();
         effectPanelRight = new com.gyver.matrixmover.gui.GeneratorPanel();
-        masterPanel = new com.gyver.matrixmover.gui.MasterPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        generatorSetupRight = new com.gyver.matrixmover.gui.GeneratorSetup();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        generatorSetupLeft = new com.gyver.matrixmover.gui.GeneratorSetup();
+        jPanel1 = new javax.swing.JPanel();
+        masterSettings2 = new com.gyver.matrixmover.gui.MasterSettings();
+        masterLedScreen = new com.gyver.matrixmover.gui.LedScreen();
         logoPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        generatorSetupLeft = new com.gyver.matrixmover.gui.GeneratorSetup();
-        generatorSetupRight = new com.gyver.matrixmover.gui.GeneratorSetup();
-        masterSettings2 = new com.gyver.matrixmover.gui.MasterSettings();
+        masterPanel = new com.gyver.matrixmover.gui.MasterPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MatrixMover");
-        setMinimumSize(new java.awt.Dimension(800, 600));
+        setMinimumSize(new java.awt.Dimension(1150, 700));
         setName("FrameMatrixMover"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -116,9 +119,8 @@ public class Frame extends javax.swing.JFrame {
         effectPanelLeft.setMinimumSize(new java.awt.Dimension(420, 300));
         effectPanelLeft.setPreferredSize(new java.awt.Dimension(420, 300));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
@@ -128,26 +130,66 @@ public class Frame extends javax.swing.JFrame {
         effectPanelRight.setMinimumSize(new java.awt.Dimension(420, 300));
         effectPanelRight.setPreferredSize(new java.awt.Dimension(420, 300));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         getContentPane().add(effectPanelRight, gridBagConstraints);
 
-        masterPanel.setMinimumSize(new java.awt.Dimension(300, 350));
-        masterPanel.setPreferredSize(new java.awt.Dimension(300, 350));
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(5, 250));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(100, 250));
+        jScrollPane1.setViewportView(generatorSetupRight);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 400;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(13, 5, 7, 10);
+        getContentPane().add(jScrollPane1, gridBagConstraints);
+
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane2.setViewportView(generatorSetupLeft);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.ipadx = 400;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(13, 5, 7, 10);
+        getContentPane().add(jScrollPane2, gridBagConstraints);
+
+        jPanel1.setMinimumSize(new java.awt.Dimension(250, 361));
+        jPanel1.setPreferredSize(new java.awt.Dimension(250, 361));
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+
+        masterSettings2.setMinimumSize(new java.awt.Dimension(125, 280));
+        masterSettings2.setPreferredSize(new java.awt.Dimension(120, 136));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel1.add(masterSettings2, gridBagConstraints);
+
+        masterLedScreen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        getContentPane().add(masterPanel, gridBagConstraints);
+        jPanel1.add(masterLedScreen, gridBagConstraints);
 
         logoPanel.setLayout(new java.awt.GridBagLayout());
 
@@ -160,38 +202,28 @@ public class Frame extends javax.swing.JFrame {
         logoPanel.add(jLabel1, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        getContentPane().add(logoPanel, gridBagConstraints);
-
-        jPanel1.setLayout(new java.awt.GridBagLayout());
-        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
-        jPanel1.add(generatorSetupLeft, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 5);
-        jPanel1.add(generatorSetupRight, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel1.add(masterSettings2, gridBagConstraints);
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel1.add(logoPanel, gridBagConstraints);
 
+        masterPanel.setMinimumSize(new java.awt.Dimension(120, 280));
+        masterPanel.setPreferredSize(new java.awt.Dimension(300, 350));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel1.add(masterPanel, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.5;
         getContentPane().add(jPanel1, gridBagConstraints);
 
         pack();
@@ -200,7 +232,8 @@ public class Frame extends javax.swing.JFrame {
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         effectPanelLeft.recomputeLedPixelSize();
         effectPanelRight.recomputeLedPixelSize();
-        getMasterPanel().recomputeLedPixelSize();
+        masterLedScreen.recomputePixelSize();
+        masterLedScreen.repaint();
     }//GEN-LAST:event_formComponentResized
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -213,7 +246,10 @@ public class Frame extends javax.swing.JFrame {
     private com.gyver.matrixmover.gui.GeneratorSetup generatorSetupRight;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel logoPanel;
+    private com.gyver.matrixmover.gui.LedScreen masterLedScreen;
     private com.gyver.matrixmover.gui.MasterPanel masterPanel;
     private com.gyver.matrixmover.gui.MasterSettings masterSettings1;
     private com.gyver.matrixmover.gui.MasterSettings masterSettings2;
@@ -238,9 +274,9 @@ public class Frame extends javax.swing.JFrame {
      */
     public void setComboBoxesForChangedScene(int side, VisualSetup newActiveVisualSetup) {
 
-        if (side == Controller.LEFT_SIDE) {
+        if (side == Controller.BOTTOM_SIDE) {
             setComboBoxes(generatorSetupLeft, newActiveVisualSetup);
-        } else if (side == Controller.RIGHT_SIDE) {
+        } else if (side == Controller.TOP_SIDE) {
             setComboBoxes(generatorSetupRight, newActiveVisualSetup);
         }
     }
@@ -252,13 +288,27 @@ public class Frame extends javax.swing.JFrame {
 
         generatorSetup.getCbGenerator1().setSelectedItem(newActiveVisualSetup.getGenerator1().getName());
         generatorSetup.getCbGenerator2().setSelectedItem(newActiveVisualSetup.getGenerator2().getName());
+        generatorSetup.getCbGenerator3().setSelectedItem(newActiveVisualSetup.getGenerator3().getName());
+        generatorSetup.getCbGenerator4().setSelectedItem(newActiveVisualSetup.getGenerator4().getName());
+        generatorSetup.getCbGenerator5().setSelectedItem(newActiveVisualSetup.getGenerator5().getName());
+        
         generatorSetup.getCbEffect1().setSelectedItem(newActiveVisualSetup.getEffect1().getName());
         generatorSetup.getCbEffect2().setSelectedItem(newActiveVisualSetup.getEffect2().getName());
-        generatorSetup.getCbMixer().setSelectedItem(newActiveVisualSetup.getMixer().getName());
-
+        generatorSetup.getCbEffect3().setSelectedItem(newActiveVisualSetup.getEffect3().getName());
+        generatorSetup.getCbEffect4().setSelectedItem(newActiveVisualSetup.getEffect4().getName());
+        generatorSetup.getCbEffect5().setSelectedItem(newActiveVisualSetup.getEffect5().getName());
+        
+        generatorSetup.getCbMixer2().setSelectedItem(newActiveVisualSetup.getMixer2().getName());
+        generatorSetup.getCbMixer3().setSelectedItem(newActiveVisualSetup.getMixer3().getName());
+        generatorSetup.getCbMixer4().setSelectedItem(newActiveVisualSetup.getMixer4().getName());
+        generatorSetup.getCbMixer5().setSelectedItem(newActiveVisualSetup.getMixer5().getName());
+        
         generatorSetup.getIntensitySlider1().setValue(newActiveVisualSetup.getGenerator1Intensity());
         generatorSetup.getIntensitySlider2().setValue(newActiveVisualSetup.getGenerator2Intensity());
-
+        generatorSetup.getIntensitySlider3().setValue(newActiveVisualSetup.getGenerator3Intensity());
+        generatorSetup.getIntensitySlider4().setValue(newActiveVisualSetup.getGenerator4Intensity());
+        generatorSetup.getIntensitySlider5().setValue(newActiveVisualSetup.getGenerator5Intensity());
+        
         generatorSetup.addAllToActionListener();
 
     }

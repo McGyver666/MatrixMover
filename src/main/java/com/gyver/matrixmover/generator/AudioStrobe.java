@@ -29,8 +29,8 @@ import java.util.LinkedList;
  */
 public class AudioStrobe extends Generator {
     
-    private final float CLIPPING_MULT = 3F;
-    private final float CLIPPING_SUB = 2F;
+    private final float CLIPPING_MULT = 10F;
+    private final float CLIPPING_SUB = 9F;
     private final int RUNNING_MEAN_LENGTH = 125;
 
     private int bandToUse = 0;

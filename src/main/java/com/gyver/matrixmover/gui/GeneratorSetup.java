@@ -29,12 +29,11 @@ import javax.swing.JSlider;
 
 /**
  *
- * @author jonas
+ * @author Gyver
  */
 public class GeneratorSetup extends javax.swing.JPanel {
 
     private GeneratorSetupListener gsListener = null;
-    private int side = 0;
 
     /** Creates new form GeneratorSetup */
     public GeneratorSetup() {
@@ -44,15 +43,24 @@ public class GeneratorSetup extends javax.swing.JPanel {
     public void setGeneratorListToComboBoxes(Object[] generators) {
         cbGenerator1.setModel(new javax.swing.DefaultComboBoxModel(generators));
         cbGenerator2.setModel(new javax.swing.DefaultComboBoxModel(generators));
+        cbGenerator3.setModel(new javax.swing.DefaultComboBoxModel(generators));
+        cbGenerator4.setModel(new javax.swing.DefaultComboBoxModel(generators));
+        cbGenerator5.setModel(new javax.swing.DefaultComboBoxModel(generators));
     }
 
     public void setEffectListToComboBoxes(Object[] effects) {
         cbEffect1.setModel(new javax.swing.DefaultComboBoxModel(effects));
         cbEffect2.setModel(new javax.swing.DefaultComboBoxModel(effects));
+        cbEffect3.setModel(new javax.swing.DefaultComboBoxModel(effects));
+        cbEffect4.setModel(new javax.swing.DefaultComboBoxModel(effects));
+        cbEffect5.setModel(new javax.swing.DefaultComboBoxModel(effects));
     }
 
     public void setMixerListToComboBoxes(Object[] mixer) {
-        cbMixer.setModel(new javax.swing.DefaultComboBoxModel(mixer));
+        cbMixer2.setModel(new javax.swing.DefaultComboBoxModel(mixer));
+        cbMixer3.setModel(new javax.swing.DefaultComboBoxModel(mixer));
+        cbMixer4.setModel(new javax.swing.DefaultComboBoxModel(mixer));
+        cbMixer5.setModel(new javax.swing.DefaultComboBoxModel(mixer));
     }
 
     public JSlider getIntensitySlider1() {
@@ -63,12 +71,36 @@ public class GeneratorSetup extends javax.swing.JPanel {
         return sIntensity2;
     }
 
+    public JSlider getIntensitySlider3() {
+        return sIntensity3;
+    }
+
+    public JSlider getIntensitySlider4() {
+        return sIntensity4;
+    }
+
+    public JSlider getIntensitySlider5() {
+        return sIntensity5;
+    }
+
     public JComboBox getCbGenerator1() {
         return cbGenerator1;
     }
 
     public JComboBox getCbGenerator2() {
         return cbGenerator2;
+    }
+
+    public JComboBox getCbGenerator3() {
+        return cbGenerator3;
+    }
+
+    public JComboBox getCbGenerator4() {
+        return cbGenerator4;
+    }
+
+    public JComboBox getCbGenerator5() {
+        return cbGenerator5;
     }
 
     public JComboBox getCbEffect1() {
@@ -79,8 +111,32 @@ public class GeneratorSetup extends javax.swing.JPanel {
         return cbEffect2;
     }
 
-    public JComboBox getCbMixer() {
-        return cbMixer;
+    public JComboBox getCbEffect3() {
+        return cbEffect3;
+    }
+
+    public JComboBox getCbEffect4() {
+        return cbEffect4;
+    }
+
+    public JComboBox getCbEffect5() {
+        return cbEffect5;
+    }
+
+    public JComboBox getCbMixer2() {
+        return cbMixer2;
+    }
+    
+    public JComboBox getCbMixer3() {
+        return cbMixer3;
+    }
+    
+    public JComboBox getCbMixer4() {
+        return cbMixer4;
+    }
+    
+    public JComboBox getCbMixer5() {
+        return cbMixer5;
     }
     
     public JButton getConfigGenerator1(){
@@ -91,8 +147,19 @@ public class GeneratorSetup extends javax.swing.JPanel {
         return bConfigGenerator2;
     }
 
+    public JButton getConfigGenerator3(){
+        return bConfigGenerator3;
+    }
+
+    public JButton getConfigGenerator4(){
+        return bConfigGenerator4;
+    }
+
+    public JButton getConfigGenerator5(){
+        return bConfigGenerator5;
+    }
+
     public void setSide(int side) {
-        this.side = side;
         gsListener = new GeneratorSetupListener(side, this);
         
         addAllToActionListener();
@@ -109,10 +176,12 @@ public class GeneratorSetup extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        bClearScene = new javax.swing.JButton();
         panelGenerator1 = new javax.swing.JPanel();
         cbGenerator1 = new javax.swing.JComboBox();
         bConfigGenerator1 = new javax.swing.JButton();
         cbEffect1 = new javax.swing.JComboBox();
+        bConfigEffect1 = new javax.swing.JButton();
         sIntensity1 = new javax.swing.JSlider();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -120,22 +189,66 @@ public class GeneratorSetup extends javax.swing.JPanel {
         cbGenerator2 = new javax.swing.JComboBox();
         bConfigGenerator2 = new javax.swing.JButton();
         cbEffect2 = new javax.swing.JComboBox();
+        bConfigEffect2 = new javax.swing.JButton();
         sIntensity2 = new javax.swing.JSlider();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        panelMixer = new javax.swing.JPanel();
-        cbMixer = new javax.swing.JComboBox();
-        bClearScene = new javax.swing.JButton();
+        cbMixer2 = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        panelGenerator3 = new javax.swing.JPanel();
+        cbGenerator3 = new javax.swing.JComboBox();
+        bConfigGenerator3 = new javax.swing.JButton();
+        cbEffect3 = new javax.swing.JComboBox();
+        sIntensity3 = new javax.swing.JSlider();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        cbMixer3 = new javax.swing.JComboBox();
+        jLabel9 = new javax.swing.JLabel();
+        bConfigEffect3 = new javax.swing.JButton();
+        panelGenerator4 = new javax.swing.JPanel();
+        cbGenerator4 = new javax.swing.JComboBox();
+        bConfigGenerator4 = new javax.swing.JButton();
+        cbEffect4 = new javax.swing.JComboBox();
+        sIntensity4 = new javax.swing.JSlider();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        cbMixer4 = new javax.swing.JComboBox();
+        jLabel12 = new javax.swing.JLabel();
+        bConfigEffect4 = new javax.swing.JButton();
+        panelGenerator5 = new javax.swing.JPanel();
+        cbGenerator5 = new javax.swing.JComboBox();
+        bConfigGenerator5 = new javax.swing.JButton();
+        cbEffect5 = new javax.swing.JComboBox();
+        sIntensity5 = new javax.swing.JSlider();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        cbMixer5 = new javax.swing.JComboBox();
+        jLabel15 = new javax.swing.JLabel();
+        bConfigEffect5 = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(395, 215));
         setMinimumSize(new java.awt.Dimension(395, 215));
-        setPreferredSize(new java.awt.Dimension(395, 215));
-        setLayout(null);
+        setPreferredSize(new java.awt.Dimension(980, 230));
+        setLayout(new java.awt.GridBagLayout());
+
+        bClearScene.setFont(new java.awt.Font("Dialog", 1, 12));
+        bClearScene.setText("Clear");
+        bClearScene.setMargin(new java.awt.Insets(-2, -2, -2, -2));
+        bClearScene.setMaximumSize(new java.awt.Dimension(50, 50));
+        bClearScene.setMinimumSize(new java.awt.Dimension(50, 50));
+        bClearScene.setPreferredSize(new java.awt.Dimension(50, 50));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipady = -10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 0, 0);
+        add(bClearScene, gridBagConstraints);
 
         panelGenerator1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Generator 1"));
         panelGenerator1.setLayout(new java.awt.GridBagLayout());
 
-        cbGenerator1.setFont(new java.awt.Font("Dialog", 0, 12));
+        cbGenerator1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         cbGenerator1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbGenerator1.setMinimumSize(new java.awt.Dimension(70, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -146,7 +259,7 @@ public class GeneratorSetup extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
         panelGenerator1.add(cbGenerator1, gridBagConstraints);
 
-        bConfigGenerator1.setFont(new java.awt.Font("Dialog", 0, 12));
+        bConfigGenerator1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         bConfigGenerator1.setText("Config Generator");
         bConfigGenerator1.setMaximumSize(new java.awt.Dimension(140, 25));
         bConfigGenerator1.setMinimumSize(new java.awt.Dimension(140, 25));
@@ -154,9 +267,6 @@ public class GeneratorSetup extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
         panelGenerator1.add(bConfigGenerator1, gridBagConstraints);
 
         cbEffect1.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -171,6 +281,19 @@ public class GeneratorSetup extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
         panelGenerator1.add(cbEffect1, gridBagConstraints);
 
+        bConfigEffect1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        bConfigEffect1.setText("Config Effect");
+        bConfigEffect1.setMaximumSize(new java.awt.Dimension(140, 25));
+        bConfigEffect1.setMinimumSize(new java.awt.Dimension(140, 25));
+        bConfigEffect1.setPreferredSize(new java.awt.Dimension(140, 25));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
+        panelGenerator1.add(bConfigEffect1, gridBagConstraints);
+
         sIntensity1.setFont(new java.awt.Font("Dialog", 0, 12));
         sIntensity1.setMaximum(255);
         sIntensity1.setOrientation(javax.swing.JSlider.VERTICAL);
@@ -178,7 +301,7 @@ public class GeneratorSetup extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 5;
+        gridBagConstraints.gridheight = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         panelGenerator1.add(sIntensity1, gridBagConstraints);
@@ -200,11 +323,15 @@ public class GeneratorSetup extends javax.swing.JPanel {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 7, 0, 2);
         panelGenerator1.add(jLabel2, gridBagConstraints);
 
-        add(panelGenerator1);
-        panelGenerator1.setBounds(0, 0, 195, 150);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 2);
+        add(panelGenerator1, gridBagConstraints);
 
         panelGenerator2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Generator 2"));
         panelGenerator2.setLayout(new java.awt.GridBagLayout());
@@ -220,7 +347,7 @@ public class GeneratorSetup extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
         panelGenerator2.add(cbGenerator2, gridBagConstraints);
 
-        bConfigGenerator2.setFont(new java.awt.Font("Dialog", 0, 12));
+        bConfigGenerator2.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         bConfigGenerator2.setText("Config Generator");
         bConfigGenerator2.setMaximumSize(new java.awt.Dimension(140, 25));
         bConfigGenerator2.setMinimumSize(new java.awt.Dimension(140, 25));
@@ -244,6 +371,19 @@ public class GeneratorSetup extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
         panelGenerator2.add(cbEffect2, gridBagConstraints);
 
+        bConfigEffect2.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        bConfigEffect2.setText("Config Effect");
+        bConfigEffect2.setMaximumSize(new java.awt.Dimension(140, 25));
+        bConfigEffect2.setMinimumSize(new java.awt.Dimension(140, 25));
+        bConfigEffect2.setPreferredSize(new java.awt.Dimension(140, 25));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
+        panelGenerator2.add(bConfigEffect2, gridBagConstraints);
+
         sIntensity2.setFont(new java.awt.Font("Dialog", 0, 12));
         sIntensity2.setMaximum(255);
         sIntensity2.setOrientation(javax.swing.JSlider.VERTICAL);
@@ -251,7 +391,7 @@ public class GeneratorSetup extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 5;
+        gridBagConstraints.gridheight = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         panelGenerator2.add(sIntensity2, gridBagConstraints);
@@ -267,65 +407,435 @@ public class GeneratorSetup extends javax.swing.JPanel {
         panelGenerator2.add(jLabel4, gridBagConstraints);
 
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel5.setText("Effect");
+        jLabel5.setText("Mixer");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 7, 0, 2);
+        panelGenerator2.add(jLabel5, gridBagConstraints);
+
+        cbMixer2.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        cbMixer2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbMixer2.setMinimumSize(new java.awt.Dimension(80, 20));
+        cbMixer2.setOpaque(false);
+        cbMixer2.setPreferredSize(new java.awt.Dimension(155, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
+        panelGenerator2.add(cbMixer2, gridBagConstraints);
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 0, 12));
+        jLabel6.setText("Effect");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 7, 0, 2);
-        panelGenerator2.add(jLabel5, gridBagConstraints);
+        panelGenerator2.add(jLabel6, gridBagConstraints);
 
-        add(panelGenerator2);
-        panelGenerator2.setBounds(201, 0, 195, 150);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 2, 5, 2);
+        add(panelGenerator2, gridBagConstraints);
 
-        panelMixer.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Mixer"));
-        panelMixer.setLayout(new java.awt.GridBagLayout());
+        panelGenerator3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Generator 3"));
+        panelGenerator3.setLayout(new java.awt.GridBagLayout());
 
-        cbMixer.setFont(new java.awt.Font("Dialog", 0, 12));
-        cbMixer.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbMixer.setMinimumSize(new java.awt.Dimension(80, 20));
-        cbMixer.setOpaque(false);
-        cbMixer.setPreferredSize(new java.awt.Dimension(155, 20));
+        cbGenerator3.setFont(new java.awt.Font("Dialog", 0, 12));
+        cbGenerator3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbGenerator3.setMinimumSize(new java.awt.Dimension(80, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
+        panelGenerator3.add(cbGenerator3, gridBagConstraints);
+
+        bConfigGenerator3.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        bConfigGenerator3.setText("Config Generator");
+        bConfigGenerator3.setMaximumSize(new java.awt.Dimension(140, 25));
+        bConfigGenerator3.setMinimumSize(new java.awt.Dimension(140, 25));
+        bConfigGenerator3.setPreferredSize(new java.awt.Dimension(140, 25));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
+        panelGenerator3.add(bConfigGenerator3, gridBagConstraints);
+
+        cbEffect3.setFont(new java.awt.Font("Dialog", 0, 12));
+        cbEffect3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbEffect3.setMinimumSize(new java.awt.Dimension(80, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
+        panelGenerator3.add(cbEffect3, gridBagConstraints);
+
+        sIntensity3.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        sIntensity3.setMaximum(255);
+        sIntensity3.setOrientation(javax.swing.JSlider.VERTICAL);
+        sIntensity3.setValue(255);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelGenerator3.add(sIntensity3, gridBagConstraints);
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 0, 12));
+        jLabel7.setText("Effect Generator:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 0, 2);
+        panelGenerator3.add(jLabel7, gridBagConstraints);
+
+        jLabel8.setFont(new java.awt.Font("Dialog", 0, 12));
+        jLabel8.setText("Mixer");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 7, 0, 2);
+        panelGenerator3.add(jLabel8, gridBagConstraints);
+
+        cbMixer3.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        cbMixer3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbMixer3.setMinimumSize(new java.awt.Dimension(80, 20));
+        cbMixer3.setOpaque(false);
+        cbMixer3.setPreferredSize(new java.awt.Dimension(155, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
-        panelMixer.add(cbMixer, gridBagConstraints);
+        panelGenerator3.add(cbMixer3, gridBagConstraints);
 
-        add(panelMixer);
-        panelMixer.setBounds(0, 155, 340, 60);
+        jLabel9.setFont(new java.awt.Font("Dialog", 0, 12));
+        jLabel9.setText("Effect");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 7, 0, 2);
+        panelGenerator3.add(jLabel9, gridBagConstraints);
 
-        bClearScene.setFont(new java.awt.Font("Dialog", 1, 12));
-        bClearScene.setText("Clear");
-        bClearScene.setMargin(new java.awt.Insets(-2, -2, -2, -2));
-        bClearScene.setMaximumSize(new java.awt.Dimension(50, 50));
-        bClearScene.setMinimumSize(new java.awt.Dimension(50, 50));
-        bClearScene.setPreferredSize(new java.awt.Dimension(50, 50));
-        add(bClearScene);
-        bClearScene.setBounds(343, 163, 50, 50);
+        bConfigEffect3.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        bConfigEffect3.setText("Config Effect");
+        bConfigEffect3.setMaximumSize(new java.awt.Dimension(140, 25));
+        bConfigEffect3.setMinimumSize(new java.awt.Dimension(140, 25));
+        bConfigEffect3.setPreferredSize(new java.awt.Dimension(140, 25));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
+        panelGenerator3.add(bConfigEffect3, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 2, 5, 2);
+        add(panelGenerator3, gridBagConstraints);
+
+        panelGenerator4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Generator 4"));
+        panelGenerator4.setLayout(new java.awt.GridBagLayout());
+
+        cbGenerator4.setFont(new java.awt.Font("Dialog", 0, 12));
+        cbGenerator4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbGenerator4.setMinimumSize(new java.awt.Dimension(80, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
+        panelGenerator4.add(cbGenerator4, gridBagConstraints);
+
+        bConfigGenerator4.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        bConfigGenerator4.setText("Config Generator");
+        bConfigGenerator4.setMaximumSize(new java.awt.Dimension(140, 25));
+        bConfigGenerator4.setMinimumSize(new java.awt.Dimension(140, 25));
+        bConfigGenerator4.setPreferredSize(new java.awt.Dimension(140, 25));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
+        panelGenerator4.add(bConfigGenerator4, gridBagConstraints);
+
+        cbEffect4.setFont(new java.awt.Font("Dialog", 0, 12));
+        cbEffect4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbEffect4.setMinimumSize(new java.awt.Dimension(80, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
+        panelGenerator4.add(cbEffect4, gridBagConstraints);
+
+        sIntensity4.setFont(new java.awt.Font("Dialog", 0, 12));
+        sIntensity4.setMaximum(255);
+        sIntensity4.setOrientation(javax.swing.JSlider.VERTICAL);
+        sIntensity4.setValue(255);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelGenerator4.add(sIntensity4, gridBagConstraints);
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 0, 12));
+        jLabel10.setText("Effect Generator:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 0, 2);
+        panelGenerator4.add(jLabel10, gridBagConstraints);
+
+        jLabel11.setFont(new java.awt.Font("Dialog", 0, 12));
+        jLabel11.setText("Mixer");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 7, 0, 2);
+        panelGenerator4.add(jLabel11, gridBagConstraints);
+
+        cbMixer4.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        cbMixer4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbMixer4.setMinimumSize(new java.awt.Dimension(80, 20));
+        cbMixer4.setOpaque(false);
+        cbMixer4.setPreferredSize(new java.awt.Dimension(155, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
+        panelGenerator4.add(cbMixer4, gridBagConstraints);
+
+        jLabel12.setFont(new java.awt.Font("Dialog", 0, 12));
+        jLabel12.setText("Effect");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 7, 0, 2);
+        panelGenerator4.add(jLabel12, gridBagConstraints);
+
+        bConfigEffect4.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        bConfigEffect4.setText("Config Effect");
+        bConfigEffect4.setMaximumSize(new java.awt.Dimension(140, 25));
+        bConfigEffect4.setMinimumSize(new java.awt.Dimension(140, 25));
+        bConfigEffect4.setPreferredSize(new java.awt.Dimension(140, 25));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
+        panelGenerator4.add(bConfigEffect4, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 2, 5, 2);
+        add(panelGenerator4, gridBagConstraints);
+
+        panelGenerator5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Generator 5"));
+        panelGenerator5.setLayout(new java.awt.GridBagLayout());
+
+        cbGenerator5.setFont(new java.awt.Font("Dialog", 0, 12));
+        cbGenerator5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbGenerator5.setMinimumSize(new java.awt.Dimension(80, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
+        panelGenerator5.add(cbGenerator5, gridBagConstraints);
+
+        bConfigGenerator5.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        bConfigGenerator5.setText("Config Generator");
+        bConfigGenerator5.setMaximumSize(new java.awt.Dimension(140, 25));
+        bConfigGenerator5.setMinimumSize(new java.awt.Dimension(140, 25));
+        bConfigGenerator5.setPreferredSize(new java.awt.Dimension(140, 25));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
+        panelGenerator5.add(bConfigGenerator5, gridBagConstraints);
+
+        cbEffect5.setFont(new java.awt.Font("Dialog", 0, 12));
+        cbEffect5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbEffect5.setMinimumSize(new java.awt.Dimension(80, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
+        panelGenerator5.add(cbEffect5, gridBagConstraints);
+
+        sIntensity5.setFont(new java.awt.Font("Dialog", 0, 12));
+        sIntensity5.setMaximum(255);
+        sIntensity5.setOrientation(javax.swing.JSlider.VERTICAL);
+        sIntensity5.setValue(255);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelGenerator5.add(sIntensity5, gridBagConstraints);
+
+        jLabel13.setFont(new java.awt.Font("Dialog", 0, 12));
+        jLabel13.setText("Effect Generator:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 0, 2);
+        panelGenerator5.add(jLabel13, gridBagConstraints);
+
+        jLabel14.setFont(new java.awt.Font("Dialog", 0, 12));
+        jLabel14.setText("Mixer");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 7, 0, 2);
+        panelGenerator5.add(jLabel14, gridBagConstraints);
+
+        cbMixer5.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        cbMixer5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbMixer5.setMinimumSize(new java.awt.Dimension(80, 20));
+        cbMixer5.setOpaque(false);
+        cbMixer5.setPreferredSize(new java.awt.Dimension(155, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
+        panelGenerator5.add(cbMixer5, gridBagConstraints);
+
+        jLabel15.setFont(new java.awt.Font("Dialog", 0, 12));
+        jLabel15.setText("Effect");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 7, 0, 2);
+        panelGenerator5.add(jLabel15, gridBagConstraints);
+
+        bConfigEffect5.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        bConfigEffect5.setText("Config Effect");
+        bConfigEffect5.setMaximumSize(new java.awt.Dimension(140, 25));
+        bConfigEffect5.setMinimumSize(new java.awt.Dimension(140, 25));
+        bConfigEffect5.setPreferredSize(new java.awt.Dimension(140, 25));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 7, 2, 2);
+        panelGenerator5.add(bConfigEffect5, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 2, 5, 5);
+        add(panelGenerator5, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bClearScene;
+    private javax.swing.JButton bConfigEffect1;
+    private javax.swing.JButton bConfigEffect2;
+    private javax.swing.JButton bConfigEffect3;
+    private javax.swing.JButton bConfigEffect4;
+    private javax.swing.JButton bConfigEffect5;
     private javax.swing.JButton bConfigGenerator1;
     private javax.swing.JButton bConfigGenerator2;
+    private javax.swing.JButton bConfigGenerator3;
+    private javax.swing.JButton bConfigGenerator4;
+    private javax.swing.JButton bConfigGenerator5;
     private javax.swing.JComboBox cbEffect1;
     private javax.swing.JComboBox cbEffect2;
+    private javax.swing.JComboBox cbEffect3;
+    private javax.swing.JComboBox cbEffect4;
+    private javax.swing.JComboBox cbEffect5;
     private javax.swing.JComboBox cbGenerator1;
     private javax.swing.JComboBox cbGenerator2;
-    private javax.swing.JComboBox cbMixer;
+    private javax.swing.JComboBox cbGenerator3;
+    private javax.swing.JComboBox cbGenerator4;
+    private javax.swing.JComboBox cbGenerator5;
+    private javax.swing.JComboBox cbMixer2;
+    private javax.swing.JComboBox cbMixer3;
+    private javax.swing.JComboBox cbMixer4;
+    private javax.swing.JComboBox cbMixer5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel panelGenerator1;
     private javax.swing.JPanel panelGenerator2;
-    private javax.swing.JPanel panelMixer;
+    private javax.swing.JPanel panelGenerator3;
+    private javax.swing.JPanel panelGenerator4;
+    private javax.swing.JPanel panelGenerator5;
     private javax.swing.JSlider sIntensity1;
     private javax.swing.JSlider sIntensity2;
+    private javax.swing.JSlider sIntensity3;
+    private javax.swing.JSlider sIntensity4;
+    private javax.swing.JSlider sIntensity5;
     // End of variables declaration//GEN-END:variables
 
     public Object getBClear() {
@@ -336,32 +846,67 @@ public class GeneratorSetup extends javax.swing.JPanel {
         
         cbGenerator1.removeActionListener(gsListener);
         cbGenerator2.removeActionListener(gsListener);
+        cbGenerator3.removeActionListener(gsListener);
+        cbGenerator4.removeActionListener(gsListener);
+        cbGenerator5.removeActionListener(gsListener);
+        
         cbEffect1.removeActionListener(gsListener);
         cbEffect2.removeActionListener(gsListener);
-        cbMixer.removeActionListener(gsListener);
+        cbEffect3.removeActionListener(gsListener);
+        cbEffect4.removeActionListener(gsListener);
+        cbEffect5.removeActionListener(gsListener);
+        
+        cbMixer2.removeActionListener(gsListener);
+        cbMixer3.removeActionListener(gsListener);
+        cbMixer4.removeActionListener(gsListener);
+        cbMixer5.removeActionListener(gsListener);
         
         bClearScene.removeActionListener(gsListener);
         
         sIntensity1.removeChangeListener(gsListener);
         sIntensity2.removeChangeListener(gsListener);
+        sIntensity3.removeChangeListener(gsListener);
+        sIntensity4.removeChangeListener(gsListener);
+        sIntensity5.removeChangeListener(gsListener);
         
         bConfigGenerator1.removeActionListener(gsListener);
         bConfigGenerator2.removeActionListener(gsListener);
+        bConfigGenerator3.removeActionListener(gsListener);
+        bConfigGenerator4.removeActionListener(gsListener);
+        bConfigGenerator5.removeActionListener(gsListener);
+        
     }
     
     public void addAllToActionListener() {
         cbGenerator1.addActionListener(gsListener);
         cbGenerator2.addActionListener(gsListener);
+        cbGenerator3.addActionListener(gsListener);
+        cbGenerator4.addActionListener(gsListener);
+        cbGenerator5.addActionListener(gsListener);
+        
         cbEffect1.addActionListener(gsListener);
         cbEffect2.addActionListener(gsListener);
-        cbMixer.addActionListener(gsListener);
+        cbEffect3.addActionListener(gsListener);
+        cbEffect4.addActionListener(gsListener);
+        cbEffect5.addActionListener(gsListener);
+        
+        cbMixer2.addActionListener(gsListener);
+        cbMixer3.addActionListener(gsListener);
+        cbMixer4.addActionListener(gsListener);
+        cbMixer5.addActionListener(gsListener);
         
         bClearScene.addActionListener(gsListener);
         
         sIntensity1.addChangeListener(gsListener);
         sIntensity2.addChangeListener(gsListener);
+        sIntensity3.addChangeListener(gsListener);
+        sIntensity4.addChangeListener(gsListener);
+        sIntensity5.addChangeListener(gsListener);
         
         bConfigGenerator1.addActionListener(gsListener);
         bConfigGenerator2.addActionListener(gsListener);
+        bConfigGenerator3.addActionListener(gsListener);
+        bConfigGenerator4.addActionListener(gsListener);
+        bConfigGenerator5.addActionListener(gsListener);
     }
 }

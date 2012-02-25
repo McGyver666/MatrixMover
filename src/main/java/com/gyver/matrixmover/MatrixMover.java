@@ -131,7 +131,7 @@ public class MatrixMover {
             public void run() {
                 guiFrame = Frame.getFrameInstance();
                 guiFrame.initFrame(ph, controller);
-                guiFrame.setSize(1000, 600);
+                guiFrame.setSize(1150, 700);
                 guiFrame.setLocationRelativeTo(null);
                 MatrixMover.guiReady(true);
             }

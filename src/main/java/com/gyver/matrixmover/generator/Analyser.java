@@ -63,7 +63,7 @@ public class Analyser extends ColorMapAwareGenerator {
                 leftToRight();
                 break;
             case RIGHT_TO_LEFT:
-                leftToRight();
+                rightToLeft();
                 break;
             case TOP_TO_BOTTOM:
                 topDown();
@@ -88,7 +88,7 @@ public class Analyser extends ColorMapAwareGenerator {
             return;
         }
 
-        if (decayedSpectrum == null) {
+        if (decayedSpectrum == null || decayedSpectrum.length != bands) {
             decayedSpectrum = new float[bands];
         }
 
@@ -131,7 +131,7 @@ public class Analyser extends ColorMapAwareGenerator {
             return;
         }
 
-        if (decayedSpectrum == null) {
+        if (decayedSpectrum == null || decayedSpectrum.length != bands) {
             decayedSpectrum = new float[bands];
         }
 
@@ -174,7 +174,7 @@ public class Analyser extends ColorMapAwareGenerator {
             return;
         }
 
-        if (decayedSpectrum == null) {
+        if (decayedSpectrum == null || decayedSpectrum.length != bands) {
             decayedSpectrum = new float[bands];
         }
 
@@ -217,7 +217,7 @@ public class Analyser extends ColorMapAwareGenerator {
             return;
         }
 
-        if (decayedSpectrum == null) {
+        if (decayedSpectrum == null || decayedSpectrum.length != bands) {
             decayedSpectrum = new float[bands];
         }
 
