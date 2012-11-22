@@ -81,7 +81,10 @@ public class LedScreen extends javax.swing.JPanel {
             int px_start = x * (PixelWidth + PixelSpace) + PixelSpace;
 
             for (int y = 0; y < md.getHeight(); y++) {
-                ledGraphics.setColor(new Color(PixelImage[(y * md.getWidth() + x)]));
+                int pos = (y * md.getWidth() + x);
+                if (pos < PixelImage.length) {
+                    ledGraphics.setColor(new Color(PixelImage[(y * md.getWidth() + x)]));
+                }
 
                 int py_start = y * (PixelHeigth + PixelSpace) + PixelSpace;
 

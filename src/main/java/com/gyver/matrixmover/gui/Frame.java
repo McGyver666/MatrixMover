@@ -21,9 +21,6 @@ import com.gyver.matrixmover.core.Controller;
 import com.gyver.matrixmover.core.MatrixData;
 import com.gyver.matrixmover.core.SceneReader;
 import com.gyver.matrixmover.core.VisualSetup;
-import com.gyver.matrixmover.effect.Effect.EffectName;
-import com.gyver.matrixmover.generator.enums.GeneratorName;
-import com.gyver.matrixmover.mixer.Mixer.MixerName;
 import com.gyver.matrixmover.properties.PropertiesHelper;
 import com.gyver.matrixmover.gui.listener.*;
 import java.io.File;
@@ -76,7 +73,7 @@ public class Frame extends javax.swing.JFrame {
         treemodel = new DefaultTreeModel(root);
 
         initComponents();
-        
+
         leftLedScreen.init(ph, md);
         rightLedScreen.init(ph, md);
         masterLedScreen.init(ph, md);
@@ -161,14 +158,15 @@ public class Frame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panelMasterSide.add(logo, gridBagConstraints);
 
-        masterLedScreen.setMinimumSize(new java.awt.Dimension(120, 120));
-        masterLedScreen.setPreferredSize(new java.awt.Dimension(120, 120));
+        masterLedScreen.setMinimumSize(new java.awt.Dimension(180, 180));
+        masterLedScreen.setPixelImage(new int[] {});
+        masterLedScreen.setPreferredSize(new java.awt.Dimension(180, 180));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 0.6;
+        gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         panelMasterSide.add(masterLedScreen, gridBagConstraints);
 
@@ -182,7 +180,9 @@ public class Frame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panelMasterSide.add(masterPanel, gridBagConstraints);
 
+        masterSettings.setMaximumSize(new java.awt.Dimension(2147483647, 150));
         masterSettings.setMinimumSize(new java.awt.Dimension(111, 150));
+        masterSettings.setPreferredSize(new java.awt.Dimension(87, 150));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -197,7 +197,7 @@ public class Frame extends javax.swing.JFrame {
         gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.weighty = 1.5;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panelMasterSide.add(jScrollPane1, gridBagConstraints);
 
@@ -506,7 +506,6 @@ public class Frame extends javax.swing.JFrame {
     private void bLoadRight1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLoadRight1ActionPerformed
         loadVisualSetup(Controller.RIGHT_SIDE);
     }//GEN-LAST:event_bLoadRight1ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAddGeneratorLeft;
     private javax.swing.JButton bAddGeneratorRight1;
@@ -597,11 +596,12 @@ public class Frame extends javax.swing.JFrame {
         root.readTree(false);
         return (TreeNode) root;
     }
-    
-    private void saveVisualSetup(int side){
+
+    private void saveVisualSetup(int side) {
         JFileChooser chooser = new JFileChooser(ph.getScenesDir());
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         chooser.addChoosableFileFilter(new FileFilter() {
+
             @Override
             public boolean accept(File f) {
                 if (f.isDirectory()) {
@@ -620,9 +620,9 @@ public class Frame extends javax.swing.JFrame {
             VisualSetup vs = Controller.getControllerInstance().getActiveVisualSetup(side);
             File f = chooser.getSelectedFile();
             System.out.println(f);
-            if(!f.toString().endsWith(".mms")){
-                f = new File(f.toString()+".mms");
-                System.out.println("renamed to: "+f);
+            if (!f.toString().endsWith(".mms")) {
+                f = new File(f.toString() + ".mms");
+                System.out.println("renamed to: " + f);
             }
             SceneReader.saveVisualSetup(vs, f);
             String dir = ph.getScenesDir();
@@ -630,18 +630,18 @@ public class Frame extends javax.swing.JFrame {
             treemodel = new DefaultTreeModel(root);
             jTree1.setModel(treemodel);
             treemodel.reload();
-            
+
             for (TreeExpansionListener tel : jTree1.getTreeExpansionListeners()) {
                 jTree1.removeTreeExpansionListener(tel);
             }
-            
+
             HierarchyBrowserUpdater upd = new HierarchyBrowserUpdater(jTree1, root, treemodel, this);
             jTree1.addTreeExpansionListener(upd);
         }
     }
 
     private void loadVisualSetup(int side) {
-                JFileChooser chooser = new JFileChooser(ph.getScenesDir());
+        JFileChooser chooser = new JFileChooser(ph.getScenesDir());
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         chooser.addChoosableFileFilter(new FileFilter() {
             @Override

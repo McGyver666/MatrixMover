@@ -227,6 +227,11 @@ public final class GeneratorSetup extends javax.swing.JPanel {
     public void addAllToActionListener() {
 
     }
+    
+    public void setVisualSetup(VisualSetup vs){
+        this.vs = vs;
+        buildGuiFromVisualSetup();
+    }
 
     public void buildGuiFromVisualSetup() {
         generatorSetupPanelContainer.removeAll();

@@ -296,10 +296,11 @@ public class Controller {
     public void setVisualSetup(VisualSetup vs, int side) {
         if (side == LEFT_SIDE) {
             leftVisual = vs;
-            Frame.getFrameInstance().getLeftGeneratorSetup().buildGuiFromVisualSetup();
+            
+            Frame.getFrameInstance().getLeftGeneratorSetup().setVisualSetup(vs);
         } else if (side == RIGHT_SIDE) {
             rightVisual = vs;
-            Frame.getFrameInstance().getRightGeneratorSetup().buildGuiFromVisualSetup();
+            Frame.getFrameInstance().getRightGeneratorSetup().setVisualSetup(vs);
         } else {
             throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
         }
