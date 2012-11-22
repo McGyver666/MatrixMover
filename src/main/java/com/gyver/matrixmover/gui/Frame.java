@@ -467,12 +467,12 @@ public class Frame extends javax.swing.JFrame {
 
     private void bAddGeneratorRight1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddGeneratorRight1ActionPerformed
         Controller.getControllerInstance().getActiveVisualSetup(Controller.RIGHT_SIDE).addGeneratorSetup(md);
-        generatorSetupLeft.buildGuiFromVisualSetup();
+        generatorSetupRight.buildGuiFromVisualSetup();
     }//GEN-LAST:event_bAddGeneratorRight1ActionPerformed
 
     private void bRemoveGeneratorRight1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRemoveGeneratorRight1ActionPerformed
         Controller.getControllerInstance().getActiveVisualSetup(Controller.RIGHT_SIDE).removeLastVisualSetup();
-        generatorSetupLeft.buildGuiFromVisualSetup();
+        generatorSetupRight.buildGuiFromVisualSetup();
     }//GEN-LAST:event_bRemoveGeneratorRight1ActionPerformed
 
     private void bClearLeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bClearLeftActionPerformed
@@ -489,7 +489,7 @@ public class Frame extends javax.swing.JFrame {
         int n = JOptionPane.showOptionDialog(this, "Clear the whole scene?", "Clear Scene?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
         if (n == JOptionPane.YES_OPTION) {
             Controller.getControllerInstance().getActiveVisualSetup(Controller.RIGHT_SIDE).clear();
-            generatorSetupLeft.buildGuiFromVisualSetup();
+            generatorSetupRight.buildGuiFromVisualSetup();
         }
     }//GEN-LAST:event_bClearRight1ActionPerformed
 
