@@ -28,6 +28,7 @@ import com.gyver.matrixmover.generator.Generator;
 import com.gyver.matrixmover.generator.enums.GeneratorName;
 import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.LedScreen;
+import com.gyver.matrixmover.gui.MasterPanel;
 import com.gyver.matrixmover.mapping.OutputMapping;
 import com.gyver.matrixmover.mapping.PixelRgbMapping;
 import com.gyver.matrixmover.mixer.Mixer.MixerName;
@@ -303,24 +304,13 @@ public class Controller {
             throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
         }
     }
-    
-    
-
-//    public int getActiveVisualNumber(int side) {
-//        if (side == BOTTOM_SIDE) {
-//            return leftVisual.getActiveScene();
-//        } else if (side == TOP_SIDE) {
-//            return rightVisual.getActiveScene();
-//        } else {
-//            throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
-//        }
-//    }
 
     /** 
      * Do stuff that needs a Gui.
      */
     public void postInit() {
-
+        MasterPanel masterPanel = Frame.getFrameInstance().getMasterPanel();
+        masterPanel.setSelectedButton(masterPanel.getTbCross());
         om.setMapping(ph.getOutputMapping());
         prm.setPixelMode(ph.getOutputPixeMode());
     }

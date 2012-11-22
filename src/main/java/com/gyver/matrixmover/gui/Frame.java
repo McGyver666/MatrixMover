@@ -76,16 +76,14 @@ public class Frame extends javax.swing.JFrame {
         treemodel = new DefaultTreeModel(root);
 
         initComponents();
-
+        
         leftLedScreen.init(ph, md);
         rightLedScreen.init(ph, md);
         masterLedScreen.init(ph, md);
         cont.setLedScreens(leftLedScreen, rightLedScreen, masterLedScreen);
 
-        setUpComboBoxes();
         generatorSetupLeft.setup(Controller.LEFT_SIDE);
         generatorSetupRight.setup(Controller.RIGHT_SIDE);
-
 
         jTree1.setDoubleBuffered(true);
         PopClickListener pcl = new PopClickListener(jTree1);
@@ -537,64 +535,6 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JPanel panelRightGenerator;
     private com.gyver.matrixmover.gui.LedScreen rightLedScreen;
     // End of variables declaration//GEN-END:variables
-
-    private void setUpComboBoxes() {
-//        generatorSetupLeft.setGeneratorListToComboBoxes(GeneratorName.values());
-//        generatorSetupRight.setGeneratorListToComboBoxes(GeneratorName.values());
-//
-//        generatorSetupLeft.setEffectListToComboBoxes(EffectName.values());
-//        generatorSetupRight.setEffectListToComboBoxes(EffectName.values());
-//
-//        generatorSetupLeft.setMixerListToComboBoxes(MixerName.values());
-//        generatorSetupRight.setMixerListToComboBoxes(MixerName.values());
-    }
-
-    /**
-     * Sets the combo boxes to the correct indices if the scene has changed
-     * @param side the side of the gui where to set the comboboxes
-     * @param newActiveVisualSetup the visual setup to set the comboboxes indices to
-     */
-    public void setComboBoxesForChangedScene(int side, VisualSetup newActiveVisualSetup) {
-//        if (side == Controller.BOTTOM_SIDE) {
-//            setComboBoxes(generatorSetupLeft, newActiveVisualSetup);
-//        } else if (side == Controller.TOP_SIDE) {
-//            setComboBoxes(generatorSetupRight, newActiveVisualSetup);
-//        }
-    }
-
-    private void setComboBoxes(GeneratorSetup generatorSetup, VisualSetup newActiveVisualSetup) {
-        //remove all from actionlistener when setting a new scene
-        //else scene is marked as changed, due to actionlistener fired!
-//        generatorSetup.removeAllFromActionListener();
-
-        //FIXME: FIX THIS MESS!!!!
-
-//        generatorSetup.getCbGenerator1().setSelectedItem(newActiveVisualSetup.getGenerator(0).getName());
-//        generatorSetup.getCbGenerator2().setSelectedItem(newActiveVisualSetup.getGenerator(0).getName());
-//        generatorSetup.getCbGenerator3().setSelectedItem(newActiveVisualSetup.getGenerator(0).getName());
-//        generatorSetup.getCbGenerator4().setSelectedItem(newActiveVisualSetup.getGenerator(0).getName());
-//        generatorSetup.getCbGenerator5().setSelectedItem(newActiveVisualSetup.getGenerator(0).getName());
-//        
-//        generatorSetup.getCbEffect1().setSelectedItem(newActiveVisualSetup.getEffect(0).getName());
-//        generatorSetup.getCbEffect2().setSelectedItem(newActiveVisualSetup.getEffect(0).getName());
-//        generatorSetup.getCbEffect3().setSelectedItem(newActiveVisualSetup.getEffect(0).getName());
-//        generatorSetup.getCbEffect4().setSelectedItem(newActiveVisualSetup.getEffect(0).getName());
-//        generatorSetup.getCbEffect5().setSelectedItem(newActiveVisualSetup.getEffect(0).getName());
-//        
-//        generatorSetup.getCbMixer2().setSelectedItem(newActiveVisualSetup.getMixer(0).getName());
-//        generatorSetup.getCbMixer3().setSelectedItem(newActiveVisualSetup.getMixer(0).getName());
-//        generatorSetup.getCbMixer4().setSelectedItem(newActiveVisualSetup.getMixer(0).getName());
-//        generatorSetup.getCbMixer5().setSelectedItem(newActiveVisualSetup.getMixer(0).getName());
-//        
-//        generatorSetup.getIntensitySlider1().setValue(newActiveVisualSetup.getGeneratorIntensity(0));
-//        generatorSetup.getIntensitySlider2().setValue(newActiveVisualSetup.getGeneratorIntensity(0));
-//        generatorSetup.getIntensitySlider3().setValue(newActiveVisualSetup.getGeneratorIntensity(0));
-//        generatorSetup.getIntensitySlider4().setValue(newActiveVisualSetup.getGeneratorIntensity(0));
-//        generatorSetup.getIntensitySlider5().setValue(newActiveVisualSetup.getGeneratorIntensity(0));
-//        
-//        generatorSetup.addAllToActionListener();
-
-    }
 
     /**
      * Returns the left generator panel
