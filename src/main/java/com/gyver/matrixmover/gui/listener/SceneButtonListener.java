@@ -35,8 +35,8 @@ public class SceneButtonListener implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        int buttonText = Integer.parseInt(((JButton)ae.getSource()).getText());
-        Controller.getControllerInstance().sceneSelected(buttonText, side);
+//        int buttonText = Integer.parseInt(((JButton)ae.getSource()).getText());
+//        Controller.getControllerInstance().sceneSelected(buttonText, side);
     }
     
 }

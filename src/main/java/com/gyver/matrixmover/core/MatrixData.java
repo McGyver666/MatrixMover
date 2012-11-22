@@ -16,12 +16,14 @@
  */
 package com.gyver.matrixmover.core;
 
+import java.io.Serializable;
+
 /**
  * Holds information about the matrix
  * 
  * @author Gyver
  */
-public class MatrixData {
+public class MatrixData implements Serializable {
 
     /** The matrix width. */
     private int matrixWidth;

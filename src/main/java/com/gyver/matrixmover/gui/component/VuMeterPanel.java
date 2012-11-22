@@ -28,13 +28,13 @@ public class VuMeterPanel extends JPanel {
 
         Graphics2D vuGraphics = (Graphics2D) grphcs;
         
-        int vuHeight = Math.round(this.getSize().height / 35F * vuValue);
+        int vuWidth = Math.round(this.getSize().width / 35F * vuValue);
         
         vuGraphics.setColor(new Color(0x292929));
         vuGraphics.fillRect(0, 0, this.getSize().width, this.getSize().height);
         
         vuGraphics.setColor(new Color(0x5D5DB3));
-        vuGraphics.fillRect(0, this.getSize().height - vuHeight, this.getSize().width, vuHeight);
+        vuGraphics.fillRect(0, this.getSize().width - vuWidth, vuWidth, this.getSize().width);
         
 
     }

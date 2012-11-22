@@ -191,93 +191,34 @@ public class GeneratorVisual extends Visual {
     }
 
     void setGeneratorIntensity(int nr, int value) {
-        if (nr == 1) {
-            scenes[activeScene].setGenerator1Intensity(value);
-        } else if (nr == 2) {
-            scenes[activeScene].setGenerator2Intensity(value);
-        } else if (nr == 3) {
-            scenes[activeScene].setGenerator3Intensity(value);
-        } else if (nr == 4) {
-            scenes[activeScene].setGenerator4Intensity(value);
-        } else if (nr == 5) {
-            scenes[activeScene].setGenerator5Intensity(value);
-        }
+        scenes[activeScene].setGeneratorIntensity(value, nr);
     }
 
     /**
-     * Sets a generator to the visual for generator with the nr
-     * @param nr Whether generator1 or generator2 is set
-     * @param generator The generator to be set
+     * Setzt the generator with number nr in the visual
+     * @param nr the number of the generator
+     * @param generator the generator to set
      */
     private void setGenerator(int nr, Generator generator) {
         LOG.log(Level.INFO, "Setting {0} for nr {1}", new Object[]{generator.getName(), nr});
-        switch (nr) {
-            case 1: {
-                scenes[activeScene].setGenerator1(generator);
-                break;
-            }
-            case 2: {
-                scenes[activeScene].setGenerator2(generator);
-                break;
-            }
-            case 3: {
-                scenes[activeScene].setGenerator3(generator);
-                break;
-            }
-            case 4: {
-                scenes[activeScene].setGenerator4(generator);
-                break;
-            }
-            case 5: {
-                scenes[activeScene].setGenerator5(generator);
-                break;
-            }
-        }
+        scenes[activeScene].setGenerator(generator, nr);
     }
 
+    /**
+     * Sets the effect with number nr in the visual
+     * @param nr the number of the effect
+     * @param effect the effect to set
+     */
     private void setEffect(int nr, Effect effect) {
-        switch (nr) {
-            case 1: {
-                scenes[activeScene].setEffect1(effect);
-                break;
-            }
-            case 2: {
-                scenes[activeScene].setEffect2(effect);
-                break;
-            }
-            case 3: {
-                scenes[activeScene].setEffect3(effect);
-                break;
-            }
-            case 4: {
-                scenes[activeScene].setEffect4(effect);
-                break;
-            }
-            case 5: {
-                scenes[activeScene].setEffect5(effect);
-                break;
-            }
-        }
+        scenes[activeScene].setEffect(effect, nr);
     }
 
+    /**
+     * Sets the mixer with number nr in the visual
+     * @param nr the number of the mixer
+     * @param mixer the effect to set
+     */
     private void setMixer(int nr, Mixer mix) {
-        switch (nr) {
-            case 2: {
-                scenes[activeScene].setMixer2(mix);
-                break;
-            }
-            case 3: {
-                scenes[activeScene].setMixer3(mix);
-                break;
-            }
-            case 4: {
-                scenes[activeScene].setMixer4(mix);
-                break;
-            }
-            case 5: {
-                scenes[activeScene].setMixer5(mix);
-                break;
-            }
-        }
+        scenes[activeScene].setMixer(mix, nr);
     }
 }

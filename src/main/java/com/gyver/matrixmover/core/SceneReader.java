@@ -16,6 +16,7 @@
  */
 package com.gyver.matrixmover.core;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -36,10 +37,10 @@ public abstract class SceneReader {
      * @param file
      * @return 
      */
-    public static List<VisualSetup[]> loadScenes(String file, MatrixData md) {
-        VisualSetup[] leftScenes = new VisualSetup[GeneratorVisual.NUMBER_OF_SCENES];
-        VisualSetup[] rightScenes = new VisualSetup[GeneratorVisual.NUMBER_OF_SCENES];
-
+    public static VisualSetup loadVisualSetup(File file, MatrixData md) {
+        
+        VisualSetup vs = null;
+        
         ObjectInputStream inputStream = null;
 
         try {
@@ -47,84 +48,36 @@ public abstract class SceneReader {
 
             Object obj = null;
 
-            //read left first
             obj = inputStream.readObject();
             if (obj == null) {
                 throw new NullPointerException();
             }
 
-            if (obj instanceof VisualSetup[]) {
-                leftScenes = (VisualSetup[]) obj;
+            if (obj instanceof VisualSetup) {
+                vs = (VisualSetup) obj;
             }
-
-            //than right
-            obj = inputStream.readObject();
-            if (obj == null) {
-                throw new NullPointerException();
-            }
-
-            if (obj instanceof VisualSetup[]) {
-                rightScenes = (VisualSetup[]) obj;
-            }
-
+            
         } catch (Exception e) {
-//            e.printStackTrace();
-            //fill all visualSetups with initial empty scenes
-            //if there was an error!
-            for (int i = 0; i < leftScenes.length; i++) {
-                leftScenes[i] = new VisualSetup(md);
-                rightScenes[i] = new VisualSetup(md);
-            }
-        }
+            throw new RuntimeException(e);
+        } 
 
-        //tell every generator the current matrix dimensions
-        for (VisualSetup setup : leftScenes) {
-            setup.getGenerator1().setInternalBufferXSize(md.getWidth());
-            setup.getGenerator1().setInternalBufferYSize(md.getHeight());
-            setup.getGenerator1().init();
-            setup.getGenerator2().setInternalBufferXSize(md.getWidth());
-            setup.getGenerator2().setInternalBufferYSize(md.getHeight());
-            setup.getGenerator2().init();
-            setup.getEffect1().setInternalBufferXSize(md.getWidth());
-            setup.getEffect1().setInternalBufferYSize(md.getHeight());
-            setup.getEffect2().setInternalBufferXSize(md.getWidth());
-            setup.getEffect2().setInternalBufferYSize(md.getHeight());
-        }
-        for (VisualSetup setup : rightScenes) {
-            setup.getGenerator1().setInternalBufferXSize(md.getWidth());
-            setup.getGenerator1().setInternalBufferYSize(md.getHeight());
-            setup.getGenerator1().init();
-            setup.getGenerator2().setInternalBufferXSize(md.getWidth());
-            setup.getGenerator2().setInternalBufferYSize(md.getHeight());
-            setup.getGenerator2().init();
-            setup.getEffect1().setInternalBufferXSize(md.getWidth());
-            setup.getEffect1().setInternalBufferYSize(md.getHeight());
-            setup.getEffect2().setInternalBufferXSize(md.getWidth());
-            setup.getEffect2().setInternalBufferYSize(md.getHeight());
-        }
-
-        ArrayList<VisualSetup[]> arrays = new ArrayList<VisualSetup[]>();
-        arrays.add(leftScenes);
-        arrays.add(rightScenes);
-        return arrays;
+        return vs;
     }
 
     /**
-     * Saves to arrays of VisualSetups to a file
+     * Saves a visual setup
      */
-    public static void writeScenes(List<VisualSetup[]> setups, String file) {
+    public static void saveVisualSetup(VisualSetup setup, File file) {
 
         ObjectOutputStream outputStream = null;
 
         try {
             outputStream = new ObjectOutputStream(new FileOutputStream(file));
-
-            outputStream.writeObject(setups.get(0));
-            outputStream.writeObject(setups.get(1));
+            outputStream.writeObject(setup);
         } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         } finally {
             //Close the ObjectOutputStream
             try {
@@ -133,6 +86,7 @@ public abstract class SceneReader {
                     outputStream.close();
                 }
             } catch (IOException ex) {
+                //closed anyway
             }
         }
     }

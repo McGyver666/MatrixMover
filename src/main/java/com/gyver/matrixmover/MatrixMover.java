@@ -131,7 +131,7 @@ public class MatrixMover {
             public void run() {
                 guiFrame = Frame.getFrameInstance();
                 guiFrame.initFrame(ph, controller);
-                guiFrame.setSize(1150, 700);
+                guiFrame.setSize(1200, 800);
                 guiFrame.setLocationRelativeTo(null);
                 MatrixMover.guiReady(true);
             }
@@ -150,9 +150,9 @@ public class MatrixMover {
         controller.postInit();
 
 
-        LOG.log(Level.INFO, "Trying to load scenes from scene file");
-        MMSplashScreen.setProgress(80, "loading scenes");
-        controller.loadScenes();
+//        LOG.log(Level.INFO, "Trying to load scenes from scene file");
+//        MMSplashScreen.setProgress(80, "loading scenes");
+//        controller.loadScenes();
 
 
         MMSplashScreen.setProgress(90, "starting timer");

@@ -1,5 +1,6 @@
 0.3 beta
-* Gui redisign
+* gui redesign
+* core redesign to handle variable generator setups efficient
 * added multiple artnet node output
 * added Analyser and Configuration Dialog
 * added AudioStrobe and Configuration Dialog

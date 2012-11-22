@@ -75,7 +75,6 @@ public class MasterSettings extends javax.swing.JPanel {
         setLayout(new java.awt.GridBagLayout());
 
         sMasterIntensity.setMaximum(255);
-        sMasterIntensity.setOrientation(javax.swing.JSlider.VERTICAL);
         sMasterIntensity.setValue(255);
         sMasterIntensity.setPreferredSize(new java.awt.Dimension(10, 50));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -84,17 +83,18 @@ public class MasterSettings extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         add(sMasterIntensity, gridBagConstraints);
 
-        sVolumeLevel.setOrientation(javax.swing.JSlider.VERTICAL);
         sVolumeLevel.setPreferredSize(new java.awt.Dimension(10, 50));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         add(sVolumeLevel, gridBagConstraints);
 
         tbBlackout.setText("Black");
@@ -103,9 +103,10 @@ public class MasterSettings extends javax.swing.JPanel {
         tbBlackout.setMinimumSize(new java.awt.Dimension(50, 25));
         tbBlackout.setPreferredSize(new java.awt.Dimension(50, 25));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
         add(tbBlackout, gridBagConstraints);
 
         tbAudioMute.setText("Mute");
@@ -116,36 +117,35 @@ public class MasterSettings extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 2);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
         add(tbAudioMute, gridBagConstraints);
 
         bSetup.setText("Setup");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 2);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         add(bSetup, gridBagConstraints);
 
         vuMeterPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(8, 7, 8, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         add(vuMeterPanel1, gridBagConstraints);
 
         vuMeterPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(8, 0, 8, 2);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         add(vuMeterPanel2, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 

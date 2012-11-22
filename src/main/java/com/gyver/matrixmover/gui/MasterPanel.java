@@ -91,19 +91,20 @@ public class MasterPanel extends javax.swing.JPanel {
         bAuto = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Crossfader"));
+        setMaximumSize(new java.awt.Dimension(276, 224));
+        setMinimumSize(new java.awt.Dimension(276, 224));
         setLayout(new java.awt.GridBagLayout());
 
         sFadePosition.setMajorTickSpacing(1000);
         sFadePosition.setMaximum(1000);
         sFadePosition.setMinorTickSpacing(250);
-        sFadePosition.setOrientation(javax.swing.JSlider.VERTICAL);
         sFadePosition.setPaintTicks(true);
         sFadePosition.setValue(0);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(sFadePosition, gridBagConstraints);
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -124,8 +125,8 @@ public class MasterPanel extends javax.swing.JPanel {
         tbCross.setMinimumSize(new java.awt.Dimension(55, 30));
         tbCross.setPreferredSize(new java.awt.Dimension(55, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         jPanel1.add(tbCross, gridBagConstraints);
@@ -148,8 +149,8 @@ public class MasterPanel extends javax.swing.JPanel {
         tbBlack.setMinimumSize(new java.awt.Dimension(55, 30));
         tbBlack.setPreferredSize(new java.awt.Dimension(55, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         jPanel1.add(tbBlack, gridBagConstraints);
@@ -157,43 +158,45 @@ public class MasterPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
         add(jPanel1, gridBagConstraints);
 
         jLabel1.setText("Time (ms)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.weighty = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 5);
         add(jLabel1, gridBagConstraints);
 
         tfFadeTime.setText("1000");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
         add(tfFadeTime, gridBagConstraints);
 
         bFade.setText("Fade");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(2, 5, 6, 0);
         add(bFade, gridBagConstraints);
 
         bAuto.setText("Auto");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(2, 5, 5, 5);
         add(bAuto, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 

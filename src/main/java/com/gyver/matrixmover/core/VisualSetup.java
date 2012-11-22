@@ -16,281 +16,185 @@
  */
 package com.gyver.matrixmover.core;
 
-import com.gyver.matrixmover.effect.Effect;
-import com.gyver.matrixmover.effect.PassThru;
-import com.gyver.matrixmover.generator.Generator;
-import com.gyver.matrixmover.generator.SimpleColorGenerator;
-import com.gyver.matrixmover.mixer.Mixer;
-import com.gyver.matrixmover.mixer.PassThruMixer;
+import com.gyver.matrixmover.effect.*;
+import com.gyver.matrixmover.generator.*;
+import com.gyver.matrixmover.generator.enums.GeneratorName;
+import com.gyver.matrixmover.mixer.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Visual setup holds a Setup of 5 Generators, 5 Effects and 4 Mixer.
+ * Visual setup holds a Setup various Generators, Effects and Mixer.
  * 
  * @author Gyver
  */
-public class VisualSetup implements Serializable{
-    
+public class VisualSetup implements Serializable {
+
     /** The log. */
     private static final Logger LOG = Logger.getLogger(VisualSetup.class.getName());
-    
-    private Generator g1 = null;
-    private Generator g2 = null;
-    private Generator g3 = null;
-    private Generator g4 = null;
-    private Generator g5 = null;
-    private Effect e1 = null;
-    private Effect e2 = null;
-    private Effect e3 = null;
-    private Effect e4 = null;
-    private Effect e5 = null;
-    private Mixer m2 = null;
-    private Mixer m3 = null;
-    private Mixer m4 = null;
-    private Mixer m5 = null;
-    private int g1Intensity = 255;
-    private int g2Intensity = 255;
-    private int g3Intensity = 255;
-    private int g4Intensity = 255;
-    private int g5Intensity = 255;
+    private List<Generator> generatorList = null;
+    private List<Effect> effectList = null;
+    private List<Mixer> mixerList = null;
+    private List<Integer> intensityList = null;
     private boolean changed = false;
+    private MatrixData md = null;
     
-    
-    public VisualSetup(MatrixData md){
-        
-        //setup with everything to passthrou
-        g1 = new SimpleColorGenerator(md);
-        g2 = new SimpleColorGenerator(md);
-        g3 = new SimpleColorGenerator(md);
-        g4 = new SimpleColorGenerator(md);
-        g5 = new SimpleColorGenerator(md);
-        e1 = new PassThru(md);
-        e2 = new PassThru(md);
-        e3 = new PassThru(md);
-        e4 = new PassThru(md);
-        e5 = new PassThru(md);
-        m2 = new PassThruMixer();
-        m3 = new PassThruMixer();
-        m4 = new PassThruMixer();
-        m5 = new PassThruMixer();
-        g1Intensity = 255;
-        g2Intensity = 255;
-        g3Intensity = 255;
-        g4Intensity = 255;
-        g5Intensity = 255;
+
+    public VisualSetup(MatrixData md) {
+
+        //setup list with one whole set to pass throu
+        this.md = md;
+
+        generatorList = new ArrayList<Generator>();
+        generatorList.add(new SimpleColorGenerator(md));
+
+        effectList = new ArrayList<Effect>();
+        effectList.add(new PassThru(md));
+
+        mixerList = new ArrayList<Mixer>();
+        mixerList.add(new PassThruMixer());
+
+        intensityList = new ArrayList<Integer>();
+        intensityList.add(255);
+
     }
     
-    public void setGenerator1(Generator g1){
-        LOG.log(Level.FINER, "New Generator for Generator1");
-        this.g1 = g1;
+    public int getNumberOfGenerators(){
+        return generatorList.size();
+    }
+
+    /**
+     * Sets a new Generator and replaces the old one at position n. 
+     * @param g the new generator
+     * @param n the position in the list
+     */
+    public void setGenerator(Generator g, int n) {
+        LOG.log(Level.FINER, "New Generator for Generator {0}", n);
+        if (n < generatorList.size()) {
+            generatorList.set(n, g);
+        }
+    }
+
+    public void setEffect(Effect e, int n) {
+        LOG.log(Level.FINER, "New Effect for Effect {0}", n);
+        if (n < effectList.size()) {
+            effectList.set(n, e);
+        }
+    }
+
+    public void setMixer(Mixer m, int n) {
+        LOG.log(Level.FINER, "New Mixer for Mixer {0}", n);
+        if (n < mixerList.size()) {
+            mixerList.set(n, m);
+        }
+    }
+
+    public void setGeneratorIntensity(int value, int n) {
+        if (n < intensityList.size()) {
+            intensityList.set(n, value);
+        }
     }
     
-    public void setGenerator2(Generator g2){
-        LOG.log(Level.FINER, "New Generator for Generator2");
-        this.g2 = g2;
+    public Generator getGenerator(int n){
+        return generatorList.get(n);
     }
     
-    public void setGenerator3(Generator g3){
-        LOG.log(Level.FINER, "New Generator for Generator3");
-        this.g3 = g3;
+    public Effect getEffect(int n){
+        return effectList.get(n);
     }
     
-    public void setGenerator4(Generator g4){
-        LOG.log(Level.FINER, "New Generator for Generator4");
-        this.g4 = g4;
+    public Mixer getMixer(int n){
+        return mixerList.get(n);
     }
     
-    public void setGenerator5(Generator g5){
-        LOG.log(Level.FINER, "New Generator for Generator5");
-        this.g5 = g5;
+    public int getGeneratorIntensity(int n){
+        return intensityList.get(n);
+    }
+
+    /**
+     * Adds a whole generator setup to the visualSetup
+     */
+    public void addGeneratorSetup(MatrixData md) {
+        generatorList.add(new SimpleColorGenerator(md));
+
+        effectList.add(new PassThru(md));
+
+        mixerList.add(new PassThruMixer());
+
+        intensityList.add(255);
+    }
+
+    /**
+     * Remove a whole generator setup at position n. Last setup cannot be removed
+     * @param n the position in the list 
+     */
+    public void removeGeneratorSetup(int n) {
+        if (n < generatorList.size() && n > 0) {
+            generatorList.remove(n);
+            effectList.remove(n);
+            mixerList.remove(n);
+            intensityList.remove(n);
+        }
     }
     
-    public void setEffect1(Effect e1){
-        this.e1 = e1;
+    public void removeLastVisualSetup() {
+        if(this.getNumberOfGenerators() > 1){
+            removeGeneratorSetup(this.getNumberOfGenerators()-1);
+        }
     }
-    
-    public void setEffect2(Effect e2){
-        this.e2 = e2;
+
+    public void clear() {
+        generatorList = new ArrayList<Generator>();
+        generatorList.add(new SimpleColorGenerator(md));
+
+        effectList = new ArrayList<Effect>();
+        effectList.add(new PassThru(md));
+
+        mixerList = new ArrayList<Mixer>();
+        mixerList.add(new PassThruMixer());
+
+        intensityList = new ArrayList<Integer>();
+        intensityList.add(255);
     }
-    
-    public void setEffect3(Effect e3){
-        this.e3 = e3;
-    }
-    
-    public void setEffect4(Effect e4){
-        this.e4 = e4;
-    }
-    
-    public void setEffect5(Effect e5){
-        this.e5 = e5;
-    }
-    
-    public void setMixer2(Mixer m2){
-        this.m2 = m2;
-    }
-    
-    public void setMixer3(Mixer m3){
-        this.m3 = m3;
-    }
-    
-    public void setMixer4(Mixer m4){
-        this.m4 = m4;
-    }
-    
-    public void setMixer5(Mixer m5){
-        this.m5 = m5;
-    }
-    
-    public void setGenerator1Intensity(int value) {
-        this.g1Intensity = value;
-    }
-    
-    public void setGenerator2Intensity(int value) {
-        this.g2Intensity = value;
-    }
-    
-    public void setGenerator3Intensity(int value) {
-        this.g3Intensity = value;
-    }
-    
-    public void setGenerator4Intensity(int value) {
-        this.g4Intensity = value;
-    }
-    
-    public void setGenerator5Intensity(int value) {
-        this.g5Intensity = value;
-    }
-    
-    public Generator getGenerator1(){
-        return g1;
-    }
-    
-    public Generator getGenerator2(){
-        return g2;
-    }
-    
-    public Generator getGenerator3(){
-        return g3;
-    }
-    
-    public Generator getGenerator4(){
-        return g4;
-    }
-    
-    public Generator getGenerator5(){
-        return g5;
-    }
-    
-    public Effect getEffect1(){
-        return e1;
-    }
-    
-    public Effect getEffect2(){
-        return e2;
-    }
-    
-    public Effect getEffect3(){
-        return e3;
-    }
-    
-    public Effect getEffect4(){
-        return e4;
-    }
-    
-    public Effect getEffect5(){
-        return e5;
-    }
-    
-    public Mixer getMixer2(){
-        return m2;
-    }
-    
-    public Mixer getMixer3(){
-        return m3;
-    }
-    
-    public Mixer getMixer4(){
-        return m4;
-    }
-    
-    public Mixer getMixer5(){
-        return m5;
-    }
-    
-    public int getGenerator1Intensity(){
-        return g1Intensity;
-    }
-    
-    public int getGenerator2Intensity(){
-        return g2Intensity;
-    }
-    
-    public int getGenerator3Intensity(){
-        return g3Intensity;
-    }
-    
-    public int getGenerator4Intensity(){
-        return g4Intensity;
-    }
-    
-    public int getGenerator5Intensity(){
-        return g5Intensity;
-    }
-    
-    public void sceneChanged(boolean changed){
+
+    public void sceneChanged(boolean changed) {
         this.changed = changed;
     }
-    
-    public boolean isSceneChanged(){
+
+    public boolean isSceneChanged() {
         return changed;
     }
-    
-    public int[] getSceneOutput(){
-        //update the generators
-        g1.update();
-        g2.update();
-        g3.update();
-        g4.update();
-        g5.update();
+
+    public int[] getSceneOutput() {
+
+        int[] buffer = null;
+
+        for (int i = 0; i < generatorList.size(); i++) {
+            generatorList.get(i).update();
+            int[] tempBuffer = generatorList.get(i).getBuffer();
+            tempBuffer = effectList.get(i).getBuffer(tempBuffer);
+            tempBuffer = applyIntensity(tempBuffer, intensityList.get(i));
+            if (i == 0) {
+                buffer = tempBuffer;
+            } else {
+                buffer = mixerList.get(i).getBuffer(tempBuffer, buffer);
+            }
+        }
         
-        //then get their buffers
-        int[] out1 = g1.getBuffer();
-        int[] out2 = g2.getBuffer();
-        int[] out3 = g3.getBuffer();
-        int[] out4 = g4.getBuffer();
-        int[] out5 = g5.getBuffer();
-        
-        //put buffers into effects
-        out1 = e1.getBuffer(out1);
-        out2 = e2.getBuffer(out2);
-        out3 = e3.getBuffer(out3);
-        out4 = e4.getBuffer(out4);
-        out5 = e5.getBuffer(out5);
-        
-        out1 = applyIntensity(out1, g1Intensity);
-        out2 = applyIntensity(out2, g2Intensity);
-        out3 = applyIntensity(out3, g3Intensity);
-        out4 = applyIntensity(out4, g4Intensity);
-        out5 = applyIntensity(out5, g5Intensity);
-        
-        //and combine effects with mixer, return result
-        out2 = m2.getBuffer(out1, out2);
-        out3 = m3.getBuffer(out2, out3);
-        out4 = m4.getBuffer(out3, out4);
-        out5 = m5.getBuffer(out4, out5);
-        return out5;
-        
+        return buffer;
+
     }
-    
-    private int[] applyIntensity(int[] src, int value){
+
+    private int[] applyIntensity(int[] src, int value) {
         int[] ret = new int[src.length];
         short red, green, blue;
         int col;
         float ratio = (value / 255f);
-        
-        for(int i = 0; i < src.length; i++){
+
+        for (int i = 0; i < src.length; i++) {
             col = src[i];
             red = (short) (Math.round(((col >> 16) & 255) * ratio));
             green = (short) (Math.round(((col >> 8) & 255) * ratio));
@@ -299,5 +203,93 @@ public class VisualSetup implements Serializable{
             ret[i] = (red << 16) | (green << 8) | blue;
         }
         return ret;
+    }
+    
+    /**
+     * Sets a generator to a Visual
+     * @param nr Whether generator1 or generator 2 should be set
+     * @param generatorString String describing the generator (see GeneratorName constants)
+     */
+    public void setGeneratorFromString(int nr, String generatorString) {
+        Generator newGen = null;
+        if (generatorString.equals(GeneratorName.SIMPLE_COLOR_GENERATOR.toString())) {
+            newGen = new SimpleColorGenerator(md);
+        } else if (generatorString.equals(GeneratorName.COLOR_FADE.toString())) {
+            newGen = new ColorFade(md, null);
+        } else if (generatorString.equals(GeneratorName.COLOR_SCROLL.toString())) {
+            newGen = new ColorScroll(md, null);
+        } else if (generatorString.equals(GeneratorName.PLASMA.toString())) {
+            newGen = new Plasma(md, null);
+        } else if (generatorString.equals(GeneratorName.FIRE.toString())) {
+            newGen = new Fire(md);
+        } else if (generatorString.equals(GeneratorName.RAIN.toString())) {
+            newGen = new Rain(md);
+        } else if (generatorString.equals(GeneratorName.SHAPES.toString())) {
+            newGen = new Shapes(md);
+        } else if (generatorString.equals(GeneratorName.METABALLS.toString())) {
+            newGen = new MetaBalls(md);
+        } else if (generatorString.equals(GeneratorName.TEXTWRITER.toString())) {
+            newGen = new Textwriter(md);
+        } else if (generatorString.equals(GeneratorName.ANALYSER.toString())) {
+            newGen = new Analyser(md);
+        } else if (generatorString.equals(GeneratorName.AUDIO_STROBE.toString())) {
+            newGen = new AudioStrobe(md);
+        } else {
+            newGen = new SimpleColorGenerator(md);
+        }
+
+        setGenerator(newGen, nr);
+    }
+
+    /**
+     * Sets a Effect to a Visual
+     * @param nr Whether effect1 or effect 2 should be set
+     * @param effectString String describing the Effect (see EffectName constants)
+     */
+    public void setEffectFromString(int nr, String effectString) {
+        Effect newEff = null;
+        if (effectString.equals(Effect.EffectName.STRING_PASSTHRU)) {
+            newEff = new PassThru(md);
+        } else if (effectString.equals(Effect.EffectName.STRING_INVERTER)) {
+            newEff = new Inverter(md);
+        } else if (effectString.equals(Effect.EffectName.STRING_EMBOSS)) {
+            newEff = new Emboss(md);
+        } else if (effectString.equals(Effect.EffectName.STRING_MONOCROME)) {
+            newEff = new Monocrome(md);
+        } else if (effectString.equals(Effect.EffectName.STRING_MONOCROME_INVERS)) {
+            newEff = new MonocromeInvers(md);
+        } else {
+            newEff = new PassThru(md);
+        }
+
+        setEffect(newEff, nr);
+    }
+
+    
+
+    public void setMixerFromString(int nr, String mixerString) {
+        Mixer mix = null;
+        if (mixerString.equals(Mixer.MixerName.STRING_PASSTHRU)) {
+            mix = new PassThruMixer();
+        } else if (mixerString.equals(Mixer.MixerName.STRING_MULTIPLY)) {
+            mix = new Multiply();
+        } else if (mixerString.equals(Mixer.MixerName.STRING_ADDSAT)) {
+            mix = new AddSat();
+        } else if (mixerString.equals(Mixer.MixerName.STRING_MIX)) {
+            mix = new Mix();
+        } else if (mixerString.equals(Mixer.MixerName.STRING_NEGATIVE_MULTIPLY)) {
+            mix = new NegativeMultiply();
+        } else if (mixerString.equals(Mixer.MixerName.STRING_XOR)) {
+            mix = new Xor();
+        } else if (mixerString.equals(Mixer.MixerName.STRING_MINUS_HALF)) {
+            mix = new MinusHalf();
+        } else if (mixerString.equals(Mixer.MixerName.STRING_EITHER)) {
+            mix = new Either();
+        } else if (mixerString.equals(Mixer.MixerName.STRING_MAX)) {
+            mix = new Max();
+        } else {
+            mix = new PassThruMixer();
+        }
+        setMixer(mix, nr);
     }
 }

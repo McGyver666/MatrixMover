@@ -93,8 +93,8 @@ public class PropertiesHelper {
         return parsePixelMode(ConfigConstants.OUTPUT_PIXEL_MODE);
     }
     
-    public String getScenesFile() {
-        return config.getProperty(ConfigConstants.SCENES_FILE);
+    public String getScenesDir() {
+        return config.getProperty(ConfigConstants.SCENES_DIR);
     }
 
     /**

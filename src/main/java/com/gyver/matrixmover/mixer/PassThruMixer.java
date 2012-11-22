@@ -35,6 +35,6 @@ public class PassThruMixer extends Mixer {
 
     @Override
     public int[] getBuffer(int[] src1, int[] src2) {
-        return src1;
+        return src2;
     }
 }
