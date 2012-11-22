@@ -34,7 +34,7 @@ public class VuMeterPanel extends JPanel {
         vuGraphics.fillRect(0, 0, this.getSize().width, this.getSize().height);
         
         vuGraphics.setColor(new Color(0x5D5DB3));
-        vuGraphics.fillRect(0, this.getSize().width - vuWidth, vuWidth, this.getSize().width);
+        vuGraphics.fillRect(0, 0, this.getSize().width - vuWidth, this.getSize().height);
         
 
     }
