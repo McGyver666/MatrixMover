@@ -14,11 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.gyver.matrixmover.gui;
 
 import com.gyver.matrixmover.core.Controller;
 import com.gyver.matrixmover.core.timer.AutoSceneCyclerTimerTask;
+import java.io.File;
 import java.util.Timer;
 
 /**
@@ -64,9 +64,7 @@ public class AutoSceneCycler extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         tfSecondsToWait = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        tfLeftSceneList = new javax.swing.JTextField();
-        tfRightSceneList = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        tfSceneDir = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         lStatus = new javax.swing.JLabel();
         bStart = new javax.swing.JButton();
@@ -96,47 +94,31 @@ public class AutoSceneCycler extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 20, 0, 0);
         getContentPane().add(tfSecondsToWait, gridBagConstraints);
 
-        jLabel2.setText("Left scene list:");
+        jLabel2.setText("Directory with MatrixMover-Scene files to play:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
         getContentPane().add(jLabel2, gridBagConstraints);
 
-        tfLeftSceneList.setText("1, 2, 3, 4");
-        tfLeftSceneList.setMaximumSize(new java.awt.Dimension(300, 22));
-        tfLeftSceneList.setMinimumSize(new java.awt.Dimension(300, 22));
-        tfLeftSceneList.setPreferredSize(new java.awt.Dimension(300, 22));
+        tfSceneDir.setText("scenes/");
+        tfSceneDir.setMaximumSize(new java.awt.Dimension(300, 22));
+        tfSceneDir.setMinimumSize(new java.awt.Dimension(300, 22));
+        tfSceneDir.setPreferredSize(new java.awt.Dimension(300, 22));
+        tfSceneDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfSceneDirActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(5, 20, 0, 10);
-        getContentPane().add(tfLeftSceneList, gridBagConstraints);
-
-        tfRightSceneList.setText("1, 2, 3, 4");
-        tfRightSceneList.setMaximumSize(new java.awt.Dimension(300, 22));
-        tfRightSceneList.setMinimumSize(new java.awt.Dimension(300, 22));
-        tfRightSceneList.setPreferredSize(new java.awt.Dimension(300, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(5, 20, 0, 10);
-        getContentPane().add(tfRightSceneList, gridBagConstraints);
-
-        jLabel3.setText("Right scene list:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
-        getContentPane().add(jLabel3, gridBagConstraints);
+        getContentPane().add(tfSceneDir, gridBagConstraints);
 
         jLabel4.setText("Status:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -206,7 +188,7 @@ public class AutoSceneCycler extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 5, 10);
         getContentPane().add(bExit, gridBagConstraints);
 
-        jLabel5.setText("(changes here need timer restart)");
+        jLabel5.setText("(directory changes need timer restart)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
@@ -224,11 +206,20 @@ public class AutoSceneCycler extends javax.swing.JDialog {
 
     private void bStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bStartActionPerformed
         if (!isRunning) {
+
+            File sceneDir = new File(tfSceneDir.getText());
+            if (!sceneDir.isDirectory()) {
+                Frame.getFrameInstance().showWarning("Incorrect direcory!");
+                return;
+            }
+
             timer = new Timer();
             AutoSceneCyclerTimerTask asctt = new AutoSceneCyclerTimerTask(Controller.getControllerInstance());
             try {
-                asctt.setLeftSceneListFromString(tfLeftSceneList.getText());
-                asctt.setRightSceneListFromString(tfRightSceneList.getText());
+                if (!asctt.setSceneDirectory(sceneDir)) {
+                    Frame.getFrameInstance().showWarning("Directory containts no scene files!");
+                    return;
+                }
                 int timeToWait = Integer.parseInt(tfSecondsToWait.getText()) * 1000;
                 timer.scheduleAtFixedRate(asctt, 0, timeToWait);
                 setTextRunnig();
@@ -250,6 +241,10 @@ public class AutoSceneCycler extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_bStopActionPerformed
 
+    private void tfSceneDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSceneDirActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_tfSceneDirActionPerformed
+
     public void setTextRunnig() {
         lStatus.setText("Running");
         lStatus.setForeground(new java.awt.Color(0, 255, 0));
@@ -265,12 +260,10 @@ public class AutoSceneCycler extends javax.swing.JDialog {
     private javax.swing.JButton bStop;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel lStatus;
-    private javax.swing.JTextField tfLeftSceneList;
-    private javax.swing.JTextField tfRightSceneList;
+    private javax.swing.JTextField tfSceneDir;
     private javax.swing.JTextField tfSecondsToWait;
     // End of variables declaration//GEN-END:variables
 }

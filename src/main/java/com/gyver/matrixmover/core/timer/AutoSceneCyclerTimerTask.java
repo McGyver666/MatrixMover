@@ -17,8 +17,12 @@
 package com.gyver.matrixmover.core.timer;
 
 import com.gyver.matrixmover.core.Controller;
+import com.gyver.matrixmover.core.SceneReader;
+import com.gyver.matrixmover.core.VisualSetup;
 import com.gyver.matrixmover.gui.AutoSceneCycler;
 import com.gyver.matrixmover.gui.Frame;
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,10 +36,8 @@ import java.util.logging.Logger;
 public class AutoSceneCyclerTimerTask extends TimerTask {
 
     private Controller controller = null;
-    private int[] leftSceneList = {1, 2, 3, 4};
-    private int[] rightSceneList = {1, 2, 3, 4};
-    private int currentLeft = 0;
-    private int currentRight = 0;
+    private File[] sceneFiles = null;
+    private int sceneFileListIndex = 0;
     private boolean left = true;
 
     public AutoSceneCyclerTimerTask(Controller controller) {
@@ -50,7 +52,7 @@ public class AutoSceneCyclerTimerTask extends TimerTask {
         } else {
             left = false;
         }
-        
+
         if (left) {
             try {
                 Controller.getControllerInstance().autoFade(Integer.parseInt(Frame.getFrameInstance().getMasterPanel().getTfFadeTime().getText()));
@@ -68,11 +70,12 @@ public class AutoSceneCyclerTimerTask extends TimerTask {
             } catch (InterruptedException ex) {
                 Logger.getLogger(AutoSceneCyclerTimerTask.class.getName()).log(Level.SEVERE, null, ex);
             }
-            currentLeft++;
-            if (currentLeft >= leftSceneList.length) {
-                currentLeft = 0;
+            sceneFileListIndex++;
+            if (sceneFileListIndex >= sceneFiles.length) {
+                sceneFileListIndex = 0;
             }
-//            controller.sceneSelected(leftSceneList[currentLeft], Controller.BOTTOM_SIDE);
+            VisualSetup vs = SceneReader.loadVisualSetup(sceneFiles[sceneFileListIndex], Controller.getControllerInstance().getMatrixData());
+            controller.setVisualSetup(vs, Controller.LEFT_SIDE);
 
         } else {
             try {
@@ -91,38 +94,28 @@ public class AutoSceneCyclerTimerTask extends TimerTask {
             } catch (InterruptedException ex) {
                 Logger.getLogger(AutoSceneCyclerTimerTask.class.getName()).log(Level.SEVERE, null, ex);
             }
-            currentRight++;
-            if (currentRight >= rightSceneList.length) {
-                currentRight = 0;
+            sceneFileListIndex++;
+            if (sceneFileListIndex >= sceneFiles.length) {
+                sceneFileListIndex = 0;
             }
-//            controller.sceneSelected(rightSceneList[currentRight], Controller.TOP_SIDE);
+            VisualSetup vs = SceneReader.loadVisualSetup(sceneFiles[sceneFileListIndex], Controller.getControllerInstance().getMatrixData());
+            controller.setVisualSetup(vs, Controller.RIGHT_SIDE);
         }
 
     }
 
-    public void setLeftSceneListFromString(String leftList) throws NumberFormatException {
-        leftList = leftList.replaceAll(" ", "");
-        String[] rawArray = leftList.split(",");
-        leftSceneList = new int[rawArray.length];
-        for (int i = 0; i < leftSceneList.length; i++) {
-            int number = Integer.parseInt(rawArray[i]);
-            if (number < 1 || number > 48){
-                throw new NumberFormatException();
-            }
-            leftSceneList[i] = number;
-        }
-    }
+    public boolean setSceneDirectory(File dir) {
+        sceneFiles = dir.listFiles(new FilenameFilter() {
 
-    public void setRightSceneListFromString(String rightList) throws NumberFormatException {
-        rightList = rightList.replaceAll(" ", "");
-        String[] rawArray = rightList.split(",");
-        rightSceneList = new int[rawArray.length];
-        for (int i = 0; i < rightSceneList.length; i++) {
-            int number = Integer.parseInt(rawArray[i]);
-            if (number < 1 || number > 48){
-                throw new NumberFormatException();
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".mms");
             }
-            rightSceneList[i] = number;
+        });
+
+        if (sceneFiles.length == 0) {
+            return false;
         }
+        return true;
     }
 }

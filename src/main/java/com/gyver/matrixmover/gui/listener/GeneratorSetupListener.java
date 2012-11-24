@@ -90,6 +90,10 @@ public class GeneratorSetupListener implements ActionListener, ChangeListener {
         this.vs = vs;
         this.setupPanel = setupPanel;
     }
+    
+    public void updateVisualSetup(VisualSetup vs){
+        this.vs = vs;
+    }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
