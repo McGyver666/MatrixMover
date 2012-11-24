@@ -264,6 +264,7 @@ public final class GeneratorSetup extends javax.swing.JPanel {
             gsp.getsIntensity().setValue(vs.getGeneratorIntensity(i));
             
             // Add all to actionlistener
+            gsListener.updateVisualSetup(vs);
             gsp.getbConfigEffect().addActionListener(gsListener);
             gsp.getbConfigGenerator().addActionListener(gsListener);
             gsp.getCbGenerator().addActionListener(gsListener);
@@ -271,6 +272,7 @@ public final class GeneratorSetup extends javax.swing.JPanel {
             gsp.getCbMixer().addActionListener(gsListener);
             gsp.getsIntensity().addChangeListener(gsListener);
         }
+        this.repaint();
     }
     
     public int getIndexOfGeneratorSetupBySetupPanelObject(GeneratorSetupPanel gsp) {
