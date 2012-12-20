@@ -40,13 +40,9 @@ public class VisualSetup implements Serializable {
     private List<Mixer> mixerList = null;
     private List<Integer> intensityList = null;
     private boolean changed = false;
-    private MatrixData md = null;
     
 
     public VisualSetup(MatrixData md) {
-
-        //setup list with one whole set to pass throu
-        this.md = md;
 
         generatorList = new ArrayList<Generator>();
         generatorList.add(new SimpleColorGenerator(md));
@@ -147,6 +143,8 @@ public class VisualSetup implements Serializable {
     }
 
     public void clear() {
+        MatrixData md = Controller.getControllerInstance().getMatrixData();
+        
         generatorList = new ArrayList<Generator>();
         generatorList.add(new SimpleColorGenerator(md));
 
@@ -212,6 +210,7 @@ public class VisualSetup implements Serializable {
      */
     public void setGeneratorFromString(int nr, String generatorString) {
         Generator newGen = null;
+        MatrixData md = Controller.getControllerInstance().getMatrixData();
         if (generatorString.equals(GeneratorName.SIMPLE_COLOR_GENERATOR.toString())) {
             newGen = new SimpleColorGenerator(md);
         } else if (generatorString.equals(GeneratorName.COLOR_FADE.toString())) {
@@ -248,6 +247,7 @@ public class VisualSetup implements Serializable {
      */
     public void setEffectFromString(int nr, String effectString) {
         Effect newEff = null;
+        MatrixData md = Controller.getControllerInstance().getMatrixData();
         if (effectString.equals(Effect.EffectName.STRING_PASSTHRU)) {
             newEff = new PassThru(md);
         } else if (effectString.equals(Effect.EffectName.STRING_INVERTER)) {

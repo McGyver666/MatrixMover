@@ -23,7 +23,7 @@ import java.io.Serializable;
  * 
  * @author Gyver
  */
-public class MatrixData implements Serializable {
+public class MatrixData {
 
     /** The matrix width. */
     private int matrixWidth;
