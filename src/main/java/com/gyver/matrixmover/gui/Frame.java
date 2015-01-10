@@ -43,9 +43,14 @@ public class Frame extends javax.swing.JFrame {
     private MatrixData md = null;
     private static Frame instance = null;
     private DefaultTreeModel treemodel = null;
+    private static boolean isPlayer = false;
 
     /** Creates new form Frame */
     private Frame() {
+    }
+    
+    public Frame(boolean isPlayer) {
+        Frame.isPlayer = isPlayer;
     }
 
     /**
@@ -53,6 +58,10 @@ public class Frame extends javax.swing.JFrame {
      * @return
      */
     public static Frame getFrameInstance() {
+        if(isPlayer) {
+            return null;
+        }
+        
         if (instance == null) {
             instance = new Frame();
         }

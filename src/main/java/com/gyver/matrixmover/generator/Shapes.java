@@ -36,7 +36,7 @@ public class Shapes extends ObjectsContainingGenerator {
     private int speed = 0;
     private int nextColor = 0;
     private int size = 0;
-    private int alive = 0;
+    private int lifetime = 0;
     private int fade = 0;
     private int expand = 0;
     private double updatesToNextDrop = 0;
@@ -55,7 +55,7 @@ public class Shapes extends ObjectsContainingGenerator {
         this.objectCount = 1;
         this.speed = 240;
         this.size = 2;
-        this.alive = 15;
+        this.lifetime = 15;
         this.fade = 15;
         this.expand = 2;
         this.objectShape = ShapeObject.SQUARE_EMPTY;
@@ -77,7 +77,7 @@ public class Shapes extends ObjectsContainingGenerator {
                 nextColor = ((nextColor + 1) % colorMap.size());
                 int color = this.getColor(nextColor);
 
-                ShapeObjects obj = new ShapeObjects(x, y, color, size, alive, getExpand(), fade);
+                ShapeObjects obj = new ShapeObjects(x, y, color, size, lifetime, getExpand(), fade);
                 objectList.add(obj);
             }
         }
@@ -174,17 +174,17 @@ public class Shapes extends ObjectsContainingGenerator {
     }
 
     /**
-     * @return the alive
+     * @return the lifetime
      */
-    public int getAlive() {
-        return alive;
+    public int getLifetime() {
+        return lifetime;
     }
 
     /**
-     * @param alive the alive to set
+     * @param lifetime the lifetime to set
      */
-    public void setAlive(int alive) {
-        this.alive = alive;
+    public void setLifetime(int lifetime) {
+        this.lifetime = lifetime;
     }
 
     /**
@@ -219,6 +219,69 @@ public class Shapes extends ObjectsContainingGenerator {
         int fps = Controller.getControllerInstance().getFps();
         updatesToNextDrop = (fps / (speed / 60F));
     }
+    
+    /**
+     * Gets the parameter of the generator as String
+     * 
+     * @return the parameter as String
+     */
+    @Override
+    public String parameterToString(){
+        String ret = "speed="+speed+"\n";
+        ret += "size="+size+"\n";
+        ret += "objectCount="+objectCount+"\n";
+        ret += "objectShape="+objectShape.toString()+"\n";
+        ret += "objectDirection="+objectDirection.toString()+"\n";
+        ret += "fade="+fade+"\n";
+        ret += "expand="+expand+"\n";
+        ret += "lifetime="+lifetime+"\n";
+        ret += super.colorMapToString(colorMap);
+        return ret;
+    }
+    
+    
+    @Override
+    public void configureFromString(String configuration) {
+        String[] config = configuration.split(";");
+        for(String conf : config) {
+            String par = conf.split("=")[0];
+            String var = conf.split("=")[1];
+            
+            if(par.startsWith("color")) {
+                continue;
+            }
+            
+            switch (par) {
+                case "speed":
+                    speed = Integer.valueOf(var);
+                    break;
+                case "size":
+                    size = Integer.valueOf(var);
+                    break;
+                case "objectCount":
+                    objectCount = Integer.valueOf(var);
+                    break;
+                case "objectShape":
+                    objectShape = ShapeObject.fromString(var);
+                    break;
+                case "objectDirection":
+                    objectDirection = ShapeDirection.fromString(var);
+                    break;
+                case "fade":
+                    fade = Integer.valueOf(var);
+                    break;
+                case "expand":
+                    expand = Integer.valueOf(var);
+                    break;
+                case "lifetime":
+                    lifetime = Integer.valueOf(var);
+                    break;
+                default: 
+                    throw new UnsupportedOperationException("Unknown Parameter for Generator "+this.getName()+": '"+conf+"'.");
+            }
+        }
+        super.setColorFromConfigurationString(configuration);
+    }
 
     private class ShapeObjects implements Serializable {
 
@@ -233,7 +296,7 @@ public class Shapes extends ObjectsContainingGenerator {
          * @param y the y coordinate (center of shape)
          * @param color the color of the shape
          * @param size the initial size of the shape
-         * @param alive the number of frames the shape is shown
+         * @param lifetime the number of frames the shape is shown
          * @param expand the amount of pixels the shape expands in each direction over its livetime
          * @param fade the number of frames, the shape is fading out (last frames of lifetime)
          */

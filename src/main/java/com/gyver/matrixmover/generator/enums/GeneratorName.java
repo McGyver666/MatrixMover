@@ -36,18 +36,20 @@ public enum GeneratorName {
     PLASMA(3),
     /** The RAIN */
     RAIN(4),
-    /** The FIRE */
+    /** The SHAPES */
     SHAPES(5),
+    /** The RADAR */
+    RADAR(6),
     /** The FIRE */
-    FIRE(6),
+    FIRE(7),
     /** The TEXTWRITER */
-    TEXTWRITER(7),
+    TEXTWRITER(8),
     /** The METABALLS */
-    METABALLS(8),
+    METABALLS(9),
     /** The ANALYSER */
-    ANALYSER(9),
+    ANALYSER(10),
     /** The AUDIO_STROBE */
-    AUDIO_STROBE(10);
+    AUDIO_STROBE(11);
     
     /*
      * If you add generators, keep in mind to add a case in 
@@ -64,6 +66,7 @@ public enum GeneratorName {
     private static final String STRING_PLASMA = "Plasma";
     private static final String STRING_RAIN = "Rain";
     private static final String STRING_SHAPES = "Shapes";
+    private static final String STRING_RADAR = "Radar";
     private static final String STRING_FIRE = "Flames";
     private static final String STRING_TEXTWRITER = "Text";
     private static final String STRING_METABALLS = "Metaballs";
@@ -111,6 +114,8 @@ public enum GeneratorName {
                 return STRING_RAIN;
             case SHAPES:
                 return STRING_SHAPES;
+            case RADAR:
+                return STRING_RADAR;
             case TEXTWRITER:
                 return STRING_TEXTWRITER;
             case METABALLS:

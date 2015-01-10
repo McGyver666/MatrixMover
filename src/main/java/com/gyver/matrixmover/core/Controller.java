@@ -17,6 +17,7 @@
 package com.gyver.matrixmover.core;
 
 import com.gyver.matrixmover.core.audio.AudioCaptureThread;
+import com.gyver.matrixmover.core.timer.AutoSceneCyclerTimerTask;
 import com.gyver.matrixmover.core.timer.FadeTimerTask;
 import com.gyver.matrixmover.fader.BlackFader;
 import com.gyver.matrixmover.fader.CrossFader;
@@ -34,6 +35,7 @@ import com.gyver.matrixmover.mapping.PixelRgbMapping;
 import com.gyver.matrixmover.mixer.Mixer.MixerName;
 import com.gyver.matrixmover.output.Output;
 import com.gyver.matrixmover.properties.PropertiesHelper;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -81,6 +83,9 @@ public class Controller {
     private Timer fadingTimer = null;
     private AudioCaptureThread act = null;
     private Thread actThread = null;
+    private Timer autoSceneCyclerTimer = null;
+    private boolean isRunning;
+    private boolean isPlayer = false;
 
     /**
      * Instantiates a new controller.
@@ -236,15 +241,18 @@ public class Controller {
         //get the calculated image
         leftLedImage = leftVisual.getSceneOutput();
         //push it to led-screen
-        leftLedScreen.setPixelImage(leftLedImage);
-
+        if (leftLedScreen != null) {
+            leftLedScreen.setPixelImage(leftLedImage);
+        }
     }
 
     public void computeRightVisual() {
         //get the calculated image
         rightLedImage = rightVisual.getSceneOutput();
         //push it to led-screen
-        rightLedScreen.setPixelImage(rightLedImage);
+        if (rightLedScreen != null) {
+            rightLedScreen.setPixelImage(rightLedImage);
+        }
     }
 
     public void computeMasterVisual() {
@@ -253,7 +261,9 @@ public class Controller {
         //apply master intensity
         outputLedImage = applyIntensity(outputLedImage, masterIntensity);
         //write image to MasterLedScreen
-        masterLedScreen.setPixelImage(outputLedImage);
+        if (masterLedScreen != null) {
+            masterLedScreen.setPixelImage(outputLedImage);
+        }
         //apply the pixel mapping to the image
         int[] outputDeviceImage = om.applyMapping(outputLedImage);
         //apply the rgb mapping
@@ -296,11 +306,14 @@ public class Controller {
     public void setVisualSetup(VisualSetup vs, int side) {
         if (side == LEFT_SIDE) {
             leftVisual = vs;
-            
-            Frame.getFrameInstance().getLeftGeneratorSetup().setVisualSetup(vs);
+            if (!Controller.getControllerInstance().isPlayer()) {
+                Frame.getFrameInstance().getLeftGeneratorSetup().setVisualSetup(vs);
+            }
         } else if (side == RIGHT_SIDE) {
             rightVisual = vs;
-            Frame.getFrameInstance().getRightGeneratorSetup().setVisualSetup(vs);
+            if (!Controller.getControllerInstance().isPlayer()) {
+                Frame.getFrameInstance().getRightGeneratorSetup().setVisualSetup(vs);
+            }
         } else {
             throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
         }
@@ -312,6 +325,16 @@ public class Controller {
     public void postInit() {
         MasterPanel masterPanel = Frame.getFrameInstance().getMasterPanel();
         masterPanel.setSelectedButton(masterPanel.getTbCross());
+        om.setMapping(ph.getOutputMapping());
+        prm.setPixelMode(ph.getOutputPixeMode());
+    }
+    
+    /** 
+     * Do stuff that needs a Gui.
+     */
+    public void postInitPlayer() {
+        //MasterPanel masterPanel = Frame.getFrameInstance().getMasterPanel();
+        //masterPanel.setSelectedButton(masterPanel.getTbCross());
         om.setMapping(ph.getOutputMapping());
         prm.setPixelMode(ph.getOutputPixeMode());
     }
@@ -330,11 +353,13 @@ public class Controller {
 
     }
 
-    public void autoFade(int fadeTime) {
+    public void autoFade(int fadeTime, int currentPosition) {
         if (!isFading) {
             isFading = true;
             fadingTimer = new Timer();
-            int currentPosition = Frame.getFrameInstance().getMasterPanel().getSFadePosition().getValue();
+            if (!Controller.getControllerInstance().isPlayer()) {
+                currentPosition = Frame.getFrameInstance().getMasterPanel().getSFadePosition().getValue();
+            }
             int[] fadeSteps = null;
             float secondsForFading = fadeTime / 1000F;
 
@@ -418,5 +443,36 @@ public class Controller {
         }
 
         Frame.getFrameInstance().setAudioLevel(decayedLevel);
+    }
+
+    public void startAutoSceneCycler(int sec, File sceneDir) {
+        autoSceneCyclerTimer = new Timer();
+        AutoSceneCyclerTimerTask asctt = new AutoSceneCyclerTimerTask(Controller.getControllerInstance());
+        try {
+            if (!asctt.setSceneDirectory(sceneDir)) {
+                Frame.getFrameInstance().showWarning("Directory containts no scene files!");
+                return;
+            }
+            int timeToWait = sec * 1000;
+            autoSceneCyclerTimer.scheduleAtFixedRate(asctt, 0, timeToWait);
+            isRunning = true;
+        } catch (NumberFormatException nfe) {
+            Frame.getFrameInstance().showWarning("Input is not valid. Check number format.");
+        }
+    }
+    
+    public void stopAutoSceneCycler() {
+        if (autoSceneCyclerTimer != null) {
+            autoSceneCyclerTimer.cancel();
+            isRunning = false;
+        }
+    }
+
+    public void isPlayer(boolean b) {
+        this.isPlayer = b;
+    }
+
+    public boolean isPlayer() {
+        return this.isPlayer;
     }
 }

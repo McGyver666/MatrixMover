@@ -18,6 +18,8 @@
 package com.gyver.matrixmover;
 
 import com.gyver.matrixmover.core.Controller;
+import com.gyver.matrixmover.core.SceneReader;
+import com.gyver.matrixmover.core.VisualSetup;
 import com.gyver.matrixmover.core.audio.AudioCaptureThread;
 import com.gyver.matrixmover.core.timer.AudioTimerTask;
 import com.gyver.matrixmover.core.timer.ExecutionTimerTask;
@@ -29,6 +31,7 @@ import com.gyver.matrixmover.output.Output;
 import com.gyver.matrixmover.output.OutputDeviceEnum;
 import com.gyver.matrixmover.properties.PropertiesHelper;
 import com.gyver.matrixmover.splash.MMSplashScreen;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
@@ -185,18 +188,31 @@ public class MatrixMover {
      * @param args
      */
     public static void main(String[] args) {
-        // Set uncaught exception handler for controlled crashing
-        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+        
+        if (args.length == 1 && args[0].equals("-player")) {
+            MatrixMover matmove = new MatrixMover();
+            matmove.setupPlayer();
+            
+            LOG.log(Level.INFO, "Starting Auto Scene Cycler");
+            File sceneDir = new File("scenes/");
+            
+            Controller.getControllerInstance().startAutoSceneCycler(600, sceneDir);
+            
+        } else {
+            // Set uncaught exception handler for controlled crashing
+            Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
 
-            @Override
-            public void uncaughtException(Thread t, Throwable e) {
-                showCrashMessage(e);
-            }
-        });
+                @Override
+                public void uncaughtException(Thread t, Throwable e) {
+                    showCrashMessage(e);
+                }
+            });
 
-        MatrixMover matmove = new MatrixMover();
-        matmove.setup();
+            MatrixMover matmove = new MatrixMover();
+            matmove.setup();
+        }
     }
+    
 
     /**
      * Shows an error massage to the user if MatrixMover has chrashed.
@@ -232,5 +248,70 @@ public class MatrixMover {
         df.setSize(705, 405);
         df.setLocationRelativeTo(null);
         df.setVisible(true);
+    }
+
+    private void setupPlayer() {
+        LOG.log(Level.INFO, "MatrixMover Setup START (Player Mode)");
+                
+        config = new Properties();
+        try {
+            InputStream is = new FileInputStream(CONFIG_FILENAME);
+            config.load(is);
+            LOG.log(Level.INFO, "Config loaded, {0} entries", config.size());
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Failed to load Config", e);
+            throw new IllegalArgumentException("Configuration error!", e);
+        }
+        final PropertiesHelper ph = new PropertiesHelper(config);
+
+        OutputDeviceEnum outputDeviceEnum = ph.getOutputDevice();
+        try {
+            switch (outputDeviceEnum) {
+                case NULL:
+                    this.output = new NullDevice(ph);
+                    break;
+                case ARTNET:
+                    this.output = new ArtnetDevice(ph);
+                    break;
+                default:
+                    throw new IllegalArgumentException();
+            }
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Unable to initialize output device: " + outputDeviceEnum + ". Using Null device instead.", e);
+            this.output = new NullDevice(ph);
+        }
+
+        LOG.log(Level.INFO, "Starting Core");
+        controller = Controller.getControllerInstance();
+        controller.isPlayer(true);
+        controller.initController(ph, output);
+
+        LOG.log(Level.FINER, "Loading NimROD LAF");
+        try {
+            NimRODTheme nt = new NimRODTheme(LAF_THEME);
+
+            NimRODLookAndFeel NimRODLF = new NimRODLookAndFeel();
+            NimRODLookAndFeel.setCurrentTheme(nt);
+            UIManager.setLookAndFeel(NimRODLF);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(MatrixMover.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        controller.postInitPlayer();
+        
+
+
+//        LOG.log(Level.INFO, "Trying to load scenes from scene file");
+//        MMSplashScreen.setProgress(80, "loading scenes");
+//        controller.loadScenes();
+
+        LOG.log(Level.INFO, "Starting timer with {0} FPS", ph.getFps());
+        fpsTimer = new Timer();
+        long millisecondsDelay = 1000 / ph.getFps();
+        fpsTimer.scheduleAtFixedRate(new ExecutionTimerTask(controller), 1, millisecondsDelay);
+        
+        
+        LOG.log(Level.INFO, "MatrixMover Setup END");
+        
     }
 }

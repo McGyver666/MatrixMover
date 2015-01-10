@@ -89,4 +89,21 @@ public enum AnalyserDirection {
         // if it has no string, return the enum-string
         return super.toString();
     }
+    
+    
+    
+    public static AnalyserDirection fromString(String dir) {
+        switch (dir) {
+            case "Left to Right":
+                return LEFT_TO_RIGHT;
+            case "Right to Left":
+                return RIGHT_TO_LEFT;
+            case "Top to Bottom":
+                return TOP_TO_BOTTOM;
+            case "Bottom to Top":
+                return BOTTOM_TO_TOP;
+            default:
+                return null;
+        }        
+    }
 }

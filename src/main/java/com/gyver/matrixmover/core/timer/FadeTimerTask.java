@@ -48,7 +48,9 @@ public class FadeTimerTask extends TimerTask {
     @Override
     public void run() {
         controller.setCrossfaderValue(fadeSteps[currentStep]);
-        Frame.getFrameInstance().getMasterPanel().getSFadePosition().setValue(fadeSteps[currentStep]);
+        if (!Controller.getControllerInstance().isPlayer()) {
+            Frame.getFrameInstance().getMasterPanel().getSFadePosition().setValue(fadeSteps[currentStep]);
+        }
         currentStep++;
         if(currentStep >= fadeSteps.length) {
             controller.setIsFading(false);

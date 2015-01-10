@@ -280,4 +280,34 @@ public class Analyser extends ColorMapAwareGenerator {
         this.analyserDirection = analyserDirection;
     }
     
+    /**
+     * Gets the parameter of the generator as String
+     * 
+     * @return the parameter as String
+     */
+    public String parameterToString(){
+        String ret = "direction="+analyserDirection.name()+"\n";
+        ret += "gain="+gain+"\n";
+        return ret;
+    }
+
+    @Override
+    public void configureFromString(String configuration) {
+        String[] config = configuration.split(";");
+        for(String conf : config) {
+            String par = conf.split("=")[0];
+            String var = conf.split("=")[1];
+            switch (par) {
+                case "direction":
+                    setAnalyserDirection(AnalyserDirection.fromString(var));
+                    break;
+                case "gain":
+                    setGain(Integer.valueOf(var));
+                    break;
+                default: 
+                    throw new UnsupportedOperationException("Unknown Parameter for Generator "+this.getName()+": '"+conf+"'.");
+            }
+            
+        }
+    }
 }

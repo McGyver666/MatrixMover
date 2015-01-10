@@ -253,4 +253,49 @@ public class MetaBalls extends Generator {
     public void setApplyThreshold(boolean applyThreshold) {
         this.applyThreshold = applyThreshold;
     }
+    
+    /**
+     * Gets the parameter of the generator as String
+     * 
+     * @return the parameter as String
+     */
+    @Override
+    public String parameterToString(){
+        String ret = "numBlobs="+numBlobs+"\n";
+        ret += "size="+size+"\n";
+        ret += "speed="+speed+"\n";
+        ret += "applyThres="+applyThreshold+"\n";
+        ret += "threshold="+threshold+"\n";
+        return ret;
+    }
+    
+    
+    @Override
+    public void configureFromString(String configuration) {
+        String[] config = configuration.split(";");
+        for(String conf : config) {
+            String par = conf.split("=")[0];
+            String var = conf.split("=")[1];
+            switch (par) {
+                case "numBlobs":
+                    numBlobs = Integer.valueOf(var);
+                    break;
+                case "size":
+                    size = Integer.valueOf(var);
+                    break;
+                case "speed":
+                    speed = Float.valueOf(var);
+                    break;
+                case "applyThres":
+                    applyThreshold = Boolean.getBoolean(var);
+                    break;
+                case "threshold":
+                    threshold = Integer.valueOf(var);
+                    break;
+                default: 
+                    throw new UnsupportedOperationException("Unknown Parameter for Generator "+this.getName()+": '"+conf+"'.");
+            }
+            
+        }
+    }
 }

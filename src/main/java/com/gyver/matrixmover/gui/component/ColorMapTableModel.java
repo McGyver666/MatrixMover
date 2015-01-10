@@ -111,7 +111,9 @@ public class ColorMapTableModel extends AbstractTableModel {
     }
 
     public void removeRow() {
-        colorMap.remove(colorMap.size() - 1);
-        fireTableDataChanged();
+        if (colorMap.size() > 0) {
+            colorMap.remove(colorMap.size() - 1);
+            fireTableDataChanged();
+        }
     }
 }

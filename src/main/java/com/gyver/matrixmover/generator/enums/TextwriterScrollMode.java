@@ -124,4 +124,27 @@ public enum TextwriterScrollMode {
         // if it has no string, return the enum-string
         return super.toString();
     }
+    
+    public static TextwriterScrollMode fromString(String dir) {
+        switch (dir) {
+            case "Left to Right":
+                return LEFT_TO_RIGHT;
+            case "Right to Left":
+                return RIGHT_TO_LEFT;
+            case "Top to Bottom":
+                return TOP_TO_BOTTOM;
+            case "Bottom to Top":
+                return BOTTOM_TO_TOP;
+            case "Left to Right Continuous":
+                return LEFT_TO_RIGHT_CONTINUOUS;
+            case "Right to Left Continuous":
+                return RIGHT_TO_LEFT_CONTINUOUS;
+            case "Top to Bottom Continuous":
+                return TOP_TO_BOTTOM_CONTINUOUS;
+            case "Bottom to Top Continuous":
+                return BOTTOM_TO_TOP_CONTINUOUS;
+            default:
+                return null;
+        }        
+    }
 }

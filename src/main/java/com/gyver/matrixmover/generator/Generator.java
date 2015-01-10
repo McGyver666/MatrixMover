@@ -149,4 +149,19 @@ public abstract class Generator implements Serializable {
     public int getId() {
         return this.name.getId();
     }
+    
+    
+    /**
+     * Gets the parameter of the generator as String
+     * 
+     * @return the parameter as String
+     */
+    public abstract String parameterToString();
+    
+    /** 
+     * Configures the generator from its own parameter String
+     * 
+     * @param configuration parameter String as returned from parameterToString()
+     */
+    public abstract void configureFromString(String configuration);
 }

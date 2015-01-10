@@ -186,4 +186,49 @@ public enum ScrollMode {
         // if it has no string, return the enum-string
         return super.toString();
     }
+    
+    
+    
+    public static ScrollMode fromString(String dir) {
+        switch (dir) {
+            case "Left to Right":
+                return LEFT_TO_RIGHT;
+            case "Right to Left":
+                return RIGHT_TO_LEFT;
+            case "Top to Bottom":
+                return TOP_TO_BOTTOM;
+            case "Bottom to Top":
+                return BOTTOM_TO_TOP;
+            case "Right-Bottom to Left-Top":
+                return RIGHT_BOTTOM_TO_LEFT_TOP;
+            case "Left-Bottom to Right-Top":
+                return LEFT_BOTTOM_TO_RIGHT_TOP;
+            case "Right-Top to Left-Bottom":
+                return RIGHT_TOP_TO_LEFT_BOTTOM;
+            case "Left-Top to Right-Bottom":
+                return LEFT_TOP_TO_RIGHT_BOTTOM;
+            case "Middle to Sides Vertical":
+                return MIDDLE_TO_SIDES_VERTICAL;
+            case "Sides to Middle Vertical":
+                return SIDES_TO_MIDDLE_VERTICAL;
+            case "Middle to Sides Horizontal":
+                return MIDDLE_TO_SIDES_HORIZONTAL;
+            case "Sides to Biddle Horizontal":
+                return SIDES_TO_MIDDLE_HORIZONTAL;
+            case "Explode Circle":
+                return EXPLODE_CIRCLE;
+            case "Implode Circle":
+                return IMPLODE_CIRCLE;
+            case "Explode Diamond":
+                return EXPLODE_DIAMOND;
+            case "Implode Diamond":
+                return IMPLODE_DIAMOND;
+            case "Explode Hyperbel":
+                return EXPLODE_HYPERBEL;
+            case "Implode Hyperbel":
+                return IMPLODE_HYPERBEL;
+            default:
+                return null;
+        }        
+    }
 }

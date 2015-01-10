@@ -41,24 +41,23 @@ public class VisualSetup implements Serializable {
     private List<Integer> intensityList = null;
     private boolean changed = false;
     
-
     public VisualSetup(MatrixData md) {
-
-        generatorList = new ArrayList<Generator>();
+        
+        generatorList = new ArrayList<>();
         generatorList.add(new SimpleColorGenerator(md));
-
-        effectList = new ArrayList<Effect>();
+        
+        effectList = new ArrayList<>();
         effectList.add(new PassThru(md));
-
-        mixerList = new ArrayList<Mixer>();
+        
+        mixerList = new ArrayList<>();
         mixerList.add(new PassThruMixer());
-
-        intensityList = new ArrayList<Integer>();
+        
+        intensityList = new ArrayList<>();
         intensityList.add(255);
-
+        
     }
     
-    public int getNumberOfGenerators(){
+    public int getNumberOfGenerators() {
         return generatorList.size();
     }
 
@@ -73,40 +72,40 @@ public class VisualSetup implements Serializable {
             generatorList.set(n, g);
         }
     }
-
+    
     public void setEffect(Effect e, int n) {
         LOG.log(Level.FINER, "New Effect for Effect {0}", n);
         if (n < effectList.size()) {
             effectList.set(n, e);
         }
     }
-
+    
     public void setMixer(Mixer m, int n) {
         LOG.log(Level.FINER, "New Mixer for Mixer {0}", n);
         if (n < mixerList.size()) {
             mixerList.set(n, m);
         }
     }
-
+    
     public void setGeneratorIntensity(int value, int n) {
         if (n < intensityList.size()) {
             intensityList.set(n, value);
         }
     }
     
-    public Generator getGenerator(int n){
+    public Generator getGenerator(int n) {
         return generatorList.get(n);
     }
     
-    public Effect getEffect(int n){
+    public Effect getEffect(int n) {
         return effectList.get(n);
     }
     
-    public Mixer getMixer(int n){
+    public Mixer getMixer(int n) {
         return mixerList.get(n);
     }
     
-    public int getGeneratorIntensity(int n){
+    public int getGeneratorIntensity(int n) {
         return intensityList.get(n);
     }
 
@@ -115,11 +114,11 @@ public class VisualSetup implements Serializable {
      */
     public void addGeneratorSetup(MatrixData md) {
         generatorList.add(new SimpleColorGenerator(md));
-
+        
         effectList.add(new PassThru(md));
-
+        
         mixerList.add(new PassThruMixer());
-
+        
         intensityList.add(255);
     }
 
@@ -137,39 +136,39 @@ public class VisualSetup implements Serializable {
     }
     
     public void removeLastVisualSetup() {
-        if(this.getNumberOfGenerators() > 1){
-            removeGeneratorSetup(this.getNumberOfGenerators()-1);
+        if (this.getNumberOfGenerators() > 1) {
+            removeGeneratorSetup(this.getNumberOfGenerators() - 1);
         }
     }
-
+    
     public void clear() {
         MatrixData md = Controller.getControllerInstance().getMatrixData();
         
-        generatorList = new ArrayList<Generator>();
+        generatorList = new ArrayList<>();
         generatorList.add(new SimpleColorGenerator(md));
-
-        effectList = new ArrayList<Effect>();
+        
+        effectList = new ArrayList<>();
         effectList.add(new PassThru(md));
-
-        mixerList = new ArrayList<Mixer>();
+        
+        mixerList = new ArrayList<>();
         mixerList.add(new PassThruMixer());
-
-        intensityList = new ArrayList<Integer>();
+        
+        intensityList = new ArrayList<>();
         intensityList.add(255);
     }
-
+    
     public void sceneChanged(boolean changed) {
         this.changed = changed;
     }
-
+    
     public boolean isSceneChanged() {
         return changed;
     }
-
+    
     public int[] getSceneOutput() {
-
+        
         int[] buffer = null;
-
+        
         for (int i = 0; i < generatorList.size(); i++) {
             generatorList.get(i).update();
             int[] tempBuffer = generatorList.get(i).getBuffer();
@@ -183,26 +182,26 @@ public class VisualSetup implements Serializable {
         }
         
         return buffer;
-
+        
     }
-
+    
     private int[] applyIntensity(int[] src, int value) {
         int[] ret = new int[src.length];
         short red, green, blue;
         int col;
         float ratio = (value / 255f);
-
+        
         for (int i = 0; i < src.length; i++) {
             col = src[i];
             red = (short) (Math.round(((col >> 16) & 255) * ratio));
             green = (short) (Math.round(((col >> 8) & 255) * ratio));
             blue = (short) (Math.round((col & 255) * ratio));
-
+            
             ret[i] = (red << 16) | (green << 8) | blue;
         }
         return ret;
     }
-    
+
     /**
      * Sets a generator to a Visual
      * @param nr Whether generator1 or generator 2 should be set
@@ -225,6 +224,8 @@ public class VisualSetup implements Serializable {
             newGen = new Rain(md);
         } else if (generatorString.equals(GeneratorName.SHAPES.toString())) {
             newGen = new Shapes(md);
+        } else if (generatorString.equals(GeneratorName.RADAR.toString())) {
+            newGen = new Radar(md, null);
         } else if (generatorString.equals(GeneratorName.METABALLS.toString())) {
             newGen = new MetaBalls(md);
         } else if (generatorString.equals(GeneratorName.TEXTWRITER.toString())) {
@@ -236,7 +237,7 @@ public class VisualSetup implements Serializable {
         } else {
             newGen = new SimpleColorGenerator(md);
         }
-
+        
         setGenerator(newGen, nr);
     }
 
@@ -248,48 +249,82 @@ public class VisualSetup implements Serializable {
     public void setEffectFromString(int nr, String effectString) {
         Effect newEff = null;
         MatrixData md = Controller.getControllerInstance().getMatrixData();
-        if (effectString.equals(Effect.EffectName.STRING_PASSTHRU)) {
-            newEff = new PassThru(md);
-        } else if (effectString.equals(Effect.EffectName.STRING_INVERTER)) {
-            newEff = new Inverter(md);
-        } else if (effectString.equals(Effect.EffectName.STRING_EMBOSS)) {
-            newEff = new Emboss(md);
-        } else if (effectString.equals(Effect.EffectName.STRING_MONOCROME)) {
-            newEff = new Monocrome(md);
-        } else if (effectString.equals(Effect.EffectName.STRING_MONOCROME_INVERS)) {
-            newEff = new MonocromeInvers(md);
-        } else {
-            newEff = new PassThru(md);
+        switch (effectString) {
+            case Effect.EffectName.STRING_PASSTHRU:
+                newEff = new PassThru(md);
+                break;
+            case Effect.EffectName.STRING_INVERTER:
+                newEff = new Inverter(md);
+                break;
+            case Effect.EffectName.STRING_EMBOSS:
+                newEff = new Emboss(md);
+                break;
+            case Effect.EffectName.STRING_MONOCROME:
+                newEff = new Monocrome(md);
+                break;
+            case Effect.EffectName.STRING_MONOCROME_INVERS:
+                newEff = new MonocromeInvers(md);
+                break;
+            default:
+                newEff = new PassThru(md);
+                break;
         }
-
+        
         setEffect(newEff, nr);
     }
-
     
-
     public void setMixerFromString(int nr, String mixerString) {
         Mixer mix = null;
-        if (mixerString.equals(Mixer.MixerName.STRING_PASSTHRU)) {
-            mix = new PassThruMixer();
-        } else if (mixerString.equals(Mixer.MixerName.STRING_MULTIPLY)) {
-            mix = new Multiply();
-        } else if (mixerString.equals(Mixer.MixerName.STRING_ADDSAT)) {
-            mix = new AddSat();
-        } else if (mixerString.equals(Mixer.MixerName.STRING_MIX)) {
-            mix = new Mix();
-        } else if (mixerString.equals(Mixer.MixerName.STRING_NEGATIVE_MULTIPLY)) {
-            mix = new NegativeMultiply();
-        } else if (mixerString.equals(Mixer.MixerName.STRING_XOR)) {
-            mix = new Xor();
-        } else if (mixerString.equals(Mixer.MixerName.STRING_MINUS_HALF)) {
-            mix = new MinusHalf();
-        } else if (mixerString.equals(Mixer.MixerName.STRING_EITHER)) {
-            mix = new Either();
-        } else if (mixerString.equals(Mixer.MixerName.STRING_MAX)) {
-            mix = new Max();
-        } else {
-            mix = new PassThruMixer();
+        switch (mixerString) {
+            case Mixer.MixerName.STRING_PASSTHRU:
+                mix = new PassThruMixer();
+                break;
+            case Mixer.MixerName.STRING_MULTIPLY:
+                mix = new Multiply();
+                break;
+            case Mixer.MixerName.STRING_ADDSAT:
+                mix = new AddSat();
+                break;
+            case Mixer.MixerName.STRING_MIX:
+                mix = new Mix();
+                break;
+            case Mixer.MixerName.STRING_NEGATIVE_MULTIPLY:
+                mix = new NegativeMultiply();
+                break;
+            case Mixer.MixerName.STRING_XOR:
+                mix = new Xor();
+                break;
+            case Mixer.MixerName.STRING_MINUS_HALF:
+                mix = new MinusHalf();
+                break;
+            case Mixer.MixerName.STRING_EITHER:
+                mix = new Either();
+                break;
+            case Mixer.MixerName.STRING_MAX:
+                mix = new Max();
+                break;
+            default:
+                mix = new PassThruMixer();
+                break;
         }
         setMixer(mix, nr);
+    }
+    
+    @Override
+    public String toString() {
+        String string = "";
+        
+        string += "nrOfGens=" + this.effectList.size() + "\n";
+        
+        for (int i = 0; i < effectList.size(); i++) {
+            string += "generator" + i + "=" + generatorList.get(i).getName().toString() + "\n";
+            string += generatorList.get(i).parameterToString();
+            string += "effect" + i + "=" + effectList.get(i).getName().toString() + "\n";
+            string += "mixer" + i + "=" + mixerList.get(i).getName().toString() + "\n";
+            string += "intensity" + i + "=" + intensityList.get(i) + "\n";
+            
+        }
+        string += "EOF";
+        return string;
     }
 }

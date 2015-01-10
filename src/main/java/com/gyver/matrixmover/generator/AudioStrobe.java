@@ -132,4 +132,35 @@ public class AudioStrobe extends Generator {
     public void setBand(int band){
         this.bandToUse = band;
     }
+    
+    /**
+     * Gets the parameter of the generator as String
+     * 
+     * @return the parameter as String
+     */
+    @Override
+    public String parameterToString(){
+        String ret = "band="+bandToUse+"\n";
+        ret += "color="+color.getRGB()+"\n";
+        return ret;
+    }
+    
+    @Override
+    public void configureFromString(String configuration) {
+        String[] config = configuration.split(";");
+        for(String conf : config) {
+            String par = conf.split("=")[0];
+            String var = conf.split("=")[1];
+            switch (par) {
+                case "band":
+                    setBand(Integer.valueOf(var));
+                    break;
+                case "color":
+                    setColor(new Color(Integer.valueOf(var)));
+                    break;
+                default: 
+                    throw new UnsupportedOperationException("Unknown Parameter for Generator "+this.getName()+": '"+conf+"'.");
+            }
+        }
+    }
 }

@@ -67,4 +67,30 @@ public class SimpleColorGenerator extends Generator {
     public Color getColor() {
         return this.color;
     }
+    
+    /**
+     * Gets the parameter of the generator as String
+     * 
+     * @return the parameter as String
+     */
+    public String parameterToString(){
+        return "color="+color.getRGB()+"\n";
+    }
+    
+    @Override
+    public void configureFromString(String configuration) {
+        String[] config = configuration.split(";");
+        for(String conf : config) {
+            String par = conf.split("=")[0];
+            String var = conf.split("=")[1];
+            switch (par) {
+                case "color":
+                    color = new Color(Integer.valueOf(var));
+                    break;
+                default: 
+                    throw new UnsupportedOperationException("Unknown Parameter for Generator "+this.getName()+": '"+conf+"'.");
+            }
+            
+        }
+    }
 }

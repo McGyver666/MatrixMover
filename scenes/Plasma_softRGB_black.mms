@@ -1,0 +1,21 @@
+nrOfGens=2
+generator0=Plasma
+speed=2
+distance=27
+offset=792
+zoom=1000
+color0=-32640
+color1=-16777216
+color2=-8323200
+color3=-16777216
+color4=-8355585
+color5=-16777216
+effect0=Pass Thru
+mixer0=Pass Thru
+intensity0=255
+generator1=Simple Color
+color=-16777216
+effect1=Pass Thru
+mixer1=Pass Thru
+intensity1=255
+EOF

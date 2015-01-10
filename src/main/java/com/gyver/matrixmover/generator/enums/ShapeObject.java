@@ -100,4 +100,23 @@ public enum ShapeObject {
         // if it has no string, return the enum-string
         return super.toString();
     }
+    
+    public static ShapeObject fromString(String dir) {
+        switch (dir) {
+            case "Squares Empty":
+                return SQUARE_EMPTY;
+            case "Squares Filled":
+                return SQUARE_FILLED;
+            case "Circles Empty":
+                return CIRCLE_EMPTY;
+            case "Circles Filled":
+                return CIRCLE_FILLED;
+            case "Line Horizontal":
+                return LINE_HORIZONTAL;
+            case "Line Vertical":
+                return LINE_VERTICAL;
+            default:
+                return null;
+        }        
+    }
 }

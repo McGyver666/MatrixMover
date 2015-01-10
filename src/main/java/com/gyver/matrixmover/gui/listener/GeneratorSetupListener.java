@@ -36,6 +36,7 @@ import com.gyver.matrixmover.generator.Generator;
 import com.gyver.matrixmover.generator.enums.GeneratorName;
 import com.gyver.matrixmover.generator.MetaBalls;
 import com.gyver.matrixmover.generator.Plasma;
+import com.gyver.matrixmover.generator.Radar;
 import com.gyver.matrixmover.generator.Shapes;
 import com.gyver.matrixmover.generator.SimpleColorGenerator;
 import com.gyver.matrixmover.generator.Textwriter;
@@ -52,6 +53,7 @@ import com.gyver.matrixmover.gui.generator.FireConfiguration;
 import com.gyver.matrixmover.gui.generator.MetaBallsConfiguration;
 import com.gyver.matrixmover.gui.generator.PlasmaConfiguration;
 import com.gyver.matrixmover.gui.generator.AudioStrobeConfiguration;
+import com.gyver.matrixmover.gui.generator.RadarConfiguration;
 import com.gyver.matrixmover.gui.generator.SimpleColorConfiguration;
 import com.gyver.matrixmover.gui.generator.TextwriterConfiguration;
 import com.gyver.matrixmover.mixer.AddSat;
@@ -169,6 +171,9 @@ public class GeneratorSetupListener implements ActionListener, ChangeListener {
         } else if (activGenerator instanceof AudioStrobe) {
             AudioStrobeConfiguration ascDialog = new AudioStrobeConfiguration(Frame.getFrameInstance(), true, (AudioStrobe) activGenerator);
             ascDialog.setVisible(true);
+        } else if (activGenerator instanceof Radar) {
+            RadarConfiguration rcDialog = new RadarConfiguration(Frame.getFrameInstance(), true, (Radar) activGenerator);
+            rcDialog.setVisible(true);
         } 
     }
 }

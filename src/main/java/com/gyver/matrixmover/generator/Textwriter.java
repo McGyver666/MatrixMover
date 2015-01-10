@@ -290,4 +290,14 @@ public class Textwriter extends Generator {
         xofs = 0;
         scrollRight = false;
     }
+
+    @Override
+    public String parameterToString() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void configureFromString(String configuration) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

@@ -105,4 +105,40 @@ public class ColorFade extends ColorMapAwareGenerator {
         float ratio = (float) ((frameCount % fade) / (float) fade);
         return super.getColor(colornumber, nextcolornumber, ratio);
     }
+    
+    /**
+     * Gets the parameter of the generator as String
+     * 
+     * @return the parameter as String
+     */
+    @Override
+    public String parameterToString(){
+        String ret = "speed="+speed+"\n";
+        ret += super.colorMapToString(colorMap);
+        return ret;
+    }
+    
+    
+    @Override
+    public void configureFromString(String configuration) {
+        String[] config = configuration.split(";");
+        for(String conf : config) {
+            String par = conf.split("=")[0];
+            String var = conf.split("=")[1];
+            
+            if(par.startsWith("color")) {
+                continue;
+            }
+            
+            switch (par) {
+                case "speed":
+                    setSpeed(Integer.valueOf(var));
+                    break;
+                default: 
+                    throw new UnsupportedOperationException("Unknown Parameter for Generator "+this.getName()+": '"+conf+"'.");
+            }
+        }
+        super.setColorFromConfigurationString(configuration);
+    }
+    
 }

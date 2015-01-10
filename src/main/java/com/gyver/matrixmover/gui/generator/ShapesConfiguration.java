@@ -46,7 +46,7 @@ public class ShapesConfiguration extends javax.swing.JDialog {
         tfsSpeed.setValue(generator.getSpeed());
         tfsCount.setValue(generator.getObjectCount());
         tfsSize.setValue(generator.getSize());
-        tfsAlive.setValue(generator.getAlive());
+        tfsAlive.setValue(generator.getLifetime());
         tfsFade.setValue(generator.getFade());
         tfsExpand.setValue(generator.getExpand());
         
@@ -119,7 +119,7 @@ public class ShapesConfiguration extends javax.swing.JDialog {
 
     private void tpsAliveStateChanged(ChangeEvent e){
         int alive = ((JTextFieldSlider) e.getSource()).getValue();
-        generator.setAlive(alive);
+        generator.setLifetime(alive);
     }
 
     private void tfsFadeStateChanged(ChangeEvent e){

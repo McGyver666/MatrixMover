@@ -49,7 +49,7 @@ public abstract class ObjectsContainingGenerator extends Generator {
         super(name, matrix);
 
         //make this list thread save, used when color map is updated
-        this.colorMap = new CopyOnWriteArrayList<Color>();
+        this.colorMap = new CopyOnWriteArrayList<>();
 
         if (colorMap != null) {
             this.colorMap = colorMap;
@@ -98,5 +98,37 @@ public abstract class ObjectsContainingGenerator extends Generator {
      */
     public List<Color> getColorMap() {
         return colorMap;
+    }
+    
+    public String colorMapToString(List<Color> colorMap){
+        String ret = "";
+        for (int i = 0; i < colorMap.size(); i++){
+            ret += "color"+i+"="+colorMap.get(i).getRGB()+"\n";                 
+        }
+        
+        return ret;
+    }
+
+    public void setColorFromConfigurationString(String configuration) {
+        String[] config = configuration.split(";");
+        int numberOfColors = 0;
+        for (String conf : config){
+            if(conf.startsWith("color")) {
+                numberOfColors++;
+            }
+        }
+        colorMap.clear();
+        for (int i = 0; i < numberOfColors; i++ ) {
+            colorMap.add(null);
+        }
+        
+        for (String conf : config){
+            if(!conf.startsWith("color")) {
+                continue;
+            }
+            int par = Integer.valueOf(conf.split("=")[0].replaceAll("color", ""));
+            int var = Integer.valueOf(conf.split("=")[1]);
+            colorMap.set(par, new Color(var));
+        }
     }
 }

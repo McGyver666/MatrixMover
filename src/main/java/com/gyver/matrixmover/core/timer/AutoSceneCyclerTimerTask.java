@@ -38,35 +38,61 @@ public class AutoSceneCyclerTimerTask extends TimerTask {
     private Controller controller = null;
     private File[] sceneFiles = null;
     private int sceneFileListIndex = 0;
+    int currentPosition = 0;
     private boolean left = true;
-
+    private boolean firstRun = true;
+    private final int STAND_ALONE_FADE_TIME = 2000;
     public AutoSceneCyclerTimerTask(Controller controller) {
         this.controller = controller;
     }
 
     @Override
     public void run() {
-        int currentPosition = Frame.getFrameInstance().getMasterPanel().getSFadePosition().getValue();
-        if (currentPosition < 500) {
-            left = true;
-        } else {
-            left = false;
+        
+        if (!Controller.getControllerInstance().isPlayer()) {
+            currentPosition = Frame.getFrameInstance().getMasterPanel().getSFadePosition().getValue();
+            if (currentPosition < 500) {
+                left = true;
+            } else {
+                left = false;
+            }
         }
+        
+        // if we run the first time: load the first scene before fading into the target visual setup!
+        if (firstRun) {
+            if (!left) {
+                VisualSetup vstmp = SceneReader.loadVisualSetup(sceneFiles[sceneFileListIndex], Controller.getControllerInstance().getMatrixData());
+                controller.setVisualSetup(vstmp, Controller.LEFT_SIDE);
+            } else { 
+                VisualSetup vstmp = SceneReader.loadVisualSetup(sceneFiles[sceneFileListIndex], Controller.getControllerInstance().getMatrixData());
+                controller.setVisualSetup(vstmp, Controller.RIGHT_SIDE);
+            }
+        }
+            
+
 
         if (left) {
-            try {
-                Controller.getControllerInstance().autoFade(Integer.parseInt(Frame.getFrameInstance().getMasterPanel().getTfFadeTime().getText()));
-            } catch (NumberFormatException nfe) {
-                this.cancel();
-                Frame.getFrameInstance().showWarning("Fadetime has to be an integer number.");
-                AutoSceneCycler.getInstance().setTextStopped();
-                return;
+            if (!Controller.getControllerInstance().isPlayer()) {
+                try {
+                    Controller.getControllerInstance().autoFade(Integer.parseInt(Frame.getFrameInstance().getMasterPanel().getTfFadeTime().getText()), 0);
+                } catch (NumberFormatException nfe) {
+                    this.cancel();
+                    Frame.getFrameInstance().showWarning("Fadetime has to be an integer number.");
+                    AutoSceneCycler.getInstance().setTextStopped();
+                    return;
+                }
+            } else {
+                Controller.getControllerInstance().autoFade(STAND_ALONE_FADE_TIME, 0);
             }
             left = false;
 
             //wait for fade, then change left current scene!
             try {
-                Thread.sleep(Integer.parseInt(Frame.getFrameInstance().getMasterPanel().getTfFadeTime().getText()) + 100);
+                if (!Controller.getControllerInstance().isPlayer()) {
+                    Thread.sleep(Integer.parseInt(Frame.getFrameInstance().getMasterPanel().getTfFadeTime().getText()) + 100);
+                } else {
+                    Thread.sleep(STAND_ALONE_FADE_TIME + 100);
+                }
             } catch (InterruptedException ex) {
                 Logger.getLogger(AutoSceneCyclerTimerTask.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -78,19 +104,27 @@ public class AutoSceneCyclerTimerTask extends TimerTask {
             controller.setVisualSetup(vs, Controller.LEFT_SIDE);
 
         } else {
-            try {
-                Controller.getControllerInstance().autoFade(Integer.parseInt(Frame.getFrameInstance().getMasterPanel().getTfFadeTime().getText()));
-            } catch (NumberFormatException nfe) {
-                this.cancel();
-                Frame.getFrameInstance().showWarning("Fadetime has to be an integer number.");
-                AutoSceneCycler.getInstance().setTextStopped();
-                return;
+            if (!Controller.getControllerInstance().isPlayer()) {
+                try {
+                    Controller.getControllerInstance().autoFade(Integer.parseInt(Frame.getFrameInstance().getMasterPanel().getTfFadeTime().getText()), 1000);
+                } catch (NumberFormatException nfe) {
+                    this.cancel();
+                    Frame.getFrameInstance().showWarning("Fadetime has to be an integer number.");
+                    AutoSceneCycler.getInstance().setTextStopped();
+                    return;
+                } 
+            } else {
+                Controller.getControllerInstance().autoFade(STAND_ALONE_FADE_TIME, 1000);
             }
             left = true;
 
             //wait for fade, then change right current scene!
             try {
-                Thread.sleep(Integer.parseInt(Frame.getFrameInstance().getMasterPanel().getTfFadeTime().getText()) + 100);
+                if (!Controller.getControllerInstance().isPlayer()) {
+                    Thread.sleep(Integer.parseInt(Frame.getFrameInstance().getMasterPanel().getTfFadeTime().getText()) + 100);
+                } else {
+                    Thread.sleep(STAND_ALONE_FADE_TIME + 100);
+                }
             } catch (InterruptedException ex) {
                 Logger.getLogger(AutoSceneCyclerTimerTask.class.getName()).log(Level.SEVERE, null, ex);
             }

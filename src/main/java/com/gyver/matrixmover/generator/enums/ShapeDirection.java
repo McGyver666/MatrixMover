@@ -67,7 +67,7 @@ public enum ShapeDirection {
     public String toString() {
         switch (this) {
             case IMPODE:
-                return "Imploade";
+                return "Implode";
             case EXPLODE:
                 return "Explode";
             default:
@@ -75,5 +75,16 @@ public enum ShapeDirection {
         }
         // if it has no string, return the enum-string
         return super.toString();
+    }
+    
+    public static ShapeDirection fromString(String dir) {
+        switch (dir) {
+            case "Implode":
+                return IMPODE;
+            case "Explode":
+                return EXPLODE;
+            default:
+                return null;
+        }        
     }
 }

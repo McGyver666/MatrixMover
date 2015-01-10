@@ -81,6 +81,7 @@ public abstract class Effect implements Serializable{
         
         /**
          * Returns a human readable string for the Generator
+         * @return the human readable Generator
          */
         @Override
         public String toString(){
@@ -106,7 +107,7 @@ public abstract class Effect implements Serializable{
      * Instantiates a new effect.
      *
      * @param effectName the effect name
-     * @param MatrixData the matrixdata
+     * @param md the matrixdata
      */
     public Effect(EffectName effectName, MatrixData md) {
         this.effectName = effectName;

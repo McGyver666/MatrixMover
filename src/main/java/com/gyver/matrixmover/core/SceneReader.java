@@ -16,13 +16,20 @@
  */
 package com.gyver.matrixmover.core;
 
+import com.gyver.matrixmover.generator.ColorFade;
+import com.gyver.matrixmover.generator.enums.GeneratorName;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,22 +48,66 @@ public abstract class SceneReader {
         
         VisualSetup vs = null;
         
-        ObjectInputStream inputStream = null;
+        BufferedReader reader = null;
 
         try {
-            inputStream = new ObjectInputStream(new FileInputStream(file));
+            reader = new BufferedReader(new FileReader(file));
 
-            Object obj = null;
-
-            obj = inputStream.readObject();
-            if (obj == null) {
-                throw new NullPointerException();
-            }
-
-            if (obj instanceof VisualSetup) {
-                vs = (VisualSetup) obj;
-            }
+            String line;
             
+            vs = new VisualSetup(md);
+            
+            int generators = 0;
+            int generatornumber = -1;
+            
+            while(!(line = reader.readLine()).equals("EOF")) {
+                System.out.println(line);
+                if(line.startsWith("nrOfGens")) {
+                    String[] split = line.split("=");
+                    generators = Integer.valueOf(split[1]);
+                    for (int i = 0; i < generators; i++) {
+                        vs.addGeneratorSetup(md);
+                    }
+                    continue;
+                } 
+                
+                if (line.startsWith("generator")) {
+                    generatornumber++;
+                    String gen = line.split("=")[1];
+                    
+                    String generatorConfigurationString = "";
+                    while(!(line = reader.readLine()).startsWith("effect")) {
+                        generatorConfigurationString += line + ";";
+                    }
+                    
+                    vs.setGeneratorFromString(generatornumber, gen);
+                    vs.getGenerator(generatornumber).configureFromString(generatorConfigurationString);
+                    
+                    
+                    // we do not continue! we fount "effect"
+                }
+                
+                if (line.startsWith("effect")) {
+                    String eff = line.split("=")[1];
+                    vs.setEffectFromString(generatornumber, eff);
+                    continue;
+                }
+                
+                
+                if (line.startsWith("mixer")) {
+                    String mix = line.split("=")[1];
+                    vs.setMixerFromString(generatornumber, mix);
+                    continue;
+                }
+                
+                if (line.startsWith("intensity")) {
+                    String intens = line.split("=")[1];
+                    vs.setGeneratorIntensity(Integer.valueOf(intens), generatornumber);
+                    continue;
+                }
+                
+            }
+                        
         } catch (Exception e) {
             throw new RuntimeException(e);
         } 
@@ -69,11 +120,11 @@ public abstract class SceneReader {
      */
     public static void saveVisualSetup(VisualSetup setup, File file) {
 
-        ObjectOutputStream outputStream = null;
+        BufferedWriter bw = null;
 
         try {
-            outputStream = new ObjectOutputStream(new FileOutputStream(file));
-            outputStream.writeObject(setup);
+            bw = new BufferedWriter(new FileWriter(file));
+            bw.write(setup.toString());
         } catch (FileNotFoundException ex) {
             throw new RuntimeException(ex);
         } catch (IOException ex) {
@@ -81,9 +132,9 @@ public abstract class SceneReader {
         } finally {
             //Close the ObjectOutputStream
             try {
-                if (outputStream != null) {
-                    outputStream.flush();
-                    outputStream.close();
+                if (bw != null) {
+                    bw.flush();
+                    bw.close();
                 }
             } catch (IOException ex) {
                 //closed anyway

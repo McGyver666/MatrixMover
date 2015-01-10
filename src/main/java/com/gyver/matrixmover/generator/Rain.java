@@ -343,4 +343,52 @@ public class Rain extends ObjectsContainingGenerator {
         }
         
     }
+    
+    /**
+     * Gets the parameter of the generator as String
+     * 
+     * @return the parameter as String
+     */
+    @Override
+    public String parameterToString(){
+        String ret = "bpm="+bpm+"\n";
+        ret += "dropDirection="+dropDirection.toString()+"\n";
+        ret += "dropsPerScreen="+dropsPerScreen+"\n";
+        ret += "lengthDrops="+lengthDrops+"\n";
+        ret += super.colorMapToString(colorMap);
+        return ret;
+    }
+    
+    
+    @Override
+    public void configureFromString(String configuration) {
+        String[] config = configuration.split(";");
+        for(String conf : config) {
+            String par = conf.split("=")[0];
+            String var = conf.split("=")[1];
+            
+            if(par.startsWith("color")) {
+                continue;
+            }
+            
+            switch (par) {
+                case "bpm":
+                    bpm = Integer.valueOf(var);
+                    break;
+                case "dropDirection":
+                    dropDirection = RainDirection.fromString(var);
+                    break;
+                case "dropsPerScreen":
+                    dropsPerScreen = Integer.valueOf(var);
+                    break;
+                case "lengthDrops":
+                    lengthDrops = Integer.valueOf(var);
+                    break;
+                default: 
+                    throw new UnsupportedOperationException("Unknown Parameter for Generator "+this.getName()+": '"+conf+"'.");
+            }
+        }
+        super.setColorFromConfigurationString(configuration);
+    }
+    
 }

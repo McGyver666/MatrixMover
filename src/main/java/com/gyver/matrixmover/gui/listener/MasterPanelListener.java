@@ -51,7 +51,7 @@ public class MasterPanelListener implements ActionListener, ChangeListener {
             Controller.getControllerInstance().changeFaderMode(FaderName.BLACK);
         } else if (ae.getSource().equals(parent.getbFade())) {
             try {
-                Controller.getControllerInstance().autoFade(Integer.parseInt(parent.getTfFadeTime().getText()));
+                Controller.getControllerInstance().autoFade(Integer.parseInt(parent.getTfFadeTime().getText()), 0);
             } catch (NumberFormatException nfe) {
                 Frame.getFrameInstance().showWarning("Fadetime has to be an integer number.");
             }
