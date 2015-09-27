@@ -54,4 +54,14 @@ public class Inverter extends Effect {
         }
         return ret;
     }
+
+    @Override
+    public String parameterToString() {
+        return "";
+    }
+
+    @Override
+    public void configureFromString(String configuration) {
+        
+    }
 }

@@ -100,19 +100,43 @@ public class ColorMapTableModel extends AbstractTableModel {
 
     public List<Color> getColorMap() {
         if(colorMap.size() <= 0){
-            addRow();
+            addRow(-1);
         }
         return colorMap;
     }
 
-    public void addRow() {
-        colorMap.add(new Color(0));
+    public void addRow(int selectedRow) {
+        if (selectedRow < 0) {
+            colorMap.add(new Color(0)); 
+        }
+        else {
+            colorMap.add(selectedRow+1, new Color(0));
+        }
+        fireTableDataChanged();
+    }
+    
+    public void addRandomRow(int selectedRow) {
+        int r = (int) Math.floor(Math.random()*256);
+        int g = (int) Math.floor(Math.random()*256);
+        int b = (int) Math.floor(Math.random()*256);
+        if (selectedRow < 0) {
+            colorMap.add(new Color(r, g, b)); 
+        }
+        else {
+            colorMap.add(selectedRow+1, new Color(r, g, b));
+        }
+        
         fireTableDataChanged();
     }
 
-    public void removeRow() {
+    public void removeRow(int selectedRow) {
         if (colorMap.size() > 0) {
-            colorMap.remove(colorMap.size() - 1);
+            if(selectedRow < 0){
+                colorMap.remove(colorMap.size() - 1);
+            }
+            else {
+                colorMap.remove(selectedRow);
+            }
             fireTableDataChanged();
         }
     }

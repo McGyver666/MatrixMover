@@ -39,4 +39,14 @@ public class PassThru extends Effect {
     public int[] getBuffer(int[] buffer) {
         return buffer;
     }
+
+    @Override
+    public String parameterToString() {
+        return "";
+    }
+
+    @Override
+    public void configureFromString(String configuration) {
+        
+    }
 }

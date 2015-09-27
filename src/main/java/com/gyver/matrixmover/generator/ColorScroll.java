@@ -36,7 +36,7 @@ public class ColorScroll extends ColorMapAwareGenerator {
     /** The fade. */
     private int fade;
     /** The scroll mode. */
-    private ScrollMode scrollMode;
+    private ScrollMode scrollMode = ScrollMode.EXPLODE_CIRCLE;
     /** The frame count. */
     private float frameCount;
     /** The internal buffer x size2. */
@@ -553,7 +553,7 @@ public class ColorScroll extends ColorMapAwareGenerator {
     public String parameterToString(){
         String ret = "speed="+speed+"\n";
         ret += "fade="+fade+"\n";
-        ret += "scrollMode="+scrollMode.name()+"\n";
+        ret += "scrollMode="+scrollMode.toString()+"\n";
         ret += super.colorMapToString(colorMap);
         return ret;
     }

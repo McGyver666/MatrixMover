@@ -111,6 +111,7 @@ public class VisualSetup implements Serializable {
 
     /**
      * Adds a whole generator setup to the visualSetup
+     * @param md
      */
     public void addGeneratorSetup(MatrixData md) {
         generatorList.add(new SimpleColorGenerator(md));
@@ -265,6 +266,15 @@ public class VisualSetup implements Serializable {
             case Effect.EffectName.STRING_MONOCROME_INVERS:
                 newEff = new MonocromeInvers(md);
                 break;
+            case Effect.EffectName.STRING_GAUSSBLUR:
+                newEff = new GaussBlur(md);
+                break;
+            case Effect.EffectName.STRING_HISTORYMEAN:
+                newEff = new HistoryMean(md);
+                break;
+            case Effect.EffectName.STRING_BOXCUTOUT:
+                newEff = new BoxCutOut(md);
+                break;
             default:
                 newEff = new PassThru(md);
                 break;
@@ -320,6 +330,7 @@ public class VisualSetup implements Serializable {
             string += "generator" + i + "=" + generatorList.get(i).getName().toString() + "\n";
             string += generatorList.get(i).parameterToString();
             string += "effect" + i + "=" + effectList.get(i).getName().toString() + "\n";
+            string += effectList.get(i).parameterToString();
             string += "mixer" + i + "=" + mixerList.get(i).getName().toString() + "\n";
             string += "intensity" + i + "=" + intensityList.get(i) + "\n";
             

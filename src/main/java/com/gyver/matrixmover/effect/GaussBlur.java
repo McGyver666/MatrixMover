@@ -20,13 +20,13 @@ package com.gyver.matrixmover.effect;
 
 import com.gyver.matrixmover.core.MatrixData;
 
-public class Emboss extends Effect {
+public class GaussBlur extends Effect {
 
     /** The emboss kernel. */
     private static float[] embossKernel = new float[]{
-        -2, -2, 0,
-        -2, 6, 0,
-        0, 0, 0
+        0.077847F, 0.123317F, 0.077847F,
+        0.123317F, 0.195346F, 0.123317F,
+        0.077847F, 0.123317F, 0.077847F
     };
     /** The boxoffset. */
     private int[] boxoffset;
@@ -38,8 +38,8 @@ public class Emboss extends Effect {
      *
      * @param controller the controller
      */
-    public Emboss(MatrixData md) {
-        super(EffectName.EMBOSS, md);
+    public GaussBlur(MatrixData md) {
+        super(EffectName.GAUSSBLUR, md);
 
         bufferSize = internalBufferWidth * internalBufferHeight;
         boxoffset = new int[]{
@@ -59,9 +59,9 @@ public class Emboss extends Effect {
 
         for (int y = 0; y < internalBufferHeight; y++) {
             for (int x = 0; x < internalBufferWidth; x++) {
-                valr = 128;
-                valg = 128;
-                valb = 128;
+                valr = 0;
+                valg = 0;
+                valb = 0;
 
                 for (int ofsn = 0; ofsn < 9; ofsn++) {
                     f = embossKernel[ofsn];

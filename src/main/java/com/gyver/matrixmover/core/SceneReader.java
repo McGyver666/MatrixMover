@@ -16,22 +16,13 @@
  */
 package com.gyver.matrixmover.core;
 
-import com.gyver.matrixmover.generator.ColorFade;
-import com.gyver.matrixmover.generator.enums.GeneratorName;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -42,6 +33,7 @@ public abstract class SceneReader {
     /**
      * Reads two arrays of VisualSetups with all the scene informations
      * @param file
+     * @param md
      * @return 
      */
     public static VisualSetup loadVisualSetup(File file, MatrixData md) {
@@ -55,7 +47,11 @@ public abstract class SceneReader {
 
             String line;
             
+            // this creates a setup containing a basic generator
             vs = new VisualSetup(md);
+            // we remove this initial generator after loading to get the exact 
+            // number of generators
+            
             
             int generators = 0;
             int generatornumber = -1;
@@ -89,8 +85,16 @@ public abstract class SceneReader {
                 
                 if (line.startsWith("effect")) {
                     String eff = line.split("=")[1];
+                    
+                    String effectConfigurationString = "";
+                    while(!(line = reader.readLine()).startsWith("mixer")) {
+                        effectConfigurationString += line + ";";
+                    }
+                    
                     vs.setEffectFromString(generatornumber, eff);
-                    continue;
+                    vs.getEffect(generatornumber).configureFromString(effectConfigurationString);
+                    
+                    // we do not continue! we fount "mixer"
                 }
                 
                 
@@ -107,6 +111,8 @@ public abstract class SceneReader {
                 }
                 
             }
+            
+            vs.removeGeneratorSetup(generators);
                         
         } catch (Exception e) {
             throw new RuntimeException(e);

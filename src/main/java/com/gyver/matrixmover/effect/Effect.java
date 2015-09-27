@@ -43,7 +43,13 @@ public abstract class Effect implements Serializable{
         /** The MONOCROME */
         MONOCROME(3),
         /** The MONOCROME_INVERS */
-        MONOCROME_INVERS(4);
+        MONOCROME_INVERS(4),
+        /** The  */
+        GAUSSBLUR(5),
+        
+        HISTORYMEAN(6), 
+        
+        BOXCUTOUT(7);
         
         /*
          * If you add effect, keep in mind to add a case in 
@@ -56,6 +62,9 @@ public abstract class Effect implements Serializable{
         public static final String STRING_EMBOSS = "Emboss";
         public static final String STRING_MONOCROME = "Monocrome";
         public static final String STRING_MONOCROME_INVERS = "Monocrome Invers";
+        public static final String STRING_GAUSSBLUR = "Gaussian Blur";
+        public static final String STRING_HISTORYMEAN = "History Mean";
+        public static final String STRING_BOXCUTOUT = "Box Cut-Out";
         
 
         /** The id. */
@@ -91,6 +100,9 @@ public abstract class Effect implements Serializable{
                 case EMBOSS:        return STRING_EMBOSS;
                 case MONOCROME:     return STRING_MONOCROME;
                 case MONOCROME_INVERS: return STRING_MONOCROME_INVERS;
+                case GAUSSBLUR:     return STRING_GAUSSBLUR;
+                case HISTORYMEAN:   return STRING_HISTORYMEAN;
+                case BOXCUTOUT:   return STRING_BOXCUTOUT;
             }
             // if it has no string, return the enum-string
             return super.toString();
@@ -140,6 +152,14 @@ public abstract class Effect implements Serializable{
         this.internalBufferHeight = height;
     }
 
+    public int getInternalBufferXSize(){
+        return internalBufferWidth;
+    }
+
+    public int getInternalBufferYSize(){
+        return internalBufferHeight;
+    }
+
     /**
      * Gets the name.
      *
@@ -148,4 +168,19 @@ public abstract class Effect implements Serializable{
     public EffectName getName() {
         return effectName;
     }
+    
+    
+    /**
+     * Gets the parameter of the generator as String
+     * 
+     * @return the parameter as String
+     */
+    public abstract String parameterToString();
+    
+    /** 
+     * Configures the generator from its own parameter String
+     * 
+     * @param configuration parameter String as returned from parameterToString()
+     */
+    public abstract void configureFromString(String configuration);
 }

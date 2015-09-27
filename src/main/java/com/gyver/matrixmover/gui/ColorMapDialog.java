@@ -54,6 +54,7 @@ public class ColorMapDialog extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         bAddRow = new javax.swing.JButton();
+        bAddRandom = new javax.swing.JButton();
         bDeleteRow = new javax.swing.JButton();
         bSaveExit = new javax.swing.JButton();
 
@@ -101,9 +102,28 @@ public class ColorMapDialog extends javax.swing.JDialog {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 5, 10);
         getContentPane().add(bAddRow, gridBagConstraints);
+
+        bAddRandom.setText("+?");
+        bAddRandom.setMargin(new java.awt.Insets(-2, -2, -2, -2));
+        bAddRandom.setMaximumSize(new java.awt.Dimension(25, 25));
+        bAddRandom.setMinimumSize(new java.awt.Dimension(25, 25));
+        bAddRandom.setPreferredSize(new java.awt.Dimension(25, 25));
+        bAddRandom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAddRandomActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 10);
+        getContentPane().add(bAddRandom, gridBagConstraints);
 
         bDeleteRow.setText("-");
         bDeleteRow.setMargin(new java.awt.Insets(-2, -2, -2, -2));
@@ -117,7 +137,7 @@ public class ColorMapDialog extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 10);
         getContentPane().add(bDeleteRow, gridBagConstraints);
@@ -140,21 +160,26 @@ public class ColorMapDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAddRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddRowActionPerformed
-        cmTableModel.addRow();
+        cmTableModel.addRow(jTable1.getSelectedRow());
     }//GEN-LAST:event_bAddRowActionPerformed
 
     private void bDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteRowActionPerformed
-        cmTableModel.removeRow();
+        cmTableModel.removeRow(jTable1.getSelectedRow());
     }//GEN-LAST:event_bDeleteRowActionPerformed
 
     private void bSaveExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSaveExitActionPerformed
         this.dispose();
     }//GEN-LAST:event_bSaveExitActionPerformed
 
+    private void bAddRandomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddRandomActionPerformed
+        cmTableModel.addRandomRow(jTable1.getSelectedRow());
+    }//GEN-LAST:event_bAddRandomActionPerformed
+
     public List<Color> getColorMap() {
         return cmTableModel.getColorMap();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bAddRandom;
     private javax.swing.JButton bAddRow;
     private javax.swing.JButton bDeleteRow;
     private javax.swing.JButton bSaveExit;

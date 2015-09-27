@@ -19,57 +19,16 @@ package com.gyver.matrixmover.gui.listener;
 import com.gyver.matrixmover.core.Controller;
 import com.gyver.matrixmover.core.MatrixData;
 import com.gyver.matrixmover.core.VisualSetup;
-import com.gyver.matrixmover.effect.Effect;
+import com.gyver.matrixmover.effect.*;
 import com.gyver.matrixmover.effect.Effect.EffectName;
-import com.gyver.matrixmover.effect.Emboss;
-import com.gyver.matrixmover.effect.Inverter;
-import com.gyver.matrixmover.effect.Monocrome;
-import com.gyver.matrixmover.effect.MonocromeInvers;
-import com.gyver.matrixmover.effect.PassThru;
-import com.gyver.matrixmover.generator.Analyser;
-import com.gyver.matrixmover.generator.AudioStrobe;
-import com.gyver.matrixmover.generator.ColorFade;
-import com.gyver.matrixmover.generator.ColorScroll;
-import com.gyver.matrixmover.generator.Fire;
-import com.gyver.matrixmover.generator.Rain;
-import com.gyver.matrixmover.generator.Generator;
+import com.gyver.matrixmover.generator.*;
 import com.gyver.matrixmover.generator.enums.GeneratorName;
-import com.gyver.matrixmover.generator.MetaBalls;
-import com.gyver.matrixmover.generator.Plasma;
-import com.gyver.matrixmover.generator.Radar;
-import com.gyver.matrixmover.generator.Shapes;
-import com.gyver.matrixmover.generator.SimpleColorGenerator;
-import com.gyver.matrixmover.generator.Textwriter;
-import com.gyver.matrixmover.gui.Frame;
-import com.gyver.matrixmover.gui.GeneratorPanel;
-import com.gyver.matrixmover.gui.GeneratorSetup;
-import com.gyver.matrixmover.gui.component.GeneratorSetupPanel;
-import com.gyver.matrixmover.gui.generator.AnalyserConfiguration;
-import com.gyver.matrixmover.gui.generator.ColorFadeConfiguration;
-import com.gyver.matrixmover.gui.generator.ColorScrollConfiguration;
-import com.gyver.matrixmover.gui.generator.ShapesConfiguration;
-import com.gyver.matrixmover.gui.generator.DropsConfiguration;
-import com.gyver.matrixmover.gui.generator.FireConfiguration;
-import com.gyver.matrixmover.gui.generator.MetaBallsConfiguration;
-import com.gyver.matrixmover.gui.generator.PlasmaConfiguration;
-import com.gyver.matrixmover.gui.generator.AudioStrobeConfiguration;
-import com.gyver.matrixmover.gui.generator.RadarConfiguration;
-import com.gyver.matrixmover.gui.generator.SimpleColorConfiguration;
-import com.gyver.matrixmover.gui.generator.TextwriterConfiguration;
-import com.gyver.matrixmover.mixer.AddSat;
-import com.gyver.matrixmover.mixer.Either;
-import com.gyver.matrixmover.mixer.Max;
-import com.gyver.matrixmover.mixer.MinusHalf;
-import com.gyver.matrixmover.mixer.Mix;
-import com.gyver.matrixmover.mixer.Mixer;
+import com.gyver.matrixmover.gui.*;
+import com.gyver.matrixmover.gui.component.*;
+import com.gyver.matrixmover.gui.generator.*;
 import com.gyver.matrixmover.mixer.Mixer.MixerName;
-import com.gyver.matrixmover.mixer.Multiply;
-import com.gyver.matrixmover.mixer.NegativeMultiply;
-import com.gyver.matrixmover.mixer.PassThruMixer;
-import com.gyver.matrixmover.mixer.Xor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -109,7 +68,7 @@ public class GeneratorSetupListener implements ActionListener, ChangeListener {
             if(b.getText().equals("Config Generator")) {
                 openGeneratorSettingsDialog(vs.getGenerator(index));
             } else if(b.getText().equals("Config Effect")) {
-                // not used atm.
+                openEffectSettingsDialog(vs.getEffect(index));
             }
             
         } else if (ae.getSource() instanceof JComboBox) {
@@ -174,6 +133,16 @@ public class GeneratorSetupListener implements ActionListener, ChangeListener {
         } else if (activGenerator instanceof Radar) {
             RadarConfiguration rcDialog = new RadarConfiguration(Frame.getFrameInstance(), true, (Radar) activGenerator);
             rcDialog.setVisible(true);
+        } 
+    }
+
+    private void openEffectSettingsDialog(Effect activEffect) {
+        if (activEffect instanceof HistoryMean) {
+            HistoryMeanConfiguration sctDialog = new HistoryMeanConfiguration(Frame.getFrameInstance(), true, (HistoryMean) activEffect);
+            sctDialog.setVisible(true);
+        } else if (activEffect instanceof BoxCutOut) {
+            BoxCutOutConfiguration ctDialog = new BoxCutOutConfiguration(Frame.getFrameInstance(), true, (BoxCutOut) activEffect);
+            ctDialog.setVisible(true);
         } 
     }
 }

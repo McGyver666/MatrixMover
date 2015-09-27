@@ -18,8 +18,6 @@
 package com.gyver.matrixmover;
 
 import com.gyver.matrixmover.core.Controller;
-import com.gyver.matrixmover.core.SceneReader;
-import com.gyver.matrixmover.core.VisualSetup;
 import com.gyver.matrixmover.core.audio.AudioCaptureThread;
 import com.gyver.matrixmover.core.timer.AudioTimerTask;
 import com.gyver.matrixmover.core.timer.ExecutionTimerTask;
@@ -286,24 +284,7 @@ public class MatrixMover {
         controller.isPlayer(true);
         controller.initController(ph, output);
 
-        LOG.log(Level.FINER, "Loading NimROD LAF");
-        try {
-            NimRODTheme nt = new NimRODTheme(LAF_THEME);
-
-            NimRODLookAndFeel NimRODLF = new NimRODLookAndFeel();
-            NimRODLookAndFeel.setCurrentTheme(nt);
-            UIManager.setLookAndFeel(NimRODLF);
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(MatrixMover.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
         controller.postInitPlayer();
-        
-
-
-//        LOG.log(Level.INFO, "Trying to load scenes from scene file");
-//        MMSplashScreen.setProgress(80, "loading scenes");
-//        controller.loadScenes();
 
         LOG.log(Level.INFO, "Starting timer with {0} FPS", ph.getFps());
         fpsTimer = new Timer();
