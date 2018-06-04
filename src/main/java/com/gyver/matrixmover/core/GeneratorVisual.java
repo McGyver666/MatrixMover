@@ -32,6 +32,7 @@ import com.gyver.matrixmover.generator.Generator;
 import com.gyver.matrixmover.generator.enums.GeneratorName;
 import com.gyver.matrixmover.generator.MetaBalls;
 import com.gyver.matrixmover.generator.Plasma;
+import com.gyver.matrixmover.generator.RandomPixel;
 import com.gyver.matrixmover.generator.Shapes;
 import com.gyver.matrixmover.generator.SimpleColorGenerator;
 import com.gyver.matrixmover.generator.Textwriter;
@@ -108,31 +109,47 @@ public class GeneratorVisual extends Visual {
      * @param generator String describing the generator (see GeneratorName constants)
      */
     public void setGeneratorFromString(int nr, GeneratorName generator) {
-        Generator newGen = null;
-        if (generator.equals(GeneratorName.SIMPLE_COLOR_GENERATOR)) {
-            newGen = new SimpleColorGenerator(md);
-        } else if (generator.equals(GeneratorName.COLOR_FADE)) {
-            newGen = new ColorFade(md, null);
-        } else if (generator.equals(GeneratorName.COLOR_SCROLL)) {
-            newGen = new ColorScroll(md, null);
-        } else if (generator.equals(GeneratorName.PLASMA)) {
-            newGen = new Plasma(md, null);
-        } else if (generator.equals(GeneratorName.FIRE)) {
-            newGen = new Fire(md);
-        } else if (generator.equals(GeneratorName.RAIN)) {
-            newGen = new Rain(md);
-        } else if (generator.equals(GeneratorName.SHAPES)) {
-            newGen = new Shapes(md);
-        } else if (generator.equals(GeneratorName.METABALLS)) {
-            newGen = new MetaBalls(md);
-        } else if (generator.equals(GeneratorName.TEXTWRITER)) {
-            newGen = new Textwriter(md);
-        } else if (generator.equals(GeneratorName.ANALYSER)) {
-            newGen = new Analyser(md);
-        } else if (generator.equals(GeneratorName.AUDIO_STROBE)) {
-            newGen = new AudioStrobe(md);
-        } else {
-            newGen = new SimpleColorGenerator(md);
+        Generator newGen;
+        switch (generator) {
+            case SIMPLE_COLOR_GENERATOR:
+                newGen = new SimpleColorGenerator(md);
+                break;
+            case COLOR_FADE:
+                newGen = new ColorFade(md, null);
+                break;
+            case COLOR_SCROLL:
+                newGen = new ColorScroll(md, null);
+                break;
+            case PLASMA:
+                newGen = new Plasma(md, null);
+                break;
+            case FIRE:
+                newGen = new Fire(md);
+                break;
+            case RAIN:
+                newGen = new Rain(md);
+                break;
+            case SHAPES:
+                newGen = new Shapes(md);
+                break;
+            case METABALLS:
+                newGen = new MetaBalls(md);
+                break;
+            case TEXTWRITER:
+                newGen = new Textwriter(md);
+                break;
+            case ANALYSER:
+                newGen = new Analyser(md);
+                break;
+            case AUDIO_STROBE:
+                newGen = new AudioStrobe(md);
+                break;
+            case RANDOM_PIXEL:
+                newGen = new RandomPixel(md);
+                break;
+            default:
+                newGen = new SimpleColorGenerator(md);
+                break;
         }
 
         setGenerator(nr, newGen);

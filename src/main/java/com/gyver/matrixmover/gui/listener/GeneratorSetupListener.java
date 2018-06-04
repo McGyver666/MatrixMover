@@ -133,6 +133,9 @@ public class GeneratorSetupListener implements ActionListener, ChangeListener {
         } else if (activGenerator instanceof Radar) {
             RadarConfiguration rcDialog = new RadarConfiguration(Frame.getFrameInstance(), true, (Radar) activGenerator);
             rcDialog.setVisible(true);
+        } else if (activGenerator instanceof RandomPixel) {
+            RandomPixelConfiguration rcDialog = new RandomPixelConfiguration(Frame.getFrameInstance(), true, (RandomPixel) activGenerator);
+            rcDialog.setVisible(true);
         } 
     }
 

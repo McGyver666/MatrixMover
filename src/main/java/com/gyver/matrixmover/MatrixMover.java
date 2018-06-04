@@ -29,8 +29,10 @@ import com.gyver.matrixmover.output.Output;
 import com.gyver.matrixmover.output.OutputDeviceEnum;
 import com.gyver.matrixmover.properties.PropertiesHelper;
 import com.gyver.matrixmover.splash.MMSplashScreen;
+import com.gyver.matrixmover.webserver.Webserver;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.Timer;
@@ -56,6 +58,8 @@ public class MatrixMover {
     private static final String CONFIG_FILENAME = "data/config.properties";
     /** The Constant LAF_THEME. */
     private static final String LAF_THEME = "data/matrixmover.theme";
+    /** The Constant AUTO_TIMER_STAY_TIME. */
+    public static final int AUTO_TIMER_STAY_TIME = 600;
     /** The output. */
     private Output output;
     private static boolean guiReady = false;
@@ -145,7 +149,7 @@ public class MatrixMover {
                 Logger.getLogger(MatrixMover.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        
 
         MMSplashScreen.setProgress(75, "controller post init");
         controller.postInit();
@@ -194,7 +198,7 @@ public class MatrixMover {
             LOG.log(Level.INFO, "Starting Auto Scene Cycler");
             File sceneDir = new File("scenes/");
             
-            Controller.getControllerInstance().startAutoSceneCycler(600, sceneDir);
+            Controller.getControllerInstance().startAutoSceneCycler(AUTO_TIMER_STAY_TIME, sceneDir);
             
         } else {
             // Set uncaught exception handler for controlled crashing
@@ -278,7 +282,15 @@ public class MatrixMover {
             LOG.log(Level.SEVERE, "Unable to initialize output device: " + outputDeviceEnum + ". Using Null device instead.", e);
             this.output = new NullDevice(ph);
         }
-
+        
+        LOG.log(Level.INFO, "Starting Webserver");
+        Webserver ws;
+        try {
+            ws = new Webserver();
+        } catch (IOException ex) {
+            LOG.log(Level.WARNING, "Unable to start Webserver: {0}", ex.getMessage());
+        }
+            
         LOG.log(Level.INFO, "Starting Core");
         controller = Controller.getControllerInstance();
         controller.isPlayer(true);

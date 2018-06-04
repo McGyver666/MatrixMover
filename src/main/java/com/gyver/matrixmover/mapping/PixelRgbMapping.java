@@ -34,6 +34,7 @@ public class PixelRgbMapping {
 
     public void setPixelMode(int pixelMode) {
         this.pixelMode = pixelMode;
+        System.out.println(pixelMode);
     }
 
     public int[] applyMapping(int[] src) {

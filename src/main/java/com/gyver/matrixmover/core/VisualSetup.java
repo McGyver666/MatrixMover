@@ -209,7 +209,7 @@ public class VisualSetup implements Serializable {
      * @param generatorString String describing the generator (see GeneratorName constants)
      */
     public void setGeneratorFromString(int nr, String generatorString) {
-        Generator newGen = null;
+        Generator newGen;
         MatrixData md = Controller.getControllerInstance().getMatrixData();
         if (generatorString.equals(GeneratorName.SIMPLE_COLOR_GENERATOR.toString())) {
             newGen = new SimpleColorGenerator(md);
@@ -235,6 +235,8 @@ public class VisualSetup implements Serializable {
             newGen = new Analyser(md);
         } else if (generatorString.equals(GeneratorName.AUDIO_STROBE.toString())) {
             newGen = new AudioStrobe(md);
+        } else if (generatorString.equals(GeneratorName.RANDOM_PIXEL.toString())) {
+            newGen = new RandomPixel(md);
         } else {
             newGen = new SimpleColorGenerator(md);
         }

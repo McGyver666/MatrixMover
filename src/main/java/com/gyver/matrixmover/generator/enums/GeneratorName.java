@@ -49,7 +49,9 @@ public enum GeneratorName {
     /** The ANALYSER */
     ANALYSER(10),
     /** The AUDIO_STROBE */
-    AUDIO_STROBE(11);
+    AUDIO_STROBE(11),
+    /** The RANDOM_PIXEL */
+    RANDOM_PIXEL(12);
     
     /*
      * If you add generators, keep in mind to add a case in 
@@ -72,6 +74,7 @@ public enum GeneratorName {
     private static final String STRING_METABALLS = "Metaballs";
     private static final String STRING_ANALYSER = "Spectrum Analyser";
     private static final String STRING_AUDIO_STROBE = "Audio Strobe";
+    private static final String STRING_RANDOM_PIXEL = "Random";
     /** The id. */
     private int id;
 
@@ -124,6 +127,8 @@ public enum GeneratorName {
                 return STRING_ANALYSER;
             case AUDIO_STROBE:
                 return STRING_AUDIO_STROBE;
+            case RANDOM_PIXEL:
+                return STRING_RANDOM_PIXEL;
         }
         // if it has no string, return the enum-string
         return super.toString();

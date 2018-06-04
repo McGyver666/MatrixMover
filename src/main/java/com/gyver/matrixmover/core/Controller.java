@@ -19,6 +19,7 @@ package com.gyver.matrixmover.core;
 import com.gyver.matrixmover.core.audio.AudioCaptureThread;
 import com.gyver.matrixmover.core.timer.AutoSceneCyclerTimerTask;
 import com.gyver.matrixmover.core.timer.FadeTimerTask;
+import com.gyver.matrixmover.effect.HistoryMean;
 import com.gyver.matrixmover.fader.BlackFader;
 import com.gyver.matrixmover.fader.CrossFader;
 import com.gyver.matrixmover.fader.Fader;
@@ -26,19 +27,19 @@ import com.gyver.matrixmover.fader.Fader.FaderName;
 import com.gyver.matrixmover.fader.LinearFader;
 import com.gyver.matrixmover.fader.WhiteFader;
 import com.gyver.matrixmover.generator.Generator;
+import com.gyver.matrixmover.generator.RandomPixel;
+import com.gyver.matrixmover.generator.SimpleColorGenerator;
 import com.gyver.matrixmover.generator.enums.GeneratorName;
 import com.gyver.matrixmover.gui.Frame;
 import com.gyver.matrixmover.gui.LedScreen;
 import com.gyver.matrixmover.gui.MasterPanel;
 import com.gyver.matrixmover.mapping.OutputMapping;
 import com.gyver.matrixmover.mapping.PixelRgbMapping;
-import com.gyver.matrixmover.mixer.Mixer.MixerName;
+import com.gyver.matrixmover.mixer.AddSat;
 import com.gyver.matrixmover.output.Output;
 import com.gyver.matrixmover.properties.PropertiesHelper;
+import java.awt.Color;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -86,6 +87,7 @@ public class Controller {
     private Timer autoSceneCyclerTimer = null;
     private boolean isRunning;
     private boolean isPlayer = false;
+    private Color GlobalColor = new Color(64, 128, 128);
 
     /**
      * Instantiates a new controller.
@@ -136,14 +138,17 @@ public class Controller {
      * @param generator the generator to set to
      */
     public void setGenerator(int side, int nr, GeneratorName generator) {
-        if (side == LEFT_SIDE) {
-            LOG.log(Level.FINE, "Generator{0} on left side set to {1}", new Object[]{nr, generator});
-            leftVisual.setGeneratorFromString(nr, generator.toString());
-        } else if (side == RIGHT_SIDE) {
-            LOG.log(Level.FINE, "Generator{0} on right side set to {1}", new Object[]{nr, generator});
-            rightVisual.setGeneratorFromString(nr, generator.toString());
-        } else {
-            throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
+        switch (side) {
+            case LEFT_SIDE:
+                LOG.log(Level.FINE, "Generator{0} on left side set to {1}", new Object[]{nr, generator});
+                leftVisual.setGeneratorFromString(nr, generator.toString());
+                break;
+            case RIGHT_SIDE:
+                LOG.log(Level.FINE, "Generator{0} on right side set to {1}", new Object[]{nr, generator});
+                rightVisual.setGeneratorFromString(nr, generator.toString());
+                break;
+            default:
+                throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
         }
     }
 
@@ -154,14 +159,17 @@ public class Controller {
      * @param effectString the effect to set to
      */
     public void setEffect(int side, int nr, String effectString) {
-        if (side == LEFT_SIDE) {
-            LOG.log(Level.FINE, "Effect{0} on left side set to {1}", new Object[]{nr, effectString});
-            leftVisual.setEffectFromString(nr, effectString);
-        } else if (side == RIGHT_SIDE) {
-            LOG.log(Level.FINE, "Effect{0} on right side set to {1}", new Object[]{nr, effectString});
-            rightVisual.setEffectFromString(nr, effectString);
-        } else {
-            throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
+        switch (side) {
+            case LEFT_SIDE:
+                LOG.log(Level.FINE, "Effect{0} on left side set to {1}", new Object[]{nr, effectString});
+                leftVisual.setEffectFromString(nr, effectString);
+                break;
+            case RIGHT_SIDE:
+                LOG.log(Level.FINE, "Effect{0} on right side set to {1}", new Object[]{nr, effectString});
+                rightVisual.setEffectFromString(nr, effectString);
+                break;
+            default:
+                throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
         }
     }
 
@@ -171,24 +179,30 @@ public class Controller {
      * @param mixerName the mixer to be set to
      */
     public void setMixer(int side, int nr, String mixerName) {
-        if (side == LEFT_SIDE) {
-            LOG.log(Level.FINE, "Mixer on left side set to {0}", new Object[]{mixerName});
-            leftVisual.setMixerFromString(nr, mixerName);
-        } else if (side == RIGHT_SIDE) {
-            LOG.log(Level.FINE, "Mixer on right side set to {0}", new Object[]{mixerName});
-            rightVisual.setMixerFromString(nr, mixerName);
-        } else {
-            throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
+        switch (side) {
+            case LEFT_SIDE:
+                LOG.log(Level.FINE, "Mixer on left side set to {0}", new Object[]{mixerName});
+                leftVisual.setMixerFromString(nr, mixerName);
+                break;
+            case RIGHT_SIDE:
+                LOG.log(Level.FINE, "Mixer on right side set to {0}", new Object[]{mixerName});
+                rightVisual.setMixerFromString(nr, mixerName);
+                break;
+            default:
+                throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
         }
     }
 
     public void setGeneratorIntensity(int side, int nr, int value) {
-        if (side == LEFT_SIDE) {
-            leftVisual.setGeneratorIntensity(nr, value);
-        } else if (side == RIGHT_SIDE) {
-            rightVisual.setGeneratorIntensity(nr, value);
-        } else {
-            throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
+        switch (side) {
+            case LEFT_SIDE:
+                leftVisual.setGeneratorIntensity(nr, value);
+                break;
+            case RIGHT_SIDE:
+                rightVisual.setGeneratorIntensity(nr, value);
+                break;
+            default:
+                throw new IllegalArgumentException("Side with ID " + side + " is not existing.");
         }
     }
     
@@ -267,7 +281,7 @@ public class Controller {
         //apply the pixel mapping to the image
         int[] outputDeviceImage = om.applyMapping(outputLedImage);
         //apply the rgb mapping
-//        outputDeviceImage = prm.applyMapping(outputDeviceImage);
+        outputDeviceImage = prm.applyMapping(outputDeviceImage);
         //give image to outputDevice
         output.update(outputDeviceImage);
     }
@@ -329,9 +343,6 @@ public class Controller {
         prm.setPixelMode(ph.getOutputPixeMode());
     }
     
-    /** 
-     * Do stuff that needs a Gui.
-     */
     public void postInitPlayer() {
         //MasterPanel masterPanel = Frame.getFrameInstance().getMasterPanel();
         //masterPanel.setSelectedButton(masterPanel.getTbCross());
@@ -446,18 +457,31 @@ public class Controller {
     }
 
     public void startAutoSceneCycler(int sec, File sceneDir) {
+        // when reading a new directory the cycler maybe already running.
+        stopAutoSceneCycler();
+        
         autoSceneCyclerTimer = new Timer();
         AutoSceneCyclerTimerTask asctt = new AutoSceneCyclerTimerTask(Controller.getControllerInstance());
         try {
             if (!asctt.setSceneDirectory(sceneDir)) {
-                Frame.getFrameInstance().showWarning("Directory containts no scene files!");
+                if(isPlayer) {
+                    LOG.log(Level.WARNING, "Directory contains no scene files!");
+                }
+                else {
+                    Frame.getFrameInstance().showWarning("Directory containts no scene files!");
+                }
                 return;
             }
             int timeToWait = sec * 1000;
             autoSceneCyclerTimer.scheduleAtFixedRate(asctt, 0, timeToWait);
             isRunning = true;
         } catch (NumberFormatException nfe) {
-            Frame.getFrameInstance().showWarning("Input is not valid. Check number format.");
+            if(isPlayer) {
+                LOG.log(Level.WARNING, "Input is not valid. Check number format.");
+            }
+            else {
+                Frame.getFrameInstance().showWarning("Input is not valid. Check number format.");
+            }
         }
     }
     
@@ -474,5 +498,54 @@ public class Controller {
 
     public boolean isPlayer() {
         return this.isPlayer;
+    }
+
+    /**
+     * Sets a default Simple Color Generator to the left visual setup
+     */
+    public void loadSimpleScene() {
+        //VisualSetup vs = new VisualSetup(matrixData);
+        //vs.setGenerator(new SimpleColorGenerator(matrixData), LEFT_SIDE);
+        LOG.log(Level.INFO, "Loading simple scene");
+        leftVisual.clear();
+        leftVisual.setGenerator(new SimpleColorGenerator(matrixData), 0);
+        ((SimpleColorGenerator)leftVisual.getGenerator(0)).setColor(GlobalColor);
+        setCrossfaderValue(0);
+        
+    }
+    
+    /**
+     * Sets a default Simple Color Generator and a random pixel generator to the left visual setup
+     */
+    public void loadNoiseScene() {
+        //VisualSetup vs = new VisualSetup(matrixData);
+        //vs.setGenerator(new SimpleColorGenerator(matrixData), LEFT_SIDE);
+        LOG.log(Level.INFO, "Loading noise scene");
+        
+        leftVisual.clear();
+        setCrossfaderValue(0);
+        
+        leftVisual.setGenerator(new SimpleColorGenerator(matrixData), 0);
+        ((SimpleColorGenerator)leftVisual.getGenerator(0)).setColor(GlobalColor);
+
+        
+        leftVisual.addGeneratorSetup(matrixData);
+        leftVisual.setGenerator(new RandomPixel(matrixData), 1);
+        ((RandomPixel)leftVisual.getGenerator(1)).setColorNoise(128);
+        ((RandomPixel)leftVisual.getGenerator(1)).setTicksToRefresh(25);
+        
+        leftVisual.setEffect(new HistoryMean(matrixData), 1);
+        ((HistoryMean)leftVisual.getEffect(1)).setHistoryLength(25);
+        
+        leftVisual.setMixer(new AddSat(), 1);
+        
+        leftVisual.setGeneratorIntensity(64, 1);
+        
+    }
+    
+
+    public void setGlobalColor(Color newCol) {
+        GlobalColor = newCol;
+        ((SimpleColorGenerator)leftVisual.getGenerator(0)).setColor(GlobalColor);
     }
 }
