@@ -223,4 +223,8 @@ public class PropertiesHelper {
             throw new IllegalArgumentException("Given output device '"+rawConfig+"' not found");
         }
     }
+
+    public String getChaserDir() {
+        return config.getProperty(ConfigConstants.CHASER_DIR);
+    }
 }

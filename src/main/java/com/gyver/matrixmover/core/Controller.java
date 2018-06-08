@@ -88,6 +88,7 @@ public class Controller {
     private boolean isRunning;
     private boolean isPlayer = false;
     private Color GlobalColor = new Color(64, 128, 128);
+    private ChaseController chaseController;
 
     /**
      * Instantiates a new controller.
@@ -117,6 +118,7 @@ public class Controller {
         om = new OutputMapping(matrixData);
         prm = new PixelRgbMapping();
 
+        chaseController = new ChaseController();
     }
 
     /**
@@ -547,5 +549,9 @@ public class Controller {
     public void setGlobalColor(Color newCol) {
         GlobalColor = newCol;
         ((SimpleColorGenerator)leftVisual.getGenerator(0)).setColor(GlobalColor);
+    }
+    
+    public ChaseController getChaseControllerInstance() {
+        return this.chaseController;
     }
 }

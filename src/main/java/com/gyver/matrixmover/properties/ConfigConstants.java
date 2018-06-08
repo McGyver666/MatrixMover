@@ -44,4 +44,6 @@ public final class ConfigConstants {
     public static final String ARTNET_SUBNETS_PER_UNIVERSES = "artnet.subnet.per.universe";
     public static final String ARTNET_NODES = "artnet.nodes";
     public static final String SCENES_DIR = "scenes.dir";
+    public static final String CHASER_DIR = "chaser.dir";;
+    
 }

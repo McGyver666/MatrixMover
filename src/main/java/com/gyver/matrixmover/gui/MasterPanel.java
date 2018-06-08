@@ -192,6 +192,11 @@ public class MasterPanel extends javax.swing.JPanel {
         add(bFade, gridBagConstraints);
 
         bAuto.setText("Auto");
+        bAuto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAutoActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
@@ -199,6 +204,10 @@ public class MasterPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 5, 5, 5);
         add(bAuto, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bAutoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAuto;

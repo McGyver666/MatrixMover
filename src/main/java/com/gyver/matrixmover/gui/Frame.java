@@ -672,4 +672,8 @@ public class Frame extends javax.swing.JFrame {
             Controller.getControllerInstance().setVisualSetup(SceneReader.loadVisualSetup(f, md), side);
         }
     }
+    
+    public PropertiesHelper getPropertiesHelper() {
+        return ph;
+    }
 }

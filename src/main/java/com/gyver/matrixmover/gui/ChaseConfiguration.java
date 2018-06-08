@@ -16,10 +16,17 @@
  */
 package com.gyver.matrixmover.gui;
 
+import com.gyver.matrixmover.core.ChaseController;
+import com.gyver.matrixmover.core.ChaseItem;
 import com.gyver.matrixmover.core.Controller;
 import com.gyver.matrixmover.core.timer.AutoSceneCyclerTimerTask;
 import java.io.File;
 import java.util.Timer;
+import javax.swing.JFileChooser;
+import javax.swing.JList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileFilter;
 
 /**
  * 
@@ -27,17 +34,24 @@ import java.util.Timer;
  */
 public class ChaseConfiguration extends javax.swing.JDialog {
 
-    private static ChaseConfiguration autoSceneCycler = null;
+    private static ChaseConfiguration chaseConfiguration = null;
     private Timer timer = null;
     private boolean isRunning;
+    private ChaseConfigurationListModel ccListModel = null;
+    private ChaseController cc;
+    private ChaseItem currentlySelectedChaseModel = null;
 
     /** Make this a singelton to keep settings easily */
     private ChaseConfiguration(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         isRunning = false;
-        setTitle("Auto Scene Cycler");
+        setTitle("Chase Configuration");
+        cc = Controller.getControllerInstance().getChaseControllerInstance();
         initComponents();
+        ccListModel = new ChaseConfigurationListModel(cc);
+        jlChaseItemList.setModel(ccListModel);
         setLocationRelativeTo(null);
+        postInitComponents();
     }
 
     /**
@@ -45,10 +59,10 @@ public class ChaseConfiguration extends javax.swing.JDialog {
      * @return the AutoSceneCycler of this.
      */
     public static ChaseConfiguration getInstance() {
-        if (autoSceneCycler == null) {
-            autoSceneCycler = new ChaseConfiguration(Frame.getFrameInstance(), true);
+        if (chaseConfiguration == null) {
+            chaseConfiguration = new ChaseConfiguration(Frame.getFrameInstance(), true);
         }
-        return autoSceneCycler;
+        return chaseConfiguration;
     }
 
     /** This method is called from within the constructor to
@@ -64,20 +78,42 @@ public class ChaseConfiguration extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         tfSecondsToWait = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        tfSceneDir = new javax.swing.JTextField();
+        tfChaseItemName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         lStatus = new javax.swing.JLabel();
         bStart = new javax.swing.JButton();
         bStop = new javax.swing.JButton();
         bExit = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jlChaseItemList = new javax.swing.JList();
+        jLabel3 = new javax.swing.JLabel();
+        jtSecondsToFade = new javax.swing.JTextField();
+        jbAddChaseItem = new javax.swing.JButton();
+        jbRemoveChaseItem = new javax.swing.JButton();
+        jpPusher = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        bChaseFilePath = new javax.swing.JButton();
+        tfChaseItemSceneFilePath = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        tfChaseName = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        tfChaseFilePath = new javax.swing.JTextField();
+        bSceneFileChooser = new javax.swing.JButton();
+        jlFullChasePath = new javax.swing.JLabel();
+        jbSave = new javax.swing.JButton();
+        jlContentSavedIndicator = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jbLoadChaser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Auto Scene Cycler"); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setText("Seconds to stay on every scene:");
+        jLabel1.setText("Selected Chase Element Name");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
@@ -87,43 +123,47 @@ public class ChaseConfiguration extends javax.swing.JDialog {
         tfSecondsToWait.setMaximumSize(new java.awt.Dimension(50, 22));
         tfSecondsToWait.setMinimumSize(new java.awt.Dimension(50, 22));
         tfSecondsToWait.setPreferredSize(new java.awt.Dimension(50, 22));
+        tfSecondsToWait.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfSecondsToWaitKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 10;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(5, 20, 0, 0);
         getContentPane().add(tfSecondsToWait, gridBagConstraints);
 
-        jLabel2.setText("Directory with MatrixMover-Scene files to play:");
+        jLabel2.setText("Chase Element duration (seconds)");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 0);
         getContentPane().add(jLabel2, gridBagConstraints);
 
-        tfSceneDir.setText("scenes/");
-        tfSceneDir.setMaximumSize(new java.awt.Dimension(300, 22));
-        tfSceneDir.setMinimumSize(new java.awt.Dimension(300, 22));
-        tfSceneDir.setPreferredSize(new java.awt.Dimension(300, 22));
-        tfSceneDir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfSceneDirActionPerformed(evt);
+        tfChaseItemName.setMaximumSize(new java.awt.Dimension(300, 22));
+        tfChaseItemName.setMinimumSize(new java.awt.Dimension(300, 22));
+        tfChaseItemName.setPreferredSize(new java.awt.Dimension(300, 22));
+        tfChaseItemName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfChaseItemNameKeyTyped(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(5, 20, 0, 10);
-        getContentPane().add(tfSceneDir, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 10);
+        getContentPane().add(tfChaseItemName, gridBagConstraints);
 
         jLabel4.setText("Status:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 15;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
@@ -133,8 +173,8 @@ public class ChaseConfiguration extends javax.swing.JDialog {
         lStatus.setForeground(new java.awt.Color(255, 0, 0));
         lStatus.setText("Stopped");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 16;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 0);
@@ -150,8 +190,8 @@ public class ChaseConfiguration extends javax.swing.JDialog {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 17;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.weightx = 0.1;
@@ -168,8 +208,8 @@ public class ChaseConfiguration extends javax.swing.JDialog {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 17;
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 5, 5);
         getContentPane().add(bStop, gridBagConstraints);
 
@@ -183,19 +223,257 @@ public class ChaseConfiguration extends javax.swing.JDialog {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 17;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 5, 10);
         getContentPane().add(bExit, gridBagConstraints);
 
         jLabel5.setText("(directory changes need timer restart)");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 15;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 0, 10);
         getContentPane().add(jLabel5, gridBagConstraints);
+
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(150, 23));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(150, 130));
+
+        jlChaseItemList.setMaximumSize(new java.awt.Dimension(150, 80));
+        jlChaseItemList.setMinimumSize(new java.awt.Dimension(150, 80));
+        jScrollPane1.setViewportView(jlChaseItemList);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 12;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        getContentPane().add(jScrollPane1, gridBagConstraints);
+
+        jLabel3.setText("Chase Element fade in time (seconds)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
+        getContentPane().add(jLabel3, gridBagConstraints);
+
+        jtSecondsToFade.setText("20");
+        jtSecondsToFade.setMaximumSize(new java.awt.Dimension(50, 22));
+        jtSecondsToFade.setMinimumSize(new java.awt.Dimension(50, 22));
+        jtSecondsToFade.setName(""); // NOI18N
+        jtSecondsToFade.setPreferredSize(new java.awt.Dimension(50, 22));
+        jtSecondsToFade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtSecondsToFadeKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(5, 20, 0, 0);
+        getContentPane().add(jtSecondsToFade, gridBagConstraints);
+
+        jbAddChaseItem.setText("Add");
+        jbAddChaseItem.setMaximumSize(new java.awt.Dimension(75, 25));
+        jbAddChaseItem.setMinimumSize(new java.awt.Dimension(75, 25));
+        jbAddChaseItem.setPreferredSize(new java.awt.Dimension(75, 25));
+        jbAddChaseItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAddChaseItemActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 17;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 5, 5);
+        getContentPane().add(jbAddChaseItem, gridBagConstraints);
+
+        jbRemoveChaseItem.setText("Remove");
+        jbRemoveChaseItem.setMaximumSize(new java.awt.Dimension(75, 25));
+        jbRemoveChaseItem.setMinimumSize(new java.awt.Dimension(75, 25));
+        jbRemoveChaseItem.setPreferredSize(new java.awt.Dimension(75, 25));
+        jbRemoveChaseItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbRemoveChaseItemActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 17;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 5, 5);
+        getContentPane().add(jbRemoveChaseItem, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 14;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(jpPusher, gridBagConstraints);
+
+        jLabel6.setText("Selected Scene File Name");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 0);
+        getContentPane().add(jLabel6, gridBagConstraints);
+
+        bChaseFilePath.setText("Choose");
+        bChaseFilePath.setMaximumSize(new java.awt.Dimension(70, 22));
+        bChaseFilePath.setMinimumSize(new java.awt.Dimension(70, 22));
+        bChaseFilePath.setPreferredSize(new java.awt.Dimension(70, 22));
+        bChaseFilePath.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bChaseFilePathActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        getContentPane().add(bChaseFilePath, gridBagConstraints);
+
+        tfChaseItemSceneFilePath.setMaximumSize(new java.awt.Dimension(300, 22));
+        tfChaseItemSceneFilePath.setMinimumSize(new java.awt.Dimension(300, 22));
+        tfChaseItemSceneFilePath.setPreferredSize(new java.awt.Dimension(300, 22));
+        tfChaseItemSceneFilePath.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfChaseItemSceneFilePathKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(5, 20, 5, 10);
+        getContentPane().add(tfChaseItemSceneFilePath, gridBagConstraints);
+
+        jLabel7.setText("Chaser Name");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
+        getContentPane().add(jLabel7, gridBagConstraints);
+
+        tfChaseName.setText(cc.getChaseName());
+        tfChaseName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfChaseNameKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
+        getContentPane().add(tfChaseName, gridBagConstraints);
+
+        jLabel8.setText("Chaser File Path");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
+        getContentPane().add(jLabel8, gridBagConstraints);
+
+        tfChaseFilePath.setText(cc.getChaseFilePath());
+        tfChaseFilePath.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfChaseFilePathKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
+        getContentPane().add(tfChaseFilePath, gridBagConstraints);
+
+        bSceneFileChooser.setText("Choose");
+        bSceneFileChooser.setMaximumSize(new java.awt.Dimension(70, 22));
+        bSceneFileChooser.setMinimumSize(new java.awt.Dimension(70, 22));
+        bSceneFileChooser.setPreferredSize(new java.awt.Dimension(70, 22));
+        bSceneFileChooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSceneFileChooserActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 10);
+        getContentPane().add(bSceneFileChooser, gridBagConstraints);
+
+        jlFullChasePath.setText("d:/matrixmover/chases/something.mmc");
+        jlFullChasePath.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 5, 10);
+        getContentPane().add(jlFullChasePath, gridBagConstraints);
+
+        jbSave.setText("Save Chaser");
+        jbSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSaveActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 5);
+        getContentPane().add(jbSave, gridBagConstraints);
+
+        jlContentSavedIndicator.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jlContentSavedIndicator.setText("   ");
+        jlContentSavedIndicator.setToolTipText("");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        getContentPane().add(jlContentSavedIndicator, gridBagConstraints);
+
+        jLabel9.setText("Chaser Items");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        getContentPane().add(jLabel9, gridBagConstraints);
+
+        jbLoadChaser.setText("Load Chaser");
+        jbLoadChaser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLoadChaserActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 5);
+        getContentPane().add(jbLoadChaser, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -207,7 +485,7 @@ public class ChaseConfiguration extends javax.swing.JDialog {
     private void bStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bStartActionPerformed
         if (!isRunning) {
 
-            File sceneDir = new File(tfSceneDir.getText());
+            File sceneDir = new File(tfChaseItemName.getText());
             if (!sceneDir.isDirectory()) {
                 Frame.getFrameInstance().showWarning("Incorrect direcory!");
                 return;
@@ -241,9 +519,140 @@ public class ChaseConfiguration extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_bStopActionPerformed
 
-    private void tfSceneDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSceneDirActionPerformed
-// TODO add your handling code here:
-    }//GEN-LAST:event_tfSceneDirActionPerformed
+    private void jbRemoveChaseItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRemoveChaseItemActionPerformed
+        ccListModel.removeRow(jlChaseItemList.getSelectedIndex());
+        setContentUnsaved();
+    }//GEN-LAST:event_jbRemoveChaseItemActionPerformed
+
+    private void jbAddChaseItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAddChaseItemActionPerformed
+        ccListModel.addRow(jlChaseItemList.getSelectedIndex());
+        setContentUnsaved();
+    }//GEN-LAST:event_jbAddChaseItemActionPerformed
+
+    private void bChaseFilePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bChaseFilePathActionPerformed
+        String dir = this.cc.getChaseFilePath();
+        if (dir.isEmpty()) {
+            dir = Frame.getFrameInstance().getPropertiesHelper().getChaserDir();
+        }
+        JFileChooser chooser = new JFileChooser(dir);
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setMultiSelectionEnabled(false);
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File f = chooser.getSelectedFile();
+            cc.setChaseFilePath(f.getPath());
+            tfChaseFilePath.setText(f.getPath());
+            jlFullChasePath.setText(cc.getFullChaseFilePath());
+        }
+    }//GEN-LAST:event_bChaseFilePathActionPerformed
+
+    private void bSceneFileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSceneFileChooserActionPerformed
+        String dir = currentlySelectedChaseModel.sceneFileName;
+        if (dir.isEmpty()) {
+            dir = Frame.getFrameInstance().getPropertiesHelper().getScenesDir();
+        }
+        JFileChooser chooser = new JFileChooser(dir);
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.addChoosableFileFilter(new FileFilter() {
+            @Override
+            public boolean accept(File f) {
+                if (f.isDirectory()) {
+                    return true;
+                }
+                return f.getName().toLowerCase().endsWith(".mms");
+            }
+
+            @Override
+            public String getDescription() {
+                return "MatrixMover Scene";
+            }
+        });
+        chooser.setMultiSelectionEnabled(false);
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File f = chooser.getSelectedFile();
+            currentlySelectedChaseModel.sceneFileName = f.getPath();
+            tfChaseItemSceneFilePath.setText(f.getPath());
+            setContentUnsaved();
+        }
+    }//GEN-LAST:event_bSceneFileChooserActionPerformed
+
+    private void tfChaseNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfChaseNameKeyTyped
+        cc.setChaseName(tfChaseName.getText());
+        jlFullChasePath.setText(cc.getFullChaseFilePath());
+    }//GEN-LAST:event_tfChaseNameKeyTyped
+
+    private void tfChaseFilePathKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfChaseFilePathKeyTyped
+        cc.setChaseFilePath(tfChaseFilePath.getText());
+        jlFullChasePath.setText(cc.getFullChaseFilePath());
+    }//GEN-LAST:event_tfChaseFilePathKeyTyped
+
+    private void jbSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSaveActionPerformed
+        if (cc.saveChase()){
+            setContentSaved();
+        }
+        else {
+            jlContentSavedIndicator.setText("(error saving changes)");
+            jlContentSavedIndicator.setForeground(new java.awt.Color(255, 0, 0));
+        }
+    }//GEN-LAST:event_jbSaveActionPerformed
+
+    private void tfChaseItemNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfChaseItemNameKeyTyped
+        if (currentlySelectedChaseModel != null) {
+            currentlySelectedChaseModel.itemName = tfChaseItemName.getText();
+            this.ccListModel.dataChanged();
+            setContentUnsaved();
+        }
+    }//GEN-LAST:event_tfChaseItemNameKeyTyped
+
+    private void tfChaseItemSceneFilePathKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfChaseItemSceneFilePathKeyTyped
+        if (currentlySelectedChaseModel != null) {
+            currentlySelectedChaseModel.sceneFileName = tfChaseItemSceneFilePath.getText();
+            setContentUnsaved();
+        }
+    }//GEN-LAST:event_tfChaseItemSceneFilePathKeyTyped
+
+    private void tfSecondsToWaitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSecondsToWaitKeyTyped
+        if (currentlySelectedChaseModel != null) {
+            currentlySelectedChaseModel.sceneTime = Integer.parseInt(tfSecondsToWait.getText());
+            setContentUnsaved();
+        }
+    }//GEN-LAST:event_tfSecondsToWaitKeyTyped
+
+    private void jtSecondsToFadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtSecondsToFadeKeyTyped
+        if (currentlySelectedChaseModel != null) {
+            currentlySelectedChaseModel.fadeInTime = Integer.parseInt(jtSecondsToFade.getText());
+            setContentUnsaved();
+        }
+    }//GEN-LAST:event_jtSecondsToFadeKeyTyped
+
+    private void jbLoadChaserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLoadChaserActionPerformed
+        JFileChooser chooser = new JFileChooser(Frame.getFrameInstance().getPropertiesHelper().getChaserDir());
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.addChoosableFileFilter(new FileFilter() {
+            @Override
+            public boolean accept(File f) {
+                if (f.isDirectory()) {
+                    return true;
+                }
+                return f.getName().toLowerCase().endsWith(".mmc");
+            }
+
+            @Override
+            public String getDescription() {
+                return "MatrixMover Chaser";
+            }
+        });
+        chooser.setMultiSelectionEnabled(false);
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File f = chooser.getSelectedFile();
+            cc.loadChase(f.getPath());
+            //TODO update all components
+            tfChaseName.setText(cc.getChaseName());
+            tfChaseFilePath.setText(cc.getChaseFilePath());
+            jlFullChasePath.setText(cc.getFullChaseFilePath());
+            this.ccListModel.dataChanged();
+            jlContentSavedIndicator.setText(" ");
+        }
+    }//GEN-LAST:event_jbLoadChaserActionPerformed
 
     public void setTextRunnig() {
         lStatus.setText("Running");
@@ -255,15 +664,66 @@ public class ChaseConfiguration extends javax.swing.JDialog {
         lStatus.setForeground(new java.awt.Color(255, 0, 0));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bChaseFilePath;
     private javax.swing.JButton bExit;
+    private javax.swing.JButton bSceneFileChooser;
     private javax.swing.JButton bStart;
     private javax.swing.JButton bStop;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbAddChaseItem;
+    private javax.swing.JButton jbLoadChaser;
+    private javax.swing.JButton jbRemoveChaseItem;
+    private javax.swing.JButton jbSave;
+    private javax.swing.JList jlChaseItemList;
+    private javax.swing.JLabel jlContentSavedIndicator;
+    private javax.swing.JLabel jlFullChasePath;
+    private javax.swing.JPanel jpPusher;
+    private javax.swing.JTextField jtSecondsToFade;
     private javax.swing.JLabel lStatus;
-    private javax.swing.JTextField tfSceneDir;
+    private javax.swing.JTextField tfChaseFilePath;
+    private javax.swing.JTextField tfChaseItemName;
+    private javax.swing.JTextField tfChaseItemSceneFilePath;
+    private javax.swing.JTextField tfChaseName;
     private javax.swing.JTextField tfSecondsToWait;
     // End of variables declaration//GEN-END:variables
+
+    private void postInitComponents() {
+        ListSelectionListener listSelectionListener = new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent lse) {
+                boolean adjust = lse.getValueIsAdjusting();
+                if (!adjust) {
+                    JList list = (JList) lse.getSource();
+                    int selection = list.getSelectedIndex();
+                    if(selection >= 0) {
+                        currentlySelectedChaseModel = ccListModel.getChaseList().get(selection);
+                        // now update all the textfields.
+                        tfChaseItemName.setText(currentlySelectedChaseModel.itemName);
+                        tfChaseItemSceneFilePath.setText(currentlySelectedChaseModel.sceneFileName);
+                        tfSecondsToWait.setText(String.valueOf(currentlySelectedChaseModel.sceneTime));
+                        jtSecondsToFade.setText(String.valueOf(currentlySelectedChaseModel.fadeInTime));
+                    }
+                }
+            }
+        };
+        jlChaseItemList.addListSelectionListener(listSelectionListener);
+    }
+    
+    private void setContentUnsaved() {
+        jlContentSavedIndicator.setText("(unsaved changes)");
+        jlContentSavedIndicator.setForeground(new java.awt.Color(192, 64, 0));
+    }
+    private void setContentSaved() {
+        jlContentSavedIndicator.setText("(saved to file)");
+        jlContentSavedIndicator.setForeground(new java.awt.Color(0, 192, 0));
+    }
 }
