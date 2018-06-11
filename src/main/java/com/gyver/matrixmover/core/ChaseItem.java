@@ -5,8 +5,6 @@
  */
 package com.gyver.matrixmover.core;
 
-import com.gyver.matrixmover.generator.enums.ShapeDirection;
-import com.gyver.matrixmover.generator.enums.ShapeObject;
 
 /**
  *
@@ -14,8 +12,8 @@ import com.gyver.matrixmover.generator.enums.ShapeObject;
  */
 public class ChaseItem {
     public String itemName = "<empty>";
-    public int sceneTime = 300;
-    public int fadeInTime = 1;
+    public double sceneTime = 300;
+    public double fadeInTime = 1;
     public String sceneFileName = "";
     
     public ChaseItem() { }
@@ -49,10 +47,10 @@ public class ChaseItem {
                     itemName = var;
                     break;
                 case "sceneTime":
-                    sceneTime = Integer.valueOf(var);
+                    sceneTime = Double.valueOf(var);
                     break;
                 case "fadeInTime":
-                    fadeInTime = Integer.valueOf(var);
+                    fadeInTime = Double.valueOf(var);
                     break;
                 case "sceneFileName":
                     sceneFileName = var;

@@ -5,6 +5,9 @@
  */
 package com.gyver.matrixmover.core;
 
+import com.gyver.matrixmover.core.timer.ChaserTimerTask;
+import com.gyver.matrixmover.gui.ChaseConfiguration;
+import com.gyver.matrixmover.gui.Frame;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -17,6 +20,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,27 +34,63 @@ public class ChaseController {
     private String chaseName;
     private String chaseFilePath;
     private static final Logger LOG = Logger.getLogger(ChaseController.class.getName());
+    private Timer oldTimer, newTimer;
+    private boolean isRunning = false;
 
     public ChaseController() {
         
-        this.chaseList = new ArrayList<>();
+        this.chaseList = new ArrayList<ChaseItem>();
         this.chaseName = "<empty>";
         this.chaseFilePath = "";
     }
-    
-    /*public void addChaseItem(){
-        chaseList.add(new ChaseItem());
+        
+    public void startChase(){
+        isRunning = true;
+        Timer t = new Timer();
+        oldTimer = t;
+        newTimer = t;
+        
+        boolean leftIsActiveVisual = true;
+        if (!Controller.getControllerInstance().isPlayer()) {
+            int currentPosition = Frame.getFrameInstance().getMasterPanel().getSFadePosition().getValue();
+            if (currentPosition < 500) {
+                leftIsActiveVisual = true;
+            } else {
+                leftIsActiveVisual = false;
+            }
+        }
+        
+        ChaserTimerTask ctt = new ChaserTimerTask(Controller.getControllerInstance(), chaseList, true, t, 0, leftIsActiveVisual);
+        try {
+            //start first timer directly and then let it manage itself
+            t.schedule(ctt, 50);
+            //ctt.run();
+            ChaseConfiguration.getInstance().setTextRunnig();
+        } catch (NumberFormatException nfe) {
+            Frame.getFrameInstance().showWarning("Input is not valid. Check number format.");
+        }
+        
     }
     
-    public void removeChaseItem(int i){
-        if (i >= 0 && i < chaseList.size()) {
-            chaseList.remove(i);
+    public void setTimerForNextChaseStep(int newTimerIntervall, int nextChaseIndex, boolean leftIsActiveVisual) {
+        if (isRunning){
+            Timer t = new Timer();
+            oldTimer = newTimer;
+            newTimer = t;
+            System.out.println("Creating new Timer with time "+newTimerIntervall);
+            ChaserTimerTask ctt = new ChaserTimerTask(Controller.getControllerInstance(), chaseList, true, t, nextChaseIndex, leftIsActiveVisual);
+            t.schedule(ctt, newTimerIntervall);
         }
-    }*/
+    }
     
-    public void startChase(){}
-    
-    public void stopChase(){}
+    public void stopChase(){
+        oldTimer.cancel();
+        oldTimer.purge();
+        newTimer.cancel();
+        newTimer.purge();
+        ChaseConfiguration.getInstance().setTextStopped();
+        isRunning = false;
+    }
     
     public void loadChase(String filename){
         try {

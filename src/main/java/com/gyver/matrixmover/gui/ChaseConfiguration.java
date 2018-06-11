@@ -483,7 +483,7 @@ public class ChaseConfiguration extends javax.swing.JDialog {
     }//GEN-LAST:event_bExitActionPerformed
 
     private void bStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bStartActionPerformed
-        if (!isRunning) {
+        /*if (!isRunning) {
 
             File sceneDir = new File(tfChaseItemName.getText());
             if (!sceneDir.isDirectory()) {
@@ -505,18 +505,13 @@ public class ChaseConfiguration extends javax.swing.JDialog {
             } catch (NumberFormatException nfe) {
                 Frame.getFrameInstance().showWarning("Input is not valid. Check number format.");
             }
-        }
-
-
+        }*/
+        cc.startChase();
 
     }//GEN-LAST:event_bStartActionPerformed
 
     private void bStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bStopActionPerformed
-        if (timer != null) {
-            timer.cancel();
-            isRunning = false;
-            setTextStopped();
-        }
+        cc.stopChase();
     }//GEN-LAST:event_bStopActionPerformed
 
     private void jbRemoveChaseItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRemoveChaseItemActionPerformed
@@ -612,14 +607,14 @@ public class ChaseConfiguration extends javax.swing.JDialog {
 
     private void tfSecondsToWaitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSecondsToWaitKeyTyped
         if (currentlySelectedChaseModel != null) {
-            currentlySelectedChaseModel.sceneTime = Integer.parseInt(tfSecondsToWait.getText());
+            currentlySelectedChaseModel.sceneTime = Double.parseDouble(tfSecondsToWait.getText());
             setContentUnsaved();
         }
     }//GEN-LAST:event_tfSecondsToWaitKeyTyped
 
     private void jtSecondsToFadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtSecondsToFadeKeyTyped
         if (currentlySelectedChaseModel != null) {
-            currentlySelectedChaseModel.fadeInTime = Integer.parseInt(jtSecondsToFade.getText());
+            currentlySelectedChaseModel.fadeInTime = Double.parseDouble(jtSecondsToFade.getText());
             setContentUnsaved();
         }
     }//GEN-LAST:event_jtSecondsToFadeKeyTyped
